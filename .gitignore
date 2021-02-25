@@ -21,10 +21,10 @@ beta_examples_and_information/*
 data/instructions.txt
 libs/Mote-*
 libs/rev1/*
-*_Gear.lua
-*_Crafting.lua
-*-Items.lua
-*-Globals.lua
+Selindrile_*_Gear.lua
+Selindrile_Crafting.lua
+Selindrile-Items.lua
+Selindrile-Globals.lua
 data/export/*
 data/common/*
 data/User/*
