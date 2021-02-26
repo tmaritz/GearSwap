@@ -248,48 +248,48 @@ function init_gear_sets()
 
 	-- Magical Spells --
 
-	sets.midcast['Blue Magic'].Magical = {main="Nibiru Cudgel",sub="Nibiru Cudgel",ammo="Pemphredo Tathlum",
-		 head="Jhakri Coronal +1",neck="Baetyl Pendant",ear1="Regal Earring",ear2="Friomisi Earring",
-		 body="Jhakri Robe",hands="Amalric Gages",ring1="Metamor. Ring +1",ring2="Shiva Ring +1",
-		 back=gear.nuke_jse_back,waist=gear.ElementalObi,legs="Jhakri Slops",feet="Jhakri Pigaches"}
+	sets.midcast['Blue Magic'].Magical = {main="Kaja Rod",sub="Nibiru Cudgel",ammo="Floestone",
+		 head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Hecate's Earring",ear2="Friomisi Earring",
+		 body="Jhakri Robe",hands="Amalric Gages",ring1="Shiva Ring",ring2="Shiva Ring",
+		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Jhakri Pigaches"}
 					 
-	sets.midcast['Blue Magic'].Magical.Proc = {ammo="Hasty Pinion +1",
-		head="Carmine Mask +1",ear1="Enchntr. Earring +1",ear2="Loquac. Earring",
-		body="Luhlaza Jubbah +3",hands="Leyline Gloves",ring1="Kishar Ring",ring2="Prolix Ring",
-		back="Swith Cape +1",waist="Witful Belt",legs="Psycloth Lappas",feet="Carmine Greaves +1"}
+	sets.midcast['Blue Magic'].Magical.Proc = {main="Kaja Rod",sub="Nibiru Cudgel",ammo="Floestone",
+		 head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Hecate's Earring",ear2="Friomisi Earring",
+		 body="Jhakri Robe",hands="Amalric Gages",ring1="Shiva Ring",ring2="Shiva Ring",
+		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Jhakri Pigaches"}
 					 
 	sets.midcast['Blue Magic'].Magical.Resistant = set_combine(sets.midcast['Blue Magic'].Magical,
 		{neck="Mirage Stole +1",hands="Jhakri Cuffs",ring1="Stikini Ring",ring2="Stikini Ring",waist="Yamabuki-no-Obi"})
 
-	sets.midcast['Blue Magic'].Magical.Fodder = {main="Nibiru Cudgel",sub="Nibiru Cudgel",ammo="Pemphredo Tathlum",
-		 head="Jhakri Coronal +1",neck="Baetyl Pendant",ear1="Regal Earring",ear2="Friomisi Earring",
-		 body="Jhakri Robe",hands="Amalric Gages",ring1="Metamor. Ring +1",ring2="Shiva Ring +1",
-		 back=gear.ElementalCape,waist=gear.ElementalObi,legs="Jhakri Slops",feet="Jhakri Pigaches"}
+	sets.midcast['Blue Magic'].Magical.Fodder = {main="Kaja Rod",sub="Nibiru Cudgel",ammo="Floestone",
+		 head="Jhakri Coronal +1",neck="Mirage Stole +1t",ear1="Hecate's Earring",ear2="Friomisi Earring",
+		 body="Jhakri Robe",hands="Amalric Gages",ring1="Shiva Ring",ring2="Shiva Ring",
+		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Jhakri Pigaches"}
 
 	sets.midcast['Blue Magic'].MagicalMnd = set_combine(sets.midcast['Blue Magic'].Magical, {ring2="Stikini Ring"})
 	sets.midcast['Blue Magic'].MagicalChr = set_combine(sets.midcast['Blue Magic'].Magical, {})
 	sets.midcast['Blue Magic'].MagicalVit = set_combine(sets.midcast['Blue Magic'].Magical, {})
 	sets.midcast['Blue Magic'].MagicalDex = set_combine(sets.midcast['Blue Magic'].Magical, {})
 
-	sets.midcast['Blue Magic'].MagicAccuracy = {main="Iris",sub="Iris",ammo="Pemphredo Tathlum",
-		head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Regal Earring",ear2="Digni. Earring",
-		body="Jhakri Robe",hands="Regal Cuffs",ring1="Metamor. Ring +1",ring2="Stikini Ring",
-		back="Cornflower Cape",waist="Luminary Sash",legs="Jhakri Slops",feet="Jhakri Pigaches"}
+	sets.midcast['Blue Magic'].MagicAccuracy = {main="Kaja Rod",sub="Nibiru Cudgel",ammo="Floestone",
+		 head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Hecate's Earring",ear2="Friomisi Earring",
+		 body="Jhakri Robe",hands="Amalric Gages",ring1="Shiva Ring",ring2="Shiva Ring",
+		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Jhakri Pigaches"}
 
-	sets.midcast['Enfeebling Magic'] = {main="Nibiru Cudgel",sub="Nibiru Cudgel",ammo="Pemphredo Tathlum",
-		head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Regal Earring",ear2="Digni. Earring",
-		body="Jhakri Robe",hands="Regal Cuffs",ring1="Metamor. Ring +1",ring2="Stikini Ring",
-		back=gear.nuke_jse_back,waist="Luminary Sash",legs="Psycloth Lappas",feet="Skaoi Boots"}
+	sets.midcast['Enfeebling Magic'] = {main="Kaja Rod",sub="Nibiru Cudgel",ammo="Floestone",
+		 head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Hecate's Earring",ear2="Friomisi Earring",
+		 body="Jhakri Robe",hands="Amalric Gages",ring1="Shiva Ring",ring2="Shiva Ring",
+		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Jhakri Pigaches"}
 
-	sets.midcast['Dark Magic'] = {main="Nibiru Cudgel",sub="Nibiru Cudgel",ammo="Pemphredo Tathlum",
-		head="Jhakri Coronal +1",neck="Erra Pendant",ear1="Regal Earring",ear2="Digni. Earring",
-		body="Jhakri Robe",hands="Jhakri Cuffs",ring1="Metamor. Ring +1",ring2="Stikini Ring",
-		back=gear.nuke_jse_back,waist="Luminary Sash",legs="Jhakri Slops",feet="Jhakri Pigaches"}
+	sets.midcast['Dark Magic'] = {main="Kaja Rod",sub="Nibiru Cudgel",ammo="Floestone",
+		 head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Hecate's Earring",ear2="Friomisi Earring",
+		 body="Jhakri Robe",hands="Amalric Gages",ring1="Shiva Ring",ring2="Shiva Ring",
+		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Jhakri Pigaches"}
 
-	sets.midcast['Enhancing Magic'] = {main="Vampirism", sub="Vampirism",ammo="Hasty Pinion +1",
-		head="Telchine Cap",neck="Incanter's Torque",ear1="Andoaa Earring",ear2="Gifted Earring",
-		body="Telchine Chas.",hands="Telchine Gloves",ring1="Stikini Ring",ring2="Stikini Ring",
-		back="Perimede Cape",waist="Olympus Sash",legs="Telchine Braconi",feet="Telchine Pigaches"}
+	sets.midcast['Enhancing Magic'] = {main="Kaja Rod",sub="Nibiru Cudgel",ammo="Floestone",
+		 head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Hecate's Earring",ear2="Friomisi Earring",
+		 body="Jhakri Robe",hands="Amalric Gages",ring1="Shiva Ring",ring2="Shiva Ring",
+		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Jhakri Pigaches"}
 		
 	sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{main="Pukulatmuj +1",sub="Pukulatmuj",head="Carmine Mask +1",ear2="Mimir Earring",hands=gear.herculean_phalanx_hands,legs="Carmine Cuisses +1",feet=gear.herculean_nuke_feet})
 
@@ -311,15 +311,15 @@ function init_gear_sets()
 		body="Jhakri Robe",hands="Jhakri Cuffs",ring1="Metamor. Ring +1",ring2="Stikini Ring",
 		back=gear.nuke_jse_back,waist="Luminary Sash",legs="Jhakri Slops",feet="Jhakri Pigaches"}
 
-	sets.midcast['Elemental Magic'] = {main="Nibiru Cudgel",sub="Nibiru Cudgel",ammo="Dosis Tathlum",
-		head="Jhakri Coronal +1",neck="Baetyl Pendant",ear1="Regal Earring",ear2="Friomisi Earring",
-		body="Jhakri Robe",hands="Amalric Gages",ring1="Shiva Ring +1",ring2="Shiva Ring +1",
-		back=gear.nuke_jse_back,waist=gear.ElementalObi,legs="Hagondes Pants +1",feet="Jhakri Pigaches"}
+	sets.midcast['Elemental Magic'] = {main="Kaja Rod",sub="Nibiru Cudgel",ammo="Floestone",
+		 head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Hecate's Earring",ear2="Friomisi Earring",
+		 body="Jhakri Robe",hands="Amalric Gages",ring1="Shiva Ring",ring2="Shiva Ring",
+		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Jhakri Pigaches"}
 
-	sets.midcast['Elemental Magic'].Resistant = {main="Nibiru Cudgel",sub="Nibiru Cudgel",ammo="Pemphredo Tathlum",
-		head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Regal Earring",ear2="Friomisi Earring",
-		body="Jhakri Robe",hands="Jhakri Cuffs",ring1="Shiva Ring +1",ring2="Shiva Ring +1",
-		back=gear.nuke_jse_back,waist="Yamabuki-no-Obi",legs="Jhakri Slops",feet="Jhakri Pigaches"}
+	sets.midcast['Elemental Magic'].Resistant = {main="Kaja Rod",sub="Nibiru Cudgel",ammo="Floestone",
+		 head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Hecate's Earring",ear2="Friomisi Earring",
+		 body="Jhakri Robe",hands="Amalric Gages",ring1="Shiva Ring",ring2="Shiva Ring",
+		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Jhakri Pigaches"}
 
 	sets.midcast.Helix = sets.midcast['Elemental Magic']
 	sets.midcast.Helix.Resistant = sets.midcast['Elemental Magic'].Resistant
@@ -344,10 +344,10 @@ function init_gear_sets()
 
 	-- Physical Added Effect Spells most notably "Stun" spells --
 
-	sets.midcast['Blue Magic'].Stun = {main="Iris",sub="Iris",ammo="Pemphredo Tathlum",
-		head="Malignance Chapeau",neck="Mirage Stole +1",ear1="Regal Earring",ear2="Digni. Earring",
-		body="Malignance Tabard",hands="Malignance Gloves",ring1="Metamor. Ring +1",ring2="Stikini Ring",
-		back="Cornflower Cape",waist="Luminary Sash",legs="Malignance Tights",feet="Malignance Boots"}
+	sets.midcast['Blue Magic'].Stun = {main="Kaja Rod",sub="Nibiru Cudgel",ammo="Floestone",
+		 head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Hecate's Earring",ear2="Friomisi Earring",
+		 body="Jhakri Robe",hands="Amalric Gages",ring1="Stikini Ring",ring2="Stikini Ring",
+		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Jhakri Pigaches"}
 
 	sets.midcast['Blue Magic'].Stun.Resistant = {main="Iris",sub="Iris",ammo="Falcon Eye",
 		head="Malignance Chapeau",neck="Mirage Stole +1",ear1="Regal Earring",ear2="Digni. Earring",
