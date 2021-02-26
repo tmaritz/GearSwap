@@ -278,53 +278,53 @@ function init_gear_sets()
     
     -- Normal melee group
     sets.engaged = {
-        head="Tali'ah Turban +2",neck="Shulmanu Collar",ear1="Cessance Earring",ear2="Telos Earring",
-        body="Sayadio's Kaftan",hands="Ryuo Tekko",ring1="Niqmaddu Ring",ring2="Epona's Ring",
-        back="Visucius's Mantle",waist="Windbuffet Belt +1",legs="Ryuo Hakama",feet=gear.herculean_ta_feet}
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
+        back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.Acc = {
-        head="Tali'ah Turban +2",neck="Shulmanu Collar",ear1="Cessance Earring",ear2="Telos Earring",
-        body="Sayadio's Kaftan",hands="Ryuo Tekko",ring1="Niqmaddu Ring",ring2="Ramuh Ring +1",
-        back="Visucius's Mantle",waist="Grunfeld Rope",legs="Ryuo Hakama",feet=gear.herculean_ta_feet}
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
+        back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.FullAcc = {
-        head="Tali'ah Turban +2",neck="Shulmanu Collar",ear1="Cessance Earring",ear2="Telos Earring",
-        body="Sayadio's Kaftan",hands="Ryuo Tekko",ring1="Ramuh Ring +1",ring2="Ramuh Ring +1",
-        back="Visucius's Mantle",waist="Grunfeld Rope",legs="Hiza. Hizayoroi +2",feet="Malignance Boots"}
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
+        back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
 	sets.engaged.Fodder = {
-        head="Tali'ah Turban +2",neck="Shulmanu Collar",ear1="Cessance Earring",ear2="Brutal Earring",
-        body=gear.herculean_wsd_body,hands="Ryuo Tekko",ring1="Niqmaddu Ring",ring2="Epona's Ring",
-        back="Visucius's Mantle",waist="Windbuffet Belt +1",legs="Ryuo Hakama",feet=gear.herculean_ta_feet}
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
+        back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.DT = {
-        head="Lilitu Headpiece",neck="Caro Necklace",ear1="Moonshade Earring",ear2="Brutal Earring",
-        body=gear.herculean_wsd_body,hands="Ryuo Tekko",ring1="Niqmaddu Ring",ring2="Regal Ring",
-        back="Visucius's Mantle",waist="Grunfeld Rope",legs="Hiza. Hizayoroi +2",feet=gear.herculean_ta_feet}
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
+        back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.Acc.DT = {
-        head="Lilitu Headpiece",neck="Caro Necklace",ear1="Moonshade Earring",ear2="Brutal Earring",
-        body=gear.herculean_wsd_body,hands="Ryuo Tekko",ring1="Niqmaddu Ring",ring2="Regal Ring",
-        back="Visucius's Mantle",waist="Grunfeld Rope",legs="Hiza. Hizayoroi +2",feet=gear.herculean_ta_feet}
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
+        back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.FullAcc.DT = {
-        head="Lilitu Headpiece",neck="Caro Necklace",ear1="Moonshade Earring",ear2="Brutal Earring",
-        body=gear.herculean_wsd_body,hands="Ryuo Tekko",ring1="Niqmaddu Ring",ring2="Regal Ring",
-        back="Visucius's Mantle",waist="Grunfeld Rope",legs="Hiza. Hizayoroi +2",feet=gear.herculean_ta_feet}
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
+        back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.Fodder.DT = {
-        head="Lilitu Headpiece",neck="Caro Necklace",ear1="Moonshade Earring",ear2="Brutal Earring",
-        body=gear.herculean_wsd_body,hands="Ryuo Tekko",ring1="Niqmaddu Ring",ring2="Regal Ring",
-        back="Visucius's Mantle",waist="Grunfeld Rope",legs="Hiza. Hizayoroi +2",feet=gear.herculean_ta_feet}
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
+        back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.Pet = {
-        head="Tali'ah Turban +2",neck="Shulmanu Collar",ear1="Cessance Earring",ear2="Telos Earring",
-        body="Sayadio's Kaftan",hands="Ryuo Tekko",ring1="Niqmaddu Ring",ring2="Epona's Ring",
-        back="Visucius's Mantle",waist="Klouskap Sash +1",legs="Ryuo Hakama",feet=gear.herculean_ta_feet}
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
+        back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.Acc.Pet = {
-        head="Tali'ah Turban +2",neck="Shulmanu Collar",ear1="Cessance Earring",ear2="Telos Earring",
-        body="Sayadio's Kaftan",hands="Ryuo Tekko",ring1="Niqmaddu Ring",ring2="Epona's Ring",
-        back="Visucius's Mantle",waist="Klouskap Sash +1",legs="Ryuo Hakama",feet=gear.herculean_ta_feet}
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
+        back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.FullAcc.Pet = {
-        head="Tali'ah Turban +2",neck="Shulmanu Collar",ear1="Cessance Earring",ear2="Telos Earring",
-        body="Sayadio's Kaftan",hands="Ryuo Tekko",ring1="Niqmaddu Ring",ring2="Epona's Ring",
-        back="Visucius's Mantle",waist="Klouskap Sash +1",legs="Ryuo Hakama",feet=gear.herculean_ta_feet}
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
+        back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.Fodder.Pet = {
-        head="Tali'ah Turban +2",neck="Shulmanu Collar",ear1="Cessance Earring",ear2="Telos Earring",
-        body="Sayadio's Kaftan",hands="Ryuo Tekko",ring1="Niqmaddu Ring",ring2="Epona's Ring",
-        back="Visucius's Mantle",waist="Klouskap Sash +1",legs="Ryuo Hakama",feet=gear.herculean_ta_feet}
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
+        back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
 		
 	-- Weapons sets
 	sets.weapons.PetWeapons = {main="Ohtas",range="Animator P +1",}
