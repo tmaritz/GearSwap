@@ -405,15 +405,15 @@ function init_gear_sets()
 
 	-- Idle sets
 	sets.idle = {main="Bolelabunga",sub="Genmei Shield",ammo="Staunch Tathlum",
-			      head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Etiolation Earring", ear2="Ethereal Earring",
-			      body="Jhakri Robe",hands="Malignance Gloves",ring1="Stikini Ring",ring2="Stikini Ring",
-			      back="Umbra Cape",waist="Flume Belt +1",legs="Carmine Cuisses +1",feet="Malignance Boots"}
+			      head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Hearty Earring", ear2="Eabani Earring",
+			      body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Stikini Ring",
+			      back="Solemnity Cape",waist="Flume Belt +1",legs="Carmine Cuisses +1",feet="Malignance Boots"}
 
 	sets.idle.Sphere = set_combine(sets.idle, {body="Mekosu. Harness"})
 
 	sets.idle.PDT = {main="Mafic Cudgel",sub="Genmei Shield",ammo="Staunch Tathlum",
-				head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Etiolation Earring", ear2="Ethereal Earring",
-		        body="Jhakri Robe",hands="Malignance Gloves",ring1="Defending Ring",ring2="Stikini Ring",
+				head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Hearty Earring", ear2="Eabani Earring",
+		        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Stikini Ring",
 				back="Solemnity Cape",waist="Flume Belt +1",legs="Carmine Cuisses +1",feet="Malignance Boots"}
 
 	sets.idle.DTHippo = set_combine(sets.idle.PDT, {legs="Carmine Cuisses +1",feet="Hippo. Socks +1"})
