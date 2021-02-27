@@ -547,19 +547,19 @@ end
 function select_default_macro_book()
 	-- Default macro set/book
 	if player.sub_job == 'DNC' then
-		set_macro_page(4, 2)
+		set_macro_page(4, 1)
 	elseif player.sub_job == 'NIN' then
-		set_macro_page(5, 2)
+		set_macro_page(5, 1)
 	elseif player.sub_job == 'WAR' then
-		set_macro_page(7, 2)
+		set_macro_page(7, 1)
 	elseif player.sub_job == 'RUN' then
-		set_macro_page(3, 2)
+		set_macro_page(3, 1)
 	elseif player.sub_job == 'THF' then
-		set_macro_page(2, 2)
+		set_macro_page(2, 1)
 	elseif player.sub_job == 'RDM' then
-		set_macro_page(1, 2)
+		set_macro_page(1, 1)
 	else
-		set_macro_page(6, 2)
+		set_macro_page(6, 1)
 	end
 end
 
