@@ -87,7 +87,7 @@ function init_gear_sets()
     sets.precast.JA['Repair'] = {ammo="Automat. Oil +3"} --feet="Foire Babouches"
 	sets.precast.JA['Maintenance'] = {ammo="Automat. Oil +3"}
 
-    sets.precast.JA.Maneuver = {main="Midnights",back="Visucius's Mantle"} --neck="Buffoon's Collar",hands="Foire Dastanas",body="Cirque Farsetto +2",
+    sets.precast.JA.Maneuver = {main="Midnights",back="Visucius's Mantle",neck="Buffoon's Collar",hands="Foire Dastanas",body="Cirque Farsetto +1"}
 
     -- Waltz set (chr and vit)
     sets.precast.Waltz = {
@@ -222,12 +222,12 @@ function init_gear_sets()
     sets.idle = {
         head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Handler's Earring",ear2="Handler's Earring +1",
         body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Varar Ring +1",
-        back="Solemnity Cape",waist="Klouskap Sash +1",legs=gear.herculean_dt_legs,feet="Malignance Boots"}
+        back="Solemnity Cape",waist="Klouskap Sash +1",legs=gear.taeon_pet_leg,feet="Malignance Boots"}
 		
 	sets.idle.Refresh = {
-        head="Rawhide Mask",neck="Loricate Torque +1",ear1="Handler's Earring",ear2="Handler's Earring +1",
-        body="Vrikodara Jupon",hands=gear.herculean_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
-        back="Solemnity Cape",waist="Klouskap Sash +1",legs="Rawhide Trousers",feet="Hippo. Socks +1"}
+        head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Handler's Earring",ear2="Handler's Earring +1",
+        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Varar Ring +1",
+        back="Solemnity Cape",waist="Klouskap Sash +1",legs=gear.taeon_pet_leg,feet="Malignance Boots"}
 		
     -- Set for idle while pet is out (eg: pet regen gear)
     sets.idle.Pet = {
@@ -237,7 +237,7 @@ function init_gear_sets()
 
     -- Idle sets to wear while pet is engaged
     sets.idle.Pet.Engaged = {
-        head=gear.taeon_pet_head,neck="Shulmanu Collar",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
 
@@ -253,19 +253,19 @@ function init_gear_sets()
     -- Defense sets
 
     sets.defense.PDT = {
-        head="Blistering Sallet",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Genmei Earring",
-        body="Vrikodara Jupon",hands="Malignance Gloves",ring1="Defending Ring",ring2="Dark Ring",
-        back="Solemnity Cape",waist="Isa Belt",legs=gear.herculean_dt_legs,feet="Malignance Boots"}
+        head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Handler's Earring",ear2="Handler's Earring +1",
+        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Dark Ring",
+        back="Solemnity Cape",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet="Malignance Boots"}
 
     sets.defense.MDT = {
-        head="Blistering Sallet",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Genmei Earring",
-        body="Vrikodara Jupon",hands="Malignance Gloves",ring1="Defending Ring",ring2="Dark Ring",
-        back="Solemnity Cape",waist="Isa Belt",legs=gear.herculean_dt_legs,feet="Malignance Boots"}
+        head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Handler's Earring",ear2="Handler's Earring +1",
+        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Dark Ring",
+        back="Solemnity Cape",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet="Malignance Boots"}
 		
     sets.defense.MEVA = {
-        head="Blistering Sallet",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Genmei Earring",
-        body="Vrikodara Jupon",hands="Malignance Gloves",ring1="Defending Ring",ring2="Dark Ring",
-        back="Solemnity Cape",waist="Isa Belt",legs=gear.herculean_dt_legs,feet="Malignance Boots"}
+        head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Handler's Earring",ear2="Handler's Earring +1",
+        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Dark Ring",
+        back="Solemnity Cape",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet="Malignance Boots"}
 
     sets.Kiting = {feet="Hermes' Sandals"}
 
