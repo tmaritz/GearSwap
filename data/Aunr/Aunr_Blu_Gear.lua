@@ -22,6 +22,8 @@ function user_job_setup()
 	gear.obi_nuke_waist = "Yamabuki-no-Obi"
 	gear.obi_cure_back = "Tempered Cape +1"
 
+	autows = 'Savage Blade'
+
 	-- Additional local binds
 	send_command('bind ^` input /ja "Chain Affinity" <me>')
 	send_command('bind @` input /ja "Efflux" <me>')
