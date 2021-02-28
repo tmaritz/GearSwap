@@ -1,0 +1,17 @@
+sets.exported={
+    main="Daybreak",
+    sub="Genbu\'s Shield",
+    ammo="Homiliary",
+    head="Helios Band",
+    body="Vanya Robe",
+    hands="Inyanga Dastanas",
+    legs="Assid. Pants +1",
+    feet="Inyan. Crackows +2",
+    neck="Loricate Torque +1",
+    waist="Gishdubar Sash",
+    left_ear="Mendi. Earring",
+    right_ear="Glorious Earring",
+    left_ring="Inyanga Ring",
+    right_ring="Defending Ring",
+    back="Solemnity Cape",
+}

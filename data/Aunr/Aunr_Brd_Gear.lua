@@ -32,7 +32,7 @@ function init_gear_sets()
 	--------------------------------------
 
 	-- Weapons sets
-	sets.weapons.Aeneas = {main="Aeneas",sub="Genbu's Shield"}
+	sets.weapons.Aeneas = {main="Aeneas",sub="Genbu\'s Shield"}
 	sets.weapons.DualWeapons = {main="Aeneas",sub="Blurred Knife +1"}
 	sets.weapons.DualNaegling = {main="Naegling",sub="Blurred Knife +1"}
 	sets.weapons.DualTauret = {main="Tauret",sub="Blurred Knife +1"}
@@ -52,7 +52,7 @@ function init_gear_sets()
 	sets.precast.FC.Cure = set_combine(sets.precast.FC, {feet="Vanya Clogs"})
 
 	sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {waist="Siegel Sash"})
-	sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {main="Daybreak",sub="Genbu's Shield"})
+	sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {main="Daybreak",sub="Genbu\'s Shield"})
 	
 	sets.precast.FC.BardSong = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",range="Blurred Harp +1",ammo=empty,
 		head="Nahtirah Hat",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Loquac. Earring",
@@ -131,7 +131,7 @@ function init_gear_sets()
 	
 
 	-- For song buffs (duration and AF3 set bonus)
-	sets.midcast.SongEffect = {main="Kali",sub="Genbu's Shield",range="Blurred Harp +1",ammo=empty,
+	sets.midcast.SongEffect = {main="Kali",sub="Genbu\'s Shield",range="Blurred Harp +1",ammo=empty,
 		head="Fili Calot +1",neck="Mnbw. Whistle +1",ear1="Enchntr. Earring +1",ear2="Loquac. Earring",
 		body="Fili Hongreline +1",hands="Inyan. Dastanas +2",ring1="Stikini Ring +1",ring2="Stikini Ring +1",
 		back="Intarabus's Cape",waist="Kobo Obi",legs="Inyanga Shalwar +2",feet="Brioso Slippers +1"}
@@ -206,17 +206,17 @@ function init_gear_sets()
 		body="Respite Cloak",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flume Belt +1",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 	
-	sets.idle = {main="Daybreak",sub="Genbu's Shield",ammo="Staunch Tathlum",
+	sets.idle = {main="Daybreak",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 		head=empty,neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Respite Cloak",hands=gear.chironic_refresh_hands,ring1="Stikini Ring +1",ring2="Stikini Ring +1",
 		back="Umbra Cape",waist="Flume Belt +1",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 		
-	sets.idle.NoRefresh = {main="Daybreak",sub="Genbu's Shield",ammo="Staunch Tathlum",
+	sets.idle.NoRefresh = {main="Daybreak",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 		head="Aya. Zucchetto +2",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Sanare Earring",
 		body="Ayanmo Corazza +2",hands="Volte Gloves",ring1="Defending Ring",ring2="Shadow Ring",
 		back="Solemnity Cape",waist="Carrier's Sash",legs="Aya. Cosciales +2",feet="Fili Cothurnes +1"}
 
-	sets.idle.DT = {main="Daybreak",sub="Genbu's Shield",ammo="Staunch Tathlum",
+	sets.idle.DT = {main="Daybreak",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 		head="Aya. Zucchetto +2",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Ayanmo Corazza +2",hands="Volte Gloves",ring1="Defending Ring",ring2="Shadow Ring",
 		back="Solemnity Cape",waist="Flume Belt +1",legs="Aya. Cosciales +2",feet="Inyan. Crackows +2"}
@@ -245,11 +245,11 @@ function init_gear_sets()
 	-- If you create a set with both offense and defense modes, the offense mode should be first.
 	-- EG: sets.engaged.Dagger.Accuracy.Evasion
 	
-	sets.engaged = {main="Aeneas",sub="Genbu's Shield",ammo="Aurgelmir Orb +1",
+	sets.engaged = {main="Aeneas",sub="Genbu\'s Shield",ammo="Aurgelmir Orb +1",
 		head="Aya. Zucchetto +2",neck="Asperity Necklace",ear1="Cessance Earring",ear2="Brutal Earring",
 		body="Ayanmo Corazza +2",hands="Aya. Manopolas +2",ring1="Petrov Ring",ring2="Ilabrat Ring",
 		back="Bleating Mantle",waist="Windbuffet Belt +1",legs="Aya. Cosciales +2",feet="Battlecast Gaiters"}
-	sets.engaged.Acc = {main="Aeneas",sub="Genbu's Shield",ammo="Aurgelmir Orb +1",
+	sets.engaged.Acc = {main="Aeneas",sub="Genbu\'s Shield",ammo="Aurgelmir Orb +1",
 		head="Aya. Zucchetto +2",neck="Combatant's Torque",ear1="Digni. Earring",ear2="Telos Earring",
 		body="Ayanmo Corazza +2",hands="Aya. Manopolas +2",ring1="Ramuh Ring +1",ring2="Ilabrat Ring",
 		back="Letalis Mantle",waist="Olseni Belt",legs="Aya. Cosciales +2",feet="Aya. Gambieras +2"}

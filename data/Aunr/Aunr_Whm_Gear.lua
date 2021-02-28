@@ -8,6 +8,10 @@ function user_job_setup()
 	state.ResistDefenseMode:options('MEVA')
 	state.Weapons:options('None','DualWeapons','MeleeWeapons')
 
+	-- state.BarElement = M{['description']='BarElement', 'Barfira', 'Barblizzara', 'Baraera', 'Barstonra', 'Barthundra', 'Barwatera'}
+    -- state.BarStatus = M{['description']='BarStatus', 'Baramnesra', 'Barvira', 'Barparalyzra', 'Barsilencera', 'Barpetra', 'Barpoisonra', 'Barblindra', 'Barsleepra'}
+    -- state.BoostSpell = M{['description']='BoostSpell', 'Boost-STR', 'Boost-INT', 'Boost-AGI', 'Boost-VIT', 'Boost-DEX', 'Boost-MND', 'Boost-CHR'}
+
 	gear.obi_cure_waist = "Austerity Belt +1"
 	gear.obi_cure_back = "Alaunus's Cape"
 
@@ -16,21 +20,42 @@ function user_job_setup()
 	gear.obi_nuke_back = "Toro Cape"
 
 		-- Additional local binds
-	send_command('bind ^` input /ma "Arise" <t>')
-	send_command('bind !` input /ja "Penury" <me>')
-	send_command('bind @` gs c cycle MagicBurstMode')
-	send_command('bind ^@!` gs c toggle AutoCaress')
+	send_command('bind ^\' input /ma "Arise" <t>')
+	send_command('bind !\' input /ja "Penury" <me>')
+	send_command('bind @\' gs c cycle MagicBurstMode')
+	send_command('bind ^@!\' gs c toggle AutoCaress')
 	send_command('bind ^backspace input /ja "Sacrosanctity" <me>')
-	send_command('bind @backspace input /ma "Aurora Storm" <me>')
-	send_command('bind !pause gs c toggle AutoSubMode') --Automatically uses sublimation.
-	send_command('bind !backspace input /ja "Accession" <me>')
-	send_command('bind != input /ja "Sublimation" <me>')
-	send_command('bind ^delete input /ja "Dark Arts" <me>')
-	send_command('bind !delete input /ja "Addendum: Black" <me>')
-	send_command('bind @delete input /ja "Manifestation" <me>')
+	send_command('bind @backspace input /ma "Aurorastorm" <me>')
+	send_command('bind != gs c toggle AutoSubMode') --Automatically uses sublimation.
+
 	send_command('bind ^\\\\ input /ma "Protectra V" <me>')
-	send_command('bind @\\\\ input /ma "Shellra V" <me>')
-	send_command('bind !\\\\ input /ma "Reraise IV" <me>')
+	send_command('bind !\\\\ input /ma "Shellra V" <me>')
+	send_command('bind @\\\\ input /ma "Reraise IV" <me>')
+
+	send_command('bind @p input /ja "Light Arts" <me>; wait 2; input /ja "Addendum: White" <me>')
+	send_command('bind @o input /ja "Dark Arts" <me>; wait 2; input /ja "Addendum: Black" <me>')
+
+	send_command('bind 1 input /ma "Cure III" <stal>')
+	send_command('bind 2 input /ma "Cure IV" <stal>')
+	send_command('bind 3 input /ma "Curaga III" <stal>')
+	send_command('bind 4 input /ma "Regen IV" <stal>')
+	send_command('bind 5 input /ma "" <stal>')
+	send_command('bind 6 input /ma "" <stal>')
+	send_command('bind 7 input /ma "Haste" <stal>')
+	send_command('bind 8 input /ma "Auspice" <stal>')
+	send_command('bind 9 input /ma "Protect V" <stal>')
+	send_command('bind 0 input /ma "Shell V" <stal>')
+
+	send_command('bind @1 input /ma "Poisona" <stal>')
+	send_command('bind @2 input /ma "Paralyna" <stal>')
+	send_command('bind @3 input /ma "Blindna" <stal>')
+	send_command('bind @4 input /ma "Silena" <stal>')
+	send_command('bind @5 input /ma "Stona" <stal>')
+	send_command('bind @6 input /ma "Viruna" <stal>')
+	send_command('bind @7 input /ma "" <stal>')
+	send_command('bind @8 input /ma "" <stal>')
+	send_command('bind @9 input /ma "Curaga" <stal>')
+	send_command('bind @0 input /ma "Curaga" <stal>')
 
     select_default_macro_book()
 end
@@ -72,7 +97,7 @@ function init_gear_sets()
 
 	sets.precast.FC.Impact =  set_combine(sets.precast.FC, {head=empty,body="Twilight Cloak"})
 	
-	sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {main="Daybreak",sub="Genbu's Shield"})
+	sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {main="Daybreak",sub="Genbu\'s Shield"})
 
     -- Precast sets to enhance JAs
     sets.precast.JA.Benediction = {body="Piety Briault +1"}
@@ -184,7 +209,7 @@ function init_gear_sets()
 		body="Theo. Briault +2",hands="Theophany Mitts +3",ring1="Janniston Ring",ring2="Menelaus's Ring",
 		back="Twilight Cape",waist="Korin Obi",legs="Ebers Pant. +1",feet="Kaykaus Boots"}
 
-	sets.midcast.Cure.DT = {main="Queller Rod",sub="Genbu's Shield",ammo="Staunch Tathlum",
+	sets.midcast.Cure.DT = {main="Queller Rod",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 		head="Gende. Caubeen +1",neck="Loricate Torque +1",ear1="Nourish. Earring +1",ear2="Glorious Earring",
 		body="Ayanmo Corazza +2",hands="Gende. Gages +1",ring1="Defending Ring",ring2="Dark Ring",
 		back="Alaunus's Cape",waist="Luminary Sash",legs="Ebers Pant. +1",feet="Gende. Galosh. +1"}
@@ -353,34 +378,45 @@ function init_gear_sets()
 		back="Umbra Cape",waist="Fucho-no-obi",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
     -- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
-	sets.idle = {main="Bolelabunga",sub="Genbu's Shield",ammo="Homiliary",
-		head="Befouled Crown",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
-		body="Witching Robe",hands=gear.chironic_refresh_hands,ring1="Stikini Ring +1",ring2="Stikini Ring +1",
-		back="Solemnity Cape",waist="Flax Sash",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
+	sets.idle = {main="Daybreak",
+		sub="Genbu\'s Shield",
+		ammo="Homiliary",
+		head="Helios Band",
+		body="Vanya Robe",
+		hands="Inyanga Dastanas",
+		legs="Assid. Pants +1",
+		feet="Inyan. Crackows +2",
+		neck="Loricate Torque +1",
+		waist="Gishdubar Sash",
+		left_ear="Mendi. Earring",
+		right_ear="Glorious Earring",
+		left_ring="Inyanga Ring",
+		right_ring="Defending Ring",
+		back="Solemnity Cape"}
 
-	sets.idle.PDT = {main="Bolelabunga",sub="Genbu's Shield",ammo="Staunch Tathlum",
+	sets.idle.PDT = {main="Bolelabunga",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 		head="Gende. Caubeen +1",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Vrikodara Jupon",hands="Gende. Gages +1",ring1="Defending Ring",ring2="Dark Ring",
 		back="Solemnity Cape",waist="Flax Sash",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 		
-	sets.idle.MDT = {main="Daybreak",sub="Genbu's Shield",ammo="Staunch Tathlum",
+	sets.idle.MDT = {main="Daybreak",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 		head="Gende. Caubeen +1",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Vrikodara Jupon",hands="Gende. Gages +1",ring1="Defending Ring",ring2="Dark Ring",
 		back="Solemnity Cape",waist="Flax Sash",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 		
-	sets.idle.Weak = {main="Bolelabunga",sub="Genbu's Shield",ammo="Homiliary",
+	sets.idle.Weak = {main="Bolelabunga",sub="Genbu\'s Shield",ammo="Homiliary",
 		head="Befouled Crown",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Witching Robe",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Witful Belt",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
     -- Defense sets
 
-	sets.defense.PDT = {main="Bolelabunga",sub="Genbu's Shield",ammo="Staunch Tathlum",
+	sets.defense.PDT = {main="Bolelabunga",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 		head="Gende. Caubeen +1",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Vrikodara Jupon",hands="Gende. Gages +1",ring1="Defending Ring",ring2="Dark Ring",
 		back="Solemnity Cape",waist="Flax Sash",legs="Assid. Pants +1",feet=gear.chironic_refresh_feet}
 
-	sets.defense.MDT = {main="Mafic Cudgel",sub="Genbu's Shield",ammo="Staunch Tathlum",
+	sets.defense.MDT = {main="Mafic Cudgel",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 		head="Gende. Caubeen +1",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Sanare Earring",
 		body="Inyanga Jubbah +2",hands=gear.chironic_refresh_hands,ring1="Defending Ring",ring2="Shadow Ring",
 		back="Solemnity Cape",waist="Flax Sash",legs="Th. Pant. +3",feet="Gende. Galosh. +1"}

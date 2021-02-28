@@ -84,7 +84,7 @@ function init_gear_sets()
     sets.precast.FC.Curaga = sets.precast.FC.Cure
 	
 	sets.precast.FC.Impact = set_combine(sets.precast.FC, {head=empty,body="Twilight Cloak"})
-	sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {main="Daybreak",sub="Genbu's Shield"})
+	sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {main="Daybreak",sub="Genbu\'s Shield"})
 
 	sets.precast.FC.Death = {main=gear.grioavolr_nuke_staff,sub="Enki Strap",ammo="Impatiens",
         head="Amalric Coif +1",neck="Voltsurge Torque",ear1="Enchanter Earring +1",ear2="Loquac. Earring",
@@ -150,7 +150,7 @@ function init_gear_sets()
 	
 	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {head="Amalric Coif +1"})
 	
-	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {main="Vadose Rod",sub="Genbu's Shield",head="Amalric Coif +1",hands="Regal Cuffs",waist="Emphatikos Rope",legs="Shedir Seraweels"})
+	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {main="Vadose Rod",sub="Genbu\'s Shield",head="Amalric Coif +1",hands="Regal Cuffs",waist="Emphatikos Rope",legs="Shedir Seraweels"})
 	
 	sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], {legs="Shedir Seraweels"})
 
@@ -272,7 +272,7 @@ function init_gear_sets()
     -- Idle sets
     
     -- Normal refresh idle set
-    sets.idle = {main="Bolelabunga",sub="Genbu's Shield",ammo="Staunch Tathlum",
+    sets.idle = {main="Bolelabunga",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 		head="Befouled Crown",neck="Loricate Torque +1",ear1="Ethereal Earring",ear2="Etiolation Earring",
 		body="Jhakri Robe",hands=gear.merlinic_refresh_hands,ring1="Stikini Ring +1",ring2="Stikini Ring +1",
 		back="Umbra Cape",waist="Flax Sash",legs="Assid. Pants +1",feet=gear.merlinic_refresh_feet}
@@ -290,7 +290,7 @@ function init_gear_sets()
 		body="Jhakri Robe",hands=gear.merlinic_refresh_hands,ring1="Mephitas's Ring +1",ring2="Mephitas's Ring",
 		back="Umbra Cape",waist="Fucho-no-obi",legs="Assid. Pants +1",feet=gear.merlinic_refresh_feet}
 
-    sets.idle.Weak = {main="Bolelabunga",sub="Genbu's Shield",ammo="Staunch Tathlum",
+    sets.idle.Weak = {main="Bolelabunga",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 		head="Befouled Crown",neck="Loricate Torque +1",ear1="Ethereal Earring",ear2="Etiolation Earring",
 		body="Jhakri Robe",hands=gear.merlinic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
 		back="Umbra Cape",waist="Flax Sash",legs="Assid. Pants +1",feet=gear.merlinic_refresh_feet}

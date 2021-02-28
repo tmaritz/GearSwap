@@ -88,7 +88,7 @@ function init_gear_sets()
 		body="Twilight Cloak",hands="Volte Gloves",ring1="Kishar Ring",ring2="Lebeche Ring",
 		back="Lifestream Cape",waist="Witful Belt",legs="Geo. Pants +1",feet="Regal Pumps +1"}
 		
-	sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {main="Daybreak",sub="Genbu's Shield"})
+	sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {main="Daybreak",sub="Genbu\'s Shield"})
 	
 	-- Weaponskill sets
 	-- Default set for any weaponskill that isn't any more specifically defined
@@ -111,9 +111,9 @@ function init_gear_sets()
 
 
 	--Extra Indi duration as long as you can keep your 900 skill cap.
-	sets.midcast.Geomancy.Indi = set_combine(sets.midcast.Geomancy, {back=gear.idle_jse_back,legs="Bagua Pants +1",feet="Azimuth Gaiters +1"})
+	sets.midcast.Geomancy.Indi = set_combine(sets.midcast.Geomancy, {back=gear.idle_jse_back,legs="Bagua Pants +1",feet="Azimuth Gaiters"})
 		
-    sets.midcast.Cure = {main=gear.gada_healing_club,sub="Sors Shield",ammo="Hasty Pinion +1",
+    sets.midcast.Cure = {main="Chatoyant Staff",sub="Mensch Strap +1",ammo="Hasty Pinion +1",
         head="Amalric Coif +1",neck="Incanter's Torque",ear1="Gifted Earring",ear2="Etiolation Earring",
         body="Zendik Robe",hands="Telchine Gloves",ring1="Janniston Ring",ring2="Menelaus's Ring",
         back="Tempered Cape +1",waist="Witful Belt",legs="Geo. Pants +1",feet="Vanya Clogs"}
@@ -241,7 +241,7 @@ function init_gear_sets()
 	
 	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {head="Amalric Coif +1"})
 	
-	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {main="Vadose Rod",sub="Genbu's Shield",head="Amalric Coif +1",hands="Regal Cuffs",waist="Emphatikos Rope",legs="Shedir Seraweels"})
+	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {main="Vadose Rod",sub="Genbu\'s Shield",head="Amalric Coif +1",hands="Regal Cuffs",waist="Emphatikos Rope",legs="Shedir Seraweels"})
 	
 	sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], {legs="Shedir Seraweels"})
 	
@@ -263,8 +263,8 @@ function init_gear_sets()
 	-- Idle sets
 
 	sets.idle = {
-		main="Malignance Pole",
-		sub="Irenic Strap",
+		main="Bolelabunga",
+		sub="Culminus",
 		ammo="Staunch Tathlum",
 		head="Geo. Galero +1",
 		body="Geo. Tunic +1",
@@ -280,13 +280,25 @@ function init_gear_sets()
 		back="Solemnity Cape"
 	}
 		
-	sets.idle.PDT = {main="Malignance Pole",sub="Umbra Strap",ammo="Staunch Tathlum",
-		head="Hagondes Hat +1",neck="Loricate Torque +1",ear1="Genmei Earring",ear2="Ethereal Earring",
-		body="Jhakri Robe",hands="Hagondes Cuffs +1",ring1="Defending Ring",ring2="Shadow Ring",
-		back="Shadow Mantle",waist="Flax Sash",legs="Hagondes Pants +1",feet="Mallquis Clogs +2"}
+	sets.idle.PDT = {main="Malignance Pole",
+	sub="Irenic Strap",
+	ammo="Staunch Tathlum",
+	head="Geo. Galero +1",
+	body="Geo. Tunic +1",
+	hands="Geo. Mitaines +1",
+	legs="Assid. Pants +1",
+	feet="Geo. Sandals +1",
+	neck="Loricate Torque +1",
+	waist="Gishdubar Sash",
+	left_ear="Hearty Earring",
+	right_ear="Eabani Earring",
+	left_ring="Paguroidea Ring",
+	right_ring="Defending Ring",
+	back="Solemnity Cape"
+}
 
 	-- .Pet sets are for when Luopan is present.
-	sets.idle.Pet = {main="Solstice",sub="Genbu's Shield",range="Dunna",
+	sets.idle.Pet = {main="Solstice",sub="Genbu\'s Shield",range="Dunna",
 		head="Azimuth Hood",neck="Loricate Torque +1",ear1="Handler's Earring",ear2="Handler's Earring +1",
 		body="Jhakri Robe",hands="Geo. Mitaines +1",ring1="Defending Ring",ring2="Dark Ring",
 		back=gear.idle_jse_back,waist="Isa Belt",legs="Psycloth Lappas",feet="Bagua Sandals +1"}
@@ -302,27 +314,27 @@ function init_gear_sets()
 	sets.idle.PDT.Indi = set_combine(sets.idle.PDT, {}) 
 	sets.idle.PDT.Pet.Indi = set_combine(sets.idle.PDT.Pet, {})
 
-	sets.idle.Weak = {main="Bolelabunga",sub="Genbu's Shield",ammo="Staunch Tathlum",
+	sets.idle.Weak = {main="Bolelabunga",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 		head="Befouled Crown",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Jhakri Robe",hands=gear.merlinic_refresh_hands,ring1="Defending Ring",ring2="Dark Ring",
-		back="Umbra Cape",waist="Flax Sash",legs="Assid. Pants +1",feet="Azimuth Gaiters +1"}
+		back="Umbra Cape",waist="Flax Sash",legs="Assid. Pants +1",feet="Azimuth Gaiters"}
 
 	-- Defense sets
 	
 	sets.defense.PDT = {main="Malignance Pole",sub="Umbra Strap",ammo="Staunch Tathlum",
 		head="Hagondes Hat +1",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Handler's Earring +1",
 		body="Mallquis Saio +2",hands="Hagondes Cuffs +1",ring1="Defending Ring",ring2="Dark Ring",
-		back="Umbra Cape",waist="Flax Sash",legs="Hagondes Pants +1",feet="Azimuth Gaiters +1"}
+		back="Umbra Cape",waist="Flax Sash",legs="Hagondes Pants +1",feet="Azimuth Gaiters"}
 
 	sets.defense.MDT = {main="Malignance Pole",sub="Umbra Strap",ammo="Staunch Tathlum",
 		head="Azimuth Hood",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Handler's Earring +1",
 		body="Mallquis Saio +2",hands="Hagondes Cuffs +1",ring1="Defending Ring",ring2="Dark Ring",
-		back="Umbra Cape",waist="Flax Sash",legs="Hagondes Pants +1",feet="Azimuth Gaiters +1"}
+		back="Umbra Cape",waist="Flax Sash",legs="Hagondes Pants +1",feet="Azimuth Gaiters"}
 		
     sets.defense.MEVA = {main="Malignance Pole",sub="Enki Strap",ammo="Staunch Tathlum",
         head="Azimuth Hood",neck="Warder's Charm +1",ear1="Etiolation Earring",ear2="Sanare Earring",
 		body=gear.merlinic_nuke_body,hands="Telchine Gloves",ring1="Vengeful Ring",Ring2="Purity Ring",
-        back=gear.idle_jse_back,waist="Luminary Sash",legs="Telchine Braconi",feet="Azimuth Gaiters +1"}
+        back=gear.idle_jse_back,waist="Luminary Sash",legs="Telchine Braconi",feet="Azimuth Gaiters"}
 		
 	sets.defense.PetPDT = sets.idle.PDT.Pet
 		
@@ -379,7 +391,7 @@ function init_gear_sets()
     sets.buff.DTSublimation = {waist="Embla Sash"}
 	
 	-- Weapons sets
-	sets.weapons.Nehushtan = {main='Nehushtan',sub='Genbu's Shield'}
+	sets.weapons.Nehushtan = {main='Nehushtan',sub='Genbu\'s Shield'}
 	sets.weapons.DualWeapons = {main='Nehushtan',sub='Nehushtan'}
 end
 

@@ -398,20 +398,20 @@ function init_gear_sets()
 	sets.Learning = {hands="Assim. Bazu. +3"}
 
 	-- Resting sets
-	sets.resting = {main="Bolelabunga",sub="Genbu's Shield",ammo="Falcon Eye",
+	sets.resting = {main="Bolelabunga",sub="Genbu\'s Shield",ammo="Falcon Eye",
 			      head="Rawhide Mask",neck="Loricate Torque +1",ear1="Etiolation Earring", ear2="Ethereal Earring",
 			      body="Jhakri Robe",hands=gear.herculean_refresh_hands,ring1="Defending Ring",ring2="Sheltered Ring",
 			      back="Bleating Mantle",waist="Flume Belt +1",legs="Carmine Cuisses +1",feet=gear.herculean_refresh_feet}
 
 	-- Idle sets
-	sets.idle = {main="Bolelabunga",sub="Genbu's Shield",ammo="Staunch Tathlum",
+	sets.idle = {main="Bolelabunga",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 			      head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Hearty Earring", ear2="Eabani Earring",
 			      body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Stikini Ring",
 			      back="Solemnity Cape",waist="Flume Belt +1",legs="Carmine Cuisses +1",feet="Malignance Boots"}
 
 	sets.idle.Sphere = set_combine(sets.idle, {body="Mekosu. Harness"})
 
-	sets.idle.PDT = {main="Mafic Cudgel",sub="Genbu's Shield",ammo="Staunch Tathlum",
+	sets.idle.PDT = {main="Mafic Cudgel",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 				head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Hearty Earring", ear2="Eabani Earring",
 		        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Stikini Ring",
 				back="Solemnity Cape",waist="Flume Belt +1",legs="Carmine Cuisses +1",feet="Malignance Boots"}
@@ -419,17 +419,17 @@ function init_gear_sets()
 	sets.idle.DTHippo = set_combine(sets.idle.PDT, {legs="Carmine Cuisses +1",feet="Hippo. Socks +1"})
 
 	-- Defense sets
-	sets.defense.PDT = {main="Mafic Cudgel",sub="Genbu's Shield",ammo="Staunch Tathlum",
+	sets.defense.PDT = {main="Mafic Cudgel",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 				head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Sanare Earring",
 		        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Stikini Ring",
 				back="Shadow Mantle",waist="Flume Belt +1",legs="Carmine Cuisses +1",feet="Malignance Boots"}
 
-	sets.defense.MDT = {main="Bolelabunga",sub="Genbu's Shield",ammo="Staunch Tathlum",
+	sets.defense.MDT = {main="Bolelabunga",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
 				head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Sanare Earring",
 		        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Stikini Ring",
 				back="Solemnity Cape",waist="Flume Belt +1",legs="Carmine Cuisses +1",feet="Malignance Boots"}
 
-    sets.defense.MEVA = {main="Bolelabunga",sub="Genbu's Shield",ammo="Staunch Tathlum",
+    sets.defense.MEVA = {main="Bolelabunga",sub="Genbu\'s Shield",ammo="Staunch Tathlum",
         head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Sanare Earring",
 		body="Malignance Tabard",hands="Malignance Gloves",ring1="Vengeful Ring",ring2="Purity Ring",
         back=gear.nuke_jse_back,waist="Flume Belt +1",legs="Carmine Cuisses +1",feet="Malignance Boots"}
