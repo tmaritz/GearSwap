@@ -118,7 +118,7 @@ function init_gear_sets()
 
     sets.precast.WS['Aeolian Edge'] = {ammo="Dosis Tathlum",
         head="Dampening Tam",neck="Baetyl Pendant",ear1="Friomisi Earring",ear2="Crematio Earring",
-        body="Adhemar Jacket +1",hands="Adhemar Wristbands",ring1="Shiva Ring +1",ring2="Metamor. Ring +1",
+        body="Adhemar Jacket +1",hands="Adhemar Wristbands",ring1="Shiva Ring",ring2="Metamor. Ring +1",
         back="Toro Cape",waist="Chaac Belt",legs=gear.herculean_dt_legs,feet="Malignance Boots"}
 
 	-- Swap to these on Moonshade using WS if at 3000 TP
@@ -141,7 +141,7 @@ function init_gear_sets()
 
     sets.midcast.ElementalNinjutsu = {ammo="Pemphredo Tathlum",
         head=gear.herculean_nuke_head,neck="Baetyl Pendant",ear1="Crematio Earring",ear2="Friomisi Earring",
-        body="Samnuha Coat",hands="Hattori Tekko +1",ring1="Shiva Ring +1",ring2="Metamor. Ring +1",
+        body="Samnuha Coat",hands="Hattori Tekko +1",ring1="Shiva Ring",ring2="Metamor. Ring +1",
         back="Toro Cape",waist="Eschan Stone",legs="Gyve Trousers",feet=gear.herculean_nuke_feet}
 
 	sets.midcast.ElementalNinjutsu.Proc = sets.midcast.FastRecast

@@ -172,7 +172,7 @@ function init_gear_sets()
 
 	sets.precast.WS['Primal Rend'] = {ammo="Dosis Tathlum",
 		head="Jumalik Helm",neck="Baetyl Pendant",ear1="Crematio Earring",ear2="Friomisi Earring",
-		body="Jumalik Mail",hands="Leyline Gloves",ring1="Shiva Ring +1",ring2="Shiva Ring +1",
+		body="Jumalik Mail",hands="Leyline Gloves",ring1="Shiva Ring",ring2="Shiva Ring",
 		back="Toro Cape",waist="Fotia Belt",legs="Tali'ah Sera. +2",feet="Tot. Gaiters +1"}
 
 	sets.precast.WS['Cloudsplitter'] = set_combine(sets.precast.WS['Primal Rend'], {})

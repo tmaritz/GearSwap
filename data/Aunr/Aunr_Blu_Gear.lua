@@ -174,7 +174,7 @@ function init_gear_sets()
 
 	sets.precast.WS['Flash Nova'] = {ammo="Pemphredo Tathlum",
 			         head="Jhakri Coronal +1",neck="Baetyl Pendant",ear1="Regal Earring",ear2="Friomisi Earring",
-		             body="Jhakri Robe",hands="Jhakri Cuffs",ring1="Metamor. Ring +1",ring2="Shiva Ring +1",
+		             body="Jhakri Robe",hands="Jhakri Cuffs",ring1="Metamor. Ring +1",ring2="Shiva Ring",
 			         back=gear.nuke_jse_back,waist="Yamabuki-no-Obi",legs="Jhakri Slops",feet="Jhakri Pigaches"}
 					 
 	sets.precast.WS['Sanguine Blade'].DT = set_combine(sets.precast.WS.DT, {back=gear.nuke_jse_back})

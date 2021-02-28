@@ -107,7 +107,7 @@ function init_gear_sets()
 
     sets.precast.JA['Lunge'] = {ammo="Seeth. Bomblet +1",
         head=gear.herculean_nuke_head,neck="Baetyl Pendant",ear1="Friomisi Earring",ear2="Crematio Earring",
-        body="Samnuha Coat",hands="Carmine Fin. Ga. +1",ring1="Metamor. Ring +1",ring2="Shiva Ring +1",
+        body="Samnuha Coat",hands="Carmine Fin. Ga. +1",ring1="Metamor. Ring +1",ring2="Shiva Ring",
         back="Toro Cape",waist="Eschan Stone",legs=gear.herculean_nuke_legs,feet=gear.herculean_nuke_feet}
 
 	sets.precast.JA['Swipe'] = sets.precast.JA['Lunge']
