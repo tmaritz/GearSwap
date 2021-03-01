@@ -21,8 +21,10 @@ function user_job_setup()
 	gear.obi_high_nuke_back = gear.nuke_jse_back
 	gear.obi_high_nuke_waist = "Refoccilation Stone"
 	
-	autoindi = "Haste"
-	autogeo = "Frailty"
+	autoindi = "Acumen"
+	autogeo = "Malaise"
+	autoentrust = 'Haste'
+	autoentrustee = '<p3>'
 	
 	-- Additional local binds
 	send_command('bind ^` gs c cycle ElementalMode')
