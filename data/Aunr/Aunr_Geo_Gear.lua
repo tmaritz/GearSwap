@@ -305,7 +305,7 @@ function init_gear_sets()
 		body="Vanya Robe",hands="Geo. Mitaines +1",ring1="Defending Ring",ring2="Paguroidea Ring",
 		back=gear.idle_jse_back,waist="Gishdubar Sash",legs="Telchine Braconi",feet="Bagua Sandals +1"} --waist="Slipor Sash", back=gear.idle_jse_back Isa Belt
 
-	sets.idle.PDT.Pet = {main="Malignance Pole",sub="Umbra Strap",ammo="Staunch Tathlum",
+	sets.idle.PDT.Pet = {main="Malignance Pole",sub="Irenic Strap",ammo="Staunch Tathlum",
 		head="Geo. Galero +1",neck="Loricate Torque +1",ear1="Handler's Earring",ear2="Handler's Earring +1",
 		body="Vanya Robe",hands="Geo. Mitaines +1",ring1="Defending Ring",ring2="Paguroidea Ring",
 		back=gear.idle_jse_back,waist="Gishdubar Sash",legs="Telchine Braconi",feet="Bagua Sandals +1"}
