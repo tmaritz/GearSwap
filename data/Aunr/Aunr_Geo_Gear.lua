@@ -64,7 +64,7 @@ function init_gear_sets()
 	
 	-- Fast cast sets for spells
 
-	sets.precast.FC = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap",ammo="Impatiens",
+	sets.precast.FC = {main="Chatoyant Staff",sub="Clerisy Strap",ammo="Impatiens",
 		head="Amalric Coif +1",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Malignance Earring",
 		body="Zendik Robe",hands="Volte Gloves",ring1="Kishar Ring",ring2="Lebeche Ring",
 		back="Perimede Cape",waist="Witful Belt",legs="Geo. Pants +1",feet="Regal Pumps +1"}
@@ -101,7 +101,7 @@ function init_gear_sets()
 	-- Midcast sets
 	--------------------------------------
 
-    sets.midcast.FastRecast = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap",
+    sets.midcast.FastRecast = {main="Chatoyant Staff",sub="Clerisy Strap",
 		head="Amalric Coif +1",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Malignance Earring",
 		body="Zendik Robe",hands="Volte Gloves",ring1="Kishar Ring",ring2="Prolix Ring",
 		back="Lifestream Cape",waist="Witful Belt",legs="Geo. Pants +1",feet="Regal Pumps +1"}
@@ -185,7 +185,7 @@ function init_gear_sets()
     
     sets.midcast.Aspir = sets.midcast.Drain
 		
-	sets.midcast.Stun = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap",ammo="Hasty Pinion +1",
+	sets.midcast.Stun = {main="Chatoyant Staff",sub="Clerisy Strap",ammo="Hasty Pinion +1",
 		head="Amalric Coif +1",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Malignance Earring",
 		body="Zendik Robe",hands="Volte Gloves",ring1="Metamor. Ring +1",ring2="Stikini Ring",
 		back="Lifestream Cape",waist="Witful Belt",legs="Psycloth Lappas",feet="Regal Pumps +1"}
