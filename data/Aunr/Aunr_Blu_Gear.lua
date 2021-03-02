@@ -12,7 +12,7 @@ function user_job_setup()
 
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode','None','MP','SuppaBrutal','DWEarrings','DWMax'}
 
-	gear.da_jse_back = {name="Rosmerta's Cape",augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10',}}
+	gear.da_jse_back = {name="Rosmerta's Cape",augments={'DEX+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',}} --'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10',
 	gear.stp_jse_back = {name="Rosmerta's Cape",augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10',}}
 	gear.crit_jse_back = {name="Rosmerta's Cape",augments={'DEX+20','Accuracy+20 Attack+20','Crit.hit rate+10',}}
 	gear.wsd_jse_back = {name="Rosmerta's Cape",augments={'STR+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}}
@@ -474,7 +474,7 @@ function init_gear_sets()
     right_ear="Eabani Earring",
     left_ring="Petrov Ring",
     right_ring="Chirich Ring",
-    back=gear.crit_jse_back}
+    back=gear.da_jse_back}
 
 	sets.engaged.AM = {main="Kaja Sword",sub=gear.nibiru_b_sword,ammo="Aurgelmir Orb +1",
 			    head="Dampening Tam",neck="Mirage Stole +1",ear1="Cessance Earring",ear2="Telos Earring",
