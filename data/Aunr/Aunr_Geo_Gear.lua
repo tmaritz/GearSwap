@@ -10,7 +10,7 @@ function user_job_setup()
 	state.Weapons:options('None','Nehushtan','DualWeapons')
 
 	gear.nuke_jse_back = {name="Nantosuelta's Cape",augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','"Mag.Atk.Bns."+10'}}
-	gear.idle_jse_back = {name="Nantosuelta's Cape",augments={'Pet: "Regen"+10'}} --{'HP+60','Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10'}
+	gear.idle_jse_back = {name="Nantosuelta's Cape",augments={'Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10'}} --{'HP+60','Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10'}
 	
 	gear.obi_cure_back = "Tempered Cape +1"
 	gear.obi_cure_waist = "Witful Belt"
