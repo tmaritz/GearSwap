@@ -21,9 +21,9 @@ function user_job_setup()
 	gear.obi_high_nuke_back = gear.nuke_jse_back
 	gear.obi_high_nuke_waist = "Refoccilation Stone"
 	
-	autoindi = "Refresh"
-	autogeo = "Frailty"
-	autoentrust = 'Fury'
+	autoindi = "Acumen"
+	autogeo = "Malaise"
+	autoentrust = 'Refresh'
 	autoentrustee = '<p1>'
 	
 	-- Additional local binds
@@ -41,6 +41,7 @@ function user_job_setup()
 	indi_duration = 290
 	
 	select_default_macro_book()
+	user_job_lockstyle()
 end
 
 function init_gear_sets()
@@ -401,3 +402,13 @@ end
 function select_default_macro_book()
 	set_macro_page(1, 5)
 end
+
+function user_job_lockstyle()
+	windower.chat.input('/lockstyleset 005')
+end
+
+	-- if state.Weapons.value == 'Lionheart' then
+	-- 	windower.chat.input('/lockstyleset 034')
+	-- else
+	-- 	windower.chat.input('/lockstyleset 033')
+	-- end

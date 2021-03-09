@@ -42,6 +42,7 @@ function user_job_setup()
 	send_command('bind !q gs c weapons HybridWeapons;gs c update')
 
 	select_default_macro_book()
+	user_job_lockstyle()
 end
 
 function init_gear_sets()
@@ -252,13 +253,13 @@ function init_gear_sets()
 
 	sets.midcast['Blue Magic'].Magical = {main="Kaja Rod",sub="Nibiru Cudgel",ammo="Floestone",
 		 head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Hecate's Earring",ear2="Friomisi Earring",
-		 body="Jhakri Robe",hands="Amalric Gages",ring1="Shiva Ring",ring2="Shiva Ring",
-		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Jhakri Pigaches"}
+		 body="Amalric Doublet",hands="Amalric Gages",ring1="Shiva Ring",ring2="Shiva Ring",
+		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Amalric Nails"}
 					 
 	sets.midcast['Blue Magic'].Magical.Proc = {main="Kaja Rod",sub="Nibiru Cudgel",ammo="Floestone",
 		 head="Jhakri Coronal +1",neck="Mirage Stole +1",ear1="Hecate's Earring",ear2="Friomisi Earring",
-		 body="Jhakri Robe",hands="Amalric Gages",ring1="Shiva Ring",ring2="Shiva Ring",
-		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Jhakri Pigaches"}
+		 body="Amalric Doublet",hands="Amalric Gages",ring1="Shiva Ring",ring2="Shiva Ring",
+		 back=gear.nuke_jse_back,waist="Aswang Sash",legs="Luhlaza Shalwar +3",feet="Amalric Nails"}
 					 
 	sets.midcast['Blue Magic'].Magical.Resistant = set_combine(sets.midcast['Blue Magic'].Magical,
 		{neck="Mirage Stole +1",hands="Jhakri Cuffs",ring1="Stikini Ring",ring2="Stikini Ring",waist="Yamabuki-no-Obi"})
@@ -554,21 +555,25 @@ function init_gear_sets()
 	sets.Phalanx_Received = {hands=gear.herculean_phalanx_hands,feet=gear.herculean_nuke_feet}
 end
 
+function user_job_lockstyle()
+	windower.chat.input('/lockstyleset 004')
+end
+
 -- Select default macro book on initial load or subjob change.
 function select_default_macro_book()
 	-- Default macro set/book
 	if player.sub_job == 'DNC' then
-		set_macro_page(4, 1)
-	elseif player.sub_job == 'NIN' then
-		set_macro_page(5, 1)
-	elseif player.sub_job == 'WAR' then
-		set_macro_page(7, 1)
-	elseif player.sub_job == 'RUN' then
-		set_macro_page(3, 1)
-	elseif player.sub_job == 'THF' then
-		set_macro_page(2, 1)
-	elseif player.sub_job == 'RDM' then
 		set_macro_page(1, 1)
+	elseif player.sub_job == 'NIN' then
+		set_macro_page(1, 1)
+	elseif player.sub_job == 'WAR' then
+		set_macro_page(1, 1)
+	elseif player.sub_job == 'RUN' then
+		set_macro_page(1, 1)
+	elseif player.sub_job == 'THF' then
+		set_macro_page(1, 1)
+	elseif player.sub_job == 'RDM' then
+		set_macro_page(2, 1)
 	else
 		set_macro_page(6, 1)
 	end

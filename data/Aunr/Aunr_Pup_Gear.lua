@@ -28,10 +28,11 @@ function user_job_setup()
 			{Name='Thunder Maneuver', Amount=0},
 		},
 		Tank = {
-			{Name='Earth Maneuver',	  Amount=1},
+			{Name='Earth Maneuver',	  Amount=0},
 			{Name='Fire Maneuver',	  Amount=1},
 			{Name='Light Maneuver',	  Amount=1},
 			{Name='Dark Maneuver',	  Amount=0},
+            {Name='Water Maneuver',	  Amount=1},
 		},
 		LightTank = {
 			{Name='Earth Maneuver',	  Amount=1},
@@ -62,10 +63,12 @@ function user_job_setup()
 	deactivatehpp = 85
 	
     select_default_macro_book()
+    user_job_lockstyle()
 	
 	send_command('bind @` gs c cycle SkillchainMode')
 	send_command('bind @f8 gs c toggle AutoPuppetMode')
-	send_command('bind @f7 gs c toggle AutoRepairMode')
+	send_command('bind @f7 gs c toggle AutoBuffMode')
+    
 end
 
 -- Define sets used by this job file.
@@ -329,6 +332,10 @@ function init_gear_sets()
 	-- Weapons sets
 	sets.weapons.PetWeapons = {main="Ohtas",range="Animator P +1",}
 	sets.weapons.Godhands = {main="Godhands",range="Animator P +1",}
+end
+
+function user_job_lockstyle()
+	windower.chat.input('/lockstyleset 006')
 end
 
 -- Select default macro book on initial load or subjob change.
