@@ -77,11 +77,11 @@ function init_gear_sets()
 
     -- Fast cast sets for spells
     sets.precast.FC = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap",ammo="Impatiens",
-		head="Nahtirah Hat",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Malignance Earring",
+		head="Nahtirah Hat",neck="Cleric Torque +1",ear1="Loquac. Earring",ear2="Malignance Earring",
 		body="Inyanga Jubbah +2",hands="Gende. Gages +1",ring1="Kishar Ring",ring2="Lebeche Ring",
 		back="Perimede Cape",waist="Witful Belt",legs="Lengo Pants",feet="Regal Pumps +1"}
 
-    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {waist="Siegel Sash"})
+    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {ear1="Mendi. Earring", waist="Siegel Sash"})
 	
     sets.precast.FC.Stoneskin = set_combine(sets.precast.FC['Enhancing Magic'], {})
 
