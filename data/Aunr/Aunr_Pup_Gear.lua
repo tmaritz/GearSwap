@@ -224,18 +224,18 @@ function init_gear_sets()
 
     sets.idle = {
         head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Handler's Earring",ear2="Handler's Earring +1",
-        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Varar Ring +1",
+        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Shneddick Ring",
         back="Solemnity Cape",waist="Klouskap Sash +1",legs=gear.taeon_pet_leg,feet="Malignance Boots"}
 		
 	sets.idle.Refresh = {
         head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Handler's Earring",ear2="Handler's Earring +1",
-        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Varar Ring +1",
+        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Shneddick Ring",
         back="Solemnity Cape",waist="Klouskap Sash +1",legs=gear.taeon_pet_leg,feet="Malignance Boots"}
 		
     -- Set for idle while pet is out (eg: pet regen gear)
     sets.idle.Pet = {
         head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Handler's Earring",ear2="Handler's Earring +1",
-        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Varar Ring +1",
+        body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Shneddick Ring",
         back="Solemnity Cape",waist="Klouskap Sash +1",legs=gear.taeon_pet_leg,feet="Malignance Boots"}
 
     -- Idle sets to wear while pet is engaged
@@ -270,7 +270,8 @@ function init_gear_sets()
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
 
-    sets.Kiting = {feet="Hermes' Sandals"}
+    -- sets.Kiting = {feet="Hermes' Sandals"}
+    sets.Kiting = {ring2="Shneddick Ring"}
 
     -- Engaged sets
 
