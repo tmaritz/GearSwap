@@ -1,0 +1,17 @@
+sets.exported={
+    main="Daybreak",
+    sub="Sors Shield",
+    ammo="Impatiens",
+    head="Helios Band",
+    body="Vanya Robe",
+    hands="Inyan. Dastanas +1",
+    legs="Aya. Cosciales +1",
+    feet="Regal Pumps +1",
+    neck="Cleric's Torque",
+    waist="Austerity Belt",
+    left_ear="Loquac. Earring",
+    right_ear="Malignance Earring",
+    left_ring="Inyanga Ring",
+    right_ring="Defending Ring",
+    back="Alaunus's Cape",
+}

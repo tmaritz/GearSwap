@@ -90,7 +90,7 @@ function init_gear_sets()
     sets.precast.JA['Repair'] = {ammo="Automat. Oil +3"} --feet="Foire Babouches"
 	sets.precast.JA['Maintenance'] = {ammo="Automat. Oil +3"}
 
-    sets.precast.JA.Maneuver = {main="Midnights",back="Visucius's Mantle",neck="Buffoon's Collar",hands="Foire Dastanas",body="Cirque Farsetto +1"}
+    sets.precast.JA.Maneuver = {main="Midnights",back="Visucius's Mantle",neck="Buffoon's Collar",hands="Pup. Dastanas +1",body="Cirque Farsetto +1"}
 
     -- Waltz set (chr and vit)
     sets.precast.Waltz = {
@@ -195,13 +195,13 @@ function init_gear_sets()
 	
     -- Midcast sets for pet actions
     sets.midcast.Pet.Cure = {}
-	sets.midcast.Pet['Enfeebling Magic'] = {neck="Adad Amulet",ear1="Enmerkar Earring",ear2="Handler's Earring +1",body="Taeon Tabard",hands="Regimen Mittens",ring1="Varar Ring +1",ring2="Varar Ring +1",waist="Incarnation Sash",legs="Tali'ah Sera. +2"}
-    sets.midcast.Pet['Elemental Magic'] = {neck="Adad Amulet",ear1="Enmerkar Earring",ear2="Handler's Earring +1",body="Taeon Tabard",hands="Regimen Mittens",ring1="Varar Ring +1",ring2="Varar Ring +1",waist="Incarnation Sash",legs="Tali'ah Sera. +2"}
+	sets.midcast.Pet['Enfeebling Magic'] = {neck="Adad Amulet",ear1="Handler's Earring +1",ear2="Enmerkar Earring",body="Taeon Tabard",hands="Regimen Mittens",ring1="Varar Ring +1",ring2="Varar Ring +1",waist="Incarnation Sash",legs="Tali'ah Sera. +2"}
+    sets.midcast.Pet['Elemental Magic'] = {neck="Adad Amulet",ear1="Handler's Earring +1",ear2="Enmerkar Earring",body="Taeon Tabard",hands="Regimen Mittens",ring1="Varar Ring +1",ring2="Varar Ring +1",waist="Incarnation Sash",legs="Tali'ah Sera. +2"}
 	
 	-- The following sets are predictive and are equipped before we even know the ability will happen, as a workaround due to
 	-- the fact that start of ability packets are too late in the case of Pup abilities, WS, and certain spells.
 	sets.midcast.Pet.PetEnmityGear = {}
-	sets.midcast.Pet.PetWSGear = {neck="Shulmanu Collar",ear1="Enmerkar Earring",ear2="Handler's Earring +1",body="Taeon Tabard",hands="Regimen Mittens",ring1="Varar Ring +1",ring2="Varar Ring +1",back="Dispersal Mantle",waist="Incarnation Sash",legs="Tali'ah Sera. +2"}
+	sets.midcast.Pet.PetWSGear = {neck="Shulmanu Collar",ear1="Handler's Earring +1",ear2="Enmerkar Earring",body="Taeon Tabard",hands="Regimen Mittens",ring1="Varar Ring +1",ring2="Varar Ring +1",back="Dispersal Mantle",waist="Incarnation Sash",legs="Tali'ah Sera. +2"}
 	
     sets.midcast.Pet.PetWSGear.Ranged = set_combine(sets.midcast.Pet.PetWSGear, {})
 	sets.midcast.Pet.PetWSGear.Melee = set_combine(sets.midcast.Pet.PetWSGear, {ring2="C. Palug Ring"})
@@ -234,20 +234,20 @@ function init_gear_sets()
 		
     -- Set for idle while pet is out (eg: pet regen gear)
     sets.idle.Pet = {
-        head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Handler's Earring",ear2="Handler's Earring +1",
+        head="Malignance Chapeau",neck="Loricate Torque +1",ear2="Enmerkar Earring",ear1="Handler's Earring +1",
         body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Shneddick Ring",
         back="Solemnity Cape",waist="Klouskap Sash +1",legs=gear.taeon_pet_leg,feet="Malignance Boots"}
 
     -- Idle sets to wear while pet is engaged
     sets.idle.Pet.Engaged = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
 
     sets.idle.Pet.Engaged.Ranged = set_combine(sets.idle.Pet.Engaged, {})
 	sets.idle.Pet.Engaged.Melee = set_combine(sets.idle.Pet.Engaged, {})
-	sets.idle.Pet.Engaged.Tank = set_combine(sets.idle.Pet.Engaged, {neck="Shepherd's Chain",waist="Isa Belt",ear2="Handler's Earring +1"})
-	sets.idle.Pet.Engaged.LightTank = set_combine(sets.idle.Pet.Engaged, {neck="Shepherd's Chain",waist="Isa Belt",ear2="Handler's Earring +1"})
+	sets.idle.Pet.Engaged.Tank = set_combine(sets.idle.Pet.Engaged, {neck="Shepherd's Chain",waist="Isa Belt",ear1="Handler's Earring +1"})
+	sets.idle.Pet.Engaged.LightTank = set_combine(sets.idle.Pet.Engaged, {neck="Shepherd's Chain",waist="Isa Belt",ear1="Handler's Earring +1"})
     sets.idle.Pet.Engaged.Magic = set_combine(sets.idle.Pet.Engaged, {})
 	sets.idle.Pet.Engaged.Heal = sets.idle.Pet.Engaged.Magic
 	sets.idle.Pet.Engaged.Nuke = sets.idle.Pet.Engaged.Magic
@@ -256,17 +256,17 @@ function init_gear_sets()
     -- Defense sets
 
     sets.defense.PDT = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
 
     sets.defense.MDT = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
 		
     sets.defense.MEVA = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
 
@@ -282,51 +282,51 @@ function init_gear_sets()
     
     -- Normal melee group
     sets.engaged = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.Acc = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.FullAcc = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
 	sets.engaged.Fodder = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.DT = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.Acc.DT = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.FullAcc.DT = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.Fodder.DT = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.Pet = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.Acc.Pet = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.FullAcc.Pet = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
     sets.engaged.Fodder.Pet = {
-        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Handler's Earring +1",
+        head=gear.taeon_pet_head,neck="Shepherd's Chain",ear1="Rimeice Earring",ear2="Enmerkar Earring",
         body=gear.taeon_pet_body,hands=gear.taeon_pet_hands,ring1="Varar Ring +1",ring2="Varar Ring +1",
         back="Visucius's Mantle",waist="Klouskap Sash +1",legs=gear.taeon_pet_legs,feet=gear.taeon_pet_feet}
 		

@@ -1,0 +1,17 @@
+sets.exported={
+    main="Kaja Sword",
+    sub={ name="Nibiru Blade", augments={'STR+10','Attack+20','"Store TP"+3',}},
+    ammo="Staunch Tathlum",
+    head="Malignance Chapeau",
+    body={ name="Adhemar Jacket +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
+    hands="Malignance Gloves",
+    legs="Carmine Cuisses +1",
+    feet="Malignance Boots",
+    neck="Loricate Torque +1",
+    waist="Flume Belt +1",
+    left_ear="Hearty Earring",
+    right_ear="Eabani Earring",
+    left_ring="Defending Ring",
+    right_ring="Stikini Ring",
+    back="Solemnity Cape",
+}

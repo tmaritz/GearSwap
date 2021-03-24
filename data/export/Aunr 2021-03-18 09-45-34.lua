@@ -1,0 +1,17 @@
+sets.exported={
+    main={ name="Solstice", augments={'Mag. Acc.+20','Pet: Damage taken -4%','"Fast Cast"+5',}},
+    sub="Genbu's Shield",
+    range={ name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
+    head={ name="Bagua Galero +1", augments={'Enhances "Primeval Zeal" effect',}},
+    body={ name="Amalric Doublet", augments={'MP+60','Mag. Acc.+15','"Mag.Atk.Bns."+15',}},
+    hands="Geo. Mitaines +2",
+    legs={ name="Telchine Braconi", augments={'Mag. Evasion+23','Pet: "Regen"+3','Pet: Damage taken -3%',}},
+    feet={ name="Bagua Sandals +2", augments={'Enhances "Radial Arcana" effect',}},
+    neck={ name="Bagua Charm +1", augments={'Path: A',}},
+    waist="Witful Belt",
+    left_ear="Handler's Earring",
+    right_ear="Handler's Earring +1",
+    left_ring="Defending Ring",
+    right_ring="Shneddick Ring",
+    back={ name="Nantosuelta's Cape", augments={'Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10','Pet: Damage taken -5%',}},
+}

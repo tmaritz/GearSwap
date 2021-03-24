@@ -1,0 +1,17 @@
+sets.exported={
+    main="Daybreak",
+    sub="Genbu's Shield",
+    ammo="Homiliary",
+    head="Umuthi Hat",
+    body="Ayanmo Corazza +1",
+    hands="Inyan. Dastanas +2",
+    legs="Ebers Pantaloons",
+    feet="Inyan. Crackows +2",
+    neck="Loricate Torque +1",
+    waist="Gishdubar Sash",
+    left_ear="Eabani Earring",
+    right_ear="Hearty Earring",
+    left_ring="Shneddick Ring",
+    right_ring="Defending Ring",
+    back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20',}},
+}

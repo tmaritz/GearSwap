@@ -1,0 +1,17 @@
+sets.exported={
+    main="Kaja Sword",
+    sub={ name="Nibiru Blade", augments={'STR+10','Attack+20','"Store TP"+3',}},
+    ammo="Ginsen",
+    head="Malignance Chapeau",
+    body="Malignance Tabard",
+    hands="Malignance Gloves",
+    legs="Carmine Cuisses +1",
+    feet="Malignance Boots",
+    neck={ name="Mirage Stole +1", augments={'Path: A',}},
+    waist="Windbuffet Belt +1",
+    left_ear="Cessance Earring",
+    right_ear="Brutal Earring",
+    left_ring="Chirich Ring",
+    right_ring="Petrov Ring",
+    back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Crit.hit rate+10',}},
+}

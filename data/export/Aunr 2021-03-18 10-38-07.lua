@@ -1,0 +1,17 @@
+sets.exported={
+    main="Chatoyant Staff",
+    sub="Irenic Strap",
+    ammo="Impatiens",
+    head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}},
+    body="Vanya Robe",
+    hands="Geo. Mitaines +2",
+    legs="Geo. Pants +1",
+    feet={ name="Vanya Clogs", augments={'"Cure" potency +5%','"Cure" spellcasting time -15%','"Conserve MP"+6',}},
+    neck="Loricate Torque +1",
+    waist="Witful Belt",
+    left_ear="Loquac. Earring",
+    right_ear="Mendi. Earring",
+    left_ring="Stikini Ring",
+    right_ring="Prolix Ring",
+    back="Fi Follet Cape",
+}

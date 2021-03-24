@@ -332,8 +332,8 @@ function init_gear_sets()
 	sets.element.Light = {} --ring2="Weatherspoon Ring"
 
 	sets.midcast.Cure = {main="Nibiru Cudgel",sub="Nibiru Cudgel",ammo="Pemphredo Tathlum",
-		head="Jhakri Coronal +1",neck="Incanter's Torque",ear1="Etiolation Earring",ear2="Mendi. Earring",
-		body="Vrikodara Jupon",hands="Telchine Gloves",ring1="Janniston Ring",ring2="Menelaus's Ring",
+		head="Pinga Crown",neck="Incanter's Torque",ear1="Etiolation Earring",ear2="Mendi. Earring",
+		body="Pinga Tunic",hands="Telchine Gloves",ring1="Janniston Ring",ring2="Menelaus's Ring",
 		back=gear.ElementalCape,waist=gear.ElementalObi,legs="Carmine Cuisses +1",feet="Regal Pumps +1"}
 
 	sets.midcast.Cursna =  set_combine(sets.midcast.Cure, {neck="Debilis Medallion",hands="Hieros Mittens",

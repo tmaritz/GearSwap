@@ -1,0 +1,17 @@
+sets.exported={
+    main={ name="Aettir", augments={'Accuracy+70','Mag. Evasion+50','Weapon skill damage +10%',}},
+    sub="Mensch Strap +1",
+    ammo="Staunch Tathlum",
+    head="Turms Cap",
+    body="Emet Harness",
+    hands="Turms Mittens",
+    legs="Carmine Cuisses +1",
+    feet={ name="Herculean Boots", augments={'Mag. Acc.+11','Rng.Atk.+23','Quadruple Attack +3',}},
+    neck="Loricate Torque +1",
+    waist="Flume Belt +1",
+    left_ear={ name="Merman's Earring", augments={'VIT+1','Fire resistance+12',}},
+    right_ear="Eabani Earring",
+    left_ring="Petrov Ring",
+    right_ring="Defending Ring",
+    back="Solemnity Cape",
+}

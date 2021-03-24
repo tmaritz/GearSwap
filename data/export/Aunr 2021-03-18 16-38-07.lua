@@ -1,0 +1,17 @@
+sets.exported={
+    main={ name="Aettir", augments={'Accuracy+70','Mag. Evasion+50','Weapon skill damage +10%',}},
+    sub="Mensch Strap +1",
+    ammo="Staunch Tathlum",
+    head="Turms Cap",
+    body="Ayanmo Corazza +1",
+    hands="Turms Mittens",
+    legs="Aya. Cosciales +2",
+    feet="Turms Leggings",
+    neck="Loricate Torque +1",
+    waist="Flume Belt +1",
+    left_ear="Infused Earring",
+    right_ear="Eabani Earring",
+    left_ring="Defending Ring",
+    right_ring="Petrov Ring",
+    back="Solemnity Cape",
+}

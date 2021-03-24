@@ -1,0 +1,17 @@
+sets.exported={
+    main={ name="Aettir", augments={'Accuracy+70','Mag. Evasion+50','Weapon skill damage +10%',}},
+    sub="Mensch Strap +1",
+    ammo="Homiliary",
+    head="Turms Cap",
+    body="Councilor's Garb",
+    hands="Turms Mittens",
+    legs="Aya. Cosciales +2",
+    feet="Turms Leggings",
+    neck="Loricate Torque +1",
+    waist="Flume Belt +1",
+    left_ear="Infused Earring",
+    right_ear="Eabani Earring",
+    left_ring="Stikini Ring",
+    right_ring="Shneddick Ring",
+    back={ name="Ogma's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Enmity+10','Phys. dmg. taken-8%',}},
+}

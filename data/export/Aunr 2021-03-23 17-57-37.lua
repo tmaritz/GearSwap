@@ -1,0 +1,17 @@
+sets.exported={
+    main={ name="Midnights", augments={'Pet: Attack+25','Pet: Accuracy+25','Pet: Damage taken -3%',}},
+    range="Animator P +1",
+    ammo="Automat. Oil +3",
+    head="Malignance Chapeau",
+    body="Cirque Farsetto +1",
+    hands="Pup. Dastanas +1",
+    legs={ name="Taeon Tights", augments={'Pet: Accuracy+20 Pet: Rng. Acc.+20','Pet: "Dbl. Atk."+5','Pet: Damage taken -4%',}},
+    feet="Malignance Boots",
+    neck="Loricate Torque +1",
+    waist="Klouskap Sash +1",
+    left_ear="Handler's Earring",
+    right_ear="Enmerkar Earring",
+    left_ring="Defending Ring",
+    right_ring="Shneddick Ring",
+    back="Solemnity Cape",
+}

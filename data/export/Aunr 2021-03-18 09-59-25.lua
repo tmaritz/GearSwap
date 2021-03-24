@@ -1,0 +1,17 @@
+sets.exported={
+    main={ name="Solstice", augments={'Mag. Acc.+20','Pet: Damage taken -4%','"Fast Cast"+5',}},
+    sub="Culminus",
+    ammo="Impatiens",
+    head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}},
+    body={ name="Amalric Doublet", augments={'MP+60','Mag. Acc.+15','"Mag.Atk.Bns."+15',}},
+    hands="Geo. Mitaines +2",
+    legs="Geo. Pants +1",
+    feet={ name="Amalric Nails", augments={'Mag. Acc.+15','"Mag.Atk.Bns."+15','"Conserve MP"+6',}},
+    neck="Loricate Torque +1",
+    waist="Witful Belt",
+    left_ear="Loquac. Earring",
+    right_ear="Malignance Earring",
+    left_ring="Defending Ring",
+    right_ring="Prolix Ring",
+    back={ name="Nantosuelta's Cape", augments={'Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10','Pet: Damage taken -5%',}},
+}
