@@ -23,12 +23,12 @@ function user_job_setup()
 	
 	-- autoindi = "Precision"
 	-- autogeo = "Torpor"
-	-- autoindi = "Fury"
-	-- autogeo = "Frailty"
-	autoindi = "Acumen"
-	autogeo = "Malaise"
-	autoentrust = 'Refresh'
-	autoentrustee = '<p2>'
+	autoindi = "Precision"
+	autogeo = "Haste"
+	-- autoindi = "Acumen"
+	-- autogeo = "Malaise"
+	autoentrust = 'Fury'
+	autoentrustee = '<p1>'
 	
 	-- Additional local binds
 	send_command('bind ^` gs c cycle ElementalMode')
@@ -172,7 +172,7 @@ function init_gear_sets()
 		waist="Witful Belt",
 		left_ear="Loquac. Earring",
 		right_ear="Mendi. Earring",
-		left_ring="Stikini Ring",
+		left_ring="Lebeche Ring",
 		right_ring="Prolix Ring",
 		back="Fi Follet Cape",
 	}
@@ -318,7 +318,7 @@ function init_gear_sets()
 		left_ear="Hearty Earring",
 		right_ear="Eabani Earring",
 		left_ring="Defending Ring",
-		right_ring="Shneddick Ring",
+		right_ring="Gelatinous Ring +1",
 		back="Solemnity Cape",
 	}
 		
@@ -336,7 +336,7 @@ function init_gear_sets()
 		left_ear="Hearty Earring",
 		right_ear="Eabani Earring",
 		left_ring="Defending Ring",
-		right_ring="Shneddick Ring",
+		right_ring="Gelatinous Ring +1",
 		back="Solemnity Cape",
 }
 
@@ -373,7 +373,7 @@ function init_gear_sets()
 		left_ear="Handler's Earring",
 		right_ear="Handler's Earring +1",
 		left_ring="Defending Ring",
-		right_ring="Shneddick Ring",
+		right_ring="Gelatinous Ring +1",
 		back=gear.idle_jse_back,
 }
 

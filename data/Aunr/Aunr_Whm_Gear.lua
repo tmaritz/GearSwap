@@ -70,7 +70,7 @@ function init_gear_sets()
 
 	-- Weapons sets
 	sets.weapons.MeleeWeapons = {main="Daybreak",sub="Culminus"}
-	sets.weapons.DualWeapons = {main="Izcalli",sub="Nehushtan"}
+	sets.weapons.DualWeapons = {main="Kaja Rod",sub="Daybreak"}
 	
     sets.buff.Sublimation = {waist="Embla Sash"}
     sets.buff.DTSublimation = {waist="Embla Sash"}
@@ -92,7 +92,7 @@ function init_gear_sets()
     left_ear="Loquac. Earring",
     right_ear="Malignance Earring",
     right_ring="Prolix Ring",
-    left_ring="Defending Ring",
+    left_ring="Lebeche Ring",
     back="Alaunus's Cape"}
 
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {ear1="Mendi. Earring", waist="Siegel Sash"})
@@ -156,7 +156,7 @@ function init_gear_sets()
 	--Situational sets: Gear that is equipped on certain targets
 	sets.Self_Healing = {neck="Phalaina Locket",ring1="Kunaji Ring",ring2="Asklepian Ring",waist="Gishdubar Sash"}
 	sets.Cure_Received = {neck="Phalaina Locket",ring1="Kunaji Ring",ring2="Asklepian Ring",waist="Gishdubar Sash"}
-	sets.Self_Refresh = {back="Grapevine Cape",waist="Gishdubar Sash",feet="Inspirited Boots"}
+	sets.Self_Refresh = {head="Erilaz Galea",back="Grapevine Cape",waist="Gishdubar Sash",feet="Inspirited Boots"}
 
 	-- Conserve Mp set for spells that don't need anything else, for set_combine.
 	
@@ -498,7 +498,7 @@ function init_gear_sets()
     -- EG: sets.engaged.Dagger.Accuracy.Evasion
 
     -- Basic set for if no TP weapon is defined.
-    sets.engaged = {ammo="Staunch Tathlum",
+    sets.engaged = {ammo="Amar Cluster",
         head="Aya. Zucchetto +1",neck="Asperity Necklace",ear1="Cessance Earring",ear2="Brutal Earring",
 		body="Ayanmo Corazza +1",hands="Aya. Manopolas +1",ring1="Petrov Ring",Ring2="Chirich Ring",
         back="Alaunus's Cape",waist="Windbuffet Belt +1",legs="Aya. Cosciales +2",feet="Aya. Gambieras +1"}
@@ -508,7 +508,7 @@ function init_gear_sets()
 		body="Ayanmo Corazza +1",hands="Aya. Manopolas +1",ring1="Petrov Ring",Ring2="Chirich Ring",
         back="Alaunus's Cape",waist="Olseni Belt",legs="Aya. Cosciales +2",feet="Aya. Gambieras +1"}
 
-	sets.engaged.DW = {ammo="Staunch Tathlum",
+	sets.engaged.DW = {ammo="Amar Cluster",
         head="Aya. Zucchetto +1",neck="Asperity Necklace",ear1="Telos Earring",ear2="Suppanomimi",
 		body="Ayanmo Corazza +1",hands="Aya. Manopolas +1",ring1="Petrov Ring",Ring2="Chirich Ring",
         back="Alaunus's Cape",waist="Shetal Stone",legs="Aya. Cosciales +2",feet="Battlecast Gaiters"}
