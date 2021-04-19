@@ -1,0 +1,17 @@
+sets.exported={
+    main={ name="Montante +1", augments={'Path: A',}},
+    sub="Utu Grip",
+    ammo="Homiliary",
+    head="Turms Cap",
+    body="Runeist's Coat +2",
+    hands="Turms Mittens",
+    legs="Eri. Leg Guards +1",
+    feet="Turms Leggings",
+    neck="Loricate Torque +1",
+    waist="Flume Belt +1",
+    left_ear="Tuisto Earring",
+    right_ear="Eabani Earring",
+    left_ring="Warp Ring",
+    right_ring="Gelatinous Ring +1",
+    back={ name="Ogma's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
+}

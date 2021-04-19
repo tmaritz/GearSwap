@@ -1,0 +1,17 @@
+sets.exported={
+    main="Beneficus",
+    sub="Culminus",
+    ammo="Clarus Stone",
+    head="Umuthi Hat",
+    body={ name="Telchine Chas.", augments={'Enh. Mag. eff. dur. +10',}},
+    hands="Inyan. Dastanas +2",
+    legs={ name="Telchine Braconi", augments={'Enh. Mag. eff. dur. +10',}},
+    feet="Ebers Duckbills +1",
+    neck={ name="Cleric's Torque", augments={'Path: A',}},
+    waist="Austerity Belt",
+    left_ear="Mendi. Earring",
+    right_ear="Gifted Earring",
+    left_ring="Stikini Ring",
+    right_ring="Stikini Ring",
+    back="Fi Follet Cape",
+}

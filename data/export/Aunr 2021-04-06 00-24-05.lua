@@ -1,0 +1,17 @@
+sets.exported={
+    main="Naegling",
+    sub={ name="Nibiru Blade", augments={'STR+10','Attack+20','"Store TP"+3',}},
+    ammo="Amar Cluster",
+    head={ name="Adhemar Bonnet", augments={'STR+10','DEX+10','Attack+15',}},
+    body={ name="Adhemar Jacket +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
+    hands="Malignance Gloves",
+    legs="Carmine Cuisses +1",
+    feet="Malignance Boots",
+    neck={ name="Mirage Stole +1", augments={'Path: A',}},
+    waist="Windbuffet Belt +1",
+    left_ear="Ishvara Earring",
+    right_ear={ name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
+    left_ring="Ifrit Ring",
+    right_ring="Rajas Ring",
+    back={ name="Rosmerta's Cape", augments={'STR+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}},
+}
