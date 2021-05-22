@@ -32,6 +32,10 @@ function user_job_setup()
         name = "Ogma's cape",
         augments = {'DEX+20', 'Accuracy+20 Attack+20', 'DEX+10', 'Weapon skill damage +10%'}
     }
+    gear.fc_jse_back = {
+        name = "Ogma's cape",
+        augments = {'HP+60', '"Fast Cast"+10', 'Phys. dmg. taken-10%'}
+    }
 
     autows = 'Dimidiation'
 
@@ -278,7 +282,7 @@ function init_gear_sets()
         hands = "Leyline Gloves",
         ring1 = "Lebeche Ring",
         ring2 = "Kishar Ring",
-        back = "Solemnity Cape",
+        back = gear.fc_jse_back,
         waist = "Audumbla Sash",
         legs = "Carmine Cuisses +1",
         feet = "Carmine Greaves +1"
@@ -294,7 +298,7 @@ function init_gear_sets()
         hands = "Leyline Gloves",
         ring1 = "Gelatinous Ring +1",
         ring2 = "Moonlight Ring",
-        back = "Solemnity Cape",
+        back = gear.fc_jse_back,
         waist = "Audumbla Sash",
         legs = "Eri. Leg Guards +1",
         feet = "Carmine Greaves +1"
