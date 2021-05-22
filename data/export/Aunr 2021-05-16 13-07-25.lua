@@ -1,0 +1,17 @@
+sets.exported={
+    main="Naegling",
+    sub={ name="Thibron", augments={'TP Bonus +1000',}},
+    ammo="Staunch Tathlum",
+    head="Gleti's Mask",
+    body="Gleti's Cuirass",
+    hands="Gleti's Gauntlets",
+    legs="Carmine Cuisses +1",
+    feet="Gleti's Boots",
+    neck={ name="Loricate Torque +1", augments={'Path: A',}},
+    waist="Flume Belt +1",
+    left_ear="Hearty Earring",
+    right_ear="Eabani Earring",
+    left_ring="Defending Ring",
+    right_ring="Shadow Ring",
+    back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10',}},
+}

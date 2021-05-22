@@ -1,0 +1,17 @@
+sets.exported={
+    main={ name="Aettir", augments={'Accuracy+70','Mag. Evasion+50','Weapon skill damage +10%',}},
+    sub="Utu Grip",
+    ammo="Staunch Tathlum",
+    head="Turms Cap",
+    body="Runeist's Coat +2",
+    hands="Turms Mittens",
+    legs="Eri. Leg Guards +1",
+    feet="Erilaz Greaves +1",
+    neck="Futhark Torque +1",
+    waist="Engraved Belt",
+    left_ear="Hearty Earring",
+    right_ear={ name="Odnowa Earring +1", augments={'Path: A',}},
+    left_ring="Defending Ring",
+    right_ring={ name="Gelatinous Ring +1", augments={'Path: A',}},
+    back={ name="Ogma's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
+}

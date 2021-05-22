@@ -1,0 +1,17 @@
+sets.exported={
+    main="C. Palug Hammer",
+    sub="Chanter's Shield",
+    ammo="Impatiens",
+    head={ name="Vanya Hood", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
+    body="Inyanga Jubbah +1",
+    hands="Inyan. Dastanas +2",
+    legs="Aya. Cosciales +2",
+    feet={ name="Vanya Clogs", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
+    neck={ name="Cleric's Torque", augments={'Path: A',}},
+    waist="Witful Belt",
+    left_ear="Loquac. Earring",
+    right_ear="Malignance Earring",
+    left_ring="Lebeche Ring",
+    right_ring="Prolix Ring",
+    back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','"Fast Cast"+10','Phys. dmg. taken-10%',}},
+}

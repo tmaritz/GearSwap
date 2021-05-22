@@ -1,0 +1,17 @@
+sets.exported={
+    main="Naegling",
+    sub={ name="Thibron", augments={'TP Bonus +1000',}},
+    ammo="Amar Cluster",
+    head="Malignance Chapeau",
+    body="Malignance Tabard",
+    hands="Malignance Gloves",
+    legs="Carmine Cuisses +1",
+    feet="Malignance Boots",
+    neck={ name="Loricate Torque +1", augments={'Path: A',}},
+    waist="Svelt. Gouriz +1",
+    left_ear="Infused Earring",
+    right_ear="Eabani Earring",
+    left_ring="Defending Ring",
+    right_ring={ name="Gelatinous Ring +1", augments={'Path: A',}},
+    back="Shadow Mantle",
+}

@@ -1,0 +1,17 @@
+sets.exported={
+    main={ name="Aettir", augments={'Accuracy+70','Mag. Evasion+50','Weapon skill damage +10%',}},
+    sub="Utu Grip",
+    ammo="Aurgelmir Orb",
+    head={ name="Herculean Helm", augments={'Mag. Acc.+20','Weapon skill damage +2%',}},
+    body={ name="Adhemar Jacket +1", augments={'STR+12','DEX+12','Attack+20',}},
+    hands="Meg. Gloves +1",
+    legs={ name="Lustr. Subligar +1", augments={'Attack+20','STR+8','"Dbl.Atk."+3',}},
+    feet={ name="Lustra. Leggings +1", augments={'HP+65','STR+15','DEX+15',}},
+    neck="Light Gorget",
+    waist="Grunfeld Rope",
+    left_ear={ name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
+    right_ear="Sherida Earring",
+    left_ring="Petrov Ring",
+    right_ring="Ilabrat Ring",
+    back={ name="Ogma's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}},
+}

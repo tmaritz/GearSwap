@@ -1,0 +1,17 @@
+sets.exported={
+    main={ name="Aettir", augments={'Accuracy+70','Mag. Evasion+50','Weapon skill damage +10%',}},
+    sub="Utu Grip",
+    ammo="Homiliary",
+    head={ name="Lustratio Cap +1", augments={'Attack+20','STR+8','"Dbl.Atk."+3',}},
+    body="Runeist's Coat +2",
+    hands="Turms Mittens",
+    legs={ name="Lustr. Subligar +1", augments={'Attack+20','STR+8','"Dbl.Atk."+3',}},
+    feet={ name="Lustra. Leggings +1", augments={'HP+65','STR+15','DEX+15',}},
+    neck={ name="Loricate Torque +1", augments={'Path: A',}},
+    waist="Flume Belt +1",
+    left_ear="Tuisto Earring",
+    right_ear="Eabani Earring",
+    left_ring="Defending Ring",
+    right_ring={ name="Gelatinous Ring +1", augments={'Path: A',}},
+    back={ name="Ogma's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
+}

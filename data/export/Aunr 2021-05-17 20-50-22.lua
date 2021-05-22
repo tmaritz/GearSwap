@@ -1,0 +1,17 @@
+sets.exported={
+    main={ name="Aettir", augments={'Accuracy+70','Mag. Evasion+50','Weapon skill damage +10%',}},
+    sub="Utu Grip",
+    ammo="Coiste Bodhar",
+    head="Aya. Zucchetto +2",
+    body="Ayanmo Corazza +2",
+    hands={ name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
+    legs="Meg. Chausses +1",
+    feet={ name="Herculean Boots", augments={'INT+8','"Triple Atk."+3','Accuracy+6 Attack+6',}},
+    neck="Anu Torque",
+    waist="Ioskeha Belt",
+    left_ear="Brutal Earring",
+    right_ear="Sherida Earring",
+    left_ring="Defending Ring",
+    right_ring="Moonbeam Ring",
+    back={ name="Ogma's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
+}

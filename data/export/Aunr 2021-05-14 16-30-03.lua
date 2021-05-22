@@ -1,0 +1,17 @@
+sets.exported={
+    main="Naegling",
+    sub={ name="Thibron", augments={'TP Bonus +1000',}},
+    ammo="Staunch Tathlum",
+    head={ name="Herculean Helm", augments={'Mag. Acc.+20','Weapon skill damage +2%',}},
+    body="Malignance Tabard",
+    hands="Malignance Gloves",
+    legs="Carmine Cuisses +1",
+    feet="Malignance Boots",
+    neck="Loricate Torque +1",
+    waist="Flume Belt +1",
+    left_ear="Hearty Earring",
+    right_ear="Eabani Earring",
+    left_ring="Defending Ring",
+    right_ring="Gelatinous Ring +1",
+    back="Solemnity Cape",
+}

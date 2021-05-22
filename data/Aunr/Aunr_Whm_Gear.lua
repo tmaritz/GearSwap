@@ -2,9 +2,9 @@
 function user_job_setup()
     state.OffenseMode:options('Normal', 'Acc')
     state.CastingMode:options('Normal', 'Resistant')
-    state.IdleMode:options('Normal', 'PDT', 'MDT')
+    state.IdleMode:options('Meva', 'Normal', 'PDT')
     state.PhysicalDefenseMode:options('PDT')
-    state.MagicalDefenseMode:options('MDT')
+    state.MagicalDefenseMode:options('Meva')
     state.ResistDefenseMode:options('MEVA')
     state.Weapons:options('None', 'DualWeapons', 'MeleeWeapons', 'LowDmg')
 
@@ -72,9 +72,8 @@ function init_gear_sets()
 
     -- Weapons sets
     sets.weapons.MeleeWeapons = {
-        main = "Daybreak",
-        sub = "Culminus",
-        ammo = "Amar Cluster"
+        main = "C. Palug Hammer",
+        sub = "Culminus"
     }
     sets.weapons.DualWeapons = {
         main = "Kaja Rod",
@@ -97,10 +96,10 @@ function init_gear_sets()
 
     -- Fast cast sets for spells
     sets.precast.FC = {
-        main = "Daybreak",
-        sub = "Sors Shield",
+        main = "C. Palug Hammer",
+        sub = "Chanter's Shield",
         ammo = "Impatiens",
-        head = "Vanya Hood",
+        head = gear.vanya_fc_head,
         body = "Inyanga Jubbah +2",
         hands = "Inyan. Dastanas +2",
         legs = "Aya. Cosciales +2",
@@ -128,7 +127,7 @@ function init_gear_sets()
     sets.precast.FC.StatusRemoval = sets.precast.FC['Healing Magic']
 
     sets.precast.FC.Cure = set_combine(sets.precast.FC['Healing Magic'], {
-        feet = "Vanya Clogs"
+        feet = gear.vanya_cure_feet
     })
 
     sets.precast.FC.Curaga = sets.precast.FC.Cure
@@ -188,7 +187,7 @@ function init_gear_sets()
         body = "Kaykaus Bliaut",
         hands = "Telchine Gloves",
         ring1 = "Stikini Ring",
-        ring2 = "Stikini Ring",
+        ring2 = "Rufescent Ring",
         back = "Buquwik Cape",
         waist = "Fotia Belt",
         legs = "Assid. Pants +1",
@@ -256,8 +255,8 @@ function init_gear_sets()
     sets.ConserveMP = {
         main = "Rubicundity",
         ammo = "Clarus Stone",
-        head = "Vanya Hood",
-        feet = "Vanya Clogs",
+        head = gear.vanya_fc_head,
+        feet = gear.vanya_cure_feet,
         waist = "Austerity Belt",
         right_ear = "Mendi. Earring",
         left_ear = "Gifted Earring",
@@ -305,7 +304,7 @@ function init_gear_sets()
         body = "Theo. Briault +3",
         hands = "Theophany Mitts +2",
         legs = "Ebers Pant. +1",
-        feet = "Vanya Clogs",
+        feet = gear.vanya_cure_feet,
         neck = "Cleric's Torque",
         waist = "Austerity Belt",
         left_ear = "Mendi. Earring",
@@ -330,7 +329,7 @@ function init_gear_sets()
         back = "Alaunus's Cape",
         waist = "Luminary Sash",
         legs = "Ebers Pant. +1",
-        feet = "Vanya Clogs"
+        feet = gear.vanya_cure_feet
     }
 
     sets.midcast.LightWeatherCure = {
@@ -348,7 +347,7 @@ function init_gear_sets()
         back = "Twilight Cape",
         waist = "Korin Obi",
         legs = "Ebers Pant. +1",
-        feet = "Vanya Clogs"
+        feet = gear.vanya_cure_feet
     }
 
     sets.midcast.LightWeatherCureSolace = {
@@ -366,7 +365,7 @@ function init_gear_sets()
         back = "Alaunus's Cape",
         waist = "Korin Obi",
         legs = "Ebers Pant. +1",
-        feet = "Vanya Clogs"
+        feet = gear.vanya_cure_feet
     }
 
     sets.midcast.LightDayCureSolace = {
@@ -384,7 +383,7 @@ function init_gear_sets()
         back = "Alaunus's Cape",
         waist = "Korin Obi",
         legs = "Ebers Pant. +1",
-        feet = "Vanya Clogs"
+        feet = gear.vanya_cure_feet
     }
 
     sets.midcast.LightDayCure = {
@@ -402,7 +401,7 @@ function init_gear_sets()
         back = "Twilight Cape",
         waist = "Korin Obi",
         legs = "Ebers Pant. +1",
-        feet = "Vanya Clogs"
+        feet = gear.vanya_cure_feet
     }
 
     sets.midcast.Curaga = {
@@ -420,7 +419,7 @@ function init_gear_sets()
         back = "Alaunus's Cape",
         waist = "Luminary Sash",
         legs = "Ebers Pant. +1",
-        feet = "Vanya Clogs"
+        feet = gear.vanya_cure_feet
     }
 
     sets.midcast.LightWeatherCuraga = {
@@ -438,7 +437,7 @@ function init_gear_sets()
         back = "Twilight Cape",
         waist = "Korin Obi",
         legs = "Ebers Pant. +1",
-        feet = "Vanya Clogs"
+        feet = gear.vanya_cure_feet
     }
 
     sets.midcast.LightDayCuraga = {
@@ -456,7 +455,7 @@ function init_gear_sets()
         back = "Twilight Cape",
         waist = "Korin Obi",
         legs = "Ebers Pant. +1",
-        feet = "Vanya Clogs"
+        feet = gear.vanya_cure_feet
     }
 
     sets.midcast.Cure.DT = {
@@ -491,7 +490,7 @@ function init_gear_sets()
         back = "Alaunus's Cape",
         waist = "Luminary Sash",
         legs = "Ebers Pant. +1",
-        feet = "Vanya Clogs"
+        feet = gear.vanya_cure_feet
     }
 
     sets.midcast.MeleeCureSolace = set_combine(sets.midcast.MeleeCure, {
@@ -574,18 +573,18 @@ function init_gear_sets()
         main = gear.grioavolr_fc_staff,
         sub = "Clemency Grip",
         ammo = "Hasty Pinion +1",
-        head = "Ebers Cap +1",
+        head = gear.vanya_healskill_head,
         neck = "Debilis Medallion",
         ear1 = "Meili Earring",
         ear2 = "Malignance Earring",
         body = "Inyanga Jubbah +2",
         hands = "Fanatic Gloves",
         ring1 = "Haoma's Ring",
-        ring2 = "Menelaus's Ring",
+        ring2 = "Ephedra Ring",
         back = "Alaunus's Cape",
         waist = "Witful Belt",
         legs = "Th. Pant. +3",
-        feet = "Vanya Clogs"
+        feet = gear.vanya_healskill_feet
     }
 
     sets.midcast.StatusRemoval = {
@@ -626,10 +625,7 @@ function init_gear_sets()
             augments = {'Enh. Mag. eff. dur. +10'}
         },
         feet = "Ebers Duckbills +1",
-        neck = {
-            name = "Cleric's Torque",
-            augments = {'Path: A'}
-        },
+        neck = "Incanter's Torque",
         waist = "Austerity Belt",
         left_ear = "Mimir Earring",
         right_ear = "Gifted Earring",
@@ -814,7 +810,7 @@ function init_gear_sets()
         ear1 = "Regal Earring",
         ear2 = "Digni. Earring",
         body = "Twilight Cloak",
-        hands = gear.chironic_enfeeble_hands,
+        hands = "Obstin. Sash",
         ring1 = "Metamor. Ring +1",
         ring2 = "Stikini Ring",
         back = "Toro Cape",
@@ -832,7 +828,7 @@ function init_gear_sets()
         ear1 = "Regal Earring",
         ear2 = "Friomisi Earring",
         body = "Witching Robe",
-        hands = gear.chironic_enfeeble_hands,
+        hands = "Obstin. Sash",
         ring1 = "Shiva Ring",
         ring2 = "Freke Ring",
         back = "Toro Cape",
@@ -850,7 +846,7 @@ function init_gear_sets()
         ear1 = "Regal Earring",
         ear2 = "Crematio Earring",
         body = "Witching Robe",
-        hands = gear.chironic_enfeeble_hands,
+        hands = "Obstin. Sash",
         ring1 = "Metamor. Ring +1",
         ring2 = "Freke Ring",
         back = "Toro Cape",
@@ -886,7 +882,7 @@ function init_gear_sets()
         ear1 = "Regal Earring",
         ear2 = "Friomisi Earring",
         body = "Witching Robe",
-        hands = gear.chironic_enfeeble_hands,
+        hands = "Obstin. Sash",
         ring1 = "Metamor. Ring +1",
         ring2 = "Freke Ring",
         back = "Toro Cape",
@@ -904,7 +900,7 @@ function init_gear_sets()
         ear1 = "Regal Earring",
         ear2 = "Digni. Earring",
         body = "Inyanga Jubbah +2",
-        hands = gear.chironic_enfeeble_hands,
+        hands = "Obstin. Sash",
         ring1 = "Stikini Ring",
         ring2 = "Stikini Ring",
         back = "Aurist's Cape +1",
@@ -922,7 +918,7 @@ function init_gear_sets()
         ear1 = "Regal Earring",
         ear2 = "Digni. Earring",
         body = "Inyanga Jubbah +2",
-        hands = gear.chironic_enfeeble_hands,
+        hands = "Obstin. Sash",
         ring1 = "Evanescence Ring",
         ring2 = "Archon Ring",
         back = "Aurist's Cape +1",
@@ -940,7 +936,7 @@ function init_gear_sets()
         ear1 = "Regal Earring",
         ear2 = "Digni. Earring",
         body = "Chironic Doublet",
-        hands = gear.chironic_enfeeble_hands,
+        hands = "Obstin. Sash",
         ring1 = "Stikini Ring",
         ring2 = "Stikini Ring",
         back = "Aurist's Cape +1",
@@ -1119,9 +1115,9 @@ function init_gear_sets()
         ammo = "Staunch Tathlum",
         head = "Aya. Zucchetto +2",
         body = "Ayanmo Corazza +2",
-        hands = "Aya. Manopolas +1",
+        hands = "Aya. Manopolas +2",
         legs = "Aya. Cosciales +2",
-        feet = "Aya. Gambieras +1",
+        feet = "Aya. Gambieras +2",
         neck = "Loricate Torque +1",
         waist = "Slipor Sash",
         left_ear = "Eabani Earring",
@@ -1131,20 +1127,20 @@ function init_gear_sets()
         back = "Alaunus's Cape"
     }
 
-    sets.idle.MDT = {
-        main = "Malignance Pole",
-        sub = "Oneiros Grip",
-        ammo = "Homiliary",
-        head = "Inyanga Tiara +2",
-        body = "Ayanmo Corazza +2",
-        hands = "Aya. Manopolas +1",
+    sets.idle.Meva = {
+        main = "Daybreak",
+        sub = "Genbu's Shield",
+        ammo = "Staunch Tathlum",
+        head = "Bunzi's Hat",
+        body = "Bunzi's Robe",
+        hands = "Bunzi's Gloves",
         legs = "Assid. Pants +1",
         feet = "Inyan. Crackows +2",
-        neck = "Loricate Torque +1",
-        waist = "Slipor Sash",
+        neck = "Warder's Charm +1",
+        waist = "Carrier's Sash",
         left_ear = "Eabani Earring",
         right_ear = "Hearty Earring",
-        right_ring = "Ayanmo Ring",
+        right_ring = "Inyanga Ring",
         left_ring = "Defending Ring",
         back = "Alaunus's Cape"
     }
@@ -1156,7 +1152,7 @@ function init_gear_sets()
         head = "Inyanga Tiara +2",
         body = "Ayanmo Corazza +2",
         hands = "Inyan. Dastanas +2",
-        legs = "Assid. Pants +1",
+        legs = "Aya. Cosciales +2",
         feet = "Inyan. Crackows +2",
         neck = "Loricate Torque +1",
         waist = "Slipor Sash",
@@ -1187,7 +1183,7 @@ function init_gear_sets()
         feet = gear.chironic_refresh_feet
     }
 
-    sets.defense.MDT = {
+    sets.defense.Meva = {
         main = "Mafic Cudgel",
         sub = "Genbu\'s Shield",
         ammo = "Staunch Tathlum",
@@ -1236,13 +1232,13 @@ function init_gear_sets()
         ear1 = "Cessance Earring",
         ear2 = "Brutal Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Aya. Manopolas +1",
+        hands = "Aya. Manopolas +2",
         ring1 = "Petrov Ring",
         Ring2 = "Chirich Ring",
         back = "Alaunus's Cape",
         waist = "Windbuffet Belt +1",
         legs = "Aya. Cosciales +2",
-        feet = "Aya. Gambieras +1"
+        feet = "Aya. Gambieras +2"
     }
 
     sets.engaged.Acc = {
@@ -1252,13 +1248,13 @@ function init_gear_sets()
         ear1 = "Telos Earring",
         ear2 = "Brutal Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Aya. Manopolas +1",
+        hands = "Aya. Manopolas +2",
         ring1 = "Petrov Ring",
         Ring2 = "Chirich Ring",
         back = "Alaunus's Cape",
         waist = "Olseni Belt",
         legs = "Aya. Cosciales +2",
-        feet = "Aya. Gambieras +1"
+        feet = "Aya. Gambieras +2"
     }
 
     sets.engaged.DW = {
@@ -1268,7 +1264,7 @@ function init_gear_sets()
         ear1 = "Telos Earring",
         ear2 = "Suppanomimi",
         body = "Ayanmo Corazza +2",
-        hands = "Aya. Manopolas +1",
+        hands = "Aya. Manopolas +2",
         ring1 = "Petrov Ring",
         Ring2 = "Chirich Ring",
         back = "Alaunus's Cape",
@@ -1284,13 +1280,13 @@ function init_gear_sets()
         ear1 = "Telos Earring",
         ear2 = "Suppanomimi",
         body = "Ayanmo Corazza +2",
-        hands = "Aya. Manopolas +1",
+        hands = "Aya. Manopolas +2",
         ring1 = "Petrov Ring",
         Ring2 = "Chirich Ring",
         back = "Kayapa Cape",
         waist = "Shetal Stone",
         legs = "Aya. Cosciales +2",
-        feet = "Aya. Gambieras +1"
+        feet = "Aya. Gambieras +2"
     }
 
     -- Buff sets: Gear that needs to be worn to actively enhance a current player buff.
@@ -1328,7 +1324,7 @@ function init_gear_sets()
         back = "Alaunus's Cape",
         waist = "Eschan Stone",
         legs = "Ebers Pant. +1",
-        feet = "Vanya Clogs"
+        feet = gear.vanya_cure_feet
     }
 
     sets.buff.Doom = set_combine(sets.buff.Doom, {})

@@ -1,0 +1,17 @@
+sets.exported={
+    main="Naegling",
+    sub={ name="Thibron", augments={'TP Bonus +1000',}},
+    ammo="Staunch Tathlum",
+    head="Gleti's Mask",
+    body="Gleti's Cuirass",
+    hands="Gleti's Gauntlets",
+    legs="Gleti's Breeches",
+    feet="Gleti's Boots",
+    neck="Warder's Charm",
+    waist="Gishdubar Sash",
+    left_ear={ name="Odnowa Earring +1", augments={'Path: A',}},
+    right_ear="Eabani Earring",
+    left_ring="Defending Ring",
+    right_ring="Shadow Ring",
+    back="Shadow Mantle",
+}

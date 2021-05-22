@@ -1,0 +1,17 @@
+sets.exported={
+    main="Naegling",
+    sub={ name="Thibron", augments={'TP Bonus +1000',}},
+    ammo="Aurgelmir Orb",
+    head={ name="Adhemar Bonnet", augments={'STR+10','DEX+10','Attack+15',}},
+    body="Gleti's Cuirass",
+    hands={ name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
+    legs="Gleti's Breeches",
+    feet="Gleti's Boots",
+    neck={ name="Mirage Stole +1", augments={'Path: A',}},
+    waist="Fotia Belt",
+    left_ear="Mache Earring +1",
+    right_ear="Cessance Earring",
+    left_ring="Rufescent Ring",
+    right_ring="Epona's Ring",
+    back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Crit.hit rate+10',}},
+}

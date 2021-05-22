@@ -1,0 +1,17 @@
+sets.exported={
+    main="Daybreak",
+    sub="Genbu's Shield",
+    ammo="Staunch Tathlum",
+    head={ name="Vanya Hood", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
+    body="Jhakri Robe +2",
+    hands="Geo. Mitaines +3",
+    legs="Assid. Pants +1",
+    feet={ name="Bagua Sandals +3", augments={'Enhances "Radial Arcana" effect',}},
+    neck="Loricate Torque +1",
+    waist="Slipor Sash",
+    left_ear="Lugalbanda Earring",
+    right_ear="Eabani Earring",
+    left_ring="Defending Ring",
+    right_ring="Shneddick Ring",
+    back="Solemnity Cape",
+}

@@ -1,0 +1,17 @@
+sets.exported={
+    main="Naegling",
+    sub={ name="Thibron", augments={'TP Bonus +1000',}},
+    ammo="Quartz Tathlum +1",
+    head="Jhakri Coronal +2",
+    body="Jhakri Robe +2",
+    hands="Jhakri Cuffs +2",
+    legs="Jhakri Slops +1",
+    feet="Jhakri Pigaches +1",
+    neck="Soil Gorget",
+    waist="Fotia Belt",
+    left_ear={ name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
+    right_ear="Brutal Earring",
+    left_ring="Rufescent Ring",
+    right_ring="Epona's Ring",
+    back={ name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10',}},
+}

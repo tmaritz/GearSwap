@@ -3,11 +3,11 @@ function user_job_setup()
     -- Options: Override default values
     state.OffenseMode:options('Normal')
     state.CastingMode:options('Normal', 'Resistant', 'Fodder', 'Proc')
-    state.IdleMode:options('Normal', 'PDT')
+    state.IdleMode:options('Normal', 'DT', 'DTMeva')
     state.PhysicalDefenseMode:options('PDT', 'NukeLock', 'GeoLock', 'PetPDT')
     state.MagicalDefenseMode:options('MDT', 'NukeLock')
     state.ResistDefenseMode:options('MEVA')
-    state.Weapons:options('None', 'Nehushtan', 'DualWeapons')
+    state.Weapons:options('None', 'Hammertime')
 
     gear.nuke_jse_back = {
         name = "Nantosuelta's Cape",
@@ -26,6 +26,11 @@ function user_job_setup()
 
     gear.obi_high_nuke_back = gear.nuke_jse_back
     gear.obi_high_nuke_waist = "Refoccilation Stone"
+
+    gear.telchine_legs_pet = {
+        name = "Telchine Braconi",
+        augments = {'Mag. Evasion+23', 'Pet: "Regen"+3', 'Pet: Damage taken -3%'}
+    }
 
     -- autoindi = "Precision"
     -- autogeo = "Torpor"
@@ -69,13 +74,13 @@ function init_gear_sets()
         back = gear.idle_jse_back
     }
     sets.precast.JA['Radial Arcana'] = {
-        feet = "Bagua Sandals +2"
+        feet = "Bagua Sandals +3"
     }
     sets.precast.JA['Mending Halation'] = {
         legs = "Bagua Pants +1"
     }
     sets.precast.JA['Full Circle'] = {
-        head = "Azimuth Hood",
+        head = "Azimuth Hood +1",
         hands = "Bagua Mitaines +1"
     }
 
@@ -88,12 +93,12 @@ function init_gear_sets()
     -- Fast cast sets for spells
 
     sets.precast.FC = {
-        main = "Solstice",
+        main = "C. Palug Hammer",
         sub = "Culminus",
         ammo = "Impatiens",
-        head = "Vanya Hood",
-        body = "Amalric Doublet",
-        hands = "Geo. Mitaines +2",
+        head = gear.vanya_fc_head,
+        body = "Agwu's Robe",
+        hands = "Geo. Mitaines +3",
         legs = "Geo. Pants +1",
         feet = "Amalric Nails",
         neck = "Loricate Torque +1",
@@ -116,7 +121,7 @@ function init_gear_sets()
     })
 
     sets.precast.FC.Cure = set_combine(sets.precast.FC, {
-        feet = 'Vanya Clogs'
+        feet = gear.vanya_cure_feet
     })
 
     sets.precast.FC.Curaga = sets.precast.FC.Cure
@@ -178,9 +183,9 @@ function init_gear_sets()
         main = "Solstice",
         sub = "Culminus",
         ammo = "Impatiens",
-        head = "Vanya Hood",
-        body = "Amalric Doublet",
-        hands = "Geo. Mitaines +2",
+        head = gear.vanya_fc_head,
+        body = "Agwu's Robe",
+        hands = "Geo. Mitaines +3",
         legs = "Geo. Pants +1",
         feet = "Amalric Nails",
         neck = "Loricate Torque +1",
@@ -196,9 +201,9 @@ function init_gear_sets()
         main = "Solstice",
         sub = "Culminus",
         range = "Dunna",
-        head = "Vanya Hood",
-        body = "Amalric Doublet",
-        hands = "Geo. Mitaines +2",
+        head = gear.vanya_fc_head,
+        body = "Agwu's Robe",
+        hands = "Geo. Mitaines +3",
         legs = "Geo. Pants +1",
         feet = "Regal Pumps +1",
         neck = "Bagua Charm +1",
@@ -221,11 +226,11 @@ function init_gear_sets()
         main = "Chatoyant Staff",
         sub = "Irenic Strap",
         ammo = "Impatiens",
-        head = "Vanya Hood",
+        head = gear.vanya_healskill_head,
         body = "Vanya Robe",
-        hands = "Geo. Mitaines +2",
+        hands = "Geo. Mitaines +3",
         legs = "Geo. Pants +1",
-        feet = "Vanya Clogs",
+        feet = gear.vanya_cure_feet,
         neck = "Loricate Torque +1",
         waist = "Witful Belt",
         left_ear = "Loquac. Earring",
@@ -256,7 +261,7 @@ function init_gear_sets()
         ring1 = "Haoma's Ring",
         ring2 = "Menelaus's Ring",
         waist = "Witful Belt",
-        feet = "Vanya Clogs"
+        feet = gear.vanya_healskill_feet
     })
 
     sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {
@@ -277,9 +282,9 @@ function init_gear_sets()
             name = "Amalric Gages",
             augments = {'INT+10', 'Mag. Acc.+15', '"Mag.Atk.Bns."+15'}
         },
-        legs = "Jhakri Slops",
+        legs = "Jhakri Slops +1",
         feet = {
-            name = "Bagua Sandals +2",
+            name = "Bagua Sandals +3",
             augments = {'Enhances "Radial Arcana" effect'}
         },
         neck = "Stoicheion Medal",
@@ -477,7 +482,7 @@ function init_gear_sets()
         ring2 = "Stikini Ring",
         back = "Perimede Cape",
         waist = "Embla Sash",
-        legs = "Telchine Braconi",
+        legs = gear.telchine_legs_pet,
         feet = "Telchine Pigaches"
     }
 
@@ -542,7 +547,7 @@ function init_gear_sets()
         neck = "Chrys. Torque",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
-        body = "Jhakri Robe",
+        body = "Agwu's Robe",
         hands = gear.merlinic_refresh_hands,
         ring1 = "Defending Ring",
         ring2 = "Dark Ring",
@@ -557,35 +562,53 @@ function init_gear_sets()
         main = "Daybreak",
         sub = "Genbu's Shield",
         ammo = "Staunch Tathlum",
-        head = "Vanya Hood",
-        body = "Amalric Doublet",
-        hands = "Geo. Mitaines +2",
+        head = gear.vanya_healskill_head,
+        body = "Agwu's Robe",
+        hands = "Geo. Mitaines +3",
         legs = "Assid. Pants +1",
-        feet = "Bagua Sandals +2",
+        feet = "Bagua Sandals +3",
         neck = "Loricate Torque +1",
         waist = "Slipor Sash",
-        left_ear = "Hearty Earring",
+        left_ear = "Lugalbanda Earring",
         right_ear = "Eabani Earring",
         left_ring = "Defending Ring",
-        right_ring = "Gelatinous Ring +1",
+        right_ring = "Shadow Ring",
         back = "Solemnity Cape"
     }
 
-    sets.idle.PDT = {
+    sets.idle.DT = {
         main = "Malignance Pole",
         sub = "Irenic Strap",
         ammo = "Staunch Tathlum",
-        head = "Vanya Hood",
-        body = "Amalric Doublet",
-        hands = "Geo. Mitaines +2",
-        legs = "Assid. Pants +1",
-        feet = "Bagua Sandals +2",
+        head = gear.vanya_healskill_head,
+        body = "Agwu's Robe",
+        hands = "Geo. Mitaines +3",
+        legs = "Agwu's Slops",
+        feet = "Bagua Sandals +3",
         neck = "Loricate Torque +1",
         waist = "Slipor Sash",
-        left_ear = "Hearty Earring",
+        left_ear = "Lugalbanda Earring",
         right_ear = "Eabani Earring",
         left_ring = "Defending Ring",
-        right_ring = "Gelatinous Ring +1",
+        right_ring = "Shadow Ring",
+        back = "Solemnity Cape"
+    }
+
+    sets.idle.DTMeva = {
+        main = "Malignance Pole",
+        sub = "Irenic Strap",
+        ammo = "Staunch Tathlum",
+        head = gear.vanya_healskill_head,
+        body = "Agwu's Robe",
+        hands = "Geo. Mitaines +3",
+        legs = "Agwu's Slops",
+        feet = "Bagua Sandals +3",
+        neck = "Loricate Torque +1",
+        waist = "Slipor Sash",
+        left_ear = "Lugalbanda Earring",
+        right_ear = "Eabani Earring",
+        left_ring = "Defending Ring",
+        right_ring = "Shadow Ring",
         back = "Solemnity Cape"
     }
 
@@ -594,60 +617,80 @@ function init_gear_sets()
         main = "Solstice",
         sub = "Genbu's Shield",
         range = "Dunna",
-        head = "Bagua Galero +1",
-        body = "Amalric Doublet",
-        hands = "Geo. Mitaines +2",
-        legs = "Telchine Braconi",
-        feet = "Bagua Sandals +2",
+        head = "Azimuth Hood +1",
+        body = "Agwu's Robe",
+        hands = "Geo. Mitaines +3",
+        legs = gear.telchine_legs_pet,
+        feet = "Bagua Sandals +3",
         neck = "Bagua Charm +1",
-        waist = "Slipor Sash",
-        left_ear = "Handler's Earring",
+        waist = "Isa Belt",
+        left_ear = "Rimeice Earring",
         right_ear = "Handler's Earring +1",
         left_ring = "Defending Ring",
-        right_ring = "Gelatinous Ring +1",
+        right_ring = "Shadow Ring",
         back = gear.idle_jse_back
     }
 
-    sets.idle.PDT.Pet = {
+    sets.idle.DT.Pet = {
         main = "Solstice",
         sub = "Genbu's Shield",
-        range = "Dunna",
-        head = "Bagua Galero +1",
-        body = "Amalric Doublet",
-        hands = "Geo. Mitaines +2",
-        legs = "Telchine Braconi",
-        feet = "Bagua Sandals +2",
+        ammo = "Staunch Tathlum",
+        head = "Bagua Galero +3",
+        body = "Agwu's Robe",
+        hands = "Geo. Mitaines +3",
+        legs = "Agwu's Slops",
+        feet = "Bagua Sandals +3",
         neck = "Bagua Charm +1",
-        waist = "Slipor Sash",
-        left_ear = "Handler's Earring",
+        waist = "Carrier's Sash",
+        left_ear = "Lugalbanda Earring",
         right_ear = "Handler's Earring +1",
         left_ring = "Defending Ring",
-        right_ring = "Gelatinous Ring +1",
+        right_ring = "Shadow Ring",
+        back = gear.idle_jse_back
+    }
+
+    sets.idle.DTMeva.Pet = {
+        main = "Solstice",
+        sub = "Genbu's Shield",
+        ammo = "Staunch Tathlum",
+        head = "Bagua Galero +3",
+        body = "Agwu's Robe",
+        hands = "Geo. Mitaines +3",
+        legs = "Agwu's Slops",
+        feet = "Bagua Sandals +3",
+        neck = "Bagua Charm +1",
+        waist = "Carrier's Sash",
+        left_ear = "Lugalbanda Earring",
+        right_ear = "Handler's Earring +1",
+        left_ring = "Defending Ring",
+        right_ring = "Shadow Ring",
         back = gear.idle_jse_back
     }
 
     -- .Indi sets are for when an Indi-spell is active.
     sets.idle.Indi = set_combine(sets.idle, {})
     sets.idle.Pet.Indi = set_combine(sets.idle.Pet, {})
-    sets.idle.PDT.Indi = set_combine(sets.idle.PDT, {})
-    sets.idle.PDT.Pet.Indi = set_combine(sets.idle.PDT.Pet, {})
+    sets.idle.DT.Indi = set_combine(sets.idle.DT, {})
+    sets.idle.DT.Pet.Indi = set_combine(sets.idle.DT.Pet, {})
+    sets.idle.DTMeva.Indi = set_combine(sets.idle.DTMeva, {})
+    sets.idle.DTMeva.Pet.Indi = set_combine(sets.idle.DTMeva.Pet, {})
 
     sets.idle.Weak = {
-        main = "Bolelabunga",
-        sub = "Genbu\'s Shield",
+        main = "Malignance Pole",
+        sub = "Irenic Strap",
         ammo = "Staunch Tathlum",
-        head = "Befouled Crown",
+        head = gear.vanya_healskill_head,
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
-        body = "Jhakri Robe",
+        body = "Agwu's Robe",
         hands = gear.merlinic_refresh_hands,
         ring1 = "Defending Ring",
-        ring2 = "Dark Ring",
-        back = "Umbra Cape",
-        waist = "Flax Sash",
+        ring2 = "Shadow Ring",
+        back = "Shadow Mantle",
+        waist = "Slipor Sash",
         legs = "Assid. Pants +1",
-        feet = "Azimuth Gaiters"
+        feet = "Bagua Sandals +3"
     }
 
     -- Defense sets
@@ -656,14 +699,14 @@ function init_gear_sets()
         main = "Malignance Pole",
         sub = "Mensch Strap +1",
         ammo = "Staunch Tathlum",
-        head = "Vanya Hood",
-        body = "Amalric Doublet",
-        hands = "Geo. Mitaines +2",
+        head = gear.vanya_healskill_head,
+        body = "Agwu's Robe",
+        hands = "Geo. Mitaines +3",
         legs = "Assid. Pants +1",
-        feet = "Bagua Sandals +2",
+        feet = "Bagua Sandals +3",
         neck = "Loricate Torque +1",
         waist = "Slipor Sash",
-        left_ear = "Hearty Earring",
+        left_ear = "Lugalbanda Earring",
         right_ear = "Eabani Earring",
         left_ring = "Defending Ring",
         right_ring = "Gelatinous Ring +1",
@@ -674,14 +717,14 @@ function init_gear_sets()
         main = "Malignance Pole",
         sub = "Irenic Strap",
         ammo = "Staunch Tathlum",
-        head = "Vanya Hood",
-        body = "Amalric Doublet",
-        hands = "Geo. Mitaines +2",
+        head = gear.vanya_healskill_head,
+        body = "Agwu's Robe",
+        hands = "Geo. Mitaines +3",
         legs = "Assid. Pants +1",
-        feet = "Bagua Sandals +2",
+        feet = "Bagua Sandals +3",
         neck = "Loricate Torque +1",
         waist = "Slipor Sash",
-        left_ear = "Hearty Earring",
+        left_ear = "Lugalbanda Earring",
         right_ear = "Eabani Earring",
         left_ring = "Defending Ring",
         right_ring = "Gelatinous Ring +1",
@@ -692,21 +735,21 @@ function init_gear_sets()
         main = "Malignance Pole",
         sub = "Irenic Strap",
         ammo = "Staunch Tathlum",
-        head = "Vanya Hood",
-        body = "Amalric Doublet",
-        hands = "Geo. Mitaines +2",
+        head = gear.vanya_healskill_head,
+        body = "Agwu's Robe",
+        hands = "Geo. Mitaines +3",
         legs = "Assid. Pants +1",
-        feet = "Bagua Sandals +2",
+        feet = "Bagua Sandals +3",
         neck = "Loricate Torque +1",
         waist = "Slipor Sash",
-        left_ear = "Hearty Earring",
+        left_ear = "Lugalbanda Earring",
         right_ear = "Eabani Earring",
         left_ring = "Defending Ring",
         right_ring = "Gelatinous Ring +1",
         back = "Solemnity Cape"
     }
 
-    sets.defense.PetPDT = sets.idle.PDT.Pet
+    sets.defense.PetPDT = sets.idle.DT.Pet
 
     sets.defense.NukeLock = sets.midcast['Elemental Magic']
 
@@ -735,7 +778,7 @@ function init_gear_sets()
         head = "Pixie Hairpin +1",
         ear1 = "Mendicant's Earring",
         ear2 = "Evans Earring",
-        body = "Jhakri Robe",
+        body = "Agwu's Robe",
         hands = "Jhakri Cuffs +2",
         ring1 = "Mephitas's Ring +1",
         ring2 = "Mephitas's Ring",
@@ -762,7 +805,7 @@ function init_gear_sets()
         neck = "Asperity Necklace",
         ear1 = "Cessance Earring",
         ear2 = "Brutal Earring",
-        body = "Jhakri Robe",
+        body = "Agwu's Robe",
         hands = "Gazu Bracelet +1",
         ring1 = "Ramuh Ring +1",
         ring2 = "Ramuh Ring +1",
@@ -778,7 +821,7 @@ function init_gear_sets()
         neck = "Asperity Necklace",
         ear1 = "Dudgeon Earring",
         ear2 = "Heartseeker Earring",
-        body = "Jhakri Robe",
+        body = "Agwu's Robe",
         hands = "Regal Cuffs",
         ring1 = "Ramuh Ring +1",
         ring2 = "Ramuh Ring +1",
@@ -827,6 +870,12 @@ function init_gear_sets()
     }
 
     -- Weapons sets
+
+    sets.weapons.Hammertime = {
+        main = "C. Palug Hammer",
+        sub = 'Genbu\'s Shield'
+    }
+
     sets.weapons.Nehushtan = {
         main = 'Nehushtan',
         sub = 'Genbu\'s Shield'

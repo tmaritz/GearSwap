@@ -1,0 +1,17 @@
+sets.exported={
+    main="Naegling",
+    sub={ name="Thibron", augments={'TP Bonus +1000',}},
+    ammo="Staunch Tathlum",
+    head="Gleti's Mask",
+    body={ name="Amalric Doublet", augments={'MP+60','Mag. Acc.+15','"Mag.Atk.Bns."+15',}},
+    hands="Gleti's Gauntlets",
+    legs="Carmine Cuisses +1",
+    feet={ name="Herculean Boots", augments={'INT+8','"Triple Atk."+3','Accuracy+6 Attack+6',}},
+    neck="Sanctity Necklace",
+    waist="Flume Belt +1",
+    left_ear="Infused Earring",
+    right_ear="Eabani Earring",
+    left_ring="Paguroidea Ring",
+    right_ring="Sheltered Ring",
+    back="Shadow Mantle",
+}

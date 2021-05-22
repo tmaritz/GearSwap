@@ -1,0 +1,17 @@
+sets.exported={
+    main={ name="Aettir", augments={'Accuracy+70','Mag. Evasion+50','Weapon skill damage +10%',}},
+    sub="Utu Grip",
+    ammo="Staunch Tathlum",
+    head="Turms Cap",
+    body="Ayanmo Corazza +2",
+    hands="Turms Mittens",
+    legs="Eri. Leg Guards +1",
+    feet="Erilaz Greaves +1",
+    neck={ name="Loricate Torque +1", augments={'Path: A',}},
+    waist="Flume Belt +1",
+    left_ear="Tuisto Earring",
+    right_ear={ name="Odnowa Earring +1", augments={'Path: A',}},
+    left_ring="Moonbeam Ring",
+    right_ring={ name="Gelatinous Ring +1", augments={'Path: A',}},
+    back={ name="Ogma's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
+}
