@@ -7,8 +7,8 @@ function user_job_setup()
     state.PhysicalDefenseMode:options('PDT_HP', 'PDT')
     state.MagicalDefenseMode:options('MDT_HP', 'BDT_HP', 'MDT', 'BDT')
     state.ResistDefenseMode:options('MEVA_HP', 'MEVA', 'Death', 'Charm', 'DTCharm')
-    state.IdleMode:options('Normal', 'Tank', 'Eva', 'KiteTank')
-    state.Weapons:options('Aettir', 'Montante', 'Aettir_Physical', 'Aettir_Magic', 'None')
+    state.IdleMode:options('Tank', 'Normal')
+    state.Weapons:options('Aettir', 'Montante', 'None')
 
     state.ExtraDefenseMode = M {
         ['description'] = 'Extra Defense Mode',
@@ -97,7 +97,7 @@ function init_gear_sets()
 
     sets.Enmity.SIRDT = {
         ammo = "Staunch Tathlum",
-        head = "Fu. Bandeau",
+        head = "Fu. Bandeau +1",
         neck = "Loricate Torque +1",
         ear1 = "Tuisto Earring",
         ear2 = "Odnowa Earring +1",
@@ -113,7 +113,7 @@ function init_gear_sets()
 
     sets.Enmity.DT = {
         ammo = "Staunch Tathlum",
-        head = "Fu. Bandeau",
+        head = "Fu. Bandeau +1",
         neck = "Loricate Torque +1",
         ear1 = "Tuisto Earring",
         ear2 = "Odnowa Earring +1",
@@ -143,7 +143,7 @@ function init_gear_sets()
         feet = "Runeist Boots +3"
     })
     sets.precast.JA['Battuta'] = set_combine(sets.Enmity, {
-        head = "Futhark Bandeau"
+        head = "Fu. Bandeau +1"
     })
     sets.precast.JA['Liement'] = set_combine(sets.Enmity, {
         body = "Futhark Coat +1"
@@ -179,7 +179,7 @@ function init_gear_sets()
         feet = "Runeist Bottes"
     })
     sets.precast.JA['Battuta'].DT = set_combine(sets.Enmity.DT, {
-        head = "Futhark Bandeau"
+        head = "Fu. Bandeau +1"
     })
     sets.precast.JA['Liement'].DT = set_combine(sets.Enmity.DT, {
         body = "Futhark Coat"
@@ -236,7 +236,7 @@ function init_gear_sets()
         neck = "Incanter's Torque",
         ring1 = "Stikini Ring",
         ring2 = "Stikini Ring",
-        legs = "Rune. Trousers +3"
+        legs = "Rune. Trousers +1"
     }
     sets.precast.JA['Vivacious Pulse']['Ignis'] = set_combine(sets.precast.JA['Vivacious Pulse'], {})
     sets.precast.JA['Vivacious Pulse']['Gelus'] = set_combine(sets.precast.JA['Vivacious Pulse'], {})
@@ -274,23 +274,23 @@ function init_gear_sets()
     -- Fast cast sets for spells
     sets.precast.FC = {
         ammo = "Impatiens",
-        head = "Rune. Bandeau +3",
+        head = "Rune. Bandeau +2",
         neck = "Voltsurge Torque",
         ear1 = "Enchntr. Earring +1",
         ear2 = "Loquac. Earring",
         body = "Dread Jupon",
         hands = "Leyline Gloves",
         ring1 = "Lebeche Ring",
-        ring2 = "Kishar Ring",
+        ring2 = "Moonbeam Ring",
         back = gear.fc_jse_back,
-        waist = "Audumbla Sash",
-        legs = "Carmine Cuisses +1",
+        waist = "Kasiri Belt",
+        legs = "Aya. Cosciales +2",
         feet = "Carmine Greaves +1"
     }
 
     sets.precast.FC.DT = {
         ammo = "Impatiens",
-        head = "Rune. Bandeau +3",
+        head = "Rune. Bandeau +2",
         neck = "Loricate Torque +1",
         ear1 = "Tuisto Earring",
         ear2 = "Odnowa Earring +1",
@@ -299,7 +299,7 @@ function init_gear_sets()
         ring1 = "Gelatinous Ring +1",
         ring2 = "Moonlight Ring",
         back = gear.fc_jse_back,
-        waist = "Audumbla Sash",
+        waist = "Kasiri Belt",
         legs = "Eri. Leg Guards +1",
         feet = "Carmine Greaves +1"
     }
@@ -395,15 +395,15 @@ function init_gear_sets()
         hands = "Leyline Gloves",
         ring1 = "Lebeche Ring",
         ring2 = "Kishar Ring",
-        back = "Solemnity Cape",
+        back = "Moonbeam Cape",
         waist = "Flume Belt +1",
-        legs = "Rawhide Trousers",
+        legs = "Futhark Trousers +1",
         feet = "Carmine Greaves +1"
     }
 
     sets.midcast.FastRecast.DT = {
         ammo = "Staunch Tathlum",
-        head = "Fu. Bandeau",
+        head = "Fu. Bandeau +1",
         neck = "Loricate Torque +1",
         ear1 = "Tuisto Earring",
         ear2 = "Odnowa Earring +1",
@@ -411,15 +411,15 @@ function init_gear_sets()
         hands = gear.herculean_dt_hands,
         ring1 = "Gelatinous Ring +1",
         ring2 = "Moonlight Ring",
-        back = "Solemnity Cape",
+        back = "Moonbeam Cape",
         waist = "Flume Belt +1",
-        legs = "Eri. Leg Guards +1",
+        legs = "Futhark Trousers +1",
         feet = "Erilaz Greaves +1"
     }
 
     sets.midcast.FastRecast.SIRD = {
         ammo = "Staunch Tathlum",
-        head = "Fu. Bandeau",
+        head = "Fu. Bandeau +1",
         neck = "Loricate Torque +1",
         ear1 = "Tuisto Earring",
         ear2 = "Odnowa Earring +1",
@@ -427,33 +427,32 @@ function init_gear_sets()
         hands = gear.herculean_dt_hands,
         ring1 = "Gelatinous Ring +1",
         ring2 = "Moonlight Ring",
-        back = "Solemnity Cape",
+        back = "Moonbeam Cape",
         waist = "Flume Belt +1",
         legs = "Eri. Leg Guards +1",
         feet = "Erilaz Greaves +1"
     }
 
-    sets.midcast['Enhancing Magic'] = set_combine(sets.midcast.FastRecast, {
-        main = "Pukulatmuj +1",
+    sets.midcast['Enhancing Magic'] = {
+        ammo = "Staunch Tathlum",
         head = "Erilaz Galea +1",
-        neck = "Incanter's Torque",
-        ear1 = "Andoaa Earring",
-        ear2 = "Mimir Earring",
-        hands = "Runeist Mitons",
-        back = "Merciful Cape",
-        waist = "Olympus Sash",
-        legs = "Carmine Cuisses +1"
-    })
-    sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'], {
-        main = "Deacon Sword",
-        head = "Futhark Bandeau",
-        hands = gear.herculean_phalanx_hands,
+        body = "Runeist's Coat +2",
+        hands = "Runeist's Mitons +2",
         legs = "Carmine Cuisses +1",
-        feet = gear.herculean_nuke_feet
-    })
+        feet = "Carmine Greaves +1",
+        neck = "Incanter's Torque",
+        waist = "Kasiri Belt",
+        left_ear = "Mimir Earring",
+        right_ear = "Odnowa Earring +1",
+        left_ring = "Stikini Ring",
+        right_ring = "Stikini Ring",
+        back = "Moonbeam Cape"
+    }
+    sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'], {})
     sets.midcast['Regen'] = set_combine(sets.midcast['Enhancing Magic'], {
-        head = "Runeist Bandeau",
-        neck = "Sacro Gorget"
+        head = "Rune. Bandeau +2",
+        neck = "Sacro Gorget",
+        feet = gear.taeon_regen_feet
     })
     sets.midcast['Refresh'] = set_combine(sets.midcast['Enhancing Magic'], {
         head = "Erilaz Galea +1"
@@ -518,24 +517,6 @@ function init_gear_sets()
         ring2 = "Sheltered Ring"
     })
 
-    sets.midcast.BarElement = {
-        main = "Beneficus",
-        sub = "Ammurapi Shield",
-        ammo = "Hasty Pinion +1",
-        head = "Ebers Cap +1",
-        neck = "Incanter's Torque",
-        ear1 = "Andoaa Earring",
-        ear2 = "Gifted Earring",
-        body = "Ebers Bliaud",
-        hands = "Ebers Mitts +1",
-        ring1 = "Stikini Ring",
-        ring2 = "Stikini Ring",
-        back = "Alaunus's Cape",
-        waist = "Olympus Sash",
-        legs = "Piety Pantaln. +1",
-        feet = "Ebers Duckbills +1"
-    }
-
     --------------------------------------
     -- Idle/resting/defense/etc sets
     --------------------------------------
@@ -543,6 +524,7 @@ function init_gear_sets()
     sets.resting = {}
 
     sets.idle = {
+        sub = "Utu Grip",
         ammo = "Homiliary",
         head = "Turms Cap",
         body = "Runeist's Coat +2",
@@ -559,6 +541,7 @@ function init_gear_sets()
     }
 
     sets.idle.Tank = {
+        sub = "Refined Grip +1",
         ammo = "Staunch Tathlum",
         head = "Turms Cap",
         body = "Ayanmo Corazza +2",
@@ -574,6 +557,7 @@ function init_gear_sets()
         back = gear.enmity_jse_back
     }
 
+    -- not using
     sets.idle.Eva = {
         ammo = "Staunch Tathlum",
         head = "Aya. Zucchetto +1",
@@ -590,6 +574,7 @@ function init_gear_sets()
         back = gear.enmity_jse_back
     }
 
+    -- not using
     sets.idle.KiteTank = set_combine(sets.idle.Tank, {
         legs = "Carmine Cuisses +1"
     })
@@ -620,28 +605,15 @@ function init_gear_sets()
 
     -- Weapons sets
     sets.weapons.Aettir = {
-        main = "Aettir",
-        sub = "Utu Grip"
+        main = "Aettir"
     }
 
     sets.weapons.Montante = {
-        main = "Montante +1",
-        sub = "Utu Grip"
-    }
-
-    sets.weapons.Aettir_Physical = {
-        main = "Aettir",
-        sub = "Refined Grip +1"
-    }
-
-    sets.weapons.Aettir_Magic = {
-        main = "Aettir",
-        sub = "Irenic Strap"
+        main = "Montante +1"
     }
 
     sets.weapons.Trial = {
-        main = "Trial Blade",
-        sub = "Utu Grip"
+        main = "Trial Blade"
     }
 
     -- Defense Sets
@@ -651,6 +623,7 @@ function init_gear_sets()
     sets.defense.MDT = sets.engaged.Tank_Magic
     sets.defense.MDT_HP = sets.engaged.Tank_Magic
 
+    -- Breadt Damage Taken, not using
     sets.defense.BDT = {
         ammo = "Staunch Tathlum",
         head = "Erilaz Galea +1",
@@ -666,21 +639,7 @@ function init_gear_sets()
         legs = gear.herculean_dt_legs,
         feet = "Erilaz Greaves +1"
     }
-    sets.defense.BDT_HP = {
-        ammo = "Staunch Tathlum",
-        head = "Erilaz Galea +1",
-        neck = "Loricate Torque +1",
-        ear1 = "Tuisto Earring",
-        ear2 = "Odnowa Earring +1",
-        body = "Runeist's Coat +2",
-        hands = gear.herculean_dt_hands,
-        ring1 = "Gelatinous Ring +1",
-        ring2 = "Moonlight Ring",
-        back = gear.enmity_jse_back,
-        waist = "Engraved Belt",
-        legs = "Eri. Leg Guards +1",
-        feet = "Erilaz Greaves +1"
-    }
+    sets.defense.BDT_HP = sets.defense.BDT
 
     sets.defense.MEVA = sets.engaged.Tank_Magic
     sets.defense.MEVA_HP = sets.engaged.Tank_Magic
@@ -706,6 +665,7 @@ function init_gear_sets()
     --------------------------------------
 
     sets.engaged = {
+        sub = "Utu Grip",
         ammo = "Coiste Bodhar",
         head = "Aya. Zucchetto +2",
         body = "Ayanmo Corazza +2",
@@ -726,6 +686,7 @@ function init_gear_sets()
     sets.engaged.FullAcc = sets.engaged
 
     sets.engaged.Tank_Inquartata = {
+        sub = "Refined Grip +1",
         ammo = "Staunch Tathlum",
         head = "Turms Cap",
         body = "Ayanmo Corazza +2",
@@ -746,6 +707,7 @@ function init_gear_sets()
     sets.engaged.FullAcc.Tank_Inquartata = sets.engaged.Tank_Inquartata
 
     sets.engaged.Tank_Magic = {
+        sub = "Irenic Strap",
         ammo = "Staunch Tathlum",
         head = "Turms Cap",
         body = "Runeist's Coat +2",
@@ -757,7 +719,7 @@ function init_gear_sets()
         left_ear = "Hearty Earring",
         right_ear = "Odnowa Earring +1",
         left_ring = "Defending Ring",
-        right_ring = "Gelatinous Ring +1",
+        right_ring = "Vexer Ring +1",
         back = gear.enmity_jse_back
     }
 
@@ -767,6 +729,7 @@ function init_gear_sets()
     sets.engaged.FullAcc.Tank_Magic = sets.engaged.Tank_Magic
 
     sets.engaged.TP = {
+        sub = "Utu Grip",
         ammo = "Coiste Bodhar",
         head = "Adhemar Bonnet",
         body = "Adhemar Jacket +1",
@@ -806,25 +769,25 @@ end
 function select_default_macro_book()
     -- Default macro set/book
     set_macro_page(1, 2)
-    -- if player.sub_job == 'DNC' then
-    -- 	set_macro_page(4, 2)
-    -- elseif player.sub_job == 'RDM' then
-    -- 	set_macro_page(5, 2)
-    -- elseif player.sub_job == 'SCH' then
-    -- 	set_macro_page(5, 2)
-    -- elseif player.sub_job == 'BLU' then
-    -- 	set_macro_page(6, 2)
-    -- elseif player.sub_job == 'WAR' then
-    -- 	set_macro_page(7, 2)
-    -- elseif player.sub_job == 'SAM' then
-    -- 	set_macro_page(8, 2)
-    -- elseif player.sub_job == 'DRK' then
-    -- 	set_macro_page(9, 2)
-    -- elseif player.sub_job == 'NIN' then
-    -- 	set_macro_page(10, 2)
-    -- else
-    -- 	set_macro_page(5, 2)
-    -- end
+    if player.sub_job == 'BLU' then
+        set_macro_page(3, 2)
+        -- elseif player.sub_job == 'RDM' then
+        -- 	set_macro_page(5, 2)
+        -- elseif player.sub_job == 'SCH' then
+        -- 	set_macro_page(5, 2)
+        -- elseif player.sub_job == 'DNC' then
+        -- 	set_macro_page(6, 2)
+        -- elseif player.sub_job == 'WAR' then
+        -- 	set_macro_page(7, 2)
+        -- elseif player.sub_job == 'SAM' then
+        -- 	set_macro_page(8, 2)
+        -- elseif player.sub_job == 'DRK' then
+        -- 	set_macro_page(9, 2)
+        -- elseif player.sub_job == 'NIN' then
+        -- 	set_macro_page(10, 2)
+        -- else
+        -- 	set_macro_page(5, 2)
+    end
 end
 
 -- Job Specific Trust Overwrite

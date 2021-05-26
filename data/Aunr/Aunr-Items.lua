@@ -229,6 +229,11 @@ gear.taeon_pet_feet = {
     augments = {'Pet: Accuracy+23 Pet: Rng. Acc.+23', 'Pet: "Dbl. Atk."+5', 'Pet: Damage taken -4%'}
 }
 
+gear.taeon_regen_feet = {
+    name = "Taeon Boots",
+    augments = {'"Regen" potency+3'}
+}
+
 gear.odyssean_wsd_hands = {
     name = "Odyssean Gauntlets",
     augments = {'Accuracy+26', 'Weapon skill damage +4%', 'STR+6', 'Attack+14'}

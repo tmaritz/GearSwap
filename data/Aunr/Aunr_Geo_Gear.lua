@@ -34,12 +34,12 @@ function user_job_setup()
 
     -- autoindi = "Precision"
     -- autogeo = "Torpor"
-    autoindi = "Fury"
-    autogeo = "Frailty"
+    autoindi = "Frailty"
+    autogeo = "Torpor"
     -- autoindi = "Acumen"
     -- autogeo = "Malaise"
-    autoentrust = 'Haste'
-    autoentrustee = '<p1>'
+    autoentrust = 'Regen'
+    autoentrustee = '<p5>'
 
     -- Additional local binds
     send_command('bind ^` gs c cycle ElementalMode')
@@ -88,7 +88,9 @@ function init_gear_sets()
     sets.buff.Entrust = {}
 
     -- Relic hat for Blaze of Glory HP increase.
-    sets.buff['Blaze of Glory'] = {}
+    sets.buff['Blaze of Glory'] = {
+        head = "Bagua Galero +3"
+    }
 
     -- Fast cast sets for spells
 
@@ -201,7 +203,7 @@ function init_gear_sets()
         main = "Solstice",
         sub = "Culminus",
         range = "Dunna",
-        head = gear.vanya_fc_head,
+        head = "Bagua Galero +3",
         body = "Agwu's Robe",
         hands = "Geo. Mitaines +3",
         legs = "Geo. Pants +1",
@@ -635,7 +637,7 @@ function init_gear_sets()
         main = "Solstice",
         sub = "Genbu's Shield",
         ammo = "Staunch Tathlum",
-        head = "Bagua Galero +3",
+        head = "Azimuth Hood +1",
         body = "Agwu's Robe",
         hands = "Geo. Mitaines +3",
         legs = "Agwu's Slops",
@@ -653,7 +655,7 @@ function init_gear_sets()
         main = "Solstice",
         sub = "Genbu's Shield",
         ammo = "Staunch Tathlum",
-        head = "Bagua Galero +3",
+        head = "Azimuth Hood +1",
         body = "Agwu's Robe",
         hands = "Geo. Mitaines +3",
         legs = "Agwu's Slops",
