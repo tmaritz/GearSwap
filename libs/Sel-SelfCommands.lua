@@ -320,9 +320,7 @@ function handle_update(cmdParams)
 	end
 	
     if state.DefenseMode.value ~= 'None' or (not eventArgs.handled and not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock()))) then
-        if handle_equipping_gear then
-            handle_equipping_gear(player.status)
-        end
+		handle_equipping_gear(player.status)
     end
 
     if cmdParams[1] == 'user' then

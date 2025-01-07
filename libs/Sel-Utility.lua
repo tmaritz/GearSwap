@@ -2397,7 +2397,7 @@ windower.raw_register_event('outgoing chunk',function(id,data,modified,is_inject
         lastlocation = currentlocation
 
 		if moving then
-			if sets.Kiting and not (player.status == 'Event' or (os.clock() < (next_cast + 1)) or pet_midaction() or (os.clock() < (petWillAct + 2))) then
+			if sets.Kiting and not wasmoving and not (player.status == 'Event' or (os.clock() < (next_cast + 1)) or pet_midaction() or (os.clock() < (petWillAct + 2))) then
 				send_command('gs c forceequip')
 			end
 			if state.RngHelper.value and not buffactive['Hover Shot'] then
@@ -2466,16 +2466,20 @@ function get_effective_player_tp(spell, WSset)
 	return effective_tp
 end
 
+function standardize_slot(slot)
+	if type(slot) == 'table' then
+		slot = slot.name
+	end
+	
+	return slot
+end
+
 function standardize_set(set)
 	local standardized_set = {}
 	
     for slot, inner in pairs(set) do
 		if data.slots.slot_names:contains(slot) then
-			if type(inner) == 'table' then
-				standardized_set[slot] = inner.name
-			else
-				standardized_set[slot] = inner
-			end
+			standardized_set[slot] = standardize_slot(inner)
 		end
     end
 

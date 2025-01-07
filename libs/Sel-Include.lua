@@ -438,7 +438,6 @@ function init_include()
 				end
 			end			
 		end
-		--windower.add_to_chat(tostring((last_in_combat + 15) > os.clock()))
 		tickdelay = os.clock() + .5
 		if in_combat and (not ((last_in_combat + 6) > os.clock())) then
 			local bt = windower.ffxi.get_mob_by_target('bt') or nil
@@ -1498,11 +1497,13 @@ function handle_equipping_gear(playerStatus, petStatus)
     end
 
 
-	if sets.weapons[state.Weapons.value] then
-		for i in pairs(data.slots.weapon_slots) do 
-			if player.equipment[data.slots.weapon_slots[i]] and sets.weapons[state.Weapons.value][data.slots.weapon_slots[i]] and player.equipment[data.slots.weapon_slots[i]] ~= sets.weapons[state.Weapons.value][data.slots.weapon_slots[i]] then
-				handle_weapons()
-				break
+	if sets.weapons[state.Weapons.value] and state.ReEquip.value and state.Weapons.value ~= 'None' and not state.UnlockWeapons.value then
+		for i in pairs(data.slots.weapon_slots) do
+			if (player.equipment[data.slots.weapon_slots[i]] and sets.weapons[state.Weapons.value][data.slots.weapon_slots[i]]) then
+				if player.equipment[data.slots.weapon_slots[i]] ~= standardize_slot(sets.weapons[state.Weapons.value][data.slots.weapon_slots[i]]) then
+					equip_weaponset(state.Weapons.value)
+					break
+				end
 			end
 		end
 	end
@@ -2507,7 +2508,7 @@ function buff_change(buff, gain)
 		end
     end
 
-	if not midaction() and not pet_midaction() then
+	if not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock())) then
 		handle_equipping_gear(player.status)
 	end
 	
@@ -2544,7 +2545,7 @@ function pet_change(pet, gain)
 
     -- Equip default gear if not handled by the job.
     if not eventArgs.handled then
-        if not midaction() and not pet_midaction() then handle_equipping_gear(player.status) end
+        if not midaction() then handle_equipping_gear(player.status) end
     end
 end
 
@@ -2562,7 +2563,7 @@ function pet_status_change(newStatus, oldStatus)
         job_pet_status_change(newStatus, oldStatus, eventArgs)
     end
 	
-	if not midaction() and not pet_midaction() then handle_equipping_gear(player.status) end
+	if not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock())) then handle_equipping_gear(player.status) end
 end
 
 -------------------------------------------------------------------------------------------------------------------

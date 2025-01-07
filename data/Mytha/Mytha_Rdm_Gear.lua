@@ -8,7 +8,7 @@ function user_job_setup()
     state.PhysicalDefenseMode:options('PDT','NukeLock')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('None','Naegling','DualWeapons','DualPrime','DualTrial','DualMaxentius')
+	state.Weapons:options('None','Naegling','DualAcc','DualWeapons','DualPrime','DualMaxentius')
 	state.BuffWeaponsMode = M{'Always','Never'}
 	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage','AutoTrial','DualProcSwords',}
 	state.RecoverMode = M('Never','35%','60%','Always')
@@ -450,9 +450,9 @@ function init_gear_sets()
 	
 	-- Weapons sets
 	sets.weapons.Naegling = {main="Naegling",sub="Genmei Shield",range=empty}
-	sets.weapons.DualWeapons = {main="Naegling",sub="Gleti's Knife",range=empty}
+	sets.weapons.DualWeapons = {main="Naegling",sub="Machaera +2",range=empty}
+	sets.weapons.DualAcc = {main="Naegling",sub="Gleti's Knife",range=empty}
 	sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
-	sets.weapons.DualTrial = {main="Naegling",sub="Machaera +1",range=empty}
 	sets.weapons.DualEvisceration = {main="Tauret",sub="Gleti's Knife",range=empty}
 	sets.weapons.DualAeolian = {main="Tauret",sub="Bunzi's Rod",range=empty}
 	sets.weapons.DualProcDaggers = {main="Blurred Knife +1",sub="Atoyac",range=empty}
@@ -625,7 +625,7 @@ function user_job_lockstyle()
 	end
 end
 
-autows_list = {['Naegling']='Savage Blade',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualEvisceration']='Evisceration',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['EnspellDW']='Sanguine Blade',['DualTrial']='Sanguine Blade'}
+autows_list = {['Naegling']='Savage Blade',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualEvisceration']='Evisceration',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['EnspellDW']='Sanguine Blade',['DualPrime']='Exenterator'}
 
 buff_spell_lists = {
 	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat
