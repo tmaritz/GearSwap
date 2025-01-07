@@ -362,7 +362,7 @@ function init_include()
 		windower.raw_register_event('outgoing chunk', function(id, data, modified, injected, blocked)
 			if id == 0x0B6 and res.servers[windower.ffxi.get_info().server].en == 'Asura' then
                 local p = packets.parse('outgoing',data)
-                if p['Target Name'] == 'Selindrile' then
+                if p['Target Name'] == 'Mytha' then
 					for i in pairs(naughty_list) do 
 						if p['Message']:contains(naughty_list[i]) then
 							windower.add_to_chat(123,'Message Aborted: Please do not message me about anything third party ingame.')
