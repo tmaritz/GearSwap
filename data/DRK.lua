@@ -86,19 +86,21 @@ function job_precast(spell, spellMap, eventArgs)
 			windower.chat.input:schedule(1,'/ws "Entropy" <t>')
 			tickdelay = os.clock() + 1.25
 			return
-		elseif player.sub_job == 'SAM' and not buffactive['Consume Mana'] and player.tp > 1850 and abil_recasts[140] < latency then
-			eventArgs.cancel = true
-			windower.chat.input('/ja "Sekkanoki" <me>')
-			windower.chat.input:schedule(1,'/ws "'..spell.english..'" '..spell.target.raw..'')
-			tickdelay = os.clock() + 1.25
-			return
-		elseif player.sub_job == 'SAM' and abil_recasts[134] < latency then
-			eventArgs.cancel = true
-			windower.chat.input('/ja "Meditate" <me>')
-			windower.chat.input:schedule(1,'/ws "'..spell.english..'" '..spell.target.raw..'')
-			tickdelay = os.clock() + 1.25
-			return
-		end
+		elseif player.sub_job == 'SAM' and not state.Buff['SJ Restriction'] then
+				if player.tp > 1850 and not buffactive['Consume Mana'] and abil_recasts[140] < latency then
+					eventArgs.cancel = true
+					windower.chat.input('/ja "Sekkanoki" <me>')
+					windower.chat.input:schedule(1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+					tickdelay = os.clock() + 1.25
+					return
+				elseif abil_recasts[134] < latency then
+					eventArgs.cancel = true
+					windower.chat.input('/ja "Meditate" <me>')
+					windower.chat.input:schedule(1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+					tickdelay = os.clock() + 1.25
+					return
+				end
+			end
 	end
 
 end
@@ -189,38 +191,55 @@ function job_post_precast(spell, spellMap, eventArgs)
 	end
 end
 
+Wants_Dark_Seal_maps = S{
+	'Absorb-STR','Absorb-DEX','Absorb-VIT',
+	'Absorb-INT','Absorb-MND','Absorb-CHR','Absorb-AGI','Absorb-ACC', 'Dread Spikes', 'Drain II', 'Drain III'}
+
+
 function job_post_midcast(spell, spellMap, eventArgs)
-    if spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
-        if state.MagicBurstMode.value ~= 'Off' then equip(sets.MagicBurst) end
-		if spell.element == world.weather_element or spell.element == world.day_element then
-			if state.CastingMode.value == 'Fodder' then
-				if spell.element == world.day_element then
-					if item_available('Zodiac Ring') then
-						sets.ZodiacRing = {ring2="Zodiac Ring"}
-						equip(sets.ZodiacRing)
-					end
+if spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
+	if state.MagicBurstMode.value ~= 'Off' then equip(sets.MagicBurst) end
+	if spell.element == world.weather_element or spell.element == world.day_element then
+		if state.CastingMode.value == 'Fodder' then
+			if spell.element == world.day_element then
+				if item_available('Zodiac Ring') then
+					sets.ZodiacRing = {ring2="Zodiac Ring"}
+					equip(sets.ZodiacRing)
 				end
 			end
 		end
-		
-		if spell.element and sets.element[spell.element] then
-			equip(sets.element[spell.element])
+	end
+	
+	if spell.element and sets.element[spell.element] then
+		equip(sets.element[spell.element])
+	end
+elseif spell.skill == 'Dark Magic' then
+	if state.Buff['Nether Void'] and sets.buff['Nether Void'] and (Wants_Dark_Seal_maps:contains(spell.english) or spell.english == 'Absorb-Attri') then
+		equip(sets.buff['Nether Void'])
+	end
+	if state.Buff['Dark Seal'] and sets.buff['Dark Seal'] and Wants_Dark_Seal_maps:contains(spell.english)  then
+		equip(sets.buff['Dark Seal'])
+	end
+	if (spell.english == 'Drain II' or spell.english == 'Drain III') and state.DrainSwapWeaponMode.value ~= 'Never' then
+		if sets.DrainWeapon and (state.DrainSwapWeaponMode.value == 'Always' or tonumber(state.DrainSwapWeaponMode.value) > player.tp) then
+			enable('main','sub','range','ammo')
+			equip(sets.DrainWeapon)
 		end
-	elseif spell.skill == 'Dark Magic' then
-		if state.Buff['Nether Void'] and sets.buff['Nether Void'] and (spell.english:startswith('Absorb') or spell.english:startswith('Drain')) then
-			equip(sets.buff['Nether Void'])
+	end
+		if Wants_Dark_Seal_maps:contains(spell.english) and spellMap == "Absorb" and state.DrainSwapWeaponMode.value ~= 'Never' then
+		if sets.AbsorbWeapon and (state.DrainSwapWeaponMode.value == 'Always' or tonumber(state.DrainSwapWeaponMode.value) > player.tp) then
+			enable('main','sub','range','ammo')
+			equip(sets.AbsorbWeapon)
 		end
-		if state.Buff['Dark Seal'] and sets.buff['Dark Seal'] and (spell.english:startswith('Absorb') or spell.english == 'Dread Spikes' or spell.english == 'Drain II' or spell.english == 'Drain III') then
-			equip(sets.buff['Dark Seal'])
+	end
+		if spell.english == 'Dread Spikes' and state.DrainSwapWeaponMode.value ~= 'Never' then
+		if sets.DreadWeapon and (state.DrainSwapWeaponMode.value == 'Always' or tonumber(state.DrainSwapWeaponMode.value) > player.tp) then
+			enable('main','sub','range','ammo')				
+			equip(sets.DreadWeapon)
 		end
-		if (spell.english == 'Drain II' or spell.english == 'Drain III') and state.DrainSwapWeaponMode.value ~= 'Never' then
-			if sets.DrainWeapon and (state.DrainSwapWeaponMode.value == 'Always' or tonumber(state.DrainSwapWeaponMode.value) > player.tp) then
-				enable('main','sub','range','ammo')
-				equip(sets.DrainWeapon)
-			end
-		end
-    end
+	end
 end
+end 
 
 function job_tick()
 	if check_hasso() then return true end
@@ -280,14 +299,14 @@ function check_buff()
 	if state.AutoBuffMode.value ~= 'Off' and not data.areas.cities:contains(world.area) then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		for i in pairs(buff_spell_lists[state.AutoBuffMode.Value]) do
-			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
+			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and in_combat) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not in_combat)) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
 				windower.chat.input('/ma "'..buff_spell_lists[state.AutoBuffMode.Value][i].Name..'" <me>')
 				tickdelay = os.clock() + 2
 				return true
 			end
 		end
 		
-		if player.in_combat then
+		if in_combat then
 			local abil_recasts = windower.ffxi.get_ability_recasts()
 
 			if not buffactive['Last Resort'] and abil_recasts[87] < latency then

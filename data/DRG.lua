@@ -267,7 +267,7 @@ function check_jump()
 end
 
 function check_buff()
-	if state.AutoBuffMode.value ~= 'Off' and player.in_combat then
+	if state.AutoBuffMode.value ~= 'Off' and in_combat then
 		
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 

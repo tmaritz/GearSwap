@@ -303,7 +303,7 @@ function check_hasso()
 end
 
 function check_buff()
-	if state.AutoBuffMode.value ~= 'Off' and player.in_combat and not state.Buff['SJ Restriction'] then
+	if state.AutoBuffMode.value ~= 'Off' and in_combat and not state.Buff['SJ Restriction'] then
 		
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 

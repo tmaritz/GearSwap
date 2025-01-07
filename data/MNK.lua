@@ -130,7 +130,7 @@ function job_post_precast(spell, spellMap, eventArgs)
 		elseif buffactive.Footwork and (spell.english == "Dragon Kick" or spell.english	 == "Tornado Kick") then
 			equip(sets.FootworkWS)
 		end
-	elseif spell.english == 'Boost' and not (player.in_combat or being_attacked or player.status == 'Engaged') and sets.precast.JA['Boost'].OutOfCombat then
+	elseif spell.english == 'Boost' and not (in_combat or player.status == 'Engaged') and sets.precast.JA['Boost'].OutOfCombat then
 		equip(sets.precast.JA['Boost'].OutOfCombat)
 	end
 end
@@ -275,7 +275,7 @@ function job_tick()
 end
 
 function check_buff()
-	if state.AutoBuffMode.value ~= 'Off' and player.in_combat then
+	if state.AutoBuffMode.value ~= 'Off' and in_combat then
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 
 		if player.hpp < 51 and abil_recasts[15] < latency then

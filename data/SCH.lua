@@ -137,7 +137,13 @@ end
 function job_post_precast(spell, spellMap, eventArgs)
 	if spell.action_type == 'Magic' then
 		if arts_active() and sets.precast.FC.Arts then
-			equip(sets.precast.FC.Arts)
+			if spell.english == 'Dispelga' and sets.precast.FC.Arts.Dispelga then
+				equip(sets.precast.FC.Arts.Dispelga)
+			elseif spell.english == 'Impact' and sets.precast.FC.Arts.Impact then 
+				equip(sets.precast.FC.Arts.Impact)
+			else
+				equip(sets.precast.FC.Arts)
+			end
 		end
 	elseif spell.type == 'WeaponSkill' then
 		local WSset = standardize_set(get_precast_set(spell, spellMap))
@@ -168,7 +174,7 @@ function job_post_midcast(spell, spellMap, eventArgs)
 		equip(sets.buff['Dark Arts'])
     elseif spell.skill == 'Elemental Magic' and spell.english ~= 'Impact' then
 		if state.MagicBurstMode.value ~= 'Off' then
-			if spell.english:endswith('Helix') or spell.english:endswith('Helix II') then
+			if spellMap == 'Helix' then
 				if state.CastingMode.value:contains('Resistant') and sets.ResistantHelixBurst then
 					equip(sets.ResistantHelixBurst)
 				elseif sets.HelixBurst then
@@ -204,7 +210,7 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			end
 		end
 		
-        if state.Buff.Immanence then
+        if state.CastingMode.value ~= 'Proc' and state.Buff.Immanence then
             equip(sets.buff['Immanence'])
         end
 		
@@ -263,14 +269,6 @@ function job_get_spell_map(spell, default_spell_map)
 			elseif world.day_element == 'Light' then
 					return 'LightDayCure'
 			end
-		elseif spell.skill == "Enfeebling Magic" then
-			if spell.english:startswith('Dia') then
-				return "Dia"
-            elseif spell.type == "WhiteMagic" or spell.english:startswith('Frazzle') or spell.english:startswith('Distract') then
-                return 'MndEnfeebles'
-            else
-                return 'IntEnfeebles'
-            end
         elseif spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' and not spell.english:contains('helix') then
             if LowTierNukes:contains(spell.english) then
                 return 'LowTierNuke'
@@ -359,7 +357,7 @@ function update_active_stratagems()
     state.Buff['Celerity'] = buffactive['Celerity'] or false
     state.Buff['Alacrity'] = buffactive['Alacrity'] or false
 	state.Buff['Manifestation'] = buffactive['Manifestation'] or false
-
+	state.Buff['Tabula Rasa'] = buffactive['Tabula Rasa'] or false
     state.Buff['Klimaform'] = buffactive['Klimaform'] or false
 end
 
@@ -683,14 +681,26 @@ function handle_elemental(cmdParams)
 			windower.chat.input:schedule(1.3,'/ma "Stone" <t>')
 			windower.chat.input:schedule(5.6,'/ja "Immanence" <me>')
 			windower.chat.input:schedule(6.9,'/p '..auto_translate('Liquefaction')..' -<t>- MB: '..auto_translate('Fire')..' <scall21> CLOSE!')
-			windower.chat.input:schedule(6.9,'/ma "Fire" <t>')
-			windower.chat.input:schedule(13,'/ja "Immanence" <me>')
-			windower.chat.input:schedule(14.3,'/p '..auto_translate('Fusion')..' -<t>- MB: '..auto_translate('Fire')..' '..auto_translate('Light')..' <scall21> CLOSE!')
-			if windower.ffxi.get_spell_recasts()[283] < (spell_latency + 12) then
-				windower.chat.input:schedule(14.3,'/ma "Ionohelix" <t>')
+			if windower.ffxi.get_spell_recasts()[281] < (spell_latency + 6) then
+				windower.chat.input:schedule(6.9,'/ma "Pyrohelix" <t>')
+				windower.chat.input:schedule(13,'/ja "Immanence" <me>')
+				windower.chat.input:schedule(16.3,'/p '..auto_translate('Fusion')..' -<t>- MB: '..auto_translate('Fire')..' '..auto_translate('Light')..' <scall21> CLOSE!')
+				if windower.ffxi.get_spell_recasts()[283] < (spell_latency + 16) then
+					windower.chat.input:schedule(16.3,'/ma "Ionohelix" <t>')
+				else
+					windower.chat.input:schedule(16.3,'/ma "Thunder" <t>')
+				end
 			else
-				windower.chat.input:schedule(14.3,'/ma "Thunder" <t>')
+				windower.chat.input:schedule(6.9,'/ma "Fire" <t>')
+				windower.chat.input:schedule(13,'/ja "Immanence" <me>')
+				windower.chat.input:schedule(14.3,'/p '..auto_translate('Fusion')..' -<t>- MB: '..auto_translate('Fire')..' '..auto_translate('Light')..' <scall21> CLOSE!')
+				if windower.ffxi.get_spell_recasts()[283] < (spell_latency + 14) then
+					windower.chat.input:schedule(14.3,'/ma "Ionohelix" <t>')
+				else
+					windower.chat.input:schedule(14.3,'/ma "Thunder" <t>')
+				end
 			end
+
 		else
 			add_to_chat(123,'Abort: Fire is the only element with a consecutive 3-step skillchain.')
 		end
@@ -961,7 +971,7 @@ function job_tick()
 end
 
 function check_arts()
-	if not arts_active() and (buffup ~= '' or (not data.areas.cities:contains(world.area) and ((state.AutoArts.value and player.in_combat) or state.AutoBuffMode.value ~= 'Off'))) then
+	if not arts_active() and (buffup ~= '' or (not data.areas.cities:contains(world.area) and ((state.AutoArts.value and in_combat) or state.AutoBuffMode.value ~= 'Off'))) then
 	
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 
@@ -980,7 +990,7 @@ function check_buff()
 	if state.AutoBuffMode.value ~= 'Off' and not data.areas.cities:contains(world.area) then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		for i in pairs(buff_spell_lists[state.AutoBuffMode.Value]) do
-			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
+			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and in_combat) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not in_combat)) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
 				windower.chat.input('/ma "'..buff_spell_lists[state.AutoBuffMode.Value][i].Name..'" <me>')
 				tickdelay = os.clock() + 2
 				return true

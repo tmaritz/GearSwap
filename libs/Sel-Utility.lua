@@ -602,11 +602,11 @@ function set_macro_page(set,book)
             add_to_chat(123,'Error setting macro page: book is not a valid number ('..tostring(book)..').')
             return
         end
-        if book < 1 or book > 20 then
-            add_to_chat(123,'Error setting macro page: Macro book ('..tostring(book)..') must be between 1 and 20.')
+        if book < 1 or book > 40 then
+            add_to_chat(123,'Error setting macro page: Macro book ('..tostring(book)..') must be between 1 and 40.')
             return
         end
-        send_command('@input /macro book '..tostring(book)..';wait .1;input /macro set '..tostring(set))
+        send_command('@input /macro book '..tostring(book)..';wait 2;input /macro set '..tostring(set))
     else
         send_command('@input /macro set '..tostring(set))
     end
@@ -615,13 +615,21 @@ end
 
 -- Function for optionally including files if they exist.
 function optional_include(filename)
-	local path = gearswap.pathsearch({filename})
-	if path then
-		include(filename)
+	if filename:startswith('User') then
+		if windower.file_exists(windower.addon_path..'Data/User/'..filename) then
+			include('User/'..filename)
+		else
+			print('Missing optional file: '..filename..', this is not an error, only diagnostic information.')
+			return false
+		end
 	else
-		print('Missing optional file: '..filename..', this is not an error, only diagnostic information.')
-		return false
-    end
+		if gearswap.pathsearch({filename}) then
+			include(filename)
+		else
+			print('Missing optional file: '..filename..', this is not an error, only diagnostic information.')
+			return false
+		end
+	end
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -666,8 +674,8 @@ function silent_can_use(spellid)
 	local available_spells = windower.ffxi.get_spells()
 	local spell_jobs = copy_entry(res.spells[spellid].levels)
         
-	-- Filter for spells that you do not know. Exclude Impact, Honor March and Dispelga.
-	if not available_spells[spellid] and not (spellid == 503 or spellid == 417 or spellid == 360) then
+	-- Filter for spells that you do not know. Exclude Impact, Honor March,  Dispelga and Aria of Passion.
+	if not available_spells[spellid] and not (spellid == 503 or spellid == 417 or spellid == 360 or spellid == 418) then
 		return false
 	-- Filter for spells that you know, but do not currently have access to
 	elseif (not spell_jobs[player.main_job_id] or not (spell_jobs[player.main_job_id] <= player.main_job_level or
@@ -691,7 +699,7 @@ function can_use(spell)
         local spell_jobs = copy_entry(res.spells[spell.id].levels)
         
         -- Filter for spells that you do not know. Exclude Impact.
-        if not available_spells[spell.id] and not (spell.id == 503 or spell.id == 417 or spellid == 360) then
+        if not available_spells[spell.id] and not (spell.id == 503 or spell.id == 417 or spell.id == 360 or spell.id == 418 ) then
             add_to_chat(123,"Abort: You haven't learned ["..(res.spells[spell.id][language] or spell.id).."].")
             return false
         elseif spell.type == 'Ninjutsu'  then
@@ -909,7 +917,7 @@ end
 -- Variables it sets: classes.Daytime, and classes.DuskToDawn.  They are set to true
 
 function item_available(item)
-	if player.inventory[item] or player.wardrobe[item] or player.wardrobe2[item] or player.wardrobe3[item] or player.wardrobe4[item] or player.satchel[item] then
+	if player.inventory[item] or player.wardrobe[item] or player.wardrobe2[item] or player.wardrobe3[item] or player.wardrobe4[item] or player.wardrobe5[item] or player.wardrobe6[item] or player.wardrobe7[item] or player.wardrobe8[item] or player.satchel[item] then
 		return true
 	else
 		return false
@@ -917,7 +925,7 @@ function item_available(item)
 end
 
 function item_owned(item)
-	if player.inventory[item] or player.wardrobe[item] or player.wardrobe2[item] or player.wardrobe3[item] or player.wardrobe4[item] or player.safe[item] or player.safe2[item] or player.storage[item] or player.locker[item] or player.satchel[item] or player.sack[item] or player.case[item] then
+	if player.inventory[item] or player.wardrobe[item] or player.wardrobe2[item] or player.wardrobe3[item] or player.wardrobe4[item] or player.wardrobe5[item] or player.wardrobe6[item] or player.wardrobe7[item] or player.wardrobe8[item] or player.safe[item] or player.safe2[item] or player.storage[item] or player.locker[item] or player.satchel[item] or player.sack[item] or player.case[item] then
 		return true
 	else
 		return false
@@ -1409,7 +1417,7 @@ function check_cleanup()
 end
 
 function check_trust()
-	if not moving and state.AutoTrustMode.value and not data.areas.cities:contains(world.area) and (buffactive['Reive Mark'] or buffactive['Elvorseal'] or not player.in_combat) then
+	if not moving and state.AutoTrustMode.value and not data.areas.cities:contains(world.area) and (buffactive['Reive Mark'] or buffactive['Elvorseal'] or not in_combat) then
 		local party = windower.ffxi.get_party()
 		if party.p5 == nil then
 			local spell_recasts = windower.ffxi.get_spell_recasts()
@@ -1666,7 +1674,7 @@ function is_party_member(playerid)
 end
 
 function get_usable_item(name)--returns time that you can use the item again
-	for _,n in pairs({"inventory","wardrobe","wardrobe2","wardrobe3","wardrobe4","satchel"}) do
+	for _,n in pairs({"inventory","wardrobe","wardrobe2","wardrobe3","wardrobe4","wardrobe5","wardrobe6","wardrobe7","wardrobe8","satchel"}) do
         for _,v in pairs(gearswap.items[n]) do
             if type(v) == "table" and v.id ~= 0 and res.items[v.id].english:lower() == name:lower() then
                 return extdata.decode(v)
@@ -1997,7 +2005,7 @@ function is_nuke(spell, spellMap)
 	    (player.main_job == 'BLU' and spell.skill == 'Blue Magic' and spellMap and spellMap:contains('Magical')) or
 		(player.main_job == 'NIN' and spell.skill == 'Ninjutsu' and spellMap and spellMap:contains('ElementalNinjutsu')) or
 		spell.english == 'Comet' or spell.english == 'Meteor' or spell.english == 'Death' or spell.english:startswith('Banish')
-		or spell.english:startswith('Drain') or spell.english:startswith('Aspir')
+		or spell.english:startswith('Drain') or spell.english:startswith('Aspir') or spell.english:startswith('Holy') or spell.english == 'Kaustra'
 		) then
 		
 		return true
@@ -2013,8 +2021,12 @@ function ammo_left()
 	local Wardrobe2Ammo = ((player.wardrobe2[player.equipment.ammo] or {}).count or 0)
 	local Wardrobe3Ammo = ((player.wardrobe3[player.equipment.ammo] or {}).count or 0)
 	local Wardrobe4Ammo = ((player.wardrobe4[player.equipment.ammo] or {}).count or 0)
+	local Wardrobe5Ammo = ((player.wardrobe5[player.equipment.ammo] or {}).count or 0)
+	local Wardrobe6Ammo = ((player.wardrobe6[player.equipment.ammo] or {}).count or 0)
+	local Wardrobe7Ammo = ((player.wardrobe7[player.equipment.ammo] or {}).count or 0)
+	local Wardrobe8Ammo = ((player.wardrobe8[player.equipment.ammo] or {}).count or 0)
 		
-	local AmmoLeft = InventoryAmmo + WardrobeAmmo + Wardrobe2Ammo + Wardrobe3Ammo + Wardrobe4Ammo 
+	local AmmoLeft = InventoryAmmo + WardrobeAmmo + Wardrobe2Ammo + Wardrobe3Ammo + Wardrobe4Ammo + Wardrobe5Ammo + Wardrobe6Ammo + Wardrobe7Ammo + Wardrobe8Ammo    
 		
 	return AmmoLeft	
 end
@@ -2120,7 +2132,7 @@ function face_target()
 end
 
 function check_ammo()
-	if state.AutoAmmoMode.value and player.equipment.range and not player.in_combat and not world.in_mog_house and not useItem then
+	if state.AutoAmmoMode.value and player.equipment.range and not in_combat and not world.in_mog_house and not useItem then
 		if type(ammostock) == 'table' then
 			for ammo, ammo_count in pairs(ammostock) do
 				if count_total_ammo(ammo) < ammo_count then
@@ -2165,7 +2177,7 @@ end
 function count_available_ammo(ammo_name)
 	local ammo_count = 0
 	
-    for _,n in pairs({"inventory","wardrobe","wardrobe2","wardrobe3","wardrobe4",}) do
+    for _,n in pairs({"inventory","wardrobe","wardrobe2","wardrobe3","wardrobe4","wardrobe5","wardrobe6","wardrobe7","wardrobe8","satchel"}) do
 		if player[n][ammo_name] then
 			ammo_count = ammo_count + player[n][ammo_name].count
 		end
@@ -2177,7 +2189,7 @@ end
 function count_total_ammo(ammo_name)
 	local ammo_count = 0
 	
-    for _,n in pairs({"inventory","wardrobe","wardrobe2","wardrobe3","wardrobe4","satchel","sack","case"}) do
+    for _,n in pairs({"inventory","wardrobe","wardrobe2","wardrobe3","wardrobe4","wardrobe5","wardrobe6","wardrobe7","wardrobe8","satchel"}) do
 		if player[n][ammo_name] then
 			ammo_count = ammo_count + player[n][ammo_name].count
 		end
@@ -2208,27 +2220,20 @@ function check_rune()
 			tickdelay = os.clock() + 1.8
 			return true
 			
-		elseif not player.in_combat then
+		elseif not in_combat then
 			return false
 			
 		elseif not buffactive['Pflug'] and abil_recasts[59] < latency then
 			windower.chat.input('/ja "Pflug" <me>')
 			tickdelay = os.clock() + 1.8
 			return true
-		elseif player.main_job == 'RUN' then
-			if not (state.Buff['Vallation'] or state.Buff['Valiance']) then
-				if abil_recasts[113] < latency then
-					windower.chat.input('/ja "Valiance" <me>')
-					tickdelay = os.clock() + 2.5
-					return true
-				elseif abil_recasts[23] < latency then
-					windower.chat.input('/ja "Vallation" <me>')
-					tickdelay = os.clock() + 2.5
-					return true
-				end
-			end
+			
 		elseif not (buffactive['Vallation'] or buffactive['Valiance']) then
-			if abil_recasts[23] < latency then
+			if abil_recasts[113] and abil_recasts[113] < latency then
+				windower.chat.input('/ja "Valiance" <me>')
+				tickdelay = os.clock() + 2.5
+				return true
+			elseif abil_recasts[23] < latency then
 				windower.chat.input('/ja "Vallation" <me>')
 				tickdelay = os.clock() + 2.5
 				return true
@@ -2293,7 +2298,7 @@ function item_name_to_id(name)
 	if name == nil or name == 'empty' then
 		return 22299
 	else
-		return (player.inventory[name] or player.wardrobe[name] or player.wardrobe2[name] or player.wardrobe3[name] or player.wardrobe4[name] or {id=nil}).id
+		return (player.inventory[name] or player.wardrobe[name] or player.wardrobe2[name] or player.wardrobe3[name] or player.wardrobe4[name] or player.wardrobe5[name] or player.wardrobe6[name] or player.wardrobe7[name] or player.wardrobe8[name] or {id=nil}).id
 	end
 end
 
@@ -2337,8 +2342,12 @@ function get_current_stratagem_count()
 	local StratagemChargeTimer = 240
 	local maxStratagems = 1
 	
-	if player.sub_job == 'SCH' and player.sub_job_level > 29 then
-		StratagemChargeTimer = 120
+	if player.sub_job == 'SCH' then
+		if player.sub_job_level > 49 then
+			StratagemChargeTimer = 80
+		elseif player.sub_job_level > 29 then
+			StratagemChargeTimer = 120
+		end
 	elseif player.main_job_level > 89 then
 		if player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent > 549 then
 			StratagemChargeTimer = 33
@@ -2354,7 +2363,9 @@ function get_current_stratagem_count()
 	end
 	
 	if player.sub_job == 'SCH' then
-		if player.sub_job_level > 29 then
+		if player.sub_job_level > 49 then
+			maxStratagems = 3
+		elseif player.sub_job_level > 29 then
 			maxStratagems = 2
 		end
 	else
@@ -2425,18 +2436,26 @@ windower.raw_register_event('outgoing chunk',function(id,original,modified,injec
 end)
 
 --TP Bonus Handling
+Ikenga_vest_bonus = 190  -- It is 190 at R25. Don't edit here, the same variable is in place in both COR and RNG gearfiles.
+Ikenga_axe_bonus = 300  -- It is 300 at R25. Don't edit here, add the variable to function user_job_setup() in WAR and BST gearfiles.
+
 function get_effective_player_tp(spell, WSset)
 	local effective_tp = player.tp
+	
 	if is_fencing() then effective_tp = effective_tp + get_fencer_tp_bonus(WSset) end
 	if buffactive['Crystal Blessing'] then effective_tp = effective_tp + 250 end
+	if data.equipment.magian_tp_bonus_melee_weapons:contains(player.equipment.main) then effective_tp = effective_tp + 1000 end
 	if data.equipment.magian_tp_bonus_melee_weapons:contains(player.equipment.sub) then effective_tp = effective_tp + 1000 end
 	if data.equipment.magian_tp_bonus_ranged_weapons:contains(player.equipment.range) then effective_tp = effective_tp + 1000 end
 	if state.Buff['Warcry'] and player.main_job == "WAR" and lastwarcry == player.name then effective_tp = effective_tp + warcry_tp_bonus end
 	if WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring" then effective_tp = effective_tp + 250 end
 	if WSset.head == "Mpaca's Cap" then effective_tp = effective_tp + 200 end
-	if WSset.body == "Ikenga's Vest" then effective_tp = effective_tp + 170 end
+	if WSset.body == "Ikenga's Vest" then effective_tp = effective_tp + Ikenga_vest_bonus end
+	if WSset.legs == "Boii Cuisses +3" then effective_tp = effective_tp + 100 end
+	if player.equipment.main == "Ikenga's Axe" then effective_tp = effective_tp + Ikenga_axe_bonus end
+	if player.equipment.sub == "Ikenga's Axe" then effective_tp = effective_tp + Ikenga_axe_bonus end
 	
-	if spell.skill == 25 or spell.skill == 26 then
+	if spell.skill == 'Marksmanship' or spell.skill == 'Archery' then
 		if data.equipment.aeonic_weapons:contains(player.equipment.range) then effective_tp = effective_tp + 500 end
 	else
 		if data.equipment.aeonic_weapons:contains(player.equipment.main) then effective_tp = effective_tp + 500
@@ -2476,7 +2495,11 @@ do
 		local adjusted_fencer_tier = base_fencer_tier
 		
 		if WSset.legs and WSset.legs:startswith('Boii Cuisses') then 
-			if WSset.legs:endswith('+1') then
+			if WSset.legs:endswith('+3') then
+				adjusted_fencer_tier = adjusted_fencer_tier + 3
+			elseif WSset.legs:endswith('+2') then
+					adjusted_fencer_tier = adjusted_fencer_tier + 3    
+			elseif WSset.legs:endswith('+1') then
 				adjusted_fencer_tier = adjusted_fencer_tier + 2
 			else
 				adjusted_fencer_tier = adjusted_fencer_tier + 1
@@ -2537,8 +2560,12 @@ function get_base_fencer_tier()
 			end
 		end
 
-	elseif player.sub_job == 'WAR' and player.sub_job_level >= 45 then
-		fencer_tier_level = 1
+	elseif fencer_jobs_level_thresholds[player.sub_job] ~= nil then
+		for _,level_threshold in ipairs(fencer_jobs_level_thresholds[player.sub_job]) do
+			if player.sub_job_level >= level_threshold then
+				fencer_tier_level = fencer_tier_level + 1
+			end
+		end
 	end
 
 	return fencer_tier_level
@@ -2566,11 +2593,9 @@ end
 warcry_tp_bonus = get_warcry_tp_bonus()
 
 function set_dual_wield()
-	if (data.jobs.dual_wield_jobs:contains(player.main_job) or (player.sub_job == 'DNC' or player.sub_job == 'NIN')) then
-		can_dual_wield = true
-	else
-		can_dual_wield = false
-	end
+    -- Checks Job Traits directly. Will always recognize DW appropriately for all jobs (NIN ,DNC, THF, BLU)
+    local traits = T(windower.ffxi.get_abilities().job_traits)
+    can_dual_wield = traits:any(function(v) return gearswap.res.job_traits[v].english == 'Dual Wield' end)
 end
 
 function get_closest_mob_id_by_name(name)

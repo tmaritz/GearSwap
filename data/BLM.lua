@@ -127,7 +127,15 @@ end
 function job_post_precast(spell, spellMap, eventArgs)
 
 	if spell.action_type == 'Magic' and state.DeathMode.value ~= 'Off' then
-		equip(sets.precast.FC.Death)
+		if sets.precast.FC[spell.english] and sets.precast.FC[spell.english].Death then
+			equip(sets.precast.FC[spell.english].Death)
+		elseif sets.precast.FC[spellMap] and sets.precast.FC[spellMap].Death then
+			equip(sets.precast.FC[spellMap].Death)
+		elseif sets.precast.FC[spell.skill] and sets.precast.FC[spell.skill].Death then
+			equip(sets.precast.FC[spell.skill].Death)
+		else
+			equip(sets.precast.FC.Death)
+		end
 	elseif spell.type == 'WeaponSkill' then
 		local WSset = standardize_set(get_precast_set(spell, spellMap))
 		
@@ -208,7 +216,7 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			end
 		end
 
-		if state.Buff['Mana Wall'] and ((state.IdleMode.value:contains('DT') or state.IdleMode.value:contains('Tank')) and (player.in_combat or being_attacked))then
+		if state.Buff['Mana Wall'] and ((state.IdleMode.value:contains('DT') or state.IdleMode.value:contains('Tank')) and in_combat)then
 			equip(sets.buff['Mana Wall'])
 		end
 	end
@@ -260,17 +268,7 @@ function job_get_spell_map(spell, default_spell_map)
         else
             return 'HighTierNuke'
         end
-	
-	elseif spell.skill == "Enfeebling Magic" then
-		if spell.english:startswith('Dia') then
-			return "Dia"
-		elseif spell.type == "WhiteMagic" or spell.english:startswith('Frazzle') or spell.english:startswith('Distract') then
-			return 'MndEnfeebles'
-		else
-			return 'IntEnfeebles'
-		end
-    end
-	
+	end
 end
 
 -- Modify the default idle set after it was constructed.
@@ -294,10 +292,6 @@ function job_customize_idle_set(idleSet)
 
 				if  main_table and main_table.skill == 12 and sets.latent_refresh_grip then
 					idleSet = set_combine(idleSet, sets.latent_refresh_grip)
-				end
-				
-				if player.tp > 10 and sets.TPEat then
-					idleSet = set_combine(idleSet, sets.TPEat)
 				end
 			end
 		end
@@ -508,7 +502,7 @@ function check_buff()
 	if state.AutoBuffMode.value ~= 'Off' and not data.areas.cities:contains(world.area) then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		for i in pairs(buff_spell_lists[state.AutoBuffMode.Value]) do
-			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
+			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and in_combat) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not in_combat)) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
 				windower.chat.input('/ma "'..buff_spell_lists[state.AutoBuffMode.Value][i].Name..'" <me>')
 				tickdelay = os.clock() + 2
 				return true

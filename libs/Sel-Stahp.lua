@@ -40,7 +40,9 @@
 --                     \/     \/     \/     \/          \/              \/                   \/     \/                      \/        \/                      \/  \/ 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Requires Gearswap and Motenten includes.
-being_attacked = false
+in_combat = false
+last_in_combat = os.clock()
+
 engaging = os.clock()
 
 include('Sel-MonsterAbilities.lua')
@@ -84,7 +86,7 @@ function check_reaction(act)
 
     actor.id = curact.actor_id
 	-- Make sure it's something we actually care about reacting to.
-	if curact.category == 1 and not ((state.AutoEngageMode.value and player.status == 'Idle')) and being_attacked then return end
+	--if curact.category == 1 and not ((state.AutoEngageMode.value and player.status == 'Idle')) and in_combat then return end
 
 	if not ((curact.category == 1 or curact.category == 3 or curact.category == 4 or curact.category == 7 or curact.category == 8 or curact.category == 11 or curact.category == 13)) then return end
 	-- Make sure it's a mob that's doing something.
@@ -136,9 +138,12 @@ function check_reaction(act)
 		targetsMe = false
 		targetsDistance = math.sqrt(otherTarget.distance)
 	end
-	
+
 	if curact.category == 1 then
 		if targetsMe then
+			in_combat = true
+			last_in_combat = os.clock()
+
 			if state.AutoEngageMode.value and actor.race == 0 and math.sqrt(actor.distance) < (3.2 + actor.model_size) and player.status == 'Idle' and not (moving or engaging > os.clock() or actor.name:contains("'s ")) then
 				engaging = os.clock() + 2
 				
@@ -148,12 +153,18 @@ function check_reaction(act)
 					['Category']     = 0x02,
 				}))
 				
-			elseif player.status == 'Idle' and not (being_attacked or midaction() or pet_midaction() or (petWillAct + 2) > os.clock()) then
+			elseif player.status == 'Idle' and not (midaction() or pet_midaction() or (petWillAct + 2) > os.clock()) then
 				windower.send_command('gs c forceequip')
 			end
-			being_attacked = true
-		elseif isTarget and otherTarget.in_party and check_cover then
-			check_cover(otherTarget)
+		elseif otherTarget.in_party then
+			if isTarget and check_cover then
+				check_cover(otherTarget)
+			end
+			in_combat = true
+			last_in_combat = os.clock()
+		elseif otherTarget.in_alliance then
+			in_combat = true
+			last_in_combat = os.clock()
 		end
 		return
 	end
@@ -161,7 +172,7 @@ function check_reaction(act)
 	-- Track buffs locally
 	if curact.category == 4 then
 		act_info = res.spells[curact.param]
-		if curact.targets[1].actions[1].message == 230 then
+		if curact.targets[1].actions[1].message == 230 and targetsMe then
 			if EnhancingAbility:contains(act_info.name) then
 				if act_info.name:endswith('II') then
 					if act_info.name:startswith('Haste') then
@@ -275,7 +286,7 @@ function check_reaction(act)
 			do_equip('sets.Sheltered') return
 		end
 	end
-	
+
 	-- Make sure this is our target. 	send_command('input /echo Actor:'..actor.id..' Target:'..player.target.id..'')
 	if curact.param == 24931 then --24931 is initiation paramater for action category 7 and 8
 		if isTarget and state.AutoStunMode.value and player.target.type == "MONSTER" and not moving then
@@ -323,6 +334,8 @@ function check_reaction(act)
 							windower.chat.input('/ws "Smash Axe" <t>') return
 						elseif available_ws:contains(115) then
 							windower.chat.input('/ws "Leg Sweep" <t>') return
+						elseif available_ws:contains(162) then
+							windower.chat.input('/ws "Brainshaker" <t>') return
 						end
 					end
 				end
@@ -341,7 +354,7 @@ function check_reaction(act)
 				local defensive_action = false
 				if not midaction() then
 					local abil_recasts = windower.ffxi.get_ability_recasts()
-					if player.main_job == 'DRG' and state.AutoJumpMode.value and abil_recasts[160] < latency then
+					if state.AutoSuperJumpMode.value and  abil_recasts[160] and abil_recasts[160] < latency then
 						windower.chat.input('/ja "Super Jump" <t>')
 						defensive_action = true
 					elseif (player.main_job == 'SAM' or player.sub_job == 'SAM') and ability_type == 'Physical' and abil_recasts[133] < latency then
@@ -355,19 +368,30 @@ function check_reaction(act)
 						state.DefenseMode:set(ability_type)
 					end
 					send_command('gs c forceequip')
-					being_attacked = true
 					if state.DisplayMode.value then update_job_states()	end
-					return
 				end
 			end
 		end
 	end
-	
-	if targetsMe and actor.race == 0 and not being_attacked then
-		being_attacked = true
-		if not (midaction() or pet_midaction()) then
-			send_command('gs c forceequip')
+
+	if actor.race == 0 then
+		if targetsMe or otherTarget.in_party or otherTarget.in_alliance then
+			if not in_combat then
+				if not (midaction() or pet_midaction()) then
+					send_command('gs c forceequip')
+				end
+				in_combat = true
+			end
+			last_in_combat = os.clock()
 		end
+	elseif otherTarget.race == 0 and otherTarget.hpp > 0 and (actor.in_party or actor.in_alliance) then
+		if not in_combat then
+			if not (midaction() or pet_midaction()) then
+				send_command('gs c forceequip')
+			end
+			in_combat = true
+		end
+		last_in_combat = os.clock()
 	end
 end
 

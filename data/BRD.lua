@@ -74,6 +74,8 @@ end
 function job_setup()
 
     state.ExtraSongsMode = M{['description']='Extra Songs','None','Dummy','DummyLock','FullLength','FullLengthLock'}
+	-- Whether to use Carn (or song daggers in general) under a certain tp threshhold even when weapons are locked.
+	state.CarnMode = M{'Always','300','1000','Never'}
 
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
     state.Buff['Pianissimo'] = buffactive['Pianissimo'] or false
@@ -86,7 +88,7 @@ function job_setup()
 	state.AutoSongMode = M(false, 'Auto Song Mode')
 
 	update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoNukeMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoSongMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","ExtraSongsMode","CastingMode","TreasureMode",})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoNukeMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoSongMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","ExtraSongsMode","CastingMode","CarnMode","TreasureMode",})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -124,8 +126,13 @@ function job_pretarget(spell, spellMap, eventArgs)
 end
 
 function job_precast(spell, spellMap, eventArgs)
-	if spell.action_type == 'Magic' then
-		if not sets.precast.FC[spell.english] and (spell.type == 'BardSong' and spell.targets.Enemy) then
+	if spell.type == 'BardSong' then
+
+		if state.CarnMode.value ~= 'Never' and (state.CarnMode.value == 'Always' or tonumber(state.CarnMode.value) > player.tp) then
+			enable('main','sub','range','ammo')
+		end
+
+		if not sets.precast.FC[spell.english] and spell.targets.Enemy then
 			classes.CustomClass = 'SongDebuff'
 		end
 	end
@@ -164,11 +171,12 @@ end
 
 function job_post_precast(spell, spellMap, eventArgs)
 	if spell.type == 'BardSong' then
+
+		local generalClass = get_song_class(spell)
 	
 		if state.Buff['Nightingale'] then
 		
 			-- Replicate midcast in precast for nightingale including layering.
-            local generalClass = get_song_class(spell)
 			if generalClass and sets.midcast[generalClass] then
 				if sets.midcast[generalClass][state.CastingMode.value] then
 					equip(sets.midcast[generalClass][state.CastingMode.value])
@@ -183,18 +191,17 @@ function job_post_precast(spell, spellMap, eventArgs)
 				else
 					equip(sets.midcast[spell.english])
 				end
-			elseif sets.midcast[get_spell_map(spell, default_spell_map)] then
-				if sets.midcast[get_spell_map(spell, default_spell_map)][state.CastingMode.Value]
-					then equip(sets.midcast[get_spell_map(spell, default_spell_map)][state.CastingMode.Value])
+			elseif sets.midcast[get_spell_map(spell)] then
+				if sets.midcast[get_spell_map(spell)][state.CastingMode.Value]
+					then equip(sets.midcast[get_spell_map(spell)][state.CastingMode.Value])
 				else
-					equip(sets.midcast[get_spell_map(spell, default_spell_map)])
+					equip(sets.midcast[get_spell_map(spell)])
 				end
 			end
 			
 			if not spell.targets.Enemy and state.ExtraSongsMode.value:contains('FullLength') then
 				equip(sets.midcast.Daurdabla)
 			end
-		
 		end
 
 	elseif spell.type == 'WeaponSkill' then
@@ -251,7 +258,7 @@ function job_post_midcast(spell, spellMap, eventArgs)
 
 		if state.DisplayMode.value then update_job_states()	end
 
-    elseif spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' then
+    elseif spell.skill == 'Elemental Magic' and spellMap ~= 'ElementalEnfeeble' then
         if state.MagicBurstMode.value ~= 'Off' then equip(sets.MagicBurst) end
 		if spell.element == world.weather_element or spell.element == world.day_element then
 			if state.CastingMode.value == 'Fodder' then
@@ -278,7 +285,22 @@ end
 
 -- Set eventArgs.handled to true if we don't want automatic gear equipping to be done.
 function job_aftercast(spell, spellMap, eventArgs)
-	if spell.skill == 'Elemental Magic' and state.MagicBurstMode.value == 'Single' then
+	
+	if spell.type == 'BardSong' then
+		if state.CarnMode.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.Value] then
+			equip(sets.weapons[state.Weapons.Value])
+			disable('main','sub')
+			if sets.weapons[state.Weapons.value] then
+				if  (sets.weapons[state.Weapons.value].range or sets.weapons[state.Weapons.value].ranged) then
+					disable('range')
+				end
+				if sets.weapons[state.Weapons.value].ammo then
+					disable('ammo')
+				end
+			end
+		end
+
+	elseif spell.skill == 'Elemental Magic' and state.MagicBurstMode.value == 'Single' then
 		state.MagicBurstMode:reset()
 		if state.DisplayMode.value then update_job_states()	end
     end
@@ -296,15 +318,6 @@ function job_get_spell_map(spell, default_spell_map)
 		elseif world.day_element == 'Light' then
                 return 'LightDayCure'
         end
-
-	elseif spell.skill == "Enfeebling Magic" then
-		if spell.english:startswith('Dia') then
-			return "Dia"
-		elseif spell.type == "WhiteMagic" or spell.english:startswith('Frazzle') or spell.english:startswith('Distract') then
-			return 'MndEnfeebles'
-		else
-			return 'IntEnfeebles'
-		end
 	end
 end
 
@@ -431,7 +444,7 @@ function check_buff()
 	if state.AutoBuffMode.value ~= 'Off' and not data.areas.cities:contains(world.area) then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		for i in pairs(buff_spell_lists[state.AutoBuffMode.Value]) do
-			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
+			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and in_combat) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not in_combat)) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
 				windower.chat.input('/ma "'..buff_spell_lists[state.AutoBuffMode.Value][i].Name..'" <me>')
 				tickdelay = os.clock() + 2
 				return true

@@ -356,7 +356,7 @@ function check_buff()
 			return true
 		end
 		
-		if player.in_combat and not state.Buff['SJ Restriction'] then
+		if in_combat and not state.Buff['SJ Restriction'] then
 			if player.sub_job == 'WAR' and not buffactive.Berserk and abil_recasts[1] < latency then
 				windower.chat.input('/ja "Berserk" <me>')
 				tickdelay = os.clock() + 1.1
@@ -375,7 +375,7 @@ end
 
 function check_dance()
 
-	if state.DanceStance.value ~= 'None' and not (state.Buff['Saber Dance'] or state.Buff['Fan Dance']) and player.in_combat then
+	if state.DanceStance.value ~= 'None' and not (state.Buff['Saber Dance'] or state.Buff['Fan Dance']) and in_combat then
 		
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 		

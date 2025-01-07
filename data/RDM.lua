@@ -54,9 +54,16 @@ end
 function job_setup()
 
     state.Buff.Saboteur = buffactive.Saboteur or false
+	state.Buff.Spontaneity = buffactive.Spontaneity or false
 	state.Buff.Stymie = buffactive.Stymie or false
+	state.Buff['Elemental Seal'] = buffactive['Elemental Seal'] or false
 	state.Buff.Chainspell = buffactive.Chainspell or false
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
+	
+	state.AutoBuffMode 		  = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage'}
+	
+	-- Whether to swap weapons for Temper/Phalanx under a certain tp threshhold even when weapons are locked.
+	state.BuffWeaponsMode = M{'Never','500','1000','Always'}
 	
     LowTierNukes = S{'Stone', 'Water', 'Aero', 'Fire', 'Blizzard', 'Thunder',
         'Stone II', 'Water II', 'Aero II', 'Fire II', 'Blizzard II', 'Thunder II',
@@ -65,7 +72,7 @@ function job_setup()
 	state.RecoverMode = M('35%', '60%', 'Always', 'Never')
 	
 	autows = "Savage Blade"
-	autofood = 'Pear Crepe'
+	autofood = 'Grape Daifuku'
 	enspell = ''
 	
 	update_melee_groups()
@@ -79,45 +86,76 @@ end
 -- Set eventArgs.useMidcastGear to true if we want midcast gear equipped on precast.
 
 function job_filtered_action(spell, eventArgs)
-
+	if spell.type == 'WeaponSkill' then
+		local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
+		-- WS 112 is Double Thrust, meaning a Spear is equipped.
+		if available_ws:contains(160) then
+            if spell.english == "Savage Blade" then
+				windower.chat.input('/ws "Black Halo" '..spell.target.raw)
+                cancel_spell()
+				eventArgs.cancel = true
+            elseif spell.english == "Shining Blade" then
+                send_command('@input /ws "Shining Strike" '..spell.target.raw)
+                cancel_spell()
+				eventArgs.cancel = true
+            elseif spell.english == "Flat Blade" then
+                send_command('@input /ws "Brainshaker" '..spell.target.raw)
+                cancel_spell()
+				eventArgs.cancel = true
+            elseif spell.english == "Chant Du Cygne" then
+                send_command('@input /ws "True Strike" '..spell.target.raw)
+                cancel_spell()
+				eventArgs.cancel = true
+            elseif spell.english == "Sanguine Blade" then
+                send_command('@input /ws "Starlight" '..spell.target.raw)
+                cancel_spell()
+				eventArgs.cancel = true
+            end
+		elseif available_ws:contains(16) then
+            if spell.english == "Savage Blade" then
+				windower.chat.input('/ws "Exenterator" '..spell.target.raw)
+                cancel_spell()
+				eventArgs.cancel = true
+            elseif spell.english == "Circle Blade" then
+                send_command('@input /ws "Aeolian Edge" '..spell.target.raw)
+                cancel_spell()
+				eventArgs.cancel = true
+            elseif spell.english == "Chant Du Cygne" then
+                send_command('@input /ws "Evisceration" '..spell.target.raw)
+                cancel_spell()
+				eventArgs.cancel = true
+            elseif spell.english == "Sanguine Blade" then
+                send_command('@input /ws "Energy Drain" '..spell.target.raw)
+                cancel_spell()
+				eventArgs.cancel = true
+            end		
+        end
+	end
 end
 
 function job_pretarget(spell, spellMap, eventArgs)
-
+	if spell.english == 'Phalanx' and spell.target.type == 'PLAYER' then
+		windower.chat.input('/ma "Phalanx II" '..spell.target.raw)
+		cancel_spell()
+		eventArgs.cancel = true
+	end
 end
 
 function job_precast(spell, spellMap, eventArgs)
-
-	if spell.action_type == 'Magic' then
-		if state.Buff.Chainspell then
-			eventArgs.handled = true
+	if spell.english:startswith('Temper') or (spell.english:startswith('Phalanx') and spell.target.type =='SELF') then
+		if state.BuffWeaponsMode.value ~= 'Never' and (state.BuffWeaponsMode.value == 'Always' or tonumber(state.BuffWeaponsMode.value) > player.tp) then
+			enable('main','sub','range','ammo')
 		end
-		if spellMap == 'Cure' or spellMap == 'Curaga' then
-			gear.default.obi_back = gear.obi_cure_back
-			gear.default.obi_waist = gear.obi_cure_waist
-		elseif spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' then
-			if LowTierNukes:contains(spell.english) or spell.english:endswith('helix') then
-				gear.default.obi_back = gear.obi_low_nuke_back
-				gear.default.obi_waist = gear.obi_low_nuke_waist
-			else
-				gear.default.obi_back = gear.obi_high_nuke_back
-				gear.default.obi_waist = gear.obi_high_nuke_waist
-			end
-		elseif spell.english == 'Phalanx' and (spell.target.type ~= 'SELF') then
-			windower.chat.input('/ma "Phalanx II" '..spell.target.raw)
-			cancel_spell()
-			eventArgs.cancel = true
-		end
-		
-        if state.CastingMode.value == 'Proc' then
-            classes.CustomClass = 'Proc'
-        end
-    end
-
+	end
 end
 
 function job_post_precast(spell, spellMap, eventArgs)
-	if spell.type == 'WeaponSkill' then
+
+	if spell.action_type == 'Magic' then
+		if state.Buff.Chainspell or state.Buff.Spontaneity then
+			equip(get_midcast_set(spell, spellMap))
+		end
+	elseif spell.type == 'WeaponSkill' then
 		local WSset = standardize_set(get_precast_set(spell, spellMap))
 		local wsacc = check_ws_acc()
 		
@@ -139,7 +177,7 @@ end
 -- eventArgs is the same one used in job_midcast, in case information needs to be persisted.
 function job_post_midcast(spell, spellMap, eventArgs)
 
-	if spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
+	if spell.skill == 'Elemental Magic' and spellMap ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
 		if state.MagicBurstMode.value ~= 'Off' then
 			if state.CastingMode.value:contains('Resistant') and sets.ResistantMagicBurst then
 				equip(sets.ResistantMagicBurst)
@@ -147,6 +185,7 @@ function job_post_midcast(spell, spellMap, eventArgs)
 				equip(sets.MagicBurst)
 			end
 		end
+		
 		if spell.element == world.weather_element or spell.element == world.day_element then
 			if state.CastingMode.value == 'Fodder' then
 				-- if item_available('Twilight Cape') and not LowTierNukes:contains(spell.english) and not state.Capacity.value then
@@ -203,39 +242,44 @@ function job_post_midcast(spell, spellMap, eventArgs)
 		if buffactive.Composure and spell.target.type == 'PLAYER' then
 			equip(sets.buff.ComposureOther)
 		end
-
-		if spell.english == 'Phalanx II' and spell.target.type =='SELF' and sets.Self_Phalanx then
-			equip(sets.Self_Phalanx)
-		elseif sets.midcast[spell.english] then
+		
+		if sets.midcast[spell.english] then
 			equip(sets.midcast[spell.english])
+			
+			if can_dual_wield and sets.midcast[spell.english].DW then
+				equip(sets.midcast[spell.english].DW)
+			end
 		elseif sets.midcast[spellMap] then
 			equip(sets.midcast[spellMap])
-		end
-
-		if can_dual_wield and (state.Weapons.value == 'None' or state.UnlockWeapons.value) then
-			if spell.english == 'Phalanx II' and spell.target.type =='SELF' and sets.Self_Phalanx and sets.Self_Phalanx.DW then
-				equip(sets.Self_Phalanx.DW)
-			elseif sets.midcast[spell.english] and sets.midcast[spell.english].DW then
-				equip(sets.midcast[spell.english].DW)
-			elseif sets.midcast[spellMap] and sets.midcast[spellMap].DW then
+			
+			if can_dual_wield and sets.midcast[spellMap].DW then
 				equip(sets.midcast[spellMap].DW)
+			end
+		end
+		
+		if spell.english == 'Phalanx II' and spell.target.type =='SELF' and sets.Self_Phalanx then
+			equip(sets.Self_Phalanx)
+
+			if can_dual_wield and sets.Self_Phalanx.DW then
+				equip(sets.Self_Phalanx.DW)
 			end
 		end
     end
 end
 
 function job_aftercast(spell, spellMap, eventArgs)
-    if not spell.interrupted then
-        if state.UseCustomTimers.value and spell.english == 'Sleep' or spell.english == 'Sleepga' then
-            send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 60 down spells/00220.png')
-        elseif state.UseCustomTimers.value and spell.english == 'Sleep II' then
-            send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 90 down spells/00220.png')
-        elseif spell.skill == 'Elemental Magic' and state.MagicBurstMode.value == 'Single' then
-            state.MagicBurstMode:reset()
-			if state.DisplayMode.value then update_job_states()	end
-		elseif data.spells.enspells:contains(spell.english) then
-			enspell = spell.english
-			update_melee_groups()
+	if spell.english:startswith('Temper') or (spell.english:startswith('Phalanx') and spell.target.type =='SELF') then
+		if state.BuffWeaponsMode.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.Value] then
+			equip(sets.weapons[state.Weapons.Value])
+			disable('main','sub')
+			if sets.weapons[state.Weapons.value] then
+				if  (sets.weapons[state.Weapons.value].range or sets.weapons[state.Weapons.value].ranged) then
+					disable('range')
+				end
+				if sets.weapons[state.Weapons.value].ammo then
+					disable('ammo')
+				end
+			end
 		end
 	end
 end
@@ -366,24 +410,13 @@ function job_get_spell_map(spell, default_spell_map)
         end
 	end	
 	
-	if spell.skill == 'Enfeebling Magic' then
-		if spell.english:startswith('Dia') then
-			return "Dia"
-		elseif spell.type == "WhiteMagic" or spell.english:startswith('Frazzle') or spell.english:startswith('Distract') then
-			return 'MndEnfeebles'
-        else
-            return 'IntEnfeebles'
-        end
-    end
-	
 	if spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' then
         if LowTierNukes:contains(spell.english) then
             return 'LowTierNuke'
         else
             return 'HighTierNuke'
         end
-    end
-	
+    end	
 end
 
 -- Handling Elemental spells within Gearswap.
@@ -523,7 +556,7 @@ function job_tick()
 end
 
 function check_arts()	
-	if buffup ~= '' or (not data.areas.cities:contains(world.area) and ((state.AutoArts.value and player.in_combat) or state.AutoBuffMode.value ~= 'Off')) then
+	if buffup ~= '' or (not data.areas.cities:contains(world.area) and ((state.AutoArts.value and in_combat) or state.AutoBuffMode.value ~= 'Off')) then
 
  		local abil_recasts = windower.ffxi.get_ability_recasts()	
 
@@ -551,7 +584,7 @@ function check_buff()
 	if state.AutoBuffMode.value ~= 'Off' and not data.areas.cities:contains(world.area) then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		for i in pairs(buff_spell_lists[state.AutoBuffMode.Value]) do
-			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and (player.in_combat or being_attacked)) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not (player.in_combat or being_attacked))) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
+			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and in_combat) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not in_combat)) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
 				windower.chat.input('/ma "'..buff_spell_lists[state.AutoBuffMode.Value][i].Name..'" <me>')
 				tickdelay = os.clock() + 2
 				return true
@@ -619,66 +652,82 @@ buff_spell_lists = {
 	},
 	
 	AutoMelee = {
-		{Name='Haste II',		Buff='Haste',		SpellID=511,	When='Engaged'},
-		{Name='Temper II',		Buff='Multi Strikes',SpellID=895,	When='Engaged'},
+		{Name='Phalanx II',		Buff='Phalanx',			SpellID=107,	When='Always'},
+		{Name='Haste II',		Buff='Haste',			SpellID=511,	When='Always'},
+		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	When='Always'},
+		{Name='Temper II',		Buff='Multi Strikes',	SpellID=895,	When='Always'},
+		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	When='Always'},
+	},
+	
+	AutoMage = {
+		{Name='Phalanx II',		Buff='Phalanx',			SpellID=107,	When='Always'},
+		{Name='Haste II',		Buff='Haste',			SpellID=511,	When='Always'},
+		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	When='Always'},
+		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	When='Always'},
+		{Name='Gain-INT',		Buff='INT Boost',		SpellID=490,	When='Always'},
+		{Name='Aquaveil',		Buff='Aquaveil',		SpellID=55,		When='Always'},
+		{Name='Blink',			Buff='Blink',			SpellID=53,		When='Always'},
+		{Name='Shell V',		Buff='Shell',			SpellID=52,		When='Always'},
+		{Name='Protect V',		Buff='Protect',			SpellID=47,		When='Always'},
+		{Name='Stoneskin',		Buff='Stoneskin',		SpellID=54,		When='Always'},
 	},
 	
 	Default = {
-		{Name='Refresh III',	Buff='Refresh',		SpellID=894,	Reapply=false},
-		{Name='Haste II',		Buff='Haste',		SpellID=511,	Reapply=false},
-		{Name='Stoneskin',		Buff='Stoneskin',	SpellID=54,		Reapply=false},
-		{Name='Shell V',		Buff='Shell',		SpellID=52,		Reapply=false},
-		{Name='Protect V',		Buff='Protect',		SpellID=47,		Reapply=false},
+		{Name='Haste II',		Buff='Haste',			SpellID=511,	Reapply=false},
+		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	Reapply=false},
+		{Name='Gain-MND',		Buff='MND Boost',		SpellID=491,	Reapply=false},
+		{Name='Aquaveil',		Buff='Aquaveil',		SpellID=55,		Reapply=false},
+		{Name='Phalanx II',		Buff='Phalanx',			SpellID=107,	Reapply=false},
+		{Name='Stoneskin',		Buff='Stoneskin',		SpellID=54,		Reapply=false},
+		{Name='Blink',			Buff='Blink',			SpellID=53,		Reapply=false},
+		{Name='Shell V',		Buff='Shell',			SpellID=52,		Reapply=false},
+		{Name='Protect V',		Buff='Protect',			SpellID=47,		Reapply=false},
 	},
 
 	MageBuff = {
-		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	Reapply=false},
 		{Name='Haste II',		Buff='Haste',			SpellID=511,	Reapply=false},
+		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	Reapply=false},
+		{Name='Gain-INT',		Buff='INT Boost',		SpellID=490,	Reapply=false},
 		{Name='Aquaveil',		Buff='Aquaveil',		SpellID=55,		Reapply=false},
-		{Name='Phalanx',		Buff='Phalanx',			SpellID=106,	Reapply=false},
+		{Name='Phalanx II',		Buff='Phalanx',			SpellID=107,	Reapply=false},
 		{Name='Stoneskin',		Buff='Stoneskin',		SpellID=54,		Reapply=false},
 		{Name='Blink',			Buff='Blink',			SpellID=53,		Reapply=false},
-		{Name='Gain-INT',		Buff='INT Boost',		SpellID=490,	Reapply=false},
 		{Name='Shell V',		Buff='Shell',			SpellID=52,		Reapply=false},
 		{Name='Protect V',		Buff='Protect',			SpellID=47,		Reapply=false},
 	},
 	
 	FullMeleeBuff = {
-		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	Reapply=false},
 		{Name='Haste II',		Buff='Haste',			SpellID=511,	Reapply=false},
-		{Name='Regen II',		Buff='Regen',			SpellID=110,	Reapply=false},
-		{Name='Aquaveil',		Buff='Aquaveil',		SpellID=55,		Reapply=false},
-		{Name='Phalanx',		Buff='Phalanx',			SpellID=106,	Reapply=false},
-		{Name='Stoneskin',		Buff='Stoneskin',		SpellID=54,		Reapply=false},
-		{Name='Blink',			Buff='Blink',			SpellID=53,		Reapply=false},
+		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	Reapply=false},
+		{Name='Phalanx II',		Buff='Phalanx',			SpellID=107,	Reapply=false},
+		{Name='Temper II',		Buff='Multi Strikes',	SpellID=895,	Reapply=false},
 		{Name='Gain-STR',		Buff='STR Boost',		SpellID=486,	Reapply=false},
+		{Name='Enthunder',		Buff='Enthunder',		SpellID=104,	Reapply=false},
+		{Name='Shock Spikes',	Buff='Shock Spikes',	SpellID=251,	Reapply=false},
 		{Name='Shell V',		Buff='Shell',			SpellID=52,		Reapply=false},
 		{Name='Protect V',		Buff='Protect',			SpellID=47,		Reapply=false},
-		{Name='Shock Spikes',	Buff='Shock Spikes',	SpellID=251,	Reapply=false},
-		{Name='Enthunder',		Buff='Enthunder',		SpellID=104,	Reapply=false},
-		{Name='Temper II',		Buff='Multi Strikes',	SpellID=895,	Reapply=false},
-		{Name='Barfire',		Buff='Barfire',			SpellID=60,		Reapply=false},
+		{Name='Barblizzard',	Buff='Barblizzard',		SpellID=61,		Reapply=false},
 		{Name='Barparalyze',	Buff='Barparalyze',		SpellID=74,		Reapply=false},
+		{Name='Aquaveil',		Buff='Aquaveil',		SpellID=55,		Reapply=false},		
+		{Name='Regen II',		Buff='Regen',			SpellID=110,	Reapply=false},
+		{Name='Stoneskin',		Buff='Stoneskin',		SpellID=54,		Reapply=false},
+		{Name='Blink',			Buff='Blink',			SpellID=53,		Reapply=false},
 	},
 	
 	MeleeBuff = {
-		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	Reapply=false},
 		{Name='Haste II',		Buff='Haste',			SpellID=511,	Reapply=false},
+		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	Reapply=false},
+		{Name='Phalanx II',		Buff='Phalanx',			SpellID=107,	Reapply=false},
 		{Name='Temper II',		Buff='Multi Strikes',	SpellID=895,	Reapply=false},
 		{Name='Gain-STR',		Buff='STR Boost',		SpellID=486,	Reapply=false},
-		{Name='Phalanx',		Buff='Phalanx',			SpellID=106,	Reapply=false},
-		{Name='Shell V',		Buff='Shell',			SpellID=52,		Reapply=false},
-		{Name='Protect V',		Buff='Protect',			SpellID=47,		Reapply=false},
-		{Name='Shock Spikes',	Buff='Shock Spikes',	SpellID=251,	Reapply=false},
 		{Name='Enthunder',		Buff='Enthunder',		SpellID=104,	Reapply=false},
-		{Name='Barblizzard',	Buff='Barblizzard',		SpellID=61,		Reapply=false},
-		{Name='Barparalyze',	Buff='Barparalyze',		SpellID=74,		Reapply=false},
+		{Name='Shock Spikes',	Buff='Shock Spikes',	SpellID=251,	Reapply=false},
 	},
 
 	Odin = {
 		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	Reapply=false},
 		{Name='Haste II',		Buff='Haste',			SpellID=511,	Reapply=false},
-		{Name='Phalanx',		Buff='Phalanx',			SpellID=106,	Reapply=false},
+		{Name='Phalanx II',		Buff='Phalanx',			SpellID=107,	Reapply=false},
 		{Name='Gain-INT',		Buff='INT Boost',		SpellID=490,	Reapply=false},
 		{Name='Temper II',		Buff='Multi Strikes',	SpellID=895,	Reapply=false},
 		{Name='Regen II',		Buff='Regen',			SpellID=110,	Reapply=false},
@@ -688,24 +737,10 @@ buff_spell_lists = {
 		{Name='Protect V',		Buff='Protect',			SpellID=47,		Reapply=false},
 	},
 	
-	Tolba = {
-		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	Reapply=false},
-		{Name='Haste II',		Buff='Haste',			SpellID=511,	Reapply=false},
-		{Name='Phalanx',		Buff='Phalanx',			SpellID=106,	Reapply=false},
-		{Name='Gain-STR',		Buff='STR Boost',		SpellID=486,	Reapply=false},
-		{Name='Temper II',		Buff='Multi Strikes',	SpellID=895,	Reapply=false},
-		{Name='Regen II',		Buff='Regen',			SpellID=110,	Reapply=false},
-		{Name='Enblizzard',		Buff='Enblizzard',		SpellID=104,	Reapply=false},
-		{Name='Stoneskin',		Buff='Stoneskin',		SpellID=54,		Reapply=false},
-		{Name='Shell V',		Buff='Shell',			SpellID=52,		Reapply=false},
-		{Name='Protect V',		Buff='Protect',			SpellID=47,		Reapply=false},
-		{Name='Barwater',		Buff='Barwater',		SpellID=65,		Reapply=false},
-	},
-	
 	HybridCleave = {
 		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	Reapply=false},
 		{Name='Haste II',		Buff='Haste',			SpellID=511,	Reapply=false},
-		{Name='Phalanx',		Buff='Phalanx',			SpellID=106,	Reapply=false},
+		{Name='Phalanx II',		Buff='Phalanx',			SpellID=107,	Reapply=false},
 		{Name='Gain-INT',		Buff='INT Boost',		SpellID=490,	Reapply=false},
 		{Name='Enthunder II',	Buff='Enthunder II',	SpellID=316,	Reapply=false},
 		{Name='Temper II',		Buff='Multi Strikes',	SpellID=895,	Reapply=false},

@@ -413,7 +413,12 @@ function handle_weapons(cmdParams)
 	end
 
 	if autows_list[state.Weapons.value] then
-		autows = autows_list[state.Weapons.value]
+		if type(autows_list[state.Weapons.value]) == "table" then
+			autows 		= autows_list[state.Weapons.value][1]
+			autowstp 	= autows_list[state.Weapons.value][2]
+		else
+			autows 		= autows_list[state.Weapons.value]
+		end
 	end
 
 	if state.DisplayMode.value then update_job_states()	end
@@ -426,13 +431,15 @@ function equip_weaponset(cmdParams)
 	elseif cmdParams ~= 'None' then
 		add_to_chat(123,'Error: A weapons set for ['..cmdParams..'] does not exist.')
 	end
-	if state.Weapons.value ~= 'None' then
+	if state.Weapons.value ~= 'None' and not state.UnlockWeapons.value then
 		disable('main','sub')
-		if sets.weapons[state.Weapons.value] and (sets.weapons[state.Weapons.value].range or sets.weapons[state.Weapons.value].ranged) then
-			disable('range')
-		end
-		if sets.weapons[state.Weapons.value] and sets.weapons[state.Weapons.value].ammo then
-			disable('ammo')
+		if sets.weapons[state.Weapons.value] then
+			if  (sets.weapons[state.Weapons.value].range or sets.weapons[state.Weapons.value].ranged) then
+				disable('range')
+			end
+			if sets.weapons[state.Weapons.value].ammo then
+				disable('ammo')
+			end
 		end
 	end
 end
@@ -457,14 +464,20 @@ function handle_useitem(cmdParams)
 	if cmdParams[1] ~= nil then
 		local equipslot = (table.remove(cmdParams, 1)):lower()
 		local useitem = table.concat(cmdParams, ' ')
-		useItem = true
-		if useItemName ~= useitem then
-			add_to_chat(217,"Using "..useitem..", /heal to cancel.")
+
+		if equipslot == 'set' or equipslot == 'item' or data.slots.slot_names:contains(equipslot) then
+			useItemSlot = equipslot
+
+			useItem = true
+			if useItemName ~= useitem then
+				add_to_chat(217,"Using "..useitem..", /heal to cancel.")
+			end
+			useItemName = useitem
+		else
+			add_to_chat(123,'Not a valid slot name for the UseItem command, cancelling.')
 		end
-		useItemName = useitem
-		useItemSlot = equipslot
 	else
-		add_to_chat(122,'Syntax error with UseItem command - Use: gs c UseItem equipslot Item Name (Use item for non-equippable items).')
+		add_to_chat(123,'Syntax error with UseItem command - Use: gs c UseItem equipslot Item Name (Use item for non-equippable items).')
 	end
 end
 

@@ -285,7 +285,7 @@ end
 
 function check_buff()
 	if state.AutoBuffMode.value ~= 'Off' and not data.areas.cities:contains(world.area) then
-		if player.in_combat and player.sub_job == 'WAR' then
+		if in_combat and player.sub_job == 'WAR' then
 			local abil_recasts = windower.ffxi.get_ability_recasts()
 
 			if not buffactive.Berserk and abil_recasts[1] < latency then

@@ -179,6 +179,7 @@ function update_job_states()
 		AutoNukeMode = "Auto Nuke: "..autonuke.."",
 		AutoSongMode = "Auto Song",
 		AutoJumpMode = "Auto Jump",
+		AutoSuperJumpMode = "Auto SuperJump",
 		AutoWSMode = "Auto WS: "..autows..": "..autowstp.."",
 		AutoShadowMode = "Auto Shadows",
 		AutoFoodMode = "Auto Food: "..autofood.."",
@@ -187,6 +188,7 @@ function update_job_states()
 		Capacity = "Capacity",
 		AutoTankMode = "Auto Tank",
 		CompensatorMode = "Compensator",
+		CarnMode = "Carn Mode",
 		DrainSwapWeaponMode = "Drain Swap",
 		AutoRuneMode = "Auto Rune: "..state.RuneElement.value.."",
 		AutoSambaMode = "Auto Samba: "..state.AutoSambaMode.value.."",
@@ -201,6 +203,7 @@ function update_job_states()
 		PetWSGear = "PetWSGear",
 		DanceStance = "DanceStance",
 		Stance = "Stance",
+		PWUnlock = "PWUnlock"
     }
 
     stateBox:clear()
@@ -218,6 +221,8 @@ function update_job_states()
 					stateBox:append(string.format("%sAuto WS: "..autows..": "..autowstp.."%s", clr.h, clr.n))
 				end
 				stateBox:append(spc)
+			elseif n == 'AutoRuneMode' and (player.main_job == 'RUN' or player.sub_job == 'RUN') and state.AutoRuneMode.value then
+					stateBox:append(string.format("%sAuto Rune: %s%s    ", clr.h, clr[data.elements.runes_lookup[state.RuneElement.value]], state.RuneElement.value))
 			elseif n == 'AutoDefenseMode' then
 				if state.AutoDefenseMode.value then
 					if state.TankAutoDefense.value then
@@ -353,6 +358,10 @@ function update_job_states()
 		elseif n == 'CompensatorMode' then
 			if state.CompensatorMode.value ~= 'Never' then
 				stateBox:append(string.format("%sCompensator: %s%s    ", clr.w, clr.h, state.CompensatorMode.value))
+			end
+		elseif n == 'CarnMode' then
+			if state.CarnMode.value ~= 'Never' then
+				stateBox:append(string.format("%sCarn Mode: %s%s    ", clr.w, clr.h, state.CarnMode.value))
 			end
 		elseif n == 'DrainSwapWeaponMode' then
 			if state.DrainSwapWeaponMode.value ~= 'Never' then
