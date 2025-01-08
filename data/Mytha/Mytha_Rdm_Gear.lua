@@ -8,9 +8,9 @@ function user_job_setup()
     state.PhysicalDefenseMode:options('PDT','NukeLock')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('None','Naegling','DualAcc','DualWeapons','DualPrime','DualMaxentius')
+	state.Weapons:options('None','Naegling','DualAcc','DualWeapons','DualProcSword','DualPrime','DualMaxentius','EnspellOnly')
 	state.BuffWeaponsMode = M{'Always','Never'}
-	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage','AutoTrial','DualProcSwords',}
+	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage','AutoTrial'}
 	state.RecoverMode = M('Never','35%','60%','Always')
 	
 	gear.mnd_enfeebling_jse_back = {name="Sucellos's Cape",augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10',}}
@@ -38,7 +38,7 @@ function user_job_setup()
 	send_command('bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
 	send_command('bind ^q gs c set weapons enspellonly;gs c set unlockweapons true')
 	send_command('bind !r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c set weapons none')
-	send_command('bind !q gs c set skipprocweapons false;gs c set weapons DualProcSwords;gs c set weaponskillmode proc')
+	send_command('bind !q gs c set skipprocweapons false;gs c set weapons DualProcSword;gs c set weaponskillmode proc')
 	
 	select_default_macro_book()
 end
@@ -51,7 +51,7 @@ function init_gear_sets()
 	-- Precast Sets
 	
 	-- Precast sets to enhance JAs
-	sets.precast.JA['Chainspell'] = {body="Viti. Tabard +3"}
+	sets.precast.JA['Chainspell'] = {body="Viti. Tabard +1"}
 	
 
 	-- Waltz set (chr and vit)
@@ -77,7 +77,10 @@ function init_gear_sets()
 		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Sroda Ring",ring2="Cornelia's Ring",
 		back=gear.str_wsd_jse_back,waist="Fotia Belt",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
 		
-	sets.precast.WS.Proc = 	{}
+	sets.precast.WS.Proc = 	{ammo="Ginsen",
+		head="Malignance Chapeau",neck="Anu Torque",ear1="Sherida Earring",ear2="Brutal Earring",
+		body="Ayanmo Corazza +2",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
+		back=gear.stp_jse_back,waist="Windbuffet Belt +1",legs="Malignance Tights",feet="Malignance Boots"}
 	
 	-- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
 	sets.precast.WS['Requiescat'] = {range=empty,ammo="Regal Gem",
@@ -145,7 +148,7 @@ function init_gear_sets()
         back=gear.mnd_enfeebling_jse_back,waist="Hachirin-no-Obi",legs="Carmine Cuisses +1",feet="Medium's Sabots"}
 		
 	sets.midcast.Cursna = {main=gear.grioavolr_fc_staff,sub="Curatio Grip",range=empty,ammo="Hasty Pinion +1",
-        head="Atro. Chapeau +3",neck="Debilis Medallion",ear1="Meili Earring",ear2="Mendi. Earring",
+        head="Vanya Hood",neck="Debilis Medallion",ear1="Meili Earring",ear2="Mendi. Earring",
         body="Viti. Tabard +1",hands="Hieros Mittens",ring1="Haoma's Ring",ring2="Menelaus's Ring",
         back=gear.mnd_enfeebling_jse_back,waist="Bishop's Sash",legs="Carmine Cuisses +1",feet="Vanya Clogs"}
 
@@ -397,7 +400,7 @@ function init_gear_sets()
 	-- Resting sets
 	sets.resting = {main="Chatoyant Staff",sub="Oneiros Grip",range=empty,ammo="Impatiens",
 		head="Viti. Chapeau +3",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
-		body="Jhakri Robe +2",hands=gear.merlinic_refresh_hands,ring1="Defending Ring",ring2="Sheltered Ring",
+		body="Lethargy Sayon +3",hands=gear.merlinic_refresh_hands,ring1="Defending Ring",ring2="Sheltered Ring",
 		back="Umbra Cape",waist="Flume Belt +1",legs="Lengo Pants",feet=gear.chironic_refresh_feet}
 	
 
@@ -450,14 +453,13 @@ function init_gear_sets()
 	
 	-- Weapons sets
 	sets.weapons.Naegling = {main="Naegling",sub="Genmei Shield",range=empty}
-	sets.weapons.DualWeapons = {main="Naegling",sub="Machaera +2",range=empty}
+	sets.weapons.DualWeapons = {main="Naegling",sub="Machaera +3",range=empty}
 	sets.weapons.DualAcc = {main="Naegling",sub="Gleti's Knife",range=empty}
 	sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
 	sets.weapons.DualEvisceration = {main="Tauret",sub="Gleti's Knife",range=empty}
 	sets.weapons.DualAeolian = {main="Tauret",sub="Bunzi's Rod",range=empty}
-	sets.weapons.DualProcDaggers = {main="Blurred Knife +1",sub="Atoyac",range=empty}
-	sets.weapons.DualProcSwords = {main="Blurred Knife +1",sub="Atoyac",range=empty}
-	sets.weapons.EnspellOnly = {main="Norgish Dagger",sub="Aern Dagger",range="Kaja Bow",ammo="Beetle Arrow"}
+	sets.weapons.DualProcSword = {main="Kyukoto",sub="Qutrub Knife",range=empty}
+	sets.weapons.EnspellOnly = {main="Qutrub Knife",sub="Kyukoto",range="Kaja Bow",ammo="Beetle Arrow"}
 	sets.weapons.EnspellDW = {main="Blurred Knife +1",sub="Atoyac",range="Kaja Bow",ammo="Beetle Arrow"}
 	sets.weapons.DualBow = {main="Naegling",sub="Tauret",range="Kaja Bow"}
 	sets.weapons.BowMacc = {main="Naegling",sub="Tauret",range="Kaja Bow",ammo=empty}
@@ -503,22 +505,22 @@ function init_gear_sets()
 		
 	sets.engaged.DW = {ammo="Ginsen",
 		head="Malignance Chapeau",neck="Anu Torque",ear1="Sherida Earring",ear2="Brutal Earring",
-		body="Ayanmo Corazza +2",hands="Malignance Gloves",ring1="Rajas Ring",ring2="Petrov Ring",
+		body="Ayanmo Corazza +2",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back=gear.stp_jse_back,waist="Windbuffet Belt +1",legs="Malignance Tights",feet="Malignance Boots"}
 		
 	sets.engaged.DW.Acc = {ammo="Ginsen",
 		head="Malignance Chapeau",neck="Anu Torque",ear1="Sherida Earring",ear2="Brutal Earring",
-		body="Ayanmo Corazza +2",hands="Malignance Gloves",ring1="Rajas Ring",ring2="Petrov Ring",
+		body="Ayanmo Corazza +2",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back=gear.stp_jse_back,waist="Windbuffet Belt +1",legs="Malignance Tights",feet="Malignance Boots"}
 		
 	sets.engaged.DW.DT = {ammo="Ginsen",
 		head="Malignance Chapeau",neck="Anu Torque",ear1="Sherida Earring",ear2="Brutal Earring",
-		body="Ayanmo Corazza +2",hands="Malignance Gloves",ring1="Rajas Ring",ring2="Petrov Ring",
+		body="Ayanmo Corazza +2",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back=gear.stp_jse_back,waist="Windbuffet Belt +1",legs="Malignance Tights",feet="Malignance Boots"}
 		
 	sets.engaged.DW.Acc.DT = {ammo="Ginsen",
 		head="Malignance Chapeau",neck="Anu Torque",ear1="Sherida Earring",ear2="Brutal Earring",
-		body="Ayanmo Corazza +2",hands="Malignance Gloves",ring1="Rajas Ring",ring2="Petrov Ring",
+		body="Ayanmo Corazza +2",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back=gear.stp_jse_back,waist="Windbuffet Belt +1",legs="Malignance Tights",feet="Malignance Boots"}
 end
 

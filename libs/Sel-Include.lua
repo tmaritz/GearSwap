@@ -152,7 +152,7 @@ function init_include()
 	state.UnlockWeapons		  = M(false, 'Unlock Weapons')
 	state.SelfWarp2Block 	  = M(true, 'Block Warp2 on Self')
 	state.MiniQueue		 	  = M(true, 'MiniQueue')
-	state.PWUnlock		 	  = M(false, 'PWUnlock')
+	state.WakeUpWeapons	 	  = M(false, 'Swap Weapons To Wake Up')
 	
 
 	state.AutoBuffMode 		  = M{['description'] = 'Auto Buff Mode','Off','Auto'}
@@ -1679,16 +1679,15 @@ function get_idle_set(petStatus)
 	
 	if (buffactive.sleep or buffactive.Lullaby) and sets.IdleWakeUp then
 		if item_available("Sacrifice Torque") and player.main_job == 'SMN' and pet.isvalid then
-			idleSet = set_combine(idleSet, sets.IdleWakeUp)
-		elseif item_available("Prime Horn") and player.main_job == 'BRD' then
-			idleSet = set_combine(idleSet, sets.IdleWakeUp)    
-		elseif state.Weapons.value == 'None' or state.UnlockWeapons.value then
-				idleSet = set_combine(idleSet, sets.IdleWakeUp)
-		elseif state.PWUnlock.value then
-			send_command('@input //gs c set unlockweapons true')
-			windower.chat.input:schedule(3,'//gs c set unlockweapons false')
-			tickdelay = os.clock() + 1.25
-			idleSet = set_combine(idleSet, sets.IdleWakeUp)
+			idleSet = set_combine(idleSet, {neck="Sacrifice Torque"})
+		elseif sets.WakeUpWeapons then
+			if state.Weapons.value == 'None' or state.UnlockWeapons.value then
+				idleSet = set_combine(idleSet, sets.WakeUpWeapons)
+			elseif state.UnlockWakeUpWeapons.value then
+				state.UnlockWeapons:set('True')
+				state.UnlockWeapons.set:schedule(3, state.UnlockWeapons, false)
+				idleSet = set_combine(idleSet, sets.WakeUpWeapons)
+			end
 		end
 	end
 	
@@ -1794,11 +1793,14 @@ function get_melee_set()
 			meleeSet = set_combine(meleeSet, sets.buff.Sleep)
 		elseif state.Weapons.value == 'None' or state.UnlockWeapons.value then
 			meleeSet = set_combine(meleeSet, sets.buff.Sleep)
-		elseif state.PWUnlock.value then
-			send_command('@input //gs c set unlockweapons true')
-			windower.chat.input:schedule(3,'//gs c set unlockweapons false')
-			tickdelay = os.clock() + 1.25
-			meleeSet = set_combine(meleeSet, sets.buff.Sleep)
+		elseif sets.WakeUpWeapons then
+			if state.Weapons.value == 'None' or state.UnlockWeapons.value then
+				meleeSet = set_combine(meleeSet, sets.WakeUpWeapons)
+			elseif state.UnlockWakeUpWeapons.value then
+				state.UnlockWeapons:set('True')
+				state.UnlockWeapons.set:schedule(3, state.UnlockWeapons, false)
+				meleeSet = set_combine(meleeSet, sets.WakeUpWeapons)
+			end
 		end
 	end
 	
