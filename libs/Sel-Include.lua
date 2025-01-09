@@ -249,6 +249,7 @@ function init_include()
 	delayed_cast = ''
 	delayed_target = ''
 	equipped = 0
+	current_stratagems = 0
 	
 	time_test = false
 	selindrile_warned = false
@@ -1677,7 +1678,10 @@ function get_idle_set(petStatus)
 		idleSet = set_combine(idleSet, sets.weapons[state.Weapons.value])
 	end
 	
-	if (buffactive.sleep or buffactive.Lullaby) and sets.IdleWakeUp then
+	if (buffactive.sleep or buffactive.Lullaby) then
+		if sets.buff.Sleep then
+			idleSet = set_combine(idleSet, sets.buff.Sleep)
+		end
 		if item_available("Sacrifice Torque") and player.main_job == 'SMN' and pet.isvalid then
 			idleSet = set_combine(idleSet, {neck="Sacrifice Torque"})
 		elseif sets.WakeUpWeapons then
@@ -1785,14 +1789,17 @@ function get_melee_set()
     end
 	
 	if (buffactive.sleep or buffactive.Lullaby) and sets.buff.Sleep then
-		if (item_available("Vim Torque") or item_available("Vim Torque +1")) and (player.main_job == 'WAR' or player.main_job == 'PLD' or player.main_job == 'DRK' or player.main_job == 'SAM' or player.main_job == 'DRG') then
-			meleeSet = set_combine(meleeSet, sets.buff.Sleep)
-		elseif item_available("Frenzy Sallet") and (player.main_job == 'MNK' or player.main_job == 'THF' or player.main_job == 'DRK' or player.main_job == 'BST' or player.main_job == 'SAM' or player.main_job == 'DRG' or player.main_job == 'DNC' or player.main_job == 'RUN') then
-			meleeSet = set_combine(meleeSet, sets.buff.Sleep)
-		elseif item_available("Berserker's Torque") and (player.main_job == 'WAR' or player.main_job == 'PLD' or player.main_job == 'DRK' or player.main_job == 'SAM' or player.main_job == 'DRG') then
-			meleeSet = set_combine(meleeSet, sets.buff.Sleep)
-		elseif state.Weapons.value == 'None' or state.UnlockWeapons.value then
-			meleeSet = set_combine(meleeSet, sets.buff.Sleep)
+		if sets.buff.Sleep then
+			idleSet = set_combine(idleSet, sets.buff.Sleep)
+		end
+		if item_equippable("Vim Torque") then
+			meleeSet = set_combine(meleeSet, {neck="Vim Torque"})
+		elseif item_equippable("Vim Torque +1") then
+			meleeSet = set_combine(meleeSet, {neck="Vim Torque +1"})
+		elseif item_equippable("Frenzy Sallet") then
+			meleeSet = set_combine(meleeSet, {head="Frenzy Sallet"})
+		elseif item_equippable("Berserker's Torque") then
+			meleeSet = set_combine(meleeSet, {neck="Berserker's Torque"})
 		elseif sets.WakeUpWeapons then
 			if state.Weapons.value == 'None' or state.UnlockWeapons.value then
 				meleeSet = set_combine(meleeSet, sets.WakeUpWeapons)

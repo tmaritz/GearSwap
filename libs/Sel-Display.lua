@@ -190,6 +190,7 @@ function update_job_states()
 		RuneElement = "Rune Element",
 		SkillChainMode = "SkillchainMode",
 		Stance = "Stance",
+		Stratagems = "Stratagems: "..current_stratagems.."",
 		UnlockWeapons = "Unlock Weapons",
 		WakeUpWeapons = "WakeUpWeapons",
 		Weapons = "Weapons",
