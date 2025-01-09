@@ -1793,7 +1793,7 @@ function get_melee_set()
 	
 	if (buffactive.sleep or buffactive.Lullaby) and sets.buff.Sleep then
 		if sets.buff.Sleep then
-			idleSet = set_combine(idleSet, sets.buff.Sleep)
+			meleeSet = set_combine(meleeSet, sets.buff.Sleep)
 		end
 		if item_equippable("Vim Torque") then
 			meleeSet = set_combine(meleeSet, {neck="Vim Torque"})
