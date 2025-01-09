@@ -249,7 +249,6 @@ function init_include()
 	delayed_cast = ''
 	delayed_target = ''
 	equipped = 0
-	current_stratagems = 0
 	
 	time_test = false
 	selindrile_warned = false
@@ -1289,7 +1288,37 @@ function default_aftercast(spell, spellMap, eventArgs)
 				unlock_TH()
 			end
 		end
-		if is_nuke(spell, spellMap) then
+		if spell.type == 'WeaponSkill' then
+			if state.SkillchainMode.value == 'Single' then
+				state.SkillchainMode:reset()
+				if state.DisplayMode.value then update_job_states()	end
+			end
+		elseif spell.action_type == 'Item' then
+			if useItem and (spell.english == useItemName or useItemSlot == 'set') then
+				useItem = false
+				if useItemSlot == 'item' then
+					windower.send_command('put '..useItemName..' satchel')
+				elseif useItemSlot == 'set' then
+					local slots = T{}
+					for slot,item in pairs(sets[useItemName]) do
+						slots:append(slot)
+					end
+					enable(slots)
+					if player.inventory[useItemName] then
+						windower.send_command('wait 1;put '..set_to_item(useItemName)..' satchel')
+					end
+				else 
+					enable(useItemSlot)
+					if player.inventory[useItemName] then
+						windower.send_command('wait 1;put '..useItemName..' satchel')
+					end
+				end
+				useItemName = ''
+				useItemSlot = ''
+			end
+		elseif spell.english:startswith('Utsusemi') then
+			lastshadow = spell.english
+		elseif is_nuke(spell, spellMap) then
 			if state.MagicBurstMode.value == 'Single' then state.MagicBurstMode:reset() end
 			if state.ElementalWheel.value and (spell.skill == 'Elemental Magic' or spellMap:contains('ElementalNinjutsu')) then
 				state.ElementalMode:cycle()
@@ -1300,32 +1329,6 @@ function default_aftercast(spell, spellMap, eventArgs)
 				end
 			end
 			if state.DisplayMode.value then update_job_states()	end
-		elseif spell.type == 'WeaponSkill' and state.SkillchainMode.value == 'Single' then
-			state.SkillchainMode:reset()
-			if state.DisplayMode.value then update_job_states()	end
-		elseif spell.english:startswith('Utsusemi') then
-			lastshadow = spell.english
-		elseif spell.action_type == 'Item' and useItem and (spell.english == useItemName or useItemSlot == 'set') then
-			useItem = false
-			if useItemSlot == 'item' then
-				windower.send_command('put '..useItemName..' satchel')
-			elseif useItemSlot == 'set' then
-				local slots = T{}
-				for slot,item in pairs(sets[useItemName]) do
-					slots:append(slot)
-				end
-				enable(slots)
-				if player.inventory[useItemName] then
-					windower.send_command('wait 1;put '..set_to_item(useItemName)..' satchel')
-				end
-			else 
-				enable(useItemSlot)
-				if player.inventory[useItemName] then
-					windower.send_command('wait 1;put '..useItemName..' satchel')
-				end
-			end
-			useItemName = ''
-			useItemSlot = ''
 		end
 	end
 

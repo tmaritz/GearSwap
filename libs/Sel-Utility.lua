@@ -2381,10 +2381,7 @@ function get_current_stratagem_count()
 		maxStratagems = math.floor((player.main_job_level + 10) / 20)
 	end
 
-
-    current_stratagems = math.floor(maxStratagems - (stratsRecast / StratagemChargeTimer))
-	if state.DisplayMode.value then update_job_states()	end
-    return current_stratagems
+    return (math.floor(maxStratagems - (stratsRecast / StratagemChargeTimer)))
 end
 
 function arts_active()

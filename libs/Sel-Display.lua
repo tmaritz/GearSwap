@@ -190,7 +190,6 @@ function update_job_states()
 		RuneElement = "Rune Element",
 		SkillChainMode = "SkillchainMode",
 		Stance = "Stance",
-		Stratagems = "Stratagems: "..current_stratagems.."",
 		UnlockWeapons = "Unlock Weapons",
 		WakeUpWeapons = "WakeUpWeapons",
 		Weapons = "Weapons",
@@ -412,5 +411,5 @@ end)
 windower.raw_register_event('incoming chunk', function(id, data)
     if id == 0x00A and stateBox and state.DisplayMode.value then
         stateBox:show()
-    end
+	end
 end)
