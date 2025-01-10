@@ -529,12 +529,14 @@ function handle_buffup(cmdParams)
 		buffup = cmdParams[1]
 	end
 	
+	local need_delay = false
 	for i in pairs(buff_spell_lists[buffup]) do
 		if buff_spell_lists[buffup][i].Reapply then
 			windower.send_command('cancel '..buff_spell_lists[buffup][i].Buff..'')
-			tickdelay = os.clock() + 1.65
+			need_delay = true
 		end
 	end
+	if need_delay then tickdelay = os.clock() + 1.5 end
 end
 
 function handle_smartws(cmdParams)
