@@ -828,7 +828,13 @@ function handle_smartcure(cmdParams)
 		else
 			cureTarget = table.concat(cmdParams, ' ')
 			cureTarget = get_closest_mob_by_name(cureTarget) 
-			if not cureTarget.name then cureTarget = player.target end
+			if not cureTarget.name then
+				if player.target then 
+					cureTarget = player.target
+				else
+					cureTarget = player
+				end
+			end
 		end
 	elseif player.target.type == "SELF" or player.target.type == 'NONE' then
 		cureTarget = player
@@ -838,9 +844,8 @@ function handle_smartcure(cmdParams)
 	else
 		cureTarget = player.target
 	end
-
-	if cureTarget.status == 2 or cureTarget.status == 3 then
-		windower.chat.input('/ma "Arise" '..cureTarget..'')
+	if cureTarget.status == 'Dead' or cureTarget.status == 'Engaged dead' then
+		windower.chat.input('/ma "Arise" '..cureTarget.id..'')
 		return
 	end
 	
