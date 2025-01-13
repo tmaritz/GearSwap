@@ -25,7 +25,8 @@ gear.chironic_refresh_hands = { name="Chironic Gloves", augments={'Attack+13','"
 
 gear.chironic_nuke_hands = {name="Chironic Gloves",augments={'Mag. Acc.+19 "Mag.Atk.Bns."+19','"Cure" potency +9%','INT+7','Mag. Acc.+7','"Mag.Atk.Bns."+12',}}
 
-gear.chironic_macc_legs = {name="Chironic Hose",augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','"Drain" and "Aspir" potency +10','MND+7','Mag. Acc.+14','"Mag.Atk.Bns."+9',}}
+gear.chironic_macc_legs = {name="Chironic Hose",augments={'Mag. Acc.+19 "Mag.Atk.Bns."+19','"Fast Cast"+1','MND+7','Mag. Acc.+15',}}
+gear.chironic_aspir_legs = {name="Chironic Hose",augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','"Drain" and "Aspir" potency +10','MND+7','Mag. Acc.+14','"Mag.Atk.Bns."+9',}}
 
 gear.chironic_treasure_feet = {name="Chironic Slippers",augments={'Pet: "Mag.Atk.Bns."+26','INT+15','"Treasure Hunter"+1','Mag. Acc.+17 "Mag.Atk.Bns."+17',}}
 

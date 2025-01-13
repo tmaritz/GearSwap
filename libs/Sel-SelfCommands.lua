@@ -541,23 +541,26 @@ end
 
 function handle_smartws(cmdParams)
 	local target
+	local weaponskill = smartws or autows
 	
 	if cmdParams[1] then
 		if cmdParams[1] == 'ws' then
 			if cmdParams[2] then
-				smartws = table.concat(cmdParams, ' ', 2)
+				smartws = table.concat(cmdParams, ' ')
 				add_to_chat(122,'SmartWS Set to: '..smartws..'.')
 			else
-				add_to_chat(122,'Invalid command, Syntax: //gs c smartws Weaponskill Name')
+				add_to_chat(122,'Invalid command, Syntax: //gs c smartws ws Weaponskill Name')
 			end
 			return
-		elseif tonumber(cmdParams[1]) then
-			target = windower.ffxi.get_mob_by_id(tonumber(cmdParams[1]))
+		--elseif tonumber(cmdParams[1]) then
+		--	target = windower.ffxi.get_mob_by_id(tonumber(cmdParams[1]))
 		else
 			target = table.concat(cmdParams, ' ')
 			target = get_closest_mob_by_name(target) 
-			if not target.name then target = player.target end
-			if not target.name then target = player end
+			
+			if not (target.name and target.hpp > 0) then
+				target = player.target or player
+			end
 		end
 	elseif player.target.type == 'MONSTER' then
 		target = player.target
@@ -565,15 +568,20 @@ function handle_smartws(cmdParams)
 		target = player
 	end
 
-	if math.sqrt(target.distance) < 4 or (data.weaponskills.ranged:contains(autows) and math.sqrt(target.distance) < 21) then
-		local self_vector = windower.ffxi.get_mob_by_id(player.id)
-		local angle = (math.atan2((target.y - self_vector.y), (target.x - self_vector.x))*180/math.pi)*-1
-		windower.ffxi.turn((angle):radian())
-		if smartws then
-			windower.send_command:schedule(.3,''..smartws..' '..target.id..'')
+	if target == player then
+		windower.send_command(''..weaponskill..' '..player.name..'')
+	elseif math.sqrt(target.distance) < 4 or (data.weaponskills.ranged:contains(weaponskill) and math.sqrt(target.distance) < 21) then
+		local self = windower.ffxi.get_mob_by_id(player.id)
+		local angle = (math.atan2((target.y - self.y), (target.x - self.x))*180/math.pi)*-1
+		local turn = angle:radian()
+		if math.abs(turn - self.facing) < .3 then
+			windower.send_command(''..weaponskill..' '..target.id..'')
 		else
-			windower.send_command:schedule(.3,''..autows..' '..target.id..'')
+			windower.send_command:schedule(.3,''..weaponskill..' '..target.id..'')
 		end
+		windower.ffxi.turn(turn)
+	else
+		windower.add_to_chat(122,'SmartWS Target out of range!')
 	end
 end
 

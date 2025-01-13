@@ -356,7 +356,7 @@ function init_gear_sets()
     sets.midcast.Drain = {main="Rubicundity",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
         head="Pixie Hairpin +1",neck="Erra Pendant",ear1="Malignance Earring",ear2="Snotra Earring",
         body="Lethargy Sayon +3",hands=gear.chironic_aspir_gloves,ring1="Evanescence Ring",ring2="Metamor. Ring +1",
-        back=gear.nuke_jse_back,waist="Fucho-no-obi",legs=gear.chironic_macc_legs,feet="Leth. Houseaux +3"}
+        back=gear.nuke_jse_back,waist="Fucho-no-obi",legs=gear.chironic_aspir_legs,feet="Leth. Houseaux +3"}
 
 	sets.midcast.Aspir = sets.midcast.Drain
 	
