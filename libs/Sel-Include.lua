@@ -407,7 +407,7 @@ function init_include()
 		
 		gearswap.refresh_globals(false)
 		
-		if (player ~= nil) and (player.status == 'Idle' or player.status == 'Engaged') and not (delayed_cast ~= '' or check_midaction() or moving or silent_check_disable()) then
+		if (player ~= nil) and (player.status == 'Idle' or player.status == 'Engaged') and not (check_midaction() or moving or silent_check_disable()) then
 
 			if pre_tick then
 				if pre_tick() then return end
@@ -902,7 +902,11 @@ end
 --------------------------------------
 
 function default_filtered_action(spell, eventArgs)
-	if spell.english == 'Warp' then
+	if spell.english == 'Dispelga' then
+		if state.Weapons.value ~= 'None' and not state.UnlockWeapons.value and player.equipment.main ~= 'Daybreak' then
+			windower.add_to_chat(123,"You can't cast Dispelga, your weapons are locked without Daybreak equipped.")
+		end
+	elseif spell.english == 'Warp' then
 		useItem = true
 		useItemName = 'Warp Ring'
 		useItemSlot = 'ring2'
@@ -1039,15 +1043,7 @@ end
 
 function default_post_precast(spell, spellMap, eventArgs)
 	if not eventArgs.handled then
-		if spell.action_type == 'Magic' then
-			if spell.english:startswith('Utsusemi') then
-				if sets.precast.FC.Shadows and ((spell.english == 'Utsusemi: Ni' and player.main_job == 'NIN' and lastshadow == 'Utsusemi: San') or (spell.english == 'Utsusemi: Ichi' and lastshadow ~= 'Utsusemi: Ichi')) then
-					equip(sets.precast.FC.Shadows)
-				end
-			end
-			
-		elseif spell.type == 'WeaponSkill' then
-
+		if spell.type == 'WeaponSkill' then
 			if state.WeaponskillMode.value ~= 'Proc' and data.weaponskills.elemental:contains(spell.english) then
 				local distance = spell.target.distance - spell.target.model_size
 				local single_obi_intensity = 0
@@ -1150,6 +1146,19 @@ function default_post_precast(spell, spellMap, eventArgs)
 				handle_equipping_gear(player.status)
 			end
 		end
+		
+		if spell.action_type == 'Magic' then
+			if spell.english == 'Dispelga' then
+				equip({main="Daybreak"})
+			elseif spell.english == 'Impact' then
+				if item_equippable("Crepuscular Cloak") then
+					equip({head=empty,body="Crepuscular Cloak"})
+				else
+					equip({head=empty,body="Twilight Cloak"})
+				end
+			end
+		end
+		
 	end
 end
 
@@ -1237,6 +1246,18 @@ function default_post_midcast(spell, spellMap, eventArgs)
 			end
 			
 			eventArgs.handled = true
+		end
+	
+		if spell.action_type == 'Magic' then
+			if spell.english == 'Dispelga' then
+				equip({main="Daybreak"})
+			elseif spell.english == 'Impact' then
+				if item_equippable("Crepuscular Cloak") then
+					equip({head=empty,body="Crepuscular Cloak"})
+				else
+					equip({head=empty,body="Twilight Cloak"})
+				end
+			end
 		end
 	
 	end
@@ -1450,6 +1471,7 @@ end
 
 function pre_tick()
 	if check_doomed() then return true end
+	if check_delayed_cast() then return true end
 	if check_use_item() then return true end
 	if (buffactive['Sneak'] or buffactive['Invisible']) then return false end
 	if check_rune() then return true end

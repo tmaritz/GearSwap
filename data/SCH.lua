@@ -330,10 +330,7 @@ end
 
 -- Called for direct player commands.
 function job_self_command(commandArgs, eventArgs)
-    if commandArgs[1]:lower() == 'scholar' then
-        handle_stratagems(commandArgs)
-        eventArgs.handled = true
-    elseif commandArgs[1]:lower() == 'elemental' then
+    if commandArgs[1]:lower() == 'elemental' then
         handle_elemental(commandArgs)
         eventArgs.handled = true
 	elseif commandArgs[1]:lower() == 'showcharge' then
@@ -881,83 +878,6 @@ function handle_elemental(cmdParams)
 	
     else
         add_to_chat(123,'Unrecognized elemental command.')
-    end
-end
-
--- General handling of stratagems in an Arts-agnostic way.
--- Format: gs c scholar <stratagem>
-function handle_stratagems(cmdParams)
-    -- cmdParams[1] == 'scholar'
-    -- cmdParams[2] == stratagem to use
-
-    if not cmdParams[2] then
-        add_to_chat(123,'Error: No stratagem command given.')
-        return
-    end
-    local stratagem = cmdParams[2]:lower()
-
-    if stratagem == 'light' then
-        if state.Buff['Light Arts'] then
-            windower.chat.input('/ja "Addendum: White" <me>')
-        elseif state.Buff['Addendum: White'] then
-            add_to_chat(122,'Error: Addendum: White is already active.')
-        else
-            windower.chat.input('/ja "Light Arts" <me>')
-        end
-    elseif stratagem == 'dark' then
-        if state.Buff['Dark Arts'] then
-            windower.chat.input('/ja "Addendum: Black" <me>')
-        elseif state.Buff['Addendum: Black'] then
-            add_to_chat(122,'Error: Addendum: Black is already active.')
-        else
-            windower.chat.input('/ja "Dark Arts" <me>')
-        end
-    elseif state.Buff['Light Arts'] or state.Buff['Addendum: White'] then
-        if stratagem == 'cost' then
-            windower.chat.input('/ja "Penury" <me>')
-        elseif stratagem == 'speed' then
-            windower.chat.input('/ja "Celerity" <me>')
-        elseif stratagem == 'aoe' then
-            windower.chat.input('/ja "Accession" <me>')
-        elseif stratagem == 'power' then
-            windower.chat.input('/ja "Rapture" <me>')
-        elseif stratagem == 'duration' then
-            windower.chat.input('/ja "Perpetuance" <me>')
-        elseif stratagem == 'accuracy' then
-            windower.chat.input('/ja "Altruism" <me>')
-        elseif stratagem == 'enmity' then
-            windower.chat.input('/ja "Tranquility" <me>')
-        elseif stratagem == 'skillchain' then
-            add_to_chat(122,'Error: Light Arts does not have a skillchain stratagem.')
-        elseif stratagem == 'addendum' then
-            windower.chat.input('/ja "Addendum: White" <me>')
-        else
-            add_to_chat(123,'Error: Unknown stratagem ['..stratagem..']')
-        end
-    elseif state.Buff['Dark Arts']  or state.Buff['Addendum: Black'] then
-        if stratagem == 'cost' then
-            windower.chat.input('/ja "Parsimony" <me>')
-        elseif stratagem == 'speed' then
-            windower.chat.input('/ja "Alacrity" <me>')
-        elseif stratagem == 'aoe' then
-            windower.chat.input('/ja "Manifestation" <me>')
-        elseif stratagem == 'power' then
-            windower.chat.input('/ja "Ebullience" <me>')
-        elseif stratagem == 'duration' then
-            add_to_chat(122,'Error: Dark Arts does not have a duration stratagem.')
-        elseif stratagem == 'accuracy' then
-            windower.chat.input('/ja "Focalization" <me>')
-        elseif stratagem == 'enmity' then
-            windower.chat.input('/ja "Equanimity" <me>')
-        elseif stratagem == 'skillchain' then
-            windower.chat.input('/ja "Immanence" <me>')
-        elseif stratagem == 'addendum' then
-            windower.chat.input('/ja "Addendum: Black" <me>')
-        else
-            add_to_chat(123,'Error: Unknown stratagem ['..stratagem..']')
-        end
-    else
-        add_to_chat(123,'No arts has been activated yet.')
     end
 end
 

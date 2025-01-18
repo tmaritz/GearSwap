@@ -329,8 +329,8 @@ function job_customize_idle_set(idleSet)
 				if  main_table and main_table.skill == 12 and sets.latent_refresh_grip then
 					idleSet = set_combine(idleSet, sets.latent_refresh_grip)
 				end
-				
-				if player.tp > 10 and sets.TPEat then
+
+				if player.tp > 0 and sets.TPEat then
 					idleSet = set_combine(idleSet, sets.TPEat)
 				end
 			end

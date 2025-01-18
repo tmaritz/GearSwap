@@ -1025,10 +1025,9 @@ function check_midaction(spell, spellMap, eventArgs)
 		if eventArgs and not (spell.type:startswith('BloodPact') and state.Buff["Astral Conduit"]) then
 			eventArgs.cancel = true
 			if delayed_cast == '' and state.MiniQueue.value then
-				windower.send_command:schedule((next_cast - os.clock()),'gs c delayedcast')
+				delayed_cast = spell.english
+				delayed_target = spell.target.id
 			end
-			delayed_cast = spell.english
-			delayed_target = spell.target.id
 		end
 		return true
 	else
@@ -1607,6 +1606,17 @@ function check_doomed()
 		end
 	else
 		return false
+	end
+	return false
+end
+
+function check_delayed_cast()
+	if delayed_cast ~= '' and delayed_target ~= '' then
+		windower.send_command(''..delayed_cast..' '..delayed_target..'')
+		tickdelay = os.clock() + .5
+		delayed_cast = ''
+		delayed_target = ''
+		return true
 	end
 	return false
 end

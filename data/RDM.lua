@@ -76,7 +76,7 @@ function job_setup()
 	enspell = ''
 	
 	update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoNukeMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","RecoverMode","ElementalMode","CastingMode","TreasureMode"})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoNukeMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","RecoverMode","ElementalMode","CastingMode","TreasureMode"})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -257,7 +257,7 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			end
 		end
 		
-		if spell.english == 'Phalanx II' and spell.target.type =='SELF' and sets.Self_Phalanx then
+		if spell.english:startswith('Phalanx') and spell.target.type =='SELF' and sets.Self_Phalanx then
 			equip(sets.Self_Phalanx)
 
 			if can_dual_wield and sets.Self_Phalanx.DW then

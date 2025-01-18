@@ -74,6 +74,7 @@ function job_setup()
 
 	state.ShowDistance = M(true, 'Show Geomancy Buff/Debuff distance')
 	state.AutoEntrust = M(false, 'AutoEntrust Mode')
+	state.UnlockGeomancy = M{'Never','500','1000','Always'}
 	state.CombatEntrustOnly = M(true, 'Combat Entrust Only Mode')
 	state.AutoGeoAbilities = M(true, 'Use Geo Abilities Automatically')
 
@@ -143,9 +144,12 @@ end
 -- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.
 -- Set eventArgs.useMidcastGear to true if we want midcast gear equipped on precast.
 function job_precast(spell, spellMap, eventArgs)
-
 	if spell.action_type == 'Magic' then
-		if spellMap == 'Cure' or spellMap == 'Curaga' then
+		if spell.skill == 'Geomancy' then
+			if state.UnlockGeomancy.value ~= 'Never' and (state.UnlockGeomancy.value == 'Always' or tonumber(state.UnlockGeomancy.value) > player.tp) then
+				enable('main','sub','range','ammo')
+			end
+		elseif spellMap == 'Cure' or spellMap == 'Curaga' then
 			gear.default.obi_back = gear.obi_cure_back
 			gear.default.obi_waist = gear.obi_cure_waist
 		elseif spell.skill == 'Elemental Magic' then
@@ -280,6 +284,22 @@ function job_aftercast(spell, spellMap, eventArgs)
 			if state.DisplayMode.value then update_job_states()	end
 		end
     end
+	
+	if spell.action_type == 'Magic' and spell.skill == 'Geomancy' then
+		if state.UnlockGeomancy.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.Value] then
+			equip(sets.weapons[state.Weapons.Value])
+			disable('main','sub')
+
+			if sets.weapons[state.Weapons.value] then
+				if  (sets.weapons[state.Weapons.value].range or sets.weapons[state.Weapons.value].ranged) then
+					disable('range')
+				end
+				if sets.weapons[state.Weapons.value].ammo then
+					disable('ammo')
+				end
+			end
+		end
+	end
 
 	if not player.indi then
         classes.CustomIdleGroups:clear()

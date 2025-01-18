@@ -730,7 +730,7 @@ data.npcs.trusts = S{'ArkEV','ArkGK','ArkHM','ArkMR','ArkTT','Abenzio','Abquhbah
 	'Babban','Balamor','Brygid','Chacharoon','Cherukiki','Cid','Curilla','D.Shantotto','Darrcuiln','Elivira','Excenmille','Fablinix',
 	'FerreousCoffin','Flaviria','Gadalar','Gessho','Gilgamesh','Halver','I.Shield','Ingrid','Ingrid','Iroha','IronEater','Jakoh','Joachim','Karaha-Baruha',
 	'Kayeel-Payeel','KingOfHearts','Klara','Koru-Moru','Kukki-Chebukki','Kupipi','Kupofried','KuyinHathdenna','LehkoHabhoka','Leonoyne','LheLhangavo',
-	'LhuMhakaracca','Lilisette','Lion','Luzaf','Maat','Makki-Chebukki','Margret','Maximilian','Mayakov','MihliAliapoh','Mildaurion','Mnejing','Moogle','Morimar','Mumor','NajaSalaheem',
+	'LhuMhakaracca','Lilisette','Lion','Luzaf','Maat','Makki-Chebukki','Margret','Maximilian','Mayakov','MihliAliapoh','Mildaurion','Mnejing','Monberaux','Moogle','Morimar','Mumor','NajaSalaheem',
 	'Naja','Najelith','Naji','NanaaMihgo','Nashmeira','Noillurie','Ovjang','Pieuje','Prishe','Qultada','Rahal','Rainemard','Robel-Akbel','RomaaMihgo',
 	'Rongelouts','Rosulatia','Rughadjeen','Sakura',"Selh'teus",'SemihLafihna','Shantotto','ShikareeZ','StarSibyl','Sylvie','Teodor','Tenzen','Trion',
 	'UkaTotlihn','Ullegore','Ulmia','Valaineral','Volker','Yoran-Oran','Zazarg','Zeid'}
