@@ -238,7 +238,7 @@ function init_gear_sets()
 
 	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {main="Vadose Rod",sub="Sors Shield",head=gear.chironic_nuke_head,waist="Emphatikos Rope"})
 
-	sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {main="Bolelabunga",sub="Sors Shield",head="Inyanga Tiara +2",body="Piety Bliaut +3",hands="Ebers Mitts +3"})
+	sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {main="Bolelabunga",sub="Sors Shield",head="Inyanga Tiara +2",body="Piety Bliaut +3",hands="Ebers Mitts +3",legs="Th. Pantaloons +2"})
 	
 	sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], {})
 	sets.midcast.Protectra = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring"})
@@ -254,32 +254,32 @@ function init_gear_sets()
 
 	sets.midcast.Impact = {main="Daybreak",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head=empty,neck="Erra Pendant",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Crepuscular Cloak",hands="Inyan. Dastanas +2",ring1="Evanescence Ring",ring2="Sangoma Ring",
+		body="Crepuscular Cloak",hands="Inyan. Dastanas +2",ring1="Metamor. Ring +1",ring2="Sangoma Ring",
 		back="Alaunus's Cape",waist="Eschan Stone",legs=gear.chironic_macc_legs,feet=gear.chironic_treasure_feet}
 		
 	sets.midcast['Elemental Magic'] = {main="Bunzi's Rod",sub="Sors Shield",ammo="Ghastly Tathlum +1",
 		head="Bunzi's Hat",neck="Baetyl Pendant",ear1="Friomisi Earring",ear2="Malignance Earring",
-		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Strendu Ring",ring2="Persis Ring",
+		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Metamor. Ring +1",ring2="Persis Ring",
 		back="Alaunus's Cape",waist="Yamabuki-no-Obi",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 
 	sets.midcast['Elemental Magic'].Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Ghastly Tathlum +1",
 		head="Bunzi's Hat",neck="Baetyl Pendant",ear1="Friomisi Earring",ear2="Malignance Earring",
-		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Strendu Ring",ring2="Persis Ring",
+		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Metamor. Ring +1",ring2="Persis Ring",
 		back="Alaunus's Cape",waist="Yamabuki-no-Obi",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 
 	sets.midcast['Divine Magic'] = {main="Daybreak",sub="Sors Shield",ammo="Ghastly Tathlum +1",
 		head="Bunzi's Hat",neck="Baetyl Pendant",ear1="Friomisi Earring",ear2="Malignance Earring",
-		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Strendu Ring",ring2="Persis Ring",
+		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Metamor. Ring +1",ring2="Persis Ring",
 		back="Alaunus's Cape",waist="Yamabuki-no-Obi",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 		
 	sets.midcast.Repose = {main="Daybreak",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head="Theophany Cap +2",neck="Erra Pendant",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Theo. Bliaut +2",hands="Theophany Mitts +2",ring1="Persis Ring",ring2="Sangoma Ring",
+		body="Theo. Bliaut +2",hands="Theophany Mitts +2",ring1="Metamor. Ring +1",ring2="Sangoma Ring",
 		back="Alaunus's Cape",waist="Luminary Sash",legs=gear.chironic_macc_legs,feet="Theo. Duckbills +2"}
 		
 	sets.midcast.Holy = {main="Daybreak",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head=gear.chironic_nuke_head,neck="Baetyl Pendant",ear1="Friomisi Earring",ear2="Malignance Earring",
-		body=gear.chironic_nuke_body,hands=gear.chironic_nuke_hands,ring1="Strendu Ring",ring2="Persis Ring",
+		body=gear.chironic_nuke_body,hands=gear.chironic_nuke_hands,ring1="Metamor. Ring +1",ring2="Persis Ring",
 		back="Alaunus's Cape",waist="Eschan Stone",legs=gear.chironic_macc_legs,feet=gear.chironic_treasure_feet}
 
 	sets.midcast['Dark Magic'] = {main="Daybreak",sub="Sors Shield",ammo="Pemphredo Tathlum",
@@ -307,7 +307,7 @@ function init_gear_sets()
 
 	sets.midcast.Stun.Resistant = {main="Daybreak",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head=gear.chironic_nuke_head,neck="Sanctity Necklace",ear1="Gwati Earring",ear2="Malignance Earring",
-		body=gear.chironic_nuke_body,hands=gear.chironic_nuke_hands,ring1="Evanescence Ring",ring2="Sangoma Ring",
+		body=gear.chironic_nuke_body,hands=gear.chironic_nuke_hands,ring1="Metamor. Ring +1",ring2="Sangoma Ring",
 		back="Alaunus's Cape",waist="Luminary Sash",legs=gear.chironic_macc_legs,feet=gear.chironic_treasure_feet}
 		
 	sets.midcast.Dispel = {main="Daybreak",sub="Sors Shield",ammo="Pemphredo Tathlum",
@@ -319,12 +319,12 @@ function init_gear_sets()
 
 	sets.midcast['Enfeebling Magic'] = {main="Daybreak",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head="Theophany Cap +2",neck="Erra Pendant",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Theo. Bliaut +2",hands="Theophany Mitts +2",ring1="Persis Ring",ring2="Sangoma Ring",
+		body="Theo. Bliaut +2",hands="Theophany Mitts +2",ring1="Metamor. Ring +1",ring2="Sangoma Ring",
 		back="Alaunus's Cape",waist="Luminary Sash",legs=gear.chironic_macc_legs,feet="Theo. Duckbills +2"}
 
 	sets.midcast['Enfeebling Magic'].Resistant = {main="Daybreak",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head="Theophany Cap +2",neck="Erra Pendant",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Theo. Bliaut +2",hands="Theophany Mitts +2",ring1="Persis Ring",ring2="Sangoma Ring",
+		body="Theo. Bliaut +2",hands="Theophany Mitts +2",ring1="Metamor. Ring +1",ring2="Sangoma Ring",
 		back="Alaunus's Cape",waist="Luminary Sash",legs=gear.chironic_macc_legs,feet="Theo. Duckbills +2"}
 		
 	sets.midcast.Dia = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
@@ -433,5 +433,34 @@ function user_job_lockstyle()
 
 	
 end
+
+buff_spell_lists = {
+	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat
+		{Name='Reraise IV',		Buff='Reraise',		SpellID=848,	When='Always'},
+		{Name='Haste',			Buff='Haste',		SpellID=57,		When='Always'},
+		{Name='Aurorastorm',	Buff='Aurorastorm',	SpellID=119,	When='Always'},
+		{Name='Refresh',		Buff='Refresh',		SpellID=109,	When='Always'},
+		{Name='Stoneskin',		Buff='Stoneskin',	SpellID=54,		When='Always'},
+	},
+	Default = {
+		{Name='Reraise IV',		Buff='Reraise',		SpellID=848,	Reapply=false},
+		{Name='Shellra V',		Buff='Shell',		SpellID=134,	Reapply=false},
+		{Name='Protectra V',	Buff='Protect',		SpellID=129,	Reapply=false},
+		{Name='Aurorastorm',	Buff='Aurorastorm',	SpellID=119,	Reapply=false},
+		{Name='Auspice',		Buff='Auspice',		SpellID=96,		Reapply=false},
+		{Name='Haste',			Buff='Haste',		SpellID=57,		Reapply=false},
+		{Name='Aquaveil',		Buff='Aquaveil',	SpellID=55,		Reapply=false},
+		{Name='Stoneskin',		Buff='Stoneskin',	SpellID=54,		Reapply=false},
+		{Name='Blink',			Buff='Blink',		SpellID=53,		Reapply=false},
+		{Name='Phalanx',		Buff='Phalanx',		SpellID=106,	Reapply=false},
+	},
+	Melee = {
+		{Name='Reraise IV',		Buff='Reraise',		SpellID=848,	Reapply=false},
+		{Name='Boost-STR',		Buff='STR Boost',	SpellID=479,	Reapply=false},
+		{Name='Auspice',		Buff='Auspice',		SpellID=96,		Reapply=false},
+		{Name='Shellra V',		Buff='Shell',		SpellID=134,	Reapply=false},
+		{Name='Protectra V',	Buff='Protect',		SpellID=129,	Reapply=false},
+	},
+}
 
 autows_list = {['DualWeapons']='Realmrazer',['MeleeWeapons']='Realmrazer'}

@@ -871,6 +871,17 @@ function has_any_buff_of(buff_set)
     )
 end
 
+function buff_duration(buff_id)
+	for i in pairs(player.buff_details) do
+		if player.buff_details[i] then
+			if player.buff_details[i].id == buff_id then
+				windower.add_to_chat(tostring(player.buff_details[i].duration))
+				return
+			end
+		end
+	end
+end
+
 
 -- Invert a table such that the keys are values and the values are keys.
 -- Use this to look up the index value of a given entry.

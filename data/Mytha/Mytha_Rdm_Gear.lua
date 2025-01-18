@@ -134,7 +134,7 @@ function init_gear_sets()
     sets.midcast.Cure = {main="Daybreak",sub="Sors Shield",range=empty,ammo="Regal Gem",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
         body="Bunzi's Robe",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Menelaus's Ring",
-        back=gear.mnd_enfeebling_jse_back,waist="Luminary Sash",legs="Atrophy Tights +1",feet="Medium's Sabots"}
+        back=gear.mnd_enfeebling_jse_back,waist="Luminary Sash",legs="Atrophy Tights +2",feet="Medium's Sabots"}
 		
     sets.midcast.LightWeatherCure = {main="Daybreak",sub="Sors Shield",range=empty,ammo="Regal Gem",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
@@ -176,7 +176,7 @@ function init_gear_sets()
 	sets.EnhancingSkill = {main="Pukulatmuj +1",sub="Forfend +1",
 	head="Befouled Crown",neck="Incanter's Torque",ear1="Andoaa Earring",--ear2="Mimir Earring"
 	body="Viti. Tabard +3",hands="Viti. Gloves +3",--ring1="Stikini Ring +1",ring2="Stikini Ring +1"
-	back="Ghostfyre Cape",legs="Atrophy Tights +1",feet="Leth. Houseaux +3"}
+	back="Ghostfyre Cape",legs="Atrophy Tights +2",feet="Leth. Houseaux +3"}
 	
 	sets.midcast.Refresh = {head="Amalric Coif +1",body="Atrophy Tabard +3",legs="Leth. Fuseau +3"}
 	sets.midcast.Aquaveil = {head="Amalric Coif +1",waist="Emphatikos Rope"} --hands="Regal Cuffs",legs="Shedir Seraweels"
