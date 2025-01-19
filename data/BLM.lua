@@ -309,8 +309,11 @@ function job_customize_idle_set(idleSet)
 end
 
 function job_customize_kiting_set(baseSet)
+
 	if state.Buff['Mana Wall'] and ((state.IdleMode.value:contains('DT') or state.IdleMode.value:contains('Tank')) and in_combat)then
-		baseset = set_combine(baseSet, sets.buff['Mana Wall'])
+		if sets.buff['Mana Wall'] then
+			baseSet = set_combine(baseSet, sets.buff['Mana Wall'])
+		end
 	end
 
 	return baseSet
