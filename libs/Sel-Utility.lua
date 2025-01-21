@@ -538,14 +538,14 @@ function optional_include(filename)
 		if windower.file_exists(windower.addon_path..'Data/User/'..filename) then
 			include('User/'..filename)
 		else
-			print('Missing optional file: '..filename..', this is not an error, only diagnostic information.')
+			print('Missing optional file: User\\\\'..filename..', this is not an error, just a notification of a filename you can use to add your own custom code.')
 			return false
 		end
 	else
 		if gearswap.pathsearch({filename}) then
 			include(filename)
 		else
-			print('Missing optional file: '..filename..', this is not an error, only diagnostic information.')
+			print('Missing optional file: '..player.name..'\\\\'..filename..', this is not an error, just a notification of a filename you can use to add your own custom code.')
 			return false
 		end
 	end

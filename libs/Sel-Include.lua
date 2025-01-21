@@ -317,6 +317,7 @@ function init_include()
     optional_include(player.name..'-Items.lua')
 	optional_include(player.name..'_Crafting.lua')
 	include(player.name..'_'..player.main_job..'_gear.lua') -- Required Gear file.
+	optional_include('User-'..player.main_job..'.lua')
 
 	-- New Display functions, needs to come after globals for user settings.
 	include('Sel-Display.lua')
