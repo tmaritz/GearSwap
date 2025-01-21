@@ -358,7 +358,7 @@ function job_self_command(commandArgs, eventArgs)
 				windower.chat.input('/ma "Stinking Gas" <t>')
 			elseif spell_recasts[592] < spell_latency then
 				windower.chat.input('/ma "Blank Gaze" <t>')
-			elseif not check_auto_tank_ws() then
+			elseif not check_ws() then
 				if not state.AutoTankMode.value then add_to_chat(123,'All Enmity Blue Magic on cooldown.') end
 			end
 
@@ -382,7 +382,7 @@ function job_self_command(commandArgs, eventArgs)
 				windower.chat.input('/ja "Last Resort" <me>')
 			elseif abil_recasts[86] < latency then
 				windower.chat.input('/ja "Arcane Circle" <me>')
-			elseif not check_auto_tank_ws() then
+			elseif not check_ws() then
 				if not state.AutoTankMode.value then add_to_chat(123,'All Enmity Dark Knight abillities on cooldown.') end
 			end
 
@@ -405,7 +405,7 @@ function job_self_command(commandArgs, eventArgs)
 				send_command('input /ja "Aggressor" <me>')
 			elseif abil_recasts[1] < latency then
 				send_command('input /ja "Berserk" <me>')
-			elseif not check_auto_tank_ws() then
+			elseif not check_ws() then
 				if not state.AutoTankMode.value then add_to_chat(123,'All Enmity Warrior Job Abilities on cooldown.') end
 			end
 			
@@ -424,7 +424,7 @@ function job_self_command(commandArgs, eventArgs)
 			elseif abil_recasts[220] < latency and not buffactive['Finishing Move 5'] then
 				send_command('@input /ja "'..state.CurrentStep.value..'" <t>')
 				return
-			elseif not check_auto_tank_ws() then
+			elseif not check_ws() then
 				if not state.AutoTankMode.value then add_to_chat(123,'Dancer job abilities not needed.') end
 			end
 		end

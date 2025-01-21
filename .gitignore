@@ -16,8 +16,8 @@ triggers.lua
 user_functions.lua
 validate.lua
 version_history.txt
-data/User-Globals.lua
 beta_examples_and_information/*
+data/User/*
 data/instructions.txt
 libs/Mote-*
 libs/rev1/*
@@ -33,4 +33,3 @@ libs/closetCleaner.lua
 Rename.bat
 Modes.lua
 organizer-lib.lua
-!data/Mytha/*

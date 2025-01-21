@@ -119,87 +119,6 @@ do
     end
 end
 
--- Some mythics have special durations for level 1 and 2 aftermaths
-local special_aftermath_mythics = S{'Tizona', 'Kenkonken', 'Murgleis', 'Yagrush', 'Carnwenhan', 'Nirvana', 'Tupsimati', 'Idris'}
-
--- Call from job_precast() to setup aftermath information for custom timers.
-function custom_aftermath_timers_precast(spell)
-    if spell.type == 'WeaponSkill' then
-        info.aftermath = {}
-        
-        local relic_ws = data.weaponskills.relic[player.equipment.main] or data.weaponskills.relic[player.equipment.range]
-        local mythic_ws = data.weaponskills.mythic[player.equipment.main] or data.weaponskills.mythic[player.equipment.range]
-        local empy_ws = data.weaponskills.empyrean[player.equipment.main] or data.weaponskills.empyrean[player.equipment.range]
-        
-        if not relic_ws and not mythic_ws and not empy_ws then
-            return
-        end
-
-        info.aftermath.weaponskill = spell.english
-        info.aftermath.duration = 0
-        
-        info.aftermath.level = math.floor(player.tp / 1000)
-        if info.aftermath.level == 0 then
-            info.aftermath.level = 1
-        end
-        
-        if spell.english == relic_ws then
-            info.aftermath.duration = math.floor(0.2 * player.tp)
-            if info.aftermath.duration < 20 then
-                info.aftermath.duration = 20
-            end
-        elseif spell.english == empy_ws then
-            -- nothing can overwrite lvl 3
-            if buffactive['Aftermath: Lv.3'] then
-                return
-            end
-            -- only lvl 3 can overwrite lvl 2
-            if info.aftermath.level ~= 3 and buffactive['Aftermath: Lv.2'] then
-                return
-            end
-            
-            -- duration is based on aftermath level
-            info.aftermath.duration = 30 * info.aftermath.level
-        elseif spell.english == mythic_ws then
-            -- nothing can overwrite lvl 3
-            if buffactive['Aftermath: Lv.3'] then
-                return
-            end
-            -- only lvl 3 can overwrite lvl 2
-            if info.aftermath.level ~= 3 and buffactive['Aftermath: Lv.2'] then
-                return
-            end
-
-            -- Assume mythic is lvl 80 or higher, for duration
-                        
-            if info.aftermath.level == 1 then
-                info.aftermath.duration = (special_aftermath_mythics:contains(player.equipment.main) and 270) or 90
-            elseif info.aftermath.level == 2 then
-                info.aftermath.duration = (special_aftermath_mythics:contains(player.equipment.main) and 270) or 120
-            else
-                info.aftermath.duration = 180
-            end
-        end
-    end
-end
-
-
--- Call from job_aftercast() to create the custom aftermath timer.
-function custom_aftermath_timers_aftercast(spell)
-    if not spell.interrupted and spell.type == 'WeaponSkill' and
-       info.aftermath and info.aftermath.weaponskill == spell.english and info.aftermath.duration > 0 then
-
-        local aftermath_name = 'Aftermath: Lv.'..tostring(info.aftermath.level)
-        send_command('timers d "Aftermath: Lv.1"')
-        send_command('timers d "Aftermath: Lv.2"')
-        send_command('timers d "Aftermath: Lv.3"')
-        send_command('timers c "'..aftermath_name..'" '..tostring(info.aftermath.duration)..' down abilities/00027.png')
-
-        info.aftermath = {}
-    end
-end
-
-
 -------------------------------------------------------------------------------------------------------------------
 -- Utility functions for changing spells and target types in an automatic manner.
 -------------------------------------------------------------------------------------------------------------------
@@ -875,11 +794,11 @@ function buff_duration(buff_id)
 	for i in pairs(player.buff_details) do
 		if player.buff_details[i] then
 			if player.buff_details[i].id == buff_id then
-				windower.add_to_chat(tostring(player.buff_details[i].duration))
-				return
+				return player.buff_details[i].duration
 			end
 		end
 	end
+	return 0
 end
 
 
@@ -1031,14 +950,12 @@ function check_doom(spell, spellMap, eventArgs)
 	return false
 end
 
-function check_midaction(spell, spellMap, eventArgs)
+function just_acted(spell, spellMap, eventArgs)
 	if os.clock() < next_cast and not state.RngHelper.value then
-		if eventArgs and not (spell.type:startswith('BloodPact') and state.Buff["Astral Conduit"]) then
+		if eventArgs and state.MiniQueue.value and not (spell.type:startswith('BloodPact') and state.Buff["Astral Conduit"]) then
 			eventArgs.cancel = true
-			if delayed_cast == '' and state.MiniQueue.value then
-				delayed_cast = spell.english
-				delayed_target = spell.target.id
-			end
+			delayed_cast = spell.english
+			delayed_target = spell.target.id
 		end
 		return true
 	else
@@ -1474,26 +1391,6 @@ function check_trust()
 	return false
 end
 
-function check_auto_tank_ws()
-	if state.AutoWSMode.value and state.AutoTankMode.value and player.target.type == "MONSTER" and not moving and player.status == 'Engaged' and not silent_check_amnesia() then
-		if player.tp > 999 and data.equipment.relic_weapons:contains(player.equipment.main) and state.MaintainAftermath.value and (not buffactive['Aftermath']) then
-			windower.chat.input('/ws "'..data.weaponskills.relic[player.equipment.main]..'" <t>')
-			tickdelay = os.clock() + 2
-			return true
-		elseif player.tp > 999 and (buffactive['Aftermath: Lv.3'] or not state.MaintainAftermath.value or not data.equipment.mythic_weapons:contains(player.equipment.main)) then
-			windower.chat.input('/ws "'..autows..'" <t>')
-			tickdelay = os.clock() + 2
-			return true
-		elseif player.tp == 3000 then
-			windower.chat.input('/ws "'..data.weaponskills.mythic[player.equipment.main]..'" <t>')
-			tickdelay = os.clock() + 2
-			return true
-		else
-			return false
-		end
-	end
-end
-
 function check_use_item()
 	if useItem then
 		local Offset = 18000-os.time()
@@ -1624,7 +1521,7 @@ end
 function check_delayed_cast()
 	if delayed_cast ~= '' and delayed_target ~= '' then
 		windower.send_command(''..delayed_cast..' '..delayed_target..'')
-		tickdelay = os.clock() + .5
+		tickdelay = os.clock() + .3
 		delayed_cast = ''
 		delayed_target = ''
 		return true
@@ -1639,33 +1536,33 @@ function check_ws()
 		
 		if player.hpp < 41 and state.AutoWSRestore.value and available_ws:contains(47) and player.target.distance < (3.2 + player.target.model_size) then
 			windower.chat.input('/ws "Sanguine Blade" <t>')
-			tickdelay = os.clock() + 2.8
+			tickdelay = os.clock() + 2.5
 			return true
 		elseif player.hpp < 41 and state.AutoWSRestore.value and available_ws:contains(105) and player.target.distance < (3.2 + player.target.model_size) then
 			windower.chat.input('/ws "Catastrophe" <t>')
-			tickdelay = os.clock() + 2.8
+			tickdelay = os.clock() + 2.5
 			return true
 		elseif player.mpp < 31 and state.AutoWSRestore.value and available_ws:contains(109) and player.target.distance < (3.2 + player.target.model_size) then
 			windower.chat.input('/ws "Entropy" <t>')
-			tickdelay = os.clock() + 2.8
+			tickdelay = os.clock() + 2.5
 			return true
 		elseif player.mpp < 31 and state.AutoWSRestore.value and available_ws:contains(171) and player.target.distance < (3.2 + player.target.model_size) then
 			windower.chat.input('/ws "Mystic Boon" <t>')
-			tickdelay = os.clock() + 2.8
+			tickdelay = os.clock() + 2.5
 			return true
 		elseif player.target.distance > (3.2 + player.target.model_size) and not data.weaponskills.ranged:contains(autows) then
 			return false
 		elseif data.equipment.relic_weapons:contains(player.equipment.main) and state.MaintainAftermath.value and (not buffactive['Aftermath']) then
 			windower.chat.input('/ws "'..data.weaponskills.relic[player.equipment.main]..'" <t>')
-			tickdelay = os.clock() + 2.8
+			tickdelay = os.clock() + 2.5
 			return true
 		elseif (buffactive['Aftermath: Lv.3'] or not state.MaintainAftermath.value or not data.equipment.mythic_weapons:contains(player.equipment.main)) and player.tp >= autowstp then
 			windower.chat.input('/ws "'..autows..'" <t>')
-			tickdelay = os.clock() + 2.8
+			tickdelay = os.clock() + 2.5
 			return true
 		elseif player.tp == 3000 then
 			windower.chat.input('/ws "'..data.weaponskills.mythic[player.equipment.main]..'" <t>')
-			tickdelay = os.clock() + 2.8
+			tickdelay = os.clock() + 2.5
 			return true
 		else
 			return false
@@ -2282,14 +2179,6 @@ function check_ws_acc()
 	end
 end
 
-function is_dual_wielding()
-	if player.equipment.main and player.equipment.sub and player.equipment.sub ~= 'empty' then
-		if data.skills.one_handed_combat:contains(res.items[item_name_to_id(player.equipment.sub)].skill) then
-			return true
-		end
-	end
-end
-
 function is_fencing()
 	if main_weapon_is_one_handed() and (player.equipment.sub == 'empty' or res.items[item_name_to_id(player.equipment.sub)].shield_size) then
 		return true
@@ -2313,7 +2202,7 @@ function update_combat_form()
 		else
 			state.CombatForm:reset()
 		end
-	elseif sets.engaged.DW and ((state.Weapons.value:contains('DW') or state.Weapons.value:contains('Dual')) or (state.Weapons.value == 'None' and can_dual_wield) or is_dual_wielding()) then
+	elseif sets.engaged.DW and state.Weapons.value:contains('DW') or state.Weapons.value:contains('Dual') or (state.Weapons.value == 'None' and can_dual_wield) then
 		state.CombatForm:set('DW')
 	elseif sets.engaged[player.equipment.main] then
 		state.CombatForm:set(player.equipment.main)
@@ -2425,7 +2314,7 @@ windower.raw_register_event('outgoing chunk',function(id,data,modified,is_inject
         lastlocation = currentlocation
 
 		if moving then
-			if sets.Kiting and not wasmoving and not (player.status == 'Event' or (os.clock() < (next_cast + 1)) or pet_midaction() or (os.clock() < (petWillAct + 2))) then
+			if sets.Kiting and not wasmoving and not (player.status == 'Event' or midaction() or pet_midaction() or (os.clock() < (petWillAct + 2))) then
 				send_command('gs c forceequip')
 			end
 			if state.RngHelper.value and not buffactive['Hover Shot'] then
@@ -2437,6 +2326,7 @@ windower.raw_register_event('outgoing chunk',function(id,data,modified,is_inject
 			end
 			
 			if not state.Uninterruptible.value then delayed_cast = '' end
+			prepared_action = ''
 		elseif wasmoving then
 			if not (player.status == 'Event' or (os.clock() < (next_cast + 1)) or pet_midaction() or (os.clock() < (petWillAct + 2))) then
 				send_command('gs c forceequip')
@@ -2455,7 +2345,7 @@ fixed_pos = ''
 
 windower.raw_register_event('outgoing chunk',function(id,original,modified,injected,blocked)
 	if not blocked and id == 0x15 and state.Uninterruptible.value then
-		if player.status ~= 'Event' and (gearswap.cued_packet or check_midaction()) and fixed_pos ~= '' then
+		if player.status ~= 'Event' and (gearswap.cued_packet or just_acted()) and fixed_pos ~= '' then
 			return original:sub(1,4)..fixed_pos..original:sub(17)
 		else
 			fixed_pos = original:sub(5,16)

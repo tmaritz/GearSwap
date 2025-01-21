@@ -236,6 +236,7 @@ function init_include()
 	autonuke = 'Fire'
 	autows = ''
 	autows_list = {}
+	prepared_action = ''
 	weapons_pagelist = {}
 	smartws = nil
 	rangedautows = ''
@@ -407,8 +408,8 @@ function init_include()
 		
 		gearswap.refresh_globals(false)
 		
-		if (player ~= nil) and (player.status == 'Idle' or player.status == 'Engaged') and not (check_midaction() or moving or silent_check_disable()) then
-
+		if (player ~= nil) and (player.status == 'Idle' or player.status == 'Engaged') and not (just_acted() or moving or silent_check_disable()) then
+			prepared_action = ''
 			if pre_tick then
 				if pre_tick() then return end
 			end
@@ -992,7 +993,17 @@ function extra_default_filtered_action(spell, eventArgs)
 end
 
 function default_pretarget(spell, spellMap, eventArgs)
-	if spell.english == 'Warp II' and spell.target.name == player.name and state.SelfWarp2Block.value then
+	if spell.english == prepared_action then
+		eventArgs.cancel = true
+		cancel_spell()
+		return
+	else
+		prepared_action = spell.english
+	end
+
+	if just_acted(spell, spellMap, eventArgs) then
+		return	
+	elseif spell.english == 'Warp II' and spell.target.name == player.name and state.SelfWarp2Block.value then
 		eventArgs.cancel = true
 		cancel_spell()
 		add_to_chat(123,'Blocking Warp2 on self, use Warp instead or disable the SelfWarp2Block state.')
@@ -1164,7 +1175,6 @@ end
 
 function default_midcast(spell, spellMap, eventArgs)
     equip(get_midcast_set(spell, spellMap))
-	
 	if can_dual_wield then
 		if sets.midcast[spell.english] and sets.midcast[spell.english][state.CastingMode.current] and sets.midcast[spell.english][state.CastingMode.current].DW then
 			equip(sets.midcast[spell.english][state.CastingMode.current].DW)
@@ -1278,6 +1288,7 @@ function default_post_pet_midcast(spell, spellMap, eventArgs)
 end
 
 function default_aftercast(spell, spellMap, eventArgs)
+	prepared_action = ''
 	if spell.interrupted then
 		if spell.type:contains('Magic') or spell.type == 'Ninjutsu' or spell.type == 'BardSong' then
 			next_cast = os.clock() + 3.35 - latency
@@ -1285,7 +1296,7 @@ function default_aftercast(spell, spellMap, eventArgs)
 			next_cast = os.clock() + 1.75 - latency
 		end
 	elseif spell.action_type == 'Magic' then
-		next_cast = os.clock() + 3.35 - latency
+		next_cast = os.clock() + 2.5 - latency
 	elseif spell.type == 'WeaponSkill' then
 		next_cast = os.clock() + 1.5 - latency
 	elseif spell.action_type == 'Ability' then
@@ -1379,7 +1390,7 @@ end
 
 function filter_precast(spell, spellMap, eventArgs)
 	if check_rnghelper(spell, spellMap, eventArgs) then return end
-	if check_midaction(spell, spellMap, eventArgs) then return end
+	if just_acted(spell, spellMap, eventArgs) then return end
 	if check_disable(spell, spellMap, eventArgs) then return end
 	if check_doom(spell, spellMap, eventArgs) then return end
 	
