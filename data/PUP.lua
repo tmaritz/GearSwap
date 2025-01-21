@@ -409,22 +409,22 @@ function check_auto_pet()
 
 		if abil_recasts[205] < latency then
 			windower.chat.input('/ja "Activate" <me>')
-			tickdelay = os.clock() + 1.1
+			add_tick_delay()
 			return true
 		elseif abil_recasts[115] < latency then
 			windower.chat.input('/ja "Deus Ex Automata" <me>')
-			tickdelay = os.clock() + 1.1
+			add_tick_delay()
 			return true
 		end
 
 	elseif pet.status == "Idle" then
 		if pet.max_mp > 50 and pet.mpp < 10 and pet.hpp >= deactivatehpp and abil_recasts[208] < latency then
 			windower.chat.input('/pet "Deactivate" <me>')
-			tickdelay = os.clock() + 1.1
+			add_tick_delay()
 			return true
 		elseif player.target.type == "MONSTER" and abil_recasts[207] < latency then
 			windower.chat.input('/pet "Deploy" <t>')
-			tickdelay = os.clock() + 1.1
+			add_tick_delay()
 			return true
 		end
 	end
@@ -439,7 +439,7 @@ function check_repair()
 
 		if abil_recasts[206] < latency and item_available('Automat. Oil +3') then
 			windower.chat.input('/ja "Repair" <me>')
-			tickdelay = os.clock() + 1.1
+			add_tick_delay()
 			return true
 		end
 	end
@@ -464,7 +464,7 @@ function check_maneuver()
                 local maneuversActive = buffactive[maneuver.Name] or 0
                 if maneuversActive < maneuver.Amount then
                     windower.chat.input('/pet "'..maneuver.Name..'" <me>')
-                    tickdelay = os.clock() + 1.1
+                    add_tick_delay()
                     return true
                 end
 			else

@@ -528,7 +528,7 @@ function handle_buffup(cmdParams)
 			need_delay = true
 		end
 	end
-	if need_delay then tickdelay = os.clock() + 1.5 end
+	if need_delay then add_tick_delay(.2) end
 end
 
 -- General handling of scholar commands in an Arts-agnostic way.

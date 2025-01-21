@@ -266,7 +266,7 @@ function job_filter_precast(spell, spellMap, eventArgs)
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 
 		if abil_recasts[94] ~= 0 then
-				send_command('@input /ja "Call Beast" <me>')
+				windower.chat.input('/ja "Call Beast" <me>')
                 eventArgs.cancel = true
 				return
 		end
@@ -634,7 +634,7 @@ function check_pet()
 			if abil_recasts[103] < latency and not (buffactive.amnesia or buffactive.impairment) then
 				if item_available('Pet Food '..state.RewardMode.value..'') then
 					windower.chat.input('/ja "Reward" <me>')
-					tickdelay = os.clock() + 1.1
+					add_tick_delay()
 					return true
 				else
 					return false
@@ -644,12 +644,12 @@ function check_pet()
 	elseif state.AutoCallPet.value and not data.areas.cities:contains(world.area) then
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 		if abil_recasts[94] < latency then
-			send_command('@input /ja "Bestial Loyalty" <me>')
-			tickdelay = os.clock() + .7
+			windower.chat.input('/ja "Bestial Loyalty" <me>')
+			add_tick_delay()
 			return true
 		elseif abil_recasts[104] < latency then
-			send_command('@input /ja "Call Beast" <me>')
-			tickdelay = os.clock() + 1.1
+			windower.chat.input('/ja "Call Beast" <me>')
+			add_tick_delay()
 			return true
 		else
 			return false
@@ -665,11 +665,11 @@ function check_ready()
 		if pet.isvalid then
 			if pet.status == "Engaged" and get_current_ready_count() > 0 then
 				windower.send_command('gs c ready')
-				tickdelay = os.clock() + 2
+				add_tick_delay()
 				return true
 			elseif pet.status == "Idle" and player.target.type == "MONSTER" then
 				windower.chat.input('/pet Fight <t>')
-				tickdelay = os.clock() + 2
+				add_tick_delay()
 				return true
 			else
 				return false

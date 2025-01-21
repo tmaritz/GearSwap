@@ -242,7 +242,7 @@ function init_include()
 	rangedautows = ''
 	autowstp = 1000
 	rangedautowstp = 1000
-	latency = .7
+	latency = .5
 	spell_latency = nil
 	buffup = ''
 	curecheat = false
@@ -516,7 +516,7 @@ function zone_change(new_id,old_id)
 end
 	
 function default_zone_change(new_id,old_id)
-	tickdelay = os.clock() + 10
+	add_tick_delay(10)
 	state.AutoBuffMode:reset()
 	state.AutoSubMode:reset()
 	state.AutoTrustMode:reset()
@@ -1039,17 +1039,17 @@ function default_precast(spell, spellMap, eventArgs)
     cancel_conflicting_buffs(spell, spellMap, eventArgs)
 	
 	if spell.action_type == 'Magic' then
-		next_cast = os.clock() + (spell.cast_time/4) + 3.5 - latency
+		next_cast = os.clock() + (spell.cast_time/4) + 3 - latency
 	elseif spell.type == 'WeaponSkill' then
 		next_cast = os.clock() + 2.5 - latency
 	elseif spell.action_type == 'Ability' then
-		next_cast = os.clock() + 1.1 - latency
+		next_cast = os.clock() + 1.5 - latency
 	elseif spell.action_type == 'Item' then
-		next_cast = os.clock() + 1.35 - latency
+		next_cast = os.clock() + 1.8 - latency
 	elseif spell.action_type == 'Ranged Attack' then
-		next_cast = os.clock() + 1.05 - latency
+		next_cast = os.clock() + 1.3 - latency
 	end
-	
+
 	if tickdelay < next_cast then tickdelay = next_cast end
 end
 
@@ -1297,9 +1297,9 @@ function default_aftercast(spell, spellMap, eventArgs)
 			next_cast = os.clock() + 1.75 - latency
 		end
 	elseif spell.action_type == 'Magic' then
-		next_cast = os.clock() + 2.5 - latency
+		next_cast = os.clock() + 2.9 - latency --2.5 was original, .75 was too low
 	elseif spell.type == 'WeaponSkill' then
-		next_cast = os.clock() + 1.5 - latency
+		next_cast = os.clock() + 1 - latency --2.8 worked for spells
 	elseif spell.action_type == 'Ability' then
 		next_cast = os.clock() + .8 - latency
 	elseif 	spell.action_type == 'Item' then

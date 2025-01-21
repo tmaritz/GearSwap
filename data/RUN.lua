@@ -100,14 +100,14 @@ function job_precast(spell, spellMap, eventArgs)
 		if player.sub_job == 'SAM' and player.tp > 1850 and abil_recasts[140] < latency then
 			eventArgs.cancel = true
 			windower.chat.input('/ja "Sekkanoki" <me>')
-			windower.chat.input:schedule(1,'/ws "'..spell.english..'" '..spell.target.raw..'')
-			tickdelay = os.clock() + 1.25
+			windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+			add_tick_delay(1.1)
 			return
 		elseif player.sub_job == 'SAM' and abil_recasts[134] < latency then
 			eventArgs.cancel = true
 			windower.chat.input('/ja "Meditate" <me>')
-			windower.chat.input:schedule(1,'/ws "'..spell.english..'" '..spell.target.raw..'')
-			tickdelay = os.clock() + 1.25
+			windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+			add_tick_delay(1.1)
 			return
 		end
 	end
@@ -362,7 +362,7 @@ function job_tick()
 	if state.AutoTankMode.value and in_combat and player.target.type == "MONSTER" and not moving then
 		if check_flash_foil() then return true end
 		windower.send_command('gs c SubJobEnmity')
-		tickdelay = os.clock() + 1.5
+		add_tick_delay()
 		return true
 	end
 	return false
@@ -374,15 +374,15 @@ function check_flash_foil()
 	
 	if not buffactive['Enmity Boost'] and spell_recasts[476] < spell_latency then
 		windower.chat.input('/ma "Crusade" <me>')
-		tickdelay = os.clock() + 2
+		add_tick_delay()
 		return true
 	elseif spell_recasts[112] < spell_latency then
 		windower.chat.input('/ma "Flash" <t>')
-		tickdelay = os.clock() + 2
+		add_tick_delay()
 		return true
 	elseif spell_recasts[840] < spell_latency then
 		windower.chat.input('/ma "Foil" <me>')
-		tickdelay = os.clock() + 2
+		add_tick_delay()
 		return true
 	else
 		return false
@@ -406,90 +406,17 @@ if player.sub_job == 'SAM' and player.status == 'Engaged' and not (state.Stance.
 		
 		if state.Stance.value == 'Hasso' and abil_recasts[138] < latency then
 			windower.chat.input('/ja "Hasso" <me>')
-			tickdelay = os.clock() + 1.1
+			add_tick_delay()
 			return true
 		elseif state.Stance.value == 'Seigan' and abil_recasts[139] < latency then
 			windower.chat.input('/ja "Seigan" <me>')
-			tickdelay = os.clock() + 1.1
+			add_tick_delay()
 			return true
 		end
 	
 	end
 		
 	return false
-end
-
-function check_buff()
-	if state.AutoBuffMode.value ~= 'Off' and not data.areas.cities:contains(world.area) then
-		local spell_recasts = windower.ffxi.get_spell_recasts()
-		for i in pairs(buff_spell_lists[state.AutoBuffMode.Value]) do
-			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and in_combat) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not in_combat)) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
-				windower.chat.input('/ma "'..buff_spell_lists[state.AutoBuffMode.Value][i].Name..'" <me>')
-				tickdelay = os.clock() + 2
-				return true
-			end
-		end
-		
-		if in_combat then
-			local abil_recasts = windower.ffxi.get_ability_recasts()
-			
-			if not buffactive['Swordplay'] and abil_recasts[24] < latency then
-				windower.chat.input('/ja "Swordplay" <me>')
-				tickdelay = os.clock() + 1.1
-				return true
-			elseif state.Buff['SJ Restriction'] then
-				return false
-			elseif player.sub_job == 'DRK' and not buffactive['Last Resort'] and abil_recasts[87] < latency then
-				windower.chat.input('/ja "Last Resort" <me>')
-				tickdelay = os.clock() + 1.1
-				return true
-			elseif player.sub_job == 'WAR' and not buffactive.Berserk and abil_recasts[1] < latency then
-				windower.chat.input('/ja "Berserk" <me>')
-				tickdelay = os.clock() + 1.1
-				return true
-			elseif player.sub_job == 'WAR' and not buffactive.Aggressor and abil_recasts[4] < latency then
-				windower.chat.input('/ja "Aggressor" <me>')
-				tickdelay = os.clock() + 1.1
-				return true
-			else
-				return false
-			end
-		end
-	end
-		
-	return false
-end
-
-function check_buffup()
-	if buffup ~= '' then
-		local needsbuff = false
-		for i in pairs(buff_spell_lists[buffup]) do
-			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) then
-				needsbuff = true
-				break
-			end
-		end
-	
-		if not needsbuff then
-			add_to_chat(217, 'All '..buffup..' buffs are up!')
-			buffup = ''
-			return false
-		end
-		
-		local spell_recasts = windower.ffxi.get_spell_recasts()
-		
-		for i in pairs(buff_spell_lists[buffup]) do
-			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) and spell_recasts[buff_spell_lists[buffup][i].SpellID] < spell_latency then
-				windower.chat.input('/ma "'..buff_spell_lists[buffup][i].Name..'" <me>')
-				tickdelay = os.clock() + 2
-				return true
-			end
-		end
-		
-		return false
-	else
-		return false
-	end
 end
 
 buff_spell_lists = {
