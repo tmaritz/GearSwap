@@ -315,3 +315,16 @@ function find_breath_hpp()
 		end
 	end
 end
+
+buff_spell_lists = {
+	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat
+		{Name='Haste',			Buff='Haste',		SpellID=57,		When='Always'},
+		{Name='Refresh',		Buff='Refresh',		SpellID=109,	When='Always'},
+		{Name='Phalanx',		Buff='Phalanx',		SpellID=106,	When='Always'},
+	},
+	Self = {
+		{Name='Haste',			Buff='Haste',		SpellID=57,		Reapply=false},
+		{Name='Refresh',		Buff='Refresh',		SpellID=109,	Reapply=false},
+		{Name='Phalanx',		Buff='Phalanx',		SpellID=106,	Reapply=false},
+	},
+}
