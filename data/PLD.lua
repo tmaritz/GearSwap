@@ -442,7 +442,7 @@ end
 function job_tick()
 	if check_majesty() then return true end
 	if check_hasso() then return true end
-	if check_job_buff() then return true end
+	if job_check_buff() then return true end
 	if check_buffup() then return true end
 	if state.AutoTankMode.value and in_combat and player.target.type == "MONSTER" and not moving then
 		if check_flash() then return true
@@ -519,7 +519,7 @@ if player.sub_job == 'SAM' and player.status == 'Engaged' and not (state.Stance.
 	return false
 end
 
-function check_job_buff()
+function job_check_buff()
 	if state.AutoBuffMode.value ~= 'Off' and not data.areas.cities:contains(world.area) then
 		if in_combat then
 			local abil_recasts = windower.ffxi.get_ability_recasts()

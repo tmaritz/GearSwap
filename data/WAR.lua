@@ -200,7 +200,7 @@ end
 
 function job_tick()
 	if check_hasso() then return true end
-	if check_job_buff() then return true end
+	if job_check_buff() then return true end
 	return false
 end
 
@@ -275,7 +275,7 @@ function check_hasso()
 	return false
 end
 
-function check_job_buff()
+function job_check_buff()
 	if state.AutoBuffMode.value ~= 'Off' and in_combat then
 		
 		local abil_recasts = windower.ffxi.get_ability_recasts()

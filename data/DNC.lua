@@ -319,7 +319,7 @@ end
 
 function job_tick()
 	if check_dance() then return true end
-	if check_job_buff() then return true end
+	if job_check_buff() then return true end
 	return false
 end
 
@@ -347,7 +347,7 @@ function under3FMs()
 	end
 end
 
-function check_job_buff()
+function job_check_buff()
 
 	if state.AutoBuffMode.value ~= 'Off' then
 		local abil_recasts = windower.ffxi.get_ability_recasts()

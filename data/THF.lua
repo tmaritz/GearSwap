@@ -229,7 +229,7 @@ function job_self_command(commandArgs, eventArgs)
 end
 
 function job_tick()
-	if check_job_buff() then return true end
+	if job_check_buff() then return true end
 	return false
 end
 
@@ -283,7 +283,7 @@ end
 -- Utility functions specific to this job.
 -------------------------------------------------------------------------------------------------------------------
 
-function check_job_buff()
+function job_check_buff()
 	if state.AutoBuffMode.value ~= 'Off' and not data.areas.cities:contains(world.area) then
 		if in_combat and player.sub_job == 'WAR' then
 			local abil_recasts = windower.ffxi.get_ability_recasts()

@@ -79,13 +79,13 @@ function job_precast(spell, spellMap, eventArgs)
 				eventArgs.cancel = true
 				windower.chat.input('/ja "Sekkanoki" <me>')
 				windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
-				add_tick_delay(1.2)
+				add_tick_delay(1.1)
 				return
 			elseif abil_recasts[134] < latency then
 				eventArgs.cancel = true
 				windower.chat.input('/ja "Meditate" <me>')
 				windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
-				add_tick_delay(1.2)
+				add_tick_delay(1.1)
 				return
 			end
 		end
@@ -96,7 +96,7 @@ function job_precast(spell, spellMap, eventArgs)
 				eventArgs.cancel = true
 				windower.chat.input('/ja "Spirit Bond" <me>')
 				windower.chat.input:schedule(1.1,'/ja "Restoring Breath" '..spell.target.raw..'')
-				add_tick_delay(1.2)
+				add_tick_delay(1.1)
 			end
 		end
 	end
@@ -209,7 +209,7 @@ function job_tick()
 	if check_jump() then return true end
 	if check_buff() then return true end
 	if check_buffup then return true end
-	if check_job_buff() then return true end
+	if job_check_buff() then return true end
 	return false
 end
 
@@ -225,11 +225,11 @@ if player.sub_job == 'SAM' and player.status == 'Engaged' and not (state.Stance.
 		
 		if state.Stance.value == 'Hasso' and abil_recasts[138] < latency then
 			windower.chat.input('/ja "Hasso" <me>')
-			add_tick_delay(1.2)
+			add_tick_delay(1.1)
 			return true
 		elseif state.Stance.value == 'Seigan' and abil_recasts[139] < latency then
 			windower.chat.input('/ja "Seigan" <me>')
-			add_tick_delay(1.2)
+			add_tick_delay(1.1)
 			return true
 		end
 	
@@ -269,7 +269,7 @@ function check_jump()
     end
 end
 
-function check_job_buff()
+function job_check_buff()
 	if state.AutoBuffMode.value ~= 'Off' and in_combat then
 		
 		local abil_recasts = windower.ffxi.get_ability_recasts()
