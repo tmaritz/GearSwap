@@ -2290,7 +2290,7 @@ end
 
 function item_name_to_id(name)
 	if name == nil or name == 'empty' then
-		return 22299
+		return nil
 	else
 		return (player.inventory[name] or player.wardrobe[name] or player.wardrobe2[name] or player.wardrobe3[name] or player.wardrobe4[name] or player.wardrobe5[name] or player.wardrobe6[name] or player.wardrobe7[name] or player.wardrobe8[name] or {id=nil}).id
 	end

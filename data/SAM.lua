@@ -282,7 +282,7 @@ function update_melee_groups()
 end
 
 function check_hasso()
- 	if player.status == 'Engaged' and wielding() == 'Two-Handed' and state.Stance.value =~ 'None' and not (state.Buff.Hasso or state.Buff.Seigan or state.Buff['SJ Restriction'] or silent_check_amnesia()) then
+ 	if player.status == 'Engaged' and wielding() == 'Two-Handed' and state.Stance.value ~= 'None' and not (state.Buff.Hasso or state.Buff.Seigan or state.Buff['SJ Restriction'] or silent_check_amnesia()) then
 
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 		
