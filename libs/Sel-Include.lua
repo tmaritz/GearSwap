@@ -604,7 +604,7 @@ function global_on_load()
 		if state.Weapons.value == 'None' then
 			enable('main','sub','range','ammo')
 		else
-			send_command('@wait 3;gs c weapons Default')
+			send_command('@wait 4;gs c weapons Default')
 		end
 	end
 end

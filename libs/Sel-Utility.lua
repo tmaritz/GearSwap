@@ -2240,17 +2240,31 @@ function check_ws_acc()
 	end
 end
 
-function is_fencing()
-	if main_weapon_is_one_handed() and (player.equipment.sub == 'empty' or res.items[item_name_to_id(player.equipment.sub)].shield_size) then
-		return true
-	else
-		return false
+--Checks to see if you're 'Fencing', 'Dual Wielding', or 'Hand-to-Hand', or 'Two-Handed', or 'Unarmed'
+function wielding()
+	local equipped = {}
+	
+	if state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.value] then
+		equipped = sets.weapons[state.Weapons.value]
+	else --Guess I have to resort to this, can't think of anything better for being situation agnostic.
+		equipped.main = player.equipment.main or 'empty'
+		equipped.sub = player.equipment.sub or 'empty'
 	end
-end
-
-function main_weapon_is_one_handed()
-	if player.equipment.main == nil or player.equipment.main == 'empty' then return false end
-	return data.skills.one_handed_combat:contains(res.items[item_name_to_id(player.equipment.main)].skill) or false
+	
+	local main = standardize_slot(equipped.main) or 'empty'
+	local sub = standardize_slot(equipped.sub) or 'empty'
+	
+	if main == 'empty' and sub ~= 'empty' then
+		return 'Unarmed'
+	elseif (main == 'empty' and sub == 'empty') or res.items[item_name_to_id(main)].skill == 1 then
+		return 'Hand-to-Hand'
+	elseif data.skills.one_handed_combat:contains(res.items[item_name_to_id(main)].skill) and (sub == 'empty' or res.items[item_name_to_id(sub)].shield_size) then
+		return 'Fencing'
+	elseif data.skills.one_handed_combat:contains(res.items[item_name_to_id(sub)].skill) then
+		return 'Dual Wielding'
+	elseif data.skills.two_handed_combat:contains(res.items[item_name_to_id(main)].skill) then
+		return 'Two-Handed'
+	end
 end
 
 -- Generic combat form handling
@@ -2267,7 +2281,7 @@ function update_combat_form()
 		state.CombatForm:set('DW')
 	elseif sets.engaged[player.equipment.main] then
 		state.CombatForm:set(player.equipment.main)
-	elseif sets.engaged.Fencer and is_fencing() then
+	elseif sets.engaged.Fencer and wielding == 'Fencing' then
 		state.CombatForm:set('Fencer')
 	else
 		state.CombatForm:reset()
@@ -2421,7 +2435,7 @@ Ikenga_axe_bonus = 300  -- It is 300 at R25. Don't edit here, add the variable t
 function get_effective_player_tp(spell, WSset)
 	local effective_tp = player.tp
 	
-	if is_fencing() then effective_tp = effective_tp + get_fencer_tp_bonus(WSset) end
+	if wielding() == 'Fencing' then effective_tp = effective_tp + get_fencer_tp_bonus(WSset) end
 	if buffactive['Crystal Blessing'] then effective_tp = effective_tp + 250 end
 	if data.equipment.magian_tp_bonus_melee_weapons:contains(player.equipment.main) then effective_tp = effective_tp + 1000 end
 	if data.equipment.magian_tp_bonus_melee_weapons:contains(player.equipment.sub) then effective_tp = effective_tp + 1000 end

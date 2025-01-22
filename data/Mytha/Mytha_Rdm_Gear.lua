@@ -454,8 +454,8 @@ function init_gear_sets()
 	sets.weapons.DualEvisceration = {}
 	sets.weapons.DualAeolian = {main="Gleti's Knife",sub="Maxentius",range=empty}
 	sets.weapons.DualProcSword = {main="Kyukoto",sub="Qutrub Knife",range=empty}
-	sets.weapons.EnspellOnly = {main="Qutrub Knife",sub="Kyukoto"}
-	sets.weapons.EnspellDW = {}
+	sets.weapons.EnspellOnly = {main="Qutrub Knife",sub="Genmei Shield"}
+	sets.weapons.EnspellDW = {main="Qutrub Knife",sub="Kyukoto"}
 	sets.weapons.DualBow = {}
 	sets.weapons.BowMacc = {}
 	sets.weapons.DualMaxentius = {main="Maxentius",sub="Gleti's Knife",range=empty}
