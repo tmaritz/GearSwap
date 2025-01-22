@@ -174,7 +174,7 @@ function init_gear_sets()
 	--Red Mage enhancing sets are handled in a different way from most, layered on due to the way Composure works
 	--Don't set combine a full set with these spells, they should layer on Enhancing Set > Composure (If Applicable) > Spell
 	sets.EnhancingSkill = {main="Pukulatmuj +1",sub="Forfend +1",
-	head="Befouled Crown",neck="Incanter's Torque",ear1="Andoaa Earring",--ear2="Mimir Earring"
+	head="Befouled Crown",neck="Incanter's Torque",ear1="Andoaa Earring",ear2="Mimir Earring",
 	body="Viti. Tabard +3",hands="Viti. Gloves +3",ring1="Stikini Ring +1",ring2="Stikini Ring +1",
 	back="Ghostfyre Cape",waist="Olympus Sash",legs="Atrophy Tights +3",feet="Leth. Houseaux +3"}
 	

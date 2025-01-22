@@ -1050,7 +1050,7 @@ function default_precast(spell, spellMap, eventArgs)
 		next_cast = os.clock() + 1.3 - latency
 	end
 
-	if tickdelay < next_cast then tickdelay = next_cast end
+	if tickdelay < next_cast then tickdelay = next_cast +.1 end
 end
 
 function default_post_precast(spell, spellMap, eventArgs)
@@ -1297,9 +1297,9 @@ function default_aftercast(spell, spellMap, eventArgs)
 			next_cast = os.clock() + 1.75 - latency
 		end
 	elseif spell.action_type == 'Magic' then
-		next_cast = os.clock() + 2.9 - latency --2.5 was original, .75 was too low
+		next_cast = os.clock() + 2.9 - latency
 	elseif spell.type == 'WeaponSkill' then
-		next_cast = os.clock() + 1 - latency --2.8 worked for spells
+		next_cast = os.clock() + 2.7 - latency
 	elseif spell.action_type == 'Ability' then
 		next_cast = os.clock() + .8 - latency
 	elseif 	spell.action_type == 'Item' then
@@ -1308,7 +1308,7 @@ function default_aftercast(spell, spellMap, eventArgs)
 		next_cast = os.clock() + .85 - latency
 	end
 	
-	if tickdelay < next_cast then tickdelay = next_cast end
+	if tickdelay < next_cast then tickdelay = next_cast +.1 end
 	
 	if not spell.interrupted then
 		if spell.target.type == 'MONSTER' and spell.target.hpp > 0 then
