@@ -2242,27 +2242,27 @@ end
 
 --Checks to see if you're 'Fencing', 'Dual Wielding', or 'Hand-to-Hand', or 'Two-Handed', or 'Unarmed'
 function wielding()
-	local equipped = {}
+	local main_id
+	local sub_id
 	
+	--Guess I have to resort to player.equipment as a backup, can't think of anything better for being situation agnostic.
 	if state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.value] then
-		equipped = sets.weapons[state.Weapons.value]
-	else --Guess I have to resort to this, can't think of anything better for being situation agnostic.
-		equipped.main = player.equipment.main or 'empty'
-		equipped.sub = player.equipment.sub or 'empty'
+		main_id = item_name_to_id(sets.weapons[state.Weapons.value].main) or item_name_to_id(player.equipment.main) or 'empty'
+		sub_id = item_name_to_id(sets.weapons[state.Weapons.value].sub) or item_name_to_id(player.equipment.sub) or 'empty'
+	else 
+		main_id = item_name_to_id(player.equipment.main) or 'empty'
+		sub_id = item_name_to_id(player.equipment.sub) or 'empty'
 	end
-	
-	local main = standardize_slot(equipped.main) or 'empty'
-	local sub = standardize_slot(equipped.sub) or 'empty'
 	
 	if main == 'empty' and sub ~= 'empty' then
 		return 'Unarmed'
-	elseif (main == 'empty' and sub == 'empty') or res.items[item_name_to_id(main)].skill == 1 then
+	elseif (main == 'empty' and sub == 'empty') or (main ~= 'empty' and res.items[main_id].skill == 1) then
 		return 'Hand-to-Hand'
-	elseif data.skills.one_handed_combat:contains(res.items[item_name_to_id(main)].skill) and (sub == 'empty' or res.items[item_name_to_id(sub)].shield_size) then
+	elseif (main_id ~= 'empty' and data.skills.one_handed_combat:contains(res.items[main_id].skill)) and (sub == 'empty' or res.items[sub_id].shield_size) then
 		return 'Fencing'
-	elseif data.skills.one_handed_combat:contains(res.items[item_name_to_id(sub)].skill) then
+	elseif sub_id ~= 'empty' and data.skills.one_handed_combat:contains(res.items[sub_id].skill) then
 		return 'Dual Wielding'
-	elseif data.skills.two_handed_combat:contains(res.items[item_name_to_id(main)].skill) then
+	elseif main_id ~= 'empty' and data.skills.two_handed_combat:contains(res.items[main_id].skill) then
 		return 'Two-Handed'
 	end
 end
