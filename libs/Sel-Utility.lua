@@ -1574,7 +1574,7 @@ function check_doomed()
 end
 
 function check_delayed_cast()
-	if delayed_cast ~= '' and delayed_target ~= '' then
+	if delayed_cast ~= '' then
 		windower.send_command(''..delayed_cast..' '..delayed_target..'')
 		add_tick_delay()
 		delayed_cast = ''

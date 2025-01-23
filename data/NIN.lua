@@ -434,8 +434,9 @@ end
 
 function job_tick()
 	if check_stance() then return true end
-	if job_check_buff() then return true end
 	if check_buffup() then return true end
+	if check_buff() then return true end
+	if job_check_buff() then return true end
 	if state.AutoTankMode.value and in_combat and player.target.type == "MONSTER" and not moving then
 		windower.send_command('gs c SubJobEnmity')
 		add_tick_delay()

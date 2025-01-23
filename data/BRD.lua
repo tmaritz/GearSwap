@@ -413,8 +413,14 @@ end
 
 function job_tick()
 	if check_song() then return true end
-	if check_buff() then return true end
 	if check_buffup() then return true end
+	if check_buff() then return true end
+	if job_check_buff() then return true end
+	return false
+end
+
+function job_check_buff() --melee bullshit at some point
+
 	return false
 end
 

@@ -442,8 +442,9 @@ end
 function job_tick()
 	if check_majesty() then return true end
 	if check_hasso() then return true end
-	if job_check_buff() then return true end
 	if check_buffup() then return true end
+	if check_buff() then return true end
+	if job_check_buff() then return true end
 	if state.AutoTankMode.value and in_combat and player.target.type == "MONSTER" and not moving then
 		if check_flash() then return true
 		else 

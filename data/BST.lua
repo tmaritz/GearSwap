@@ -622,6 +622,9 @@ end
 function job_tick()
 	if check_pet() then return true end
 	if check_ready() then return true end
+	if check_buffup() then return true end
+	if check_buff() then return true end
+	if job_check_buff() then return true end
 	return false
 end
 
@@ -767,3 +770,16 @@ function get_ready_charge_timer()
 		return charge_timer
 	end
 end
+
+buff_spell_lists = {
+	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat
+		{Name='Haste',			Buff='Haste',		SpellID=57,		When='Always'},
+		{Name='Refresh',		Buff='Refresh',		SpellID=109,	When='Always'},
+		{Name='Phalanx',		Buff='Phalanx',		SpellID=106,	When='Always'},
+	},
+	Self = {
+		{Name='Haste',			Buff='Haste',		SpellID=57,		Reapply=false},
+		{Name='Refresh',		Buff='Refresh',		SpellID=109,	Reapply=false},
+		{Name='Phalanx',		Buff='Phalanx',		SpellID=106,	Reapply=false},
+	},
+}

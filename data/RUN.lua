@@ -357,14 +357,19 @@ end
 
 function job_tick()
 	if check_hasso() then return true end
-	if check_buff() then return true end
 	if check_buffup() then return true end
+	if check_buff() then return true end
+	if job_check_buff() then return true end
 	if state.AutoTankMode.value and in_combat and player.target.type == "MONSTER" and not moving then
 		if check_flash_foil() then return true end
 		windower.send_command('gs c SubJobEnmity')
 		add_tick_delay()
 		return true
 	end
+	return false
+end
+
+function job_check_buff()
 	return false
 end
 
