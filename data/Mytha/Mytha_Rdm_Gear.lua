@@ -81,6 +81,8 @@ function init_gear_sets()
 		head="Malignance Chapeau",neck="Null Loop",ear1="Sherida Earring",ear2="Brutal Earring",
 		body="Malignance Tabard",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
+		
+	sets.precast.WS['Requiescat'] = sets.precast.WS.Proc
 	
 	-- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
 	sets.precast.WS['Requiescat'] = {range=empty,ammo="Regal Gem",
