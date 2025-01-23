@@ -994,17 +994,7 @@ function extra_default_filtered_action(spell, eventArgs)
 end
 
 function default_pretarget(spell, spellMap, eventArgs)
-	if spell.english == prepared_action then
-		eventArgs.cancel = true
-		cancel_spell()
-		return
-	else
-		prepared_action = spell.english
-	end
-
-	if just_acted(spell, spellMap, eventArgs) then
-		return	
-	elseif spell.english == 'Warp II' and spell.target.name == player.name and state.SelfWarp2Block.value then
+	if spell.english == 'Warp II' and spell.target.name == player.name and state.SelfWarp2Block.value then
 		eventArgs.cancel = true
 		cancel_spell()
 		add_to_chat(123,'Blocking Warp2 on self, use Warp instead or disable the SelfWarp2Block state.')
@@ -1013,9 +1003,14 @@ function default_pretarget(spell, spellMap, eventArgs)
 end
 
 function default_precast(spell, spellMap, eventArgs)
-	if eventArgs.cancel then
+	if eventArgs.cancel or spell.english == prepared_action then
 		cancel_spell()
 		return
+	else
+		prepared_action = spell.english
+	end
+	if just_acted(spell, spellMap, eventArgs) then
+		return	
 	else
 		equip(get_precast_set(spell, spellMap))
 	end
