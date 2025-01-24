@@ -455,7 +455,7 @@ function init_gear_sets()
 	sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
 	sets.weapons.DualEvisceration = {}
 	sets.weapons.DualAeolian = {main="Gleti's Knife",sub="Maxentius",range=empty}
-	sets.weapons.DualProcSword = {main="Kyukoto",sub="Qutrub Knife",range=empty}
+	sets.weapons.DualProcSword = {main="Demers. Degen +1",sub="Blurred Knife +1",range=empty}
 	sets.weapons.EnspellOnly = {main="Qutrub Knife",sub="Genmei Shield"}
 	sets.weapons.EnspellDW = {main="Qutrub Knife",sub="Kyukoto"}
 	sets.weapons.DualBow = {}

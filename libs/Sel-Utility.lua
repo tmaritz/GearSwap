@@ -1441,7 +1441,6 @@ function check_trust()
 				return false
 			end
 		end
-	
 	end
 	return false
 end
