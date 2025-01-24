@@ -2246,12 +2246,12 @@ function wielding()
 	
 	--Guess I have to resort to player.equipment as a backup, can't think of anything better for being situation agnostic.
 	if state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.value] then
-		main_id = item_name_to_id(sets.weapons[state.Weapons.value].main) or item_name_to_id(player.equipment.main) or 'empty'
-		sub_id = item_name_to_id(sets.weapons[state.Weapons.value].sub) or item_name_to_id(player.equipment.sub) or 'empty'
-	else 
-		main_id = item_name_to_id(player.equipment.main) or 'empty'
-		sub_id = item_name_to_id(player.equipment.sub) or 'empty'
+		main_id = item_name_to_id(sets.weapons[state.Weapons.value].main) or item_name_to_id(player.equipment.main) or nil
+		sub_id = item_name_to_id(sets.weapons[state.Weapons.value].sub) or item_name_to_id(player.equipment.sub) or nil
 	end
+		
+	main_id = main_id or item_name_to_id(player.equipment.main) or 'empty'
+	sub_id = sub_id or item_name_to_id(player.equipment.sub) or 'empty'
 	
 	if main == 'empty' and sub ~= 'empty' then
 		return 'Unarmed'
