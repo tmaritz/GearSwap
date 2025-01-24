@@ -627,6 +627,10 @@ function job_tick()
 	return false
 end
 
+function job_check_buff()
+	return false
+end
+
 function check_pet()
 
 	if pet.isvalid then

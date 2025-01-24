@@ -1036,13 +1036,13 @@ function default_precast(spell, spellMap, eventArgs)
 	if spell.action_type == 'Magic' then
 		next_cast = os.clock() + (spell.cast_time/4) + 3 - latency
 	elseif spell.type == 'WeaponSkill' then
-		next_cast = os.clock() + 2.5 - latency
+		next_cast = os.clock() + 3 - latency
 	elseif spell.action_type == 'Ability' then
-		next_cast = os.clock() + 1.5 - latency
+		next_cast = os.clock() + 1.1 - latency
 	elseif spell.action_type == 'Item' then
-		next_cast = os.clock() + 1.8 - latency
+		next_cast = os.clock() +  1.8 - latency
 	elseif spell.action_type == 'Ranged Attack' then
-		next_cast = os.clock() + 1.3 - latency
+		next_cast = os.clock() + 1.15 - latency
 	end
 
 	if tickdelay < next_cast then tickdelay = next_cast +.1 end
@@ -1297,11 +1297,13 @@ function default_aftercast(spell, spellMap, eventArgs)
 		next_cast = os.clock() + 2.7 - latency
 	elseif spell.action_type == 'Ability' then
 		next_cast = os.clock() + .8 - latency
-	elseif 	spell.action_type == 'Item' then
-		next_cast = os.clock() + .85 - latency
+	elseif spell.action_type == 'Item' then
+		next_cast = os.clock() + 1.5 - latency
 	elseif spell.action_type == 'Ranged Attack' then
 		next_cast = os.clock() + .85 - latency
 	end
+	
+	if tickdelay < next_cast then tickdelay = next_cast +.1 end
 	
 	if tickdelay < next_cast then tickdelay = next_cast +.1 end
 	
