@@ -341,7 +341,7 @@ function init_gear_sets()
 		gear.nuke_jse_back,waist="Acuity Belt +1",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 	
 	-- Gear for Magic Burst mode.
-    sets.MagicBurst = {}
+    sets.MagicBurst = {main="Bunzi's Rod",sub="Sors Shield",neck="Mizu. Kubikazari",hands="Bunzi's Gloves",ring1="Mujin Band"}
 	sets.midcast['Elemental Magic'].DW = {main="Bunzi's Rod",sub="Daybreak"}
 		
 	sets.midcast.Impact = {main="Bunzi's Rod",sub="Sors Shield",range=empty,ammo="Regal Gem",

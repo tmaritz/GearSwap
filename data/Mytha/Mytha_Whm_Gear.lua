@@ -429,38 +429,6 @@ function user_job_lockstyle()
 	else
 		windower.chat.input('/lockstyleset 003')
 	end
-	
-
-	
 end
-
-buff_spell_lists = {
-	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat
-		{Name='Reraise IV',		Buff='Reraise',		SpellID=848,	When='Always'},
-		{Name='Haste',			Buff='Haste',		SpellID=57,		When='Always'},
-		{Name='Aurorastorm',	Buff='Aurorastorm',	SpellID=119,	When='Always'},
-		{Name='Refresh',		Buff='Refresh',		SpellID=109,	When='Always'},
-		{Name='Stoneskin',		Buff='Stoneskin',	SpellID=54,		When='Always'},
-	},
-	Default = {
-		{Name='Reraise IV',		Buff='Reraise',		SpellID=848,	Reapply=false},
-		{Name='Shellra V',		Buff='Shell',		SpellID=134,	Reapply=false},
-		{Name='Protectra V',	Buff='Protect',		SpellID=129,	Reapply=false},
-		{Name='Aurorastorm',	Buff='Aurorastorm',	SpellID=119,	Reapply=false},
-		{Name='Auspice',		Buff='Auspice',		SpellID=96,		Reapply=false},
-		{Name='Haste',			Buff='Haste',		SpellID=57,		Reapply=false},
-		{Name='Aquaveil',		Buff='Aquaveil',	SpellID=55,		Reapply=false},
-		{Name='Stoneskin',		Buff='Stoneskin',	SpellID=54,		Reapply=false},
-		{Name='Blink',			Buff='Blink',		SpellID=53,		Reapply=false},
-		{Name='Phalanx',		Buff='Phalanx',		SpellID=106,	Reapply=false},
-	},
-	Melee = {
-		{Name='Reraise IV',		Buff='Reraise',		SpellID=848,	Reapply=false},
-		{Name='Boost-STR',		Buff='STR Boost',	SpellID=479,	Reapply=false},
-		{Name='Auspice',		Buff='Auspice',		SpellID=96,		Reapply=false},
-		{Name='Shellra V',		Buff='Shell',		SpellID=134,	Reapply=false},
-		{Name='Protectra V',	Buff='Protect',		SpellID=129,	Reapply=false},
-	},
-}
 
 autows_list = {['DualWeapons']='Realmrazer',['MeleeWeapons']='Realmrazer'}
