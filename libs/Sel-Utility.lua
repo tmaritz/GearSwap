@@ -2253,7 +2253,6 @@ function wielding()
 	main_id = main_id or item_name_to_id(player.equipment.main) or 'empty'
 	sub_id = sub_id or item_name_to_id(player.equipment.sub) or 'empty'
 	
-	windower.add_to_chat(main_id)
 	if main_id == 'empty' and sub_id ~= 'empty' then
 		return 'Unarmed'
 	elseif (main_id == 'empty' and sub == 'empty') or (main_id ~= 'empty' and res.items[main_id].skill == 1) then
