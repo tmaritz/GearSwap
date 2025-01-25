@@ -1323,11 +1323,11 @@ function check_sub()
 				return true
 			end
 		end
-		if (player.main_job == 'SCH' or player.sub_job == 'SCH') then
+		if (player.main_job == 'SCH' or (player.sub_job == 'SCH' and not buffactive['SJ Restriction'])) and not silent_check_amnesia() then
 			local abil_recasts = windower.ffxi.get_ability_recasts()
 			if abil_recasts[234] < latency then
 				if buffactive['Sublimation: Complete'] then
-					if player.mpp < 70 then
+					if player.mpp < 65 then
 						windower.chat.input('/ja Sublimation <me>')
 						add_tick_delay()
 						return true
@@ -2253,11 +2253,12 @@ function wielding()
 	main_id = main_id or item_name_to_id(player.equipment.main) or 'empty'
 	sub_id = sub_id or item_name_to_id(player.equipment.sub) or 'empty'
 	
-	if main == 'empty' and sub ~= 'empty' then
+	windower.add_to_chat(main_id)
+	if main_id == 'empty' and sub_id ~= 'empty' then
 		return 'Unarmed'
-	elseif (main == 'empty' and sub == 'empty') or (main ~= 'empty' and res.items[main_id].skill == 1) then
+	elseif (main_id == 'empty' and sub == 'empty') or (main_id ~= 'empty' and res.items[main_id].skill == 1) then
 		return 'Hand-to-Hand'
-	elseif (main_id ~= 'empty' and data.skills.one_handed_combat:contains(res.items[main_id].skill)) and (sub == 'empty' or res.items[sub_id].shield_size) then
+	elseif (main_id ~= 'empty' and data.skills.one_handed_combat:contains(res.items[main_id].skill)) and (sub_id == 'empty' or res.items[sub_id].shield_size) then
 		return 'Fencing'
 	elseif sub_id ~= 'empty' and data.skills.one_handed_combat:contains(res.items[sub_id].skill) then
 		return 'Dual Wielding'

@@ -13,7 +13,7 @@ function user_job_setup()
 	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage','AutoTrial'}
 	state.RecoverMode = M('Never','35%','60%','Always')
 	
-	gear.mnd_enfeebling_jse_back = {name="Sucellos's Cape",augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10',}}
+	gear.mnd_enfeebling_jse_back = {name="Sucellos's Cape",augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Haste+10',}}
 	gear.str_wsd_jse_back = {name="Sucellos's Cape",augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Damage taken-5%',}}
 	gear.nuke_jse_back = {name="Sucellos's Cape",augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Damage taken-5%',}}
 	gear.stp_jse_back = {name="Sucellos's Cape",augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}}
@@ -362,19 +362,24 @@ function init_gear_sets()
 	sets.midcast.Aspir = sets.midcast.Drain
 	
 	sets.midcast['Absorb-TP'] = {main="Bunzi's Rod",sub="Sors Shield",range=empty,ammo="Regal Gem",
-        head="Pixie Hairpin +1",neck="Erra Pendant",ear1="Malignance Earring",ear2="Snotra Earring",
-        body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
-        back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet="Leth. Houseaux +3"}
+        head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Lethargy Earring",
+        body="Viti. Tabard +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
+        back=gear.mnd_enfeebling_jse_back,waist="Null Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 		
-	sets.midcast.Stun = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",range=empty,ammo="Regal Gem",
-		head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
-		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
-		back="Null Shawl",waist="Null Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
+	sets.midcast['Absorb-TP'].Resistant = {main="Bunzi's Rod",sub="Sors Shield",range=empty,ammo="Regal Gem",
+        head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Lethargy Earring",
+        body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
+        back="Null Shawl",waist="Null Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
+		
+	sets.midcast.Stun = {main="Bunzi's Rod",sub="Sors Shield",range=empty,ammo="Regal Gem",
+        head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Lethargy Earring",
+        body="Viti. Tabard +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
+        back=gear.mnd_enfeebling_jse_back,waist="Null Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 		
 	sets.midcast.Stun.Resistant = {main="Bunzi's Rod",sub="Sors Shield",range=empty,ammo="Regal Gem",
-		head="Leth. Chappel +3",neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
-		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
-		back="Null Shawl",waist="Null Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
+        head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Lethargy Earring",
+        body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
+        back="Null Shawl",waist="Null Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 		
 	sets.midcast.Stun.DW = {main="Bunzi's Rod",sub="Maxentius"}
 
