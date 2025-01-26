@@ -2255,7 +2255,7 @@ function wielding()
 	
 	if main_id == 'empty' and sub_id ~= 'empty' then
 		return 'Unarmed'
-	elseif (main_id == 'empty' and sub == 'empty') or (main_id ~= 'empty' and res.items[main_id].skill == 1) then
+	elseif (main_id == 'empty' and sub_id == 'empty') or (main_id ~= 'empty' and res.items[main_id].skill == 1) then
 		return 'Hand-to-Hand'
 	elseif (main_id ~= 'empty' and data.skills.one_handed_combat:contains(res.items[main_id].skill)) and (sub_id == 'empty' or res.items[sub_id].shield_size) then
 		return 'Fencing'
