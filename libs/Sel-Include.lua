@@ -250,6 +250,7 @@ function init_include()
 	delayed_cast = ''
 	delayed_target = ''
 	equipped = 0
+	consumable_bag = 'satchel'
 	
 	time_test = false
 	selindrile_warned = false

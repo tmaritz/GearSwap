@@ -288,7 +288,7 @@ function init_gear_sets()
 		back="Null Shawl",waist="Null Belt",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
 
     sets.midcast.Drain = {main="Rubicundity",sub="Sors Shield",ammo="Pemphredo Tathlum",
-		head=gear.chironic_nuke_head,neck="Null Loop",ear1="Gwati Earring",ear2="Malignance Earring",
+		head="Pixie Hairpin +1",neck="Erra Pendant",ear1="Gwati Earring",ear2="Malignance Earring",
 		body="Ebers Bliaut +3",hands=gear.chironic_aspir_gloves,ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_aspir_legs,feet="Ebers Duckbills +3"}
 

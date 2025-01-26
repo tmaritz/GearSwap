@@ -626,24 +626,24 @@ function can_use(spell)
                 add_to_chat(123,"Abort: You don't have access to ["..(spell[language] or spell.id).."].")
                 return false
             elseif not player.inventory[data.tools.tool_map[spell.english][language]] and not (player.main_job_id == 13 and player.inventory[data.tools.universal_tool_map[spell.english][language]]) then
-				if player.main_job == 'NIN' and player.satchel[data.tools.universal_tool_map[spell.english][language]] then
-					windower.send_command('get "'..data.tools.universal_tool_map[spell.english][language]..'" satchel 99')
+				if player.main_job == 'NIN' and player[consumable_bag][data.tools.universal_tool_map[spell.english][language]] then
+					windower.send_command('get "'..data.tools.universal_tool_map[spell.english][language]..'" '..consumable_bag..' 99')
 					windower.chat.input:schedule(1.5,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				elseif player.satchel[data.tools.tool_map[spell.english][language]] then
-					windower.send_command('get "'..data.tools.tool_map[spell.english][language]..'" satchel 99')
+				elseif player[consumable_bag][data.tools.tool_map[spell.english][language]] then
+					windower.send_command('get "'..data.tools.tool_map[spell.english][language]..'" '..consumable_bag..' 99')
 					windower.chat.input:schedule(1.5,'/ma "'..spell.english..'" '..spell.target.raw..'')
 				elseif player.main_job == 'NIN' and player.inventory[data.tools.universal_toolbag_map[spell.english][language]] then
 					windower.chat.input('/item "'..data.tools.universal_toolbag_map[spell.english][language]..'" <me>')
 					windower.chat.input:schedule(4,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				elseif player.main_job == 'NIN' and player.satchel[data.tools.universal_toolbag_map[spell.english][language]] then
-					windower.send_command('get "'..data.tools.universal_toolbag_map[spell.english][language]..'" satchel 1')
+				elseif player.main_job == 'NIN' and player[consumable_bag][data.tools.universal_toolbag_map[spell.english][language]] then
+					windower.send_command('get "'..data.tools.universal_toolbag_map[spell.english][language]..'" '..consumable_bag..' 1')
 					windower.chat.input:schedule(2,'/item "'..data.tools.universal_toolbag_map[spell.english][language]..'" <me>')
 					windower.chat.input:schedule(6,'/ma "'..spell.english..'" '..spell.target.raw..'')
 				elseif player.inventory[data.tools.toolbag_map[spell.english][language]] then
 					windower.chat.input('/item "'..data.tools.toolbag_map[spell.english][language]..'" <me>')
 					windower.chat.input:schedule(4,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				elseif player.satchel[data.tools.toolbag_map[spell.english][language]] then
-					windower.send_command('get "'..data.tools.toolbag_map[spell.english][language]..'" satchel 1')
+				elseif player[consumable_bag][data.tools.toolbag_map[spell.english][language]] then
+					windower.send_command('get "'..data.tools.toolbag_map[spell.english][language]..'" '..consumable_bag..' 1')
 					windower.chat.input:schedule(2,'/item "'..data.tools.universal_toolbag_map[spell.english][language]..'" <me>')
 					windower.chat.input:schedule(6,'/ma "'..spell.english..'" '..spell.target.raw..'')
 				else
@@ -768,7 +768,7 @@ function can_use(spell)
 				if player.inventory['Trump Card Case'] then
 					windower.chat.input('/item "Trump Card Case" <me>')
 				elseif player.satchel['Trump Card Case'] then
-					windower.send_command('get "Trump Card Case" satchel')
+					windower.send_command('get "Trump Card Case" '..consumable_bag)
 					windower.chat.input:schedule(1.5,'/item "Trump Card Case" <me>')
 				end
 				return false
@@ -1467,7 +1467,7 @@ function check_use_item()
 				add_tick_delay(2)
 				return true
 			elseif player.satchel[set_to_item(useItemName)] then
-				windower.send_command('get "'..set_to_item(useItemName)..'" satchel')
+				windower.send_command('get "'..set_to_item(useItemName)..'" '..consumable_bag)
 				add_tick_delay(2)
 				return true
 			else
@@ -1480,7 +1480,7 @@ function check_use_item()
 			add_tick_delay(2)
 			return true
 		elseif player.satchel[useItemName] then
-			windower.send_command('get "'..useItemName..'" satchel')
+			windower.send_command('get "'..useItemName..'" '..consumable_bag)
 			add_tick_delay(2)
 			return true
 		elseif item_available(useItemName) and ((get_usable_item(useItemName).next_use_time) + Offset) < 10 then
@@ -1524,7 +1524,7 @@ function check_food()
 			add_tick_delay(2)
 			return true
 		elseif player.satchel[''..autofood..''] then
-			windower.send_command('get "'..autofood..'" satchel')
+			windower.send_command('get "'..autofood..'" '..consumable_bag)
 			add_tick_delay(2)
 			return true
 		else
