@@ -62,19 +62,24 @@ function init_gear_sets()
 
 	-- Fast cast sets for spells
 	
-	sets.precast.FC = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo="Impatiens",
+	sets.precast.FC = {main="Daybreak",sub="Genmei Shield",ammo="Impatiens",
+		head="Atrophy Chapeau +3",neck="Loricate Torque +1",ear1="Malignance Earring",ear2="Lethargy Earring",
+		body="Viti. Tabard +3",hands="Nyame Gauntlets",ring1="Defending Ring",ring2="Lebeche Ring",
+		back="Perimede Cape",waist="Witful Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
+
+	sets.precast.FullFC = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo="Impatiens",
 		head="Atrophy Chapeau +3",neck="Orunmila's Torque",ear1="Malignance Earring",ear2="Lethargy Earring",
 		body="Viti. Tabard +3",hands="Gende. Gages +1",ring1="Kishar Ring",ring2="Lebeche Ring",
 		back="Perimede Cape",waist="Witful Belt",legs="Aya. Cosciales +2",feet="Regal Pumps +1"}
 		
-	sets.precast.FC.Impact = set_combine(sets.precast.FC, {head=empty,body="Crepuscular Cloak"})
+	sets.precast.FC.Impact = set_combine(sets.precast.FullFC, {head=empty,body="Crepuscular Cloak"})
 	sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {main="Daybreak",sub="Genmei Shield"})
        
 	-- Weaponskill sets
 	-- Default set for any weaponskill that isn't any more specifically defined
 	sets.precast.WS = {range=empty,ammo="Oshasha's Treatise",
 		head="Viti. Chapeau +3",neck="Fotia Gorget",ear1="Sherida Earring",ear2="Moonshade Earring",
-		body="Nyame Mail",hands="Atrophy Gloves +3",ring1="Sroda Ring",ring2="Cornelia's Ring",
+		body="Nyame Mail",hands="Jhakri Cuffs +2",ring1="Sroda Ring",ring2="Cornelia's Ring",
 		back=gear.str_wsd_jse_back,waist="Fotia Belt",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
 		
 	sets.precast.WS.Proc = 	{ammo="Ginsen",
@@ -82,13 +87,11 @@ function init_gear_sets()
 		body="Malignance Tabard",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 		
-	sets.precast.WS['Requiescat'] = sets.precast.WS.Proc
-	
 	-- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
 	sets.precast.WS['Requiescat'] = {range=empty,ammo="Regal Gem",
-		head="Viti. Chapeau +3",neck="Fotia Gorget",ear1="Sherida Earring",ear2="Brutal Earring",
-		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Epaminondas's Ring",ring2="Cornelia's Ring",
-		back=gear.str_wsd_jse_back,waist="Fotia Belt",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
+		head="Viti. Chapeau +3",neck="Fotia Gorget",ear1="Sherida Earring",ear2="Moonshade Earring",
+		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
+		back=gear.str_wsd_jse_back,waist="Fotia Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 
 	sets.precast.WS['Chant Du Cygne'] = {range=empty,ammo="Ginsen",
 		head="Nyame Helm",neck="Fotia Gorget",ear1="Sherida Earring",ear2="Brutal Earring",
@@ -99,24 +102,24 @@ function init_gear_sets()
 
 	sets.precast.WS['Savage Blade'] = {range=empty,ammo="Oshasha's Treatise",
 		head="Viti. Chapeau +3",neck="Rep. Plat. Medal",ear1="Sherida Earring",ear2="Moonshade Earring",
-		body="Nyame Mail",hands="Atrophy Gloves +3",ring1="Sroda Ring",ring2="Cornelia's Ring",
-		back=gear.str_wsd_jse_back,waist="Kentarch Belt +1",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
+		body="Nyame Mail",hands="Jhakri Cuffs +2",ring1="Sroda Ring",ring2="Cornelia's Ring",
+		back=gear.str_wsd_jse_back,waist="Sailifi Belt +1",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
 		
 	sets.precast.WS['Sanguine Blade'] = {range=empty,ammo="Sroda Tathlum",
-		head="Pixie Hairpin +1",neck="Fotia Gorget",ear1="Malignance Earring",ear2="Moonshade Earring",
-		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Epaminondas's Ring",ring2="Cornelia's Ring",
+		head="Leth. Chappel +3",neck="Baetyl Pendant",ear1="Malignance Earring",ear2="Moonshade Earring",
+		body="Nyame Mail",hands="Leth. Ganth. +3",ring1="Epaminondas's Ring",ring2="Cornelia's Ring",
 		back=gear.str_wsd_jse_back,waist="Orpheus's Sash",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
 		
 	sets.precast.WS['Seraph Blade'] = {range=empty,ammo="Sroda Tathlum",
-		head="Nyame Helm",neck="Fotia Gorget",ear1="Malignance Earring",ear2="Moonshade Earring",
-		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Epaminondas's Ring",ring2="Cornelia's Ring",
+		head="Leth. Chappel +3",neck="Baetyl Pendant",ear1="Malignance Earring",ear2="Moonshade Earring",
+		body="Nyame Mail",hands="Leth. Ganth. +3",ring1="Epaminondas's Ring",ring2="Cornelia's Ring",
 		back=gear.str_wsd_jse_back,waist="Orpheus's Sash",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
 		
 	sets.precast.WS['Shining Strike'] = sets.precast.WS['Seraph Blade'] 
 		
 	sets.precast.WS['Aeolian Edge'] = {range=empty,ammo="Sroda Tathlum",
-		head="Nyame Helm",neck="Fotia Gorget",ear1="Malignance Earring",ear2="Moonshade Earring",
-		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Epaminondas's Ring",ring2="Cornelia's Ring",
+		head="Leth. Chappel +3",neck="Fotia Gorget",ear1="Malignance Earring",ear2="Moonshade Earring",
+		body="Nyame Mail",hands="Jhakri Cuffs +2",ring1="Epaminondas's Ring",ring2="Cornelia's Ring",
 		back=gear.str_wsd_jse_back,waist="Orpheus's Sash",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
 		
 	sets.precast.WS['Red Lotus Blade'] = sets.precast.WS['Aeolian Edge']
@@ -135,24 +138,24 @@ function init_gear_sets()
 
     sets.midcast.Cure = {main="Daybreak",sub="Sors Shield",range=empty,ammo="Regal Gem",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
-        body="Bunzi's Robe",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Menelaus's Ring",
+        body="Bunzi's Robe",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
         back=gear.mnd_enfeebling_jse_back,waist="Luminary Sash",legs="Atrophy Tights +3",feet="Medium's Sabots"}
 		
     sets.midcast.LightWeatherCure = {main="Daybreak",sub="Sors Shield",range=empty,ammo="Regal Gem",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
-        body="Bunzi's Robe",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Menelaus's Ring",
+        body="Bunzi's Robe",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
         back=gear.mnd_enfeebling_jse_back,waist="Luminary Sash",legs="Carmine Cuisses +1",feet="Medium's Sabots"}
 		
 		--Cureset for if it's not light weather but is light day.
     sets.midcast.LightDayCure = {main="Daybreak",sub="Sors Shield",range=empty,ammo="Regal Gem",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
-        body="Gende. Bliaut +1",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Menelaus's Ring",
+        body="Gende. Bliaut +1",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
         back=gear.mnd_enfeebling_jse_back,waist="Hachirin-no-Obi",legs="Carmine Cuisses +1",feet="Medium's Sabots"}
 		
 	sets.midcast.Cursna = {main=gear.grioavolr_fc_staff,sub="Curatio Grip",range=empty,ammo="Hasty Pinion +1",
-        head="Vanya Hood",neck="Debilis Medallion",ear1="Meili Earring",ear2="Mendi. Earring",
+        head="Vanya Hood",neck="Debilis Medallion",ear1="Meili Earring",ear2="Lethargy Earring",
         body="Viti. Tabard +3",hands="Hieros Mittens",ring1="Haoma's Ring",ring2="Menelaus's Ring",
-        back=gear.mnd_enfeebling_jse_back,waist="Bishop's Sash",legs="Carmine Cuisses +1",feet="Vanya Clogs"}
+        back="Oretan. Cape +1",waist="Bishop's Sash",legs="Carmine Cuisses +1",feet="Vanya Clogs"}
 
 	sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {main=gear.grioavolr_fc_staff,sub="Clemency Grip"})
 		
@@ -187,7 +190,7 @@ function init_gear_sets()
 	sets.midcast.Temper = sets.EnhancingSkill
 	sets.midcast.Enspell = sets.EnhancingSkill
 	sets.midcast.BoostStat = {hands="Vitiation Gloves +3"}
-	sets.midcast.Stoneskin = {neck="Nodens Gorget",waist="Siegel Sash"}
+	sets.midcast.Stoneskin = {neck="Nodens Gorget",waist="Siegel Sash"}--ring2="Earthcry Earring"
 	sets.midcast.Protect = {ring2="Sheltered Ring"}
 	sets.midcast.Shell = {ring2="Sheltered Ring"}
 	sets.midcast.Regen = {main="Bolelabunga",sub="Sors Shield"}
@@ -375,7 +378,7 @@ function init_gear_sets()
         head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Lethargy Earring",
         body="Viti. Tabard +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back=gear.mnd_enfeebling_jse_back,waist="Null Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
-		
+
 	sets.midcast.Stun.Resistant = {main="Bunzi's Rod",sub="Sors Shield",range=empty,ammo="Regal Gem",
         head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Lethargy Earring",
         body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
@@ -392,7 +395,7 @@ function init_gear_sets()
 		body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Mephitas's Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Luminary Sash",legs="Jhakri Slops +1",feet="Jhakri Pigaches +2"}
 		
-    sets.HPCure = {main="Daybreak",sub="Sors Shield",ammo="Pemphredo Tathlum",
+    sets.HPCure = {main="Daybreak",sub="Sors Shield",ammo="Regal Gem",
 		head="Nyame Helm",neck="Sanctity Necklace",ear1="Etiolation Earring",ear2="Odnowa Earring +1",
 		body="Bunzi's Robe",hands="Bokwus Gloves",ring1="Sirona's Ring",ring2="Kunaji Ring",
 		back="Engulfer Cape +1",waist="Gishdubar Sash",legs="Nyame Flanchard",feet="Medium's Sabots"}

@@ -176,7 +176,6 @@ end
 -- Run after the default midcast() is done.
 -- eventArgs is the same one used in job_midcast, in case information needs to be persisted.
 function job_post_midcast(spell, spellMap, eventArgs)
-
 	if spell.skill == 'Elemental Magic' and spellMap ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
 		if state.MagicBurstMode.value ~= 'Off' then
 			if state.CastingMode.value:contains('Resistant') and sets.ResistantMagicBurst then
@@ -185,7 +184,6 @@ function job_post_midcast(spell, spellMap, eventArgs)
 				equip(sets.MagicBurst)
 			end
 		end
-		
 		if spell.element == world.weather_element or spell.element == world.day_element then
 			if state.CastingMode.value == 'Fodder' then
 				-- if item_available('Twilight Cape') and not LowTierNukes:contains(spell.english) and not state.Capacity.value then
@@ -219,23 +217,19 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			end
 		end
 		
-    elseif spell.skill == 'Enfeebling Magic' then
-		if state.Buff.Stymie and state.CastingMode.value:contains('Resistant') then
-			if sets.midcast[spell.english] and sets.midcast[spell.english].Fodder then
-				equip(sets.midcast[spell.english].Fodder)
-			elseif sets.midcast[spell.english] then
-				equip(sets.midcast[spell.english])
-			elseif sets.midcast['Enfeebling Magic'].Fodder then
-				equip(sets.midcast['Enfeebling Magic'].Fodder)
-			else
-				equip(sets.midcast['Enfeebling Magic'])
+    elseif spell.skill == 'Enfeebling Magic' or spell.skill == 'Dark Magic' then
+		if not state.UnlockWeapons.value and state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.value] then
+			local currentSet = standardize_set(get_midcast_set(spell, spellMap))
+			local currentWeapons = standardize_set(sets.weapons[state.Weapons.value])
+			
+			if currentSet.range and currentSet.range == "Ullr" and currentWeapons.range and currentWeapons.range == 'empty' and not currentWeapons.ammo and item_available("Regal Gem") then
+				equip({ammo="Regal Gem"})
 			end
 		end
-		
-		if state.Buff.Saboteur then
+	
+		if spell.skill == 'Enfeebling Magic' and state.Buff.Saboteur then
 			equip(sets.buff.Saboteur)
 		end
-
 	elseif spell.skill == 'Enhancing Magic' then
 		equip(sets.midcast['Enhancing Magic'])
 	
@@ -251,12 +245,13 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			end
 		elseif sets.midcast[spellMap] then
 			equip(sets.midcast[spellMap])
-			
+
+			windower.add_to_chat(tostring(can_dual_wield))			
 			if can_dual_wield and sets.midcast[spellMap].DW then
 				equip(sets.midcast[spellMap].DW)
 			end
 		end
-		
+
 		if spell.english:startswith('Phalanx') and spell.target.type =='SELF' and sets.Self_Phalanx then
 			equip(sets.Self_Phalanx)
 
