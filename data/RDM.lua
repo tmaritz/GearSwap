@@ -246,7 +246,6 @@ function job_post_midcast(spell, spellMap, eventArgs)
 		elseif sets.midcast[spellMap] then
 			equip(sets.midcast[spellMap])
 
-			windower.add_to_chat(tostring(can_dual_wield))			
 			if can_dual_wield and sets.midcast[spellMap].DW then
 				equip(sets.midcast[spellMap].DW)
 			end

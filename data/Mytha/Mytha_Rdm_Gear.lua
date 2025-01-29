@@ -126,7 +126,7 @@ function init_gear_sets()
 
 	-- Midcast Sets
 
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {feet=gear.chironic_treasure_feet})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {legs=gear.merlinic_treasure_legs,feet=gear.chironic_treasure_feet})
 	
 	-- Gear that converts elemental damage done to recover MP.	
 	sets.RecoverMP = {} --body="Seidr Cotehardie"
@@ -415,7 +415,7 @@ function init_gear_sets()
 	sets.idle = {main="Mpaca's Staff",sub="Oneiros Grip",ammo="Homiliary",
 		head="Viti. Chapeau +3",neck="Sibyl Scarf",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Lethargy Sayon +3",hands=gear.chironic_refresh_hands,ring1="Stikini Ring +1",ring2="Stikini Ring +1",
-		back="Null Shawl",waist="Null Belt",legs="Bunzi's Pants",feet=gear.merlinic_refresh_feet}
+		back="Null Shawl",waist="Null Belt",legs=gear.merlinic_refresh_legs,feet=gear.merlinic_refresh_feet}
 		
 	sets.idle.PDT = {main="Daybreak",sub="Genmei Shield",ammo="Staunch Tathlum +1",
 		head="Nyame Helm",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Ethereal Earring",
@@ -450,7 +450,7 @@ function init_gear_sets()
 		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Defending Ring",ring2="Shadow Ring",
 		back="Null Shawl",waist="Null Belt",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 		
-	sets.Kiting = {legs="Carmine Cuisses +1"}
+	sets.Kiting = {ring2="Shneddick Ring"}
 	sets.latent_refresh = {waist="Fucho-no-obi"}
 	sets.latent_refresh_grip = {sub="Oneiros Grip"}
 	sets.DayIdle = {}

@@ -4,7 +4,7 @@ sets.Sheltered = {ring2="Sheltered Ring"}
 sets.Capacity = {back="Mecisto. Mantle"}
 
 sets.buff.Doom = {waist="Gishdubar Sash"} --neck="Nicander's Necklace",ring1="Eshmun's Ring",ring2="Eshmun's Ring"
-sets.TreasureHunter = {hands="Volte Bracers",ammo="Per. Lucky Egg"}
+sets.TreasureHunter = {head="Volte Cap",hands="Volte Bracers"}
 
 sets.precast.Item['Hallowed Water'] = {}
 sets.precast.Item['Holy Water'] = {}
@@ -27,3 +27,5 @@ gear.chironic_aspir_legs = {name="Chironic Hose",augments={'Mag. Acc.+17 "Mag.At
 gear.chironic_treasure_feet = {name="Chironic Slippers",augments={'Pet: "Mag.Atk.Bns."+26','INT+15','"Treasure Hunter"+1','Mag. Acc.+17 "Mag.Atk.Bns."+17',}}
 gear.chironic_refresh_feet = {name="Chironic Slippers",augments={'INT+9','"Dbl.Atk."+1','"Refresh"+1','Mag. Acc.+7 "Mag.Atk.Bns."+7',}}
 gear.merlinic_refresh_feet = {name="Merlinic Crackows",augments={'STR+8','Rng.Atk.+1','"Refresh"+2','Accuracy+6 Attack+6','Mag. Acc.+10 "Mag.Atk.Bns."+10',}}
+gear.merlinic_treasure_legs = {name="Merlinic Shalwar",augments={'Accuracy+25 Attack+25','Magic dmg. taken -1%','"Treasure Hunter"+2',}}
+gear.merlinic_refresh_legs = {name="Merlinic Crackows",augments={'STR+8','Rng.Atk.+1','"Refresh"+2','Accuracy+6 Attack+6','Mag. Acc.+10 "Mag.Atk.Bns."+10',}}
