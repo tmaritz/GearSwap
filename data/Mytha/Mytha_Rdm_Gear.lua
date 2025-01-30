@@ -305,7 +305,7 @@ function init_gear_sets()
 		
 	sets.midcast.Blind.DW = {main="Bunzi's Rod",sub="Maxentius"}
 	
-	sets.midcast.Silence = {main="Bunzi's Rod",sub="Sors Shield",range=empty,ammo="Regal Gem",
+	sets.midcast.Silence = {main="Daybreak",sub="Sors Shield",range=empty,ammo="Regal Gem",
 		head="Leth. Chappel +3",neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Kishar Ring",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}

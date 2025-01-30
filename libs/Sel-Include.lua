@@ -2001,7 +2001,7 @@ function get_midcast_set(spell, spellMap)
 
     if spell.action_type == 'Magic' then
 		if state.CastingMode.current:contains('SIRD') and not in_combat then
-		elseif state.CastingMode.value:contains('Resistant') and (state.Buff.Stymie or state.buff['Elemental Seal']) then
+		elseif state.CastingMode.value:contains('Resistant') and (state.Buff.Stymie or state.Buff['Elemental Seal']) then
         elseif equipSet[state.CastingMode.current] then
             equipSet = equipSet[state.CastingMode.current]
             mote_vars.set_breadcrumbs:append(state.CastingMode.current)
