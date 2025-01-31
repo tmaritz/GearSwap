@@ -791,14 +791,3 @@ for _, rline in pairs(gearswap.res.spells) do
         end
     end
 end
-
---[[
-spell_to_buff = {
-	['Barfire'] = {['BarElement'] = {100,101,102,103,104,105}}
-	['Barfira'] = {['BarElement'] = {100,101,102,103,104,105}}
-}
-
-if spell_to_buff[SpellName][3] then
-	--do stuff with buff_group_IDs[SpellName]
-end
-]]

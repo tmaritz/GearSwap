@@ -47,7 +47,7 @@ function init_gear_sets()
 	
 	-- Treasure Hunter
 	
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {ammo="Per. Lucky Egg",hands="Volte Bracers",legs=gear.merlinic_treasure_legs})
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {legs=gear.merlinic_treasure_legs})
     
     ---- Precast Sets ----
     
