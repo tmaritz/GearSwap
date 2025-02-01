@@ -11,6 +11,8 @@ function user_job_setup()
 	state.ResistDefenseMode:options('MEVA')
 	state.Weapons:options('Savage','Aeneas','Aeolian','ProcWeapons','Evisceration','Throwing','SwordThrowing','Bow')
 
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoEngageMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode",})
+
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode','None','Suppa','DWMax','Parry'}
 	state.AmbushMode = M(false, 'Ambush Mode')
 
@@ -126,7 +128,7 @@ function init_gear_sets()
     -- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS = {ammo="Oshasha's Treatise",
         head="Nyame Helm",neck="Rep. Plat. Medal",ear1="Moonshade Earring",ear2="Sherida Earring",
-        body="Nyame Mail",hands="Nyame Gauntlets",ring1="Sroda Ring",ring2="Cornelia's Ring",
+        body="Nyame Mail",hands="Nyame Gauntlets",ring1="Gere Ring",ring2="Cornelia's Ring",
         back="Null Shawl",waist="Sailfi Belt +1",legs="Nyame Flanchard",feet="Nyame Sollerets"}
     sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
 
@@ -243,7 +245,7 @@ function init_gear_sets()
     -- Normal melee group
     sets.engaged = {ammo="Yamarang",
         head="Malignance Chapeau",neck="Iskur Gorget",ear1="Dedition Earring",ear2="Sherida Earring",
-        body="Malignance Tabard",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Epona's Ring",
+        body="Malignance Tabard",hands="Malignance Gloves",ring1="Gere Ring",ring2="Epona's Ring",
         back="Null Shawl",waist="Windbuffet Belt +1",legs="Malignance Tights",feet="Malignance Boots"}
 		
 	sets.engaged.Acc = {ammo="Yamarang",

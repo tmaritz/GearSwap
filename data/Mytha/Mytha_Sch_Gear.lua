@@ -71,7 +71,7 @@ function init_gear_sets()
     -- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS['Myrkr'] = {ammo="Ghastly Tathlum +1",
 		head="Pixie Hairpin +1",neck="Sanctity Necklace",ear1="Etiolation Earring",ear2="Moonshade Earring",
-		body="Arbatel Gown +3",hands="Nyame Gauntlets",ring1="Metamor. Ring +1",ring2="Mephitas's Ring +1",
+		body="Arbatel Gown +3",hands="Nyame Gauntlets",ring1=,"Mephitas's Ring +1"ring2="Metamor. Ring +1",
 		back="Pahtli Cape",waist="Luminary Sash",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 
     -- Midcast Sets
@@ -166,17 +166,17 @@ function init_gear_sets()
 
     sets.midcast['Dark Magic'] = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 
     sets.midcast.Kaustra = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
         head="Pixie Hairpin +1",neck="Saevus Pendant +1",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
         back=gear.nuke_jse_back,waist="Acuity Belt +1",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 		
     sets.midcast.Kaustra.Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 
     sets.midcast.Drain = {main="Rubicundity",sub="Sors Shield",ammo="Pemphredo Tathlum",
@@ -186,7 +186,7 @@ function init_gear_sets()
 		
     sets.midcast.Drain.Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 
     sets.midcast.Aspir = sets.midcast.Drain
@@ -199,23 +199,23 @@ function init_gear_sets()
 
     sets.midcast.Stun.Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 
     -- Elemental Magic sets are default for handling low-tier nukes.
     sets.midcast['Elemental Magic'] = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Saevus Pendant +1",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
         back=gear.nuke_jse_back,waist="Acuity Belt +1",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 		
     sets.midcast['Elemental Magic'].Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 		
     sets.midcast['Elemental Magic']['9k'] = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 		
     sets.midcast['Elemental Magic'].Proc = {main=empty, sub=empty,ammo="Impatiens",
@@ -238,22 +238,22 @@ function init_gear_sets()
     -- Custom refinements for certain nuke tiers
 	sets.midcast['Elemental Magic'].HighTierNuke = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Sibyl Scarf",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
         back=gear.nuke_jse_back,waist="Acuity Belt +1",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 		
 	sets.midcast['Elemental Magic'].HighTierNuke.Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 
 	sets.midcast.Helix = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Sibyl Scarf",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
         back="Bookworm's Cape",waist="Acuity Belt +1",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 	
 	sets.midcast.Helix.Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 		
 	sets.midcast.Helix.Proc = {main=empty, sub=empty,ammo="Impatiens",
@@ -263,7 +263,7 @@ function init_gear_sets()
 
 	sets.midcast.Impact = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
         head=empty,neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Crepuscular Cloak",hands="Arbatel Bracers +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+        body="Crepuscular Cloak",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 		
     sets.midcast.Impact.OccultAcumen = set_combine(sets.midcast['Elemental Magic'].OccultAcumen, {head=empty,body="Crepuscular Cloak"})

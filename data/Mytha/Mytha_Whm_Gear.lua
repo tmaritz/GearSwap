@@ -87,7 +87,7 @@ function init_gear_sets()
     sets.precast.WS.Dagan = {}
     sets.precast.WS['Flash Nova'] = {main="Daybreak",sub="Sors Shield",ammo="Ghastly Tathlum +1",
 		head=gear.chironic_nuke_head,neck="Baetyl Pendant",ear1="Friomisi Earring",ear2="Malignance Earring",
-		body=gear.chironic_nuke_body,hands=gear.chironic_nuke_hands,ring1="Strendu Ring",ring2="Persis Ring",
+		body=gear.chironic_nuke_body,hands=gear.chironic_nuke_hands,ring1="Freke Ring",ring2="Cornelia's Ring",
 		back="Alaunus's Cape",waist="Yamabuki-no-Obi",legs=gear.chironic_macc_legs,feet=gear.chironic_treasure_feet}
     sets.precast.WS['Mystic Boon'] = {}
 		
@@ -247,47 +247,47 @@ function init_gear_sets()
 
 	sets.midcast.Impact = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head=empty,neck="Null Loop",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Crepuscular Cloak",hands="Ebers Mitts +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+		body="Crepuscular Cloak",hands="Ebers Mitts +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
 		
 	sets.midcast['Elemental Magic'] = {main="Bunzi's Rod",sub="Sors Shield",ammo="Ghastly Tathlum +1",
 		head="Bunzi's Hat",neck="Saevus Pendant +1",ear1="Friomisi Earring",ear2="Malignance Earring",
-		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Metamor. Ring +1",ring2="Persis Ring",
+		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Freke Ring",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Yamabuki-no-Obi",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 
 	sets.midcast['Elemental Magic'].Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Ghastly Tathlum +1",
 		head="Bunzi's Hat",neck="Null Loop",ear1="Friomisi Earring",ear2="Malignance Earring",
-		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Freke Ring",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 
 	sets.midcast['Divine Magic'] = {main="Daybreak",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head="Ebers Cap +3",neck="Null Loop",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
 		
 	sets.midcast.Repose = {main="Daybreak",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head="Ebers Cap +3",neck="Null Loop",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
 		
 	sets.midcast.Holy = {main="Daybreak",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head="C. Palug Crown",neck="Saevus Pendant +1",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Shamash Robe",hands="Bunzi's Gloves",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+		body="Shamash Robe",hands="Bunzi's Gloves",ring1="Freke Ring",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Yamabuki-no-Obi",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 
 	sets.midcast['Dark Magic'] = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head="Ebers Cap +3",neck="Null Loop",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
 
     sets.midcast.Drain = {main="Rubicundity",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head="Pixie Hairpin +1",neck="Erra Pendant",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Ebers Bliaut +3",hands=gear.chironic_aspir_gloves,ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+		body="Ebers Bliaut +3",hands=gear.chironic_aspir_gloves,ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_aspir_legs,feet="Ebers Duckbills +3"}
 
     sets.midcast.Drain.Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head="Ebers Cap +3",neck="Null Loop",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
 
     sets.midcast.Aspir = sets.midcast.Drain
@@ -300,12 +300,12 @@ function init_gear_sets()
 
 	sets.midcast.Stun.Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head="Ebers Cap +3",neck="Null Loop",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
 		
 	sets.midcast.Dispel = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head="Ebers Cap +3",neck="Null Loop",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
 		
 	sets.midcast.Dispelga = set_combine(sets.midcast.Dispel, {main="Daybreak",sub="Sors Shield"})
@@ -317,7 +317,7 @@ function init_gear_sets()
 
 	sets.midcast['Enfeebling Magic'].Resistant = {main="Daybreak",sub="Sors Shield",ammo="Pemphredo Tathlum",
 		head="Ebers Cap +3",neck="Null Loop",ear1="Gwati Earring",ear2="Malignance Earring",
-		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Metamor. Ring +1",ring2="Stikini Ring +1",
+		body="Ebers Bliaut +3",hands="Ebers Mitts +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet="Ebers Duckbills +3"}
 		
 	sets.midcast.Dia = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
@@ -342,34 +342,34 @@ function init_gear_sets()
 
 	sets.idle.PDT = {main="Daybreak",sub="Genmei Shield",ammo="Staunch Tathlum +1",
 		head="Nyame Helm",neck="Loricate Torque +1",ear1="Sanare Earring",ear2="Ethereal Earring",
-		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Metamor. Ring +1",ring2="Shadow Ring",
+		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Defending Ring",ring2="Shadow Ring",
 		back="Shadow Mantle",waist="Isa Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
 		
 	sets.idle.MDT = {main="Daybreak",sub="Genmei Shield",ammo="Staunch Tathlum +1",
 		head="Bunzi's Hat",neck="Warder's Charm +1",ear1="Sanare Earring",ear2="Ethereal Earring",
-		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Metamor. Ring +1",ring2="Shadow Ring",
+		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Defending Ring",ring2="Shadow Ring",
 		back="Null Shawl",waist="Isa Belt",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
 		
 	sets.idle.MEVA = {main="Daybreak",sub="Genmei Shield",ammo="Staunch Tathlum +1",
 		head="Bunzi's Hat",neck="Warder's Charm +1",ear1="Sanare Earring",ear2="Ethereal Earring",
-		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Metamor. Ring +1",ring2="Shadow Ring",
+		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Defending Ring",ring2="Shadow Ring",
 		back="Null Shawl",waist="Isa Belt",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
 
     -- Defense sets
 
 	sets.defense.PDT = {main="Daybreak",sub="Genmei Shield",ammo="Staunch Tathlum +1",
 		head="Nyame Helm",neck="Loricate Torque +1",ear1="Sanare Earring",ear2="Ethereal Earring",
-		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Metamor. Ring +1",ring2="Shadow Ring",
+		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Defending Ring",ring2="Shadow Ring",
 		back="Shadow Mantle",waist="Isa Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
 
 	sets.defense.MDT = {main="Daybreak",sub="Genmei Shield",ammo="Staunch Tathlum +1",
 		head="Bunzi's Hat",neck="Warder's Charm +1",ear1="Sanare Earring",ear2="Ethereal Earring",
-		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Metamor. Ring +1",ring2="Shadow Ring",
+		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Defending Ring",ring2="Shadow Ring",
 		back="Null Shawl",waist="Isa Belt",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
 
     sets.defense.MEVA = {main="Daybreak",sub="Genmei Shield",ammo="Staunch Tathlum +1",
 		head="Bunzi's Hat",neck="Warder's Charm +1",ear1="Sanare Earring",ear2="Ethereal Earring",
-		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Metamor. Ring +1",ring2="Shadow Ring",
+		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Defending Ring",ring2="Shadow Ring",
 		back="Null Shawl",waist="Isa Belt",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
 		
 		-- Engaged sets

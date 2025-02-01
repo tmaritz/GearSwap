@@ -56,6 +56,7 @@ function job_setup()
 	state.Buff['Divine Caress'] = buffactive['Divine Caress'] or false
 	
 	state.AutoCaress = M(true, 'Auto Caress Mode')
+	state.AutoCelerity = M(true, 'Auto Celerity Mode')
 	state.Gambanteinn = M(false, 'Gambanteinn Cursna Mode')
 	state.BlockLowDevotion = M(true, 'Block Low Devotion')
 	
@@ -180,7 +181,13 @@ end
 function job_precast(spell, spellMap, eventArgs)
 
 	if spell.action_type == 'Magic' then
-		if spellMap == 'StatusRemoval' and not (spell.english == "Erase" or spell.english == "Esuna" or spell.english == "Sacrifice") then
+		if spell.english == 'Arise' or spell.english == 'Raise III' then
+			if state.AutoCelerity.value and (state.Buff['Light Arts'] or state.Buff['Addendum: White']) and get_current_stratagem_count() > 0 then
+				eventArgs.cancel = true
+				windower.chat.input('/ja "Celerity" <me>')
+				windower.chat.input:schedule(1,'/ma "'..spell.english..'" '..spell.target.raw..'')
+			end
+		elseif spellMap == 'StatusRemoval' and not (spell.english == "Erase" or spell.english == "Esuna" or spell.english == "Sacrifice") then
 			local abil_recasts = windower.ffxi.get_ability_recasts()
 			if abil_recasts[32] < latency and not silent_check_amnesia() and state.AutoCaress.value then
 				eventArgs.cancel = true
