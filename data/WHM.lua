@@ -54,6 +54,7 @@ function job_setup()
     state.Buff['Afflatus Solace'] = buffactive['Afflatus Solace'] or false
     state.Buff['Afflatus Misery'] = buffactive['Afflatus Misery'] or false
 	state.Buff['Divine Caress'] = buffactive['Divine Caress'] or false
+	state.Buff['Celerity'] = buffactive['Celerity'] or false
 	
 	state.AutoCaress = M(true, 'Auto Caress Mode')
 	state.AutoCelerity = M(true, 'Auto Celerity Mode')
@@ -181,7 +182,7 @@ end
 function job_precast(spell, spellMap, eventArgs)
 
 	if spell.action_type == 'Magic' then
-		if spell.english == 'Arise' or spell.english == 'Raise III' then
+		if (spell.english == 'Arise' or spell.english == 'Raise III') and not state.Buff['Celerity'] then
 			if state.AutoCelerity.value and (state.Buff['Light Arts'] or state.Buff['Addendum: White']) and get_current_stratagem_count() > 0 then
 				eventArgs.cancel = true
 				windower.chat.input('/ja "Celerity" <me>')
