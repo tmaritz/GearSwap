@@ -182,8 +182,8 @@ end
 function job_precast(spell, spellMap, eventArgs)
 
 	if spell.action_type == 'Magic' then
-		if (spell.english == 'Arise' or spell.english == 'Raise III') and not state.Buff['Celerity'] then
-			if state.AutoCelerity.value and (state.Buff['Light Arts'] or state.Buff['Addendum: White']) and get_current_stratagem_count() > 0 then
+		if (spell.english == 'Arise' or spell.english == 'Raise III') then
+			if state.AutoCelerity.value and not state.Buff['Celerity'] and (state.Buff['Light Arts'] or state.Buff['Addendum: White']) and get_current_stratagem_count() > 0 then
 				eventArgs.cancel = true
 				windower.chat.input('/ja "Celerity" <me>')
 				windower.chat.input:schedule(1,'/ma "'..spell.english..'" '..spell.target.raw..'')
