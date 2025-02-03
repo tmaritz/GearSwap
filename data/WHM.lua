@@ -180,7 +180,6 @@ function job_pretarget(spell, spellMap, eventArgs)
 end
 
 function job_precast(spell, spellMap, eventArgs)
-
 	if spell.action_type == 'Magic' then
 		if (spell.english == 'Arise' or spell.english == 'Raise III') then
 			if state.AutoCelerity.value and not state.Buff['Celerity'] and (state.Buff['Light Arts'] or state.Buff['Addendum: White']) and get_current_stratagem_count() > 0 then

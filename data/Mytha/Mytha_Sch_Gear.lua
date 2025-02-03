@@ -89,7 +89,7 @@ function init_gear_sets()
         body="Volte Doublet",hands="Gende. Gages +1",ring1="Kishar Ring",ring2="Lebeche Ring",
         back="Perimede Cape",waist="Cornelia's Belt",legs="Artsieq Hose",feet="Regal Pumps +1"}
 		
-	sets.midcast.Cure = {main="Daybreak",sub="Sors Shield",range=empty,ammo="Pemphredo Tathlum",
+	sets.midcast.Cure = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo="Pemphredo Tathlum",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
         body=gear.chironic_nuke_body,hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
         back=gear.mnd_enfeebling_jse_back,waist="Luminary Sash",legs=gear.chironic_macc_legs,feet="Medium's Sabots"}
@@ -117,7 +117,7 @@ function init_gear_sets()
 		
 	sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {main=gear.grioavolr_fc_staff,sub="Clemency Grip"})
 
-	sets.midcast['Enhancing Magic'] = {main="Gada",sub="Sors Shield",ammo="Savant's Treatise",
+	sets.midcast['Enhancing Magic'] = {main="Gada",sub="Ammurapi Shield",ammo="Savant's Treatise",
 		head="Telchine Cap",neck="Incanter's Torque",ear1="Andoaa Earring",ear2="Gifted Earring",
 		body="Telchine Chas.",hands="Telchine Gloves",ring1="Stikini Ring +1",ring2="Stikini Ring +1",
 		back="Perimede Cape",waist="Embla Sash",legs="Telchine Braconi",feet="Telchine Pigaches"}
@@ -143,12 +143,12 @@ function init_gear_sets()
 
     -- Custom spell classes
 
-	sets.midcast['Enfeebling Magic'] = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+	sets.midcast['Enfeebling Magic'] = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Kishar Ring",ring2="Stikini Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 	
-	sets.midcast['Enfeebling Magic'].Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+	sets.midcast['Enfeebling Magic'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
@@ -164,27 +164,27 @@ function init_gear_sets()
 	
 	sets.midcast['Divine Magic'] = set_combine(sets.midcast['Enfeebling Magic'], {ring2="Stikini Ring +1",feet=gear.chironic_nuke_feet})
 
-    sets.midcast['Dark Magic'] = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+    sets.midcast['Dark Magic'] = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 
-    sets.midcast.Kaustra = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+    sets.midcast.Kaustra = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Pixie Hairpin +1",neck="Saevus Pendant +1",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
         back=gear.nuke_jse_back,waist="Acuity Belt +1",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 		
-    sets.midcast.Kaustra.Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+    sets.midcast.Kaustra.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 
-    sets.midcast.Drain = {main="Rubicundity",sub="Sors Shield",ammo="Pemphredo Tathlum",
+    sets.midcast.Drain = {main="Rubicundity",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Pixie Hairpin +1",neck="Erra Pendant",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands=gear.chironic_aspir_gloves,ring1="Evanescence Ring",ring2="Stikini Ring +1",
         back="Null Shawl",waist="Fucho-no-obi",legs=gear.chironic_aspir_legs,feet="Arbatel Loafers +3"}
 		
-    sets.midcast.Drain.Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+    sets.midcast.Drain.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
@@ -197,23 +197,23 @@ function init_gear_sets()
         body="Volte Doublet",hands="Gende. Gages +1",ring1="Kishar Ring",ring2="Lebeche Ring",
         back="Perimede Cape",waist="Cornelia's Belt",legs="Artsieq Hose",feet="Regal Pumps +1"}
 
-    sets.midcast.Stun.Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+    sets.midcast.Stun.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 
     -- Elemental Magic sets are default for handling low-tier nukes.
-    sets.midcast['Elemental Magic'] = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+    sets.midcast['Elemental Magic'] = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Saevus Pendant +1",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
         back=gear.nuke_jse_back,waist="Acuity Belt +1",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 		
-    sets.midcast['Elemental Magic'].Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+    sets.midcast['Elemental Magic'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 		
-    sets.midcast['Elemental Magic']['9k'] = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+    sets.midcast['Elemental Magic']['9k'] = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
@@ -229,29 +229,29 @@ function init_gear_sets()
         back=gear.nuke_jse_back,waist="Oneiros Rope",legs="Perdition Slops",feet=gear.merlinic_occult_feet}
 		
 	-- Gear for Magic Burst mode.
-    sets.MagicBurst = {main="Bunzi's Rod",sub="Sors Shield",neck="Mizukage-no-Kubikazari",ring2="Mujin Band"}
+    sets.MagicBurst = {main="Bunzi's Rod",sub="Ammurapi Shield",neck="Mizukage-no-Kubikazari",ring2="Mujin Band"}
 
-    sets.HelixBurst = {main="Bunzi's Rod",sub="Sors Shield",neck="Mizukage-no-Kubikazari",ring2="Mujin Band"}
+    sets.HelixBurst = {main="Bunzi's Rod",sub="Ammurapi Shield",neck="Mizukage-no-Kubikazari",ring2="Mujin Band"}
 		
-    sets.ResistantHelixBurst = {main="Bunzi's Rod",sub="Sors Shield",neck="Mizukage-no-Kubikazari",ring2="Mujin Band"}
+    sets.ResistantHelixBurst = {main="Bunzi's Rod",sub="Ammurapi Shield",neck="Mizukage-no-Kubikazari",ring2="Mujin Band"}
 		
     -- Custom refinements for certain nuke tiers
-	sets.midcast['Elemental Magic'].HighTierNuke = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+	sets.midcast['Elemental Magic'].HighTierNuke = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Sibyl Scarf",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
         back=gear.nuke_jse_back,waist="Acuity Belt +1",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 		
-	sets.midcast['Elemental Magic'].HighTierNuke.Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+	sets.midcast['Elemental Magic'].HighTierNuke.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 
-	sets.midcast.Helix = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+	sets.midcast.Helix = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Sibyl Scarf",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
         back="Bookworm's Cape",waist="Acuity Belt +1",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 	
-	sets.midcast.Helix.Resistant = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+	sets.midcast.Helix.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
@@ -261,7 +261,7 @@ function init_gear_sets()
         body="Volte Doublet",hands="Gende. Gages +1",ring1="Kishar Ring",ring2="Prolix Ring",
         back="Swith Cape +1",waist="Witful Belt",legs="Psycloth Lappas",feet="Regal Pumps +1"}
 
-	sets.midcast.Impact = {main="Bunzi's Rod",sub="Sors Shield",ammo="Pemphredo Tathlum",
+	sets.midcast.Impact = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head=empty,neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Crepuscular Cloak",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
@@ -348,7 +348,7 @@ function init_gear_sets()
 		body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Mephitas's Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Luminary Sash",legs="Jhakri Slops +1",feet="Jhakri Pigaches +2"}
 		
-    sets.HPCure = {main="Daybreak",sub="Sors Shield",ammo="Regal Gem",
+    sets.HPCure = {main="Daybreak",sub="Ammurapi Shield",ammo="Regal Gem",
 		head="Nyame Helm",neck="Sanctity Necklace",ear1="Etiolation Earring",ear2="Odnowa Earring +1",
 		body="Bunzi's Robe",hands="Bokwus Gloves",ring1="Sirona's Ring",ring2="Kunaji Ring",
 		back="Oretan. Cape +1",waist="Gishdubar Sash",legs="Nyame Flanchard",feet="Medium's Sabots"}
@@ -362,7 +362,7 @@ function init_gear_sets()
 	
 	-- Weapons sets
 	sets.weapons.Mpaca = {main="Mpaca's Staff",sub="Clerisy Strap +1"}
-	sets.weapons.Bunzi = {main="Bunzi's Rod",sub="Sors Shield"}
+	sets.weapons.Bunzi = {main="Bunzi's Rod",sub="Ammurapi Shield"}
 end
 
 -- Select default macro book on initial load or subjob change.

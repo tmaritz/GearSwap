@@ -613,11 +613,10 @@ function silent_can_use(spellid)
 end
 
 function can_use(spell)
-    local category = data.command.outgoing_action_category_table[data.command.unify_prefix[spell.prefix]]
     if world.in_mog_house then
         add_to_chat(123,"Abort: You are currently in a Mog House zone.")
         return false
-    elseif category == 3 then
+    elseif spell.action_type == 'Magic' then
         local available_spells = windower.ffxi.get_spells()
         local spell_jobs = copy_entry(res.spells[spell.id].levels)
         
@@ -626,30 +625,30 @@ function can_use(spell)
             add_to_chat(123,"Abort: You haven't learned ["..(res.spells[spell.id][language] or spell.id).."].")
             return false
         elseif spell.type == 'Ninjutsu'  then
-            if player.main_job_id ~= 13 and player.sub_job_id ~= 13 then
+            if player.main_job ~= 'NIN' and player.sub_job ~= 'NIN' then
                 add_to_chat(123,"Abort: You don't have access to ["..(spell[language] or spell.id).."].")
                 return false
             elseif not player.inventory[data.tools.tool_map[spell.english][language]] and not (player.main_job_id == 13 and player.inventory[data.tools.universal_tool_map[spell.english][language]]) then
-				if player.main_job == 'NIN' and player[consumable_bag][data.tools.universal_tool_map[spell.english][language]] then
+				if player.main_job == 'NIN' and player[consumable_bag][data.tools.universal_tool_map[spell.english][language]] then --Universal tool in consumable bag
 					windower.send_command('get "'..data.tools.universal_tool_map[spell.english][language]..'" '..consumable_bag..' 99')
 					windower.chat.input:schedule(1.5,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				elseif player[consumable_bag][data.tools.tool_map[spell.english][language]] then
+				elseif player[consumable_bag][data.tools.tool_map[spell.english][language]] then --Specific tool in consumable bag
 					windower.send_command('get "'..data.tools.tool_map[spell.english][language]..'" '..consumable_bag..' 99')
 					windower.chat.input:schedule(1.5,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				elseif player.main_job == 'NIN' and player.inventory[data.tools.universal_toolbag_map[spell.english][language]] then
+				elseif player.main_job == 'NIN' and player.inventory[data.tools.universal_toolbag_map[spell.english][language]] then --Universal toolbag in inventory
 					windower.chat.input('/item "'..data.tools.universal_toolbag_map[spell.english][language]..'" <me>')
 					windower.chat.input:schedule(4,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				elseif player.main_job == 'NIN' and player[consumable_bag][data.tools.universal_toolbag_map[spell.english][language]] then
+				elseif player.main_job == 'NIN' and player[consumable_bag][data.tools.universal_toolbag_map[spell.english][language]] then --Universal toolbag in consumable bag
 					windower.send_command('get "'..data.tools.universal_toolbag_map[spell.english][language]..'" '..consumable_bag..' 1')
-					windower.chat.input:schedule(2,'/item "'..data.tools.universal_toolbag_map[spell.english][language]..'" <me>')
-					windower.chat.input:schedule(6,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				elseif player.inventory[data.tools.toolbag_map[spell.english][language]] then
+					windower.chat.input:schedule(1.5,'/item "'..data.tools.universal_toolbag_map[spell.english][language]..'" <me>')
+					windower.chat.input:schedule(5.5,'/ma "'..spell.english..'" '..spell.target.raw..'')
+				elseif player.inventory[data.tools.toolbag_map[spell.english][language]] then --Specific toolbag in Inventory
 					windower.chat.input('/item "'..data.tools.toolbag_map[spell.english][language]..'" <me>')
 					windower.chat.input:schedule(4,'/ma "'..spell.english..'" '..spell.target.raw..'')
-				elseif player[consumable_bag][data.tools.toolbag_map[spell.english][language]] then
+				elseif player[consumable_bag][data.tools.toolbag_map[spell.english][language]] then --Specific toolbag in bag
 					windower.send_command('get "'..data.tools.toolbag_map[spell.english][language]..'" '..consumable_bag..' 1')
-					windower.chat.input:schedule(2,'/item "'..data.tools.universal_toolbag_map[spell.english][language]..'" <me>')
-					windower.chat.input:schedule(6,'/ma "'..spell.english..'" '..spell.target.raw..'')
+					windower.chat.input:schedule(1.5,'/item "'..data.tools.universal_toolbag_map[spell.english][language]..'" <me>')
+					windower.chat.input:schedule(5.5,'/ma "'..spell.english..'" '..spell.target.raw..'')
 				else
 					add_to_chat(123,"Abort: You don't have the proper ninja tool available.")
 				end
@@ -1350,34 +1349,49 @@ end
 
 function check_cleanup()
 	if state.AutoCleanupMode.value then
-		if player.inventory['Bead Pouch'] then
-			send_command('input /item "Bead Pouch" <me>')
-			add_tick_delay()
-			return true
-		elseif player.inventory['Silt Pouch'] then
-			send_command('input /item "Silt Pouch" <me>')
-			add_tick_delay()
-			return true
+		if not state.Buff['Invisible'] then
+			if player.inventory['Bead Pouch'] then
+				send_command('input /item "Bead Pouch" <me>')
+				add_tick_delay(2)
+				return true
+			elseif player.inventory['Silt Pouch'] then
+				send_command('input /item "Silt Pouch" <me>')
+				add_tick_delay(2)
+				return true
+			end
+			
+			local shard_name = {'C. Ygg. Shard ','Z. Ygg. Shard ','A. Ygg. Shard ','P. Ygg. Shard '}
+			
+			for sni, snv in ipairs(shard_name) do
+				local shard_count = {'I','II','III','IV','V'}
+				for sci, scv in ipairs(shard_count) do
+					if player.inventory[snv..''..scv] then
+						send_command('wait 3.0;input /item "'..snv..''..scv..'" <me>')
+						add_tick_delay(2)
+						return true
+					end
+				end
+			end
 		end
 
 		local items = windower.ffxi.get_items()
 		local moveditem = false
 		if items.count_sack < items.max_sack then
-			if player.inventory['Pellucid Stone'] then send_command('put "Pellucid Stone" sack all') moveditem = true end
-			if player.inventory['Taupe Stone'] then send_command('put "Taupe Stone" sack all') moveditem = true end
-			if player.inventory['Fern Stone'] then send_command('put "Fern Stone" sack all') moveditem = true end
-			if player.inventory['Frayed Sack (Pel)'] then send_command('put "Frayed Sack (Pel)" sack all') moveditem = true end
-			if player.inventory['Frayed Sack (Tau)'] then send_command('put "Frayed Sack (Tau)" sack all') moveditem = true end
-			if player.inventory['Frayed Sack (Fer)'] then send_command('put "Frayed Sack (Fer)" sack all') moveditem = true end
-			if player.inventory['Beitetsu'] then send_command('put Beitetsu sack all') moveditem = true end
-			if player.inventory['Beitetsu Parcel'] then send_command('put "Beitetsu Parcel" sack all') moveditem = true end
-			if player.inventory['Beitetsu Box'] then send_command('put "Beitetsu Box" sack all') moveditem = true end
-			if player.inventory['Pluton'] then send_command('put Pluton sack all') moveditem = true end
-			if player.inventory['Pluton Case'] then send_command('put "Pluton Case" sack all') moveditem = true end
-			if player.inventory['Pluton Box'] then send_command('put "Pluton Box" sack all') moveditem = true end
-			if player.inventory['Riftborn Boulder'] then send_command('put "Riftborn Boulder" sack all') moveditem = true end
-			if player.inventory['Boulder Case'] then send_command('put "Boulder Case" sack all') moveditem = true end
-			if player.inventory['Boulder Box'] then send_command('put "Boulder Box" sack all') moveditem = true end
+			if player.inventory['Pellucid Stone'] then send_command('put "Pellucid Stone" '..currency_bag..' all') moveditem = true end
+			if player.inventory['Taupe Stone'] then send_command('put "Taupe Stone" '..currency_bag..' all') moveditem = true end
+			if player.inventory['Fern Stone'] then send_command('put "Fern Stone" '..currency_bag..' all') moveditem = true end
+			if player.inventory['Frayed Sack (Pel)'] then send_command('put "Frayed Sack (Pel)" '..currency_bag..' all') moveditem = true end
+			if player.inventory['Frayed Sack (Tau)'] then send_command('put "Frayed Sack (Tau)" '..currency_bag..' all') moveditem = true end
+			if player.inventory['Frayed Sack (Fer)'] then send_command('put "Frayed Sack (Fer)" '..currency_bag..' all') moveditem = true end
+			if player.inventory['Beitetsu'] then send_command('put Beitetsu '..currency_bag..' all') moveditem = true end
+			if player.inventory['Beitetsu Parcel'] then send_command('put "Beitetsu Parcel" '..currency_bag..' all') moveditem = true end
+			if player.inventory['Beitetsu Box'] then send_command('put "Beitetsu Box" '..currency_bag..' all') moveditem = true end
+			if player.inventory['Pluton'] then send_command('put Pluton '..currency_bag..' all') moveditem = true end
+			if player.inventory['Pluton Case'] then send_command('put "Pluton Case" '..currency_bag..' all') moveditem = true end
+			if player.inventory['Pluton Box'] then send_command('put "Pluton Box" '..currency_bag..' all') moveditem = true end
+			if player.inventory['Riftborn Boulder'] then send_command('put "Riftborn Boulder" '..currency_bag..' all') moveditem = true end
+			if player.inventory['Boulder Case'] then send_command('put "Boulder Case" '..currency_bag..' all') moveditem = true end
+			if player.inventory['Boulder Box'] then send_command('put "Boulder Box" '..currency_bag..' all') moveditem = true end
 		end
 		
 		if not state.Capacity.value then
@@ -1388,23 +1402,11 @@ function check_cleanup()
 			if player.inventory['Vocation Ring'] then send_command('put "Vocation Ring" satchel')  moveditem = true end
 			if player.inventory['Facility Ring'] then send_command('put "Facility Ring" satchel') moveditem = true end
 			if player.inventory['Guide Beret'] then send_command('put "Guide Beret" satchel') moveditem = true end
+			if player.inventory["Emporox's Ring"] then send_command('put "Emporox\'s Ring" satchel') moveditem = true end
 		end
 		
 		if moveditem then add_tick_delay(2) return true end
 		
-		local shard_name = {'C. Ygg. Shard ','Z. Ygg. Shard ','A. Ygg. Shard ','P. Ygg. Shard '}
-		
-		for sni, snv in ipairs(shard_name) do
-			local shard_count = {'I','II','III','IV','V'}
-			for sci, scv in ipairs(shard_count) do
-				if player.inventory[snv..''..scv] then
-					send_command('wait 3.0;input /item "'..snv..''..scv..'" <me>')
-					add_tick_delay(2)
-					return true
-				end
-			end
-		end
-
 		return false
 	else
 		return false

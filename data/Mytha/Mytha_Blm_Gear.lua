@@ -40,7 +40,7 @@ function init_gear_sets()
 	
 	-- Weapons sets
 	sets.weapons.Lathi = {main="Lathi",sub="Enki Strap"}
-	sets.weapons.Bunzi = {main="Bunzi's Rod",sub="Sors Shield"}
+	sets.weapons.Bunzi = {main="Bunzi's Rod",sub="Ammurapi Shield"}
 	
     sets.buff.Sublimation = {waist="Embla Sash"}
     sets.buff.DTSublimation = {waist="Embla Sash"}	
@@ -113,7 +113,7 @@ function init_gear_sets()
 		body="Zendik Robe",hands="Volte Gloves",ring1="Kishar Ring",ring2="Prolix Ring",
 		back="Swith Cape +1",waist="Witful Belt",legs="Psycloth Lappas",feet="Regal Pumps +1"}
 
-    sets.midcast.Cure = {main=gear.gada_healing_club,sub="Sors Shield",ammo="Hasty Pinion +1",
+    sets.midcast.Cure = {main=gear.gada_healing_club,sub="Ammurapi Shield",ammo="Hasty Pinion +1",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Gifted Earring",ear2="Etiolation Earring",
         body="Zendik Robe",hands="Telchine Gloves",ring1="Janniston Ring",ring2="Menelaus's Ring",
         back="Tempered Cape +1",waist="Witful Belt",legs="Psycloth Lappas",feet="Vanya Clogs"}
@@ -339,7 +339,7 @@ function init_gear_sets()
 		body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Mephitas's Ring +1",ring2="Mephitas's Ring",
 		back="Swith Cape +1",legs="Shedir Seraweels",feet="Jhakri Pigaches +2"}
 		
-	sets.HPCure = {main=gear.gada_healing_club,sub="Sors Shield",ammo="Hasty Pinion +1",
+	sets.HPCure = {main=gear.gada_healing_club,sub="Ammurapi Shield",ammo="Hasty Pinion +1",
 		head="Nyame Helm",neck="Nodens Gorget",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Vrikodara Jupon",hands="Telchine Gloves",ring1="Kunaji Ring",ring2="Meridian Ring",
 		back="Tempered Cape +1",waist="Witful Belt",legs="Psycloth Lappas",feet="Vanya Clogs"}

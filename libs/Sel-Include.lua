@@ -188,6 +188,8 @@ function init_include()
 	state.Buff['Manifestation'] = buffactive['Manifestation'] or false
 	state.Buff['Warcry'] = buffactive['Warcry'] or false
 	state.Buff['SJ Restriction'] = buffactive['SJ Restriction'] or false
+	state.Buff['Invisible'] = buffactive['Invisible'] or false
+	state.Buff['Sneak'] = buffactive['Sneak'] or false
 	
     -- Classes describe a 'type' of action.  They are similar to state, but
     -- may have any free-form value, or describe an entire table of mapped values.
@@ -251,6 +253,7 @@ function init_include()
 	delayed_target = ''
 	equipped = 0
 	consumable_bag = 'satchel'
+	currency_bag = 'sack'
 	
 	time_test = false
 	selindrile_warned = false
@@ -415,7 +418,7 @@ function init_include()
 			if pre_tick then
 				if pre_tick() then return end
 			end
-			if not (buffactive['Sneak'] or buffactive['Invisible'] ) then
+			if not state.Buff['Invisible'] then
 				if user_job_tick then
 					if user_job_tick() then return end
 				end
@@ -439,8 +442,11 @@ function init_include()
 				if extra_user_tick then
 					if extra_user_tick() then return end
 				end
-			end			
+			end
+			
+			if check_cleanup() then return true end
 		end
+		
 		tickdelay = os.clock() + .5
 		if in_combat and (not ((last_in_combat + 6) > os.clock())) then
 			local bt = windower.ffxi.get_mob_by_target('bt') or nil
@@ -1441,7 +1447,7 @@ function pre_tick()
 	if check_doomed() then return true end
 	if check_delayed_cast() then return true end
 	if check_use_item() then return true end
-	if (buffactive['Sneak'] or buffactive['Invisible']) then return false end
+	if state.Buff['Invisible'] then return false end
 	if check_rune() then return true end
 	if check_shadows() then return true end
 	if check_trust() then return true end
@@ -1453,10 +1459,10 @@ function default_tick()
 	if check_sub() then return true end
 	if check_food() then return true end
 	if check_samba() then return true end
-	if check_ws() then return true end
 	if check_cpring_buff() then return true end
+	if state.Buff['Sneak'] then return false end
+	if check_ws() then return true end
 	if check_nuke() then return true end
-	if check_cleanup() then return true end
 	return false
 end
 
