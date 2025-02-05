@@ -152,6 +152,11 @@ function init_gear_sets()
         body="Bunzi's Robe",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
         back=gear.mnd_enfeebling_jse_back,waist="Hachirin-no-Obi",legs="Carmine Cuisses +1",feet="Medium's Sabots"}
 		
+    sets.midcast.Cure.DT = {main="Daybreak",sub="Culminus",range=empty,ammo="Staunch Tathlum +1",
+        head="Leth. Chappel +3",neck="Loricate Torque +1",ear1="Halasz Earring",ear2="Mendi. Earring",
+        body="Bunzi's Robe",hands=gear.chironic_aspir_gloves,ring1="Defending Ring",ring2="Freke Ring",
+        back=gear.mnd_enfeebling_jse_back,waist="Emphatikos Rope",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
+		
 	sets.midcast.Cursna = {main=gear.grioavolr_fc_staff,sub="Curatio Grip",range=empty,ammo="Hasty Pinion +1",
         head="Vanya Hood",neck="Debilis Medallion",ear1="Meili Earring",ear2="Lethargy Earring",
         body="Viti. Tabard +3",hands="Hieros Mittens",ring1="Haoma's Ring",ring2="Menelaus's Ring",
@@ -318,7 +323,7 @@ function init_gear_sets()
 	sets.midcast.Silence.DW = {main="Bunzi's Rod",sub="Daybreak"}
 	
 	--After Bunzi's is augmented it will probably win on low-tier nukes.
-	sets.midcast['Elemental Magic'] = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Ghastly Tathlum +1",
+	sets.midcast['Elemental Magic'] = {main="Bunzi's Rod",sub="Culminus",ammo="Ghastly Tathlum +1",
 		head="Leth. Chappel +3",neck="Baetyl Pendant",ear1="Malignance Earring",ear2="Friomisi Earring",
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
 		back=gear.nuke_jse_back,waist="Acuity Belt +1",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}

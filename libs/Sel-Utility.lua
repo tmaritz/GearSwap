@@ -970,6 +970,15 @@ function just_acted(spell, spellMap, eventArgs)
 	end
 end
 
+windower.raw_register_event('incoming chunk', function(id, data)
+	if state.MiniQueue.value and id == 0x029 then
+		local action = packets.parse('incoming', data)
+		if action.message == 17 or action.message == 18 then
+			next_cast = 0
+		end
+	end
+end)
+
 function check_amnesia(spell, spellMap, eventArgs)
 
 	if spell.type == 'WeaponSkill' or spell.action_type == 'Ability' then

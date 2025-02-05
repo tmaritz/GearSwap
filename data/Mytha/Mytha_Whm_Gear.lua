@@ -168,10 +168,10 @@ function init_gear_sets()
 		body="Ebers Bliaut +3",hands="Theophany Mitts +2",ring1="Sirona's Ring",ring2="Lebeche Ring",
 		back="Twilight Cape",waist="Hachirin-no-Obi",legs="Ebers Pant. +3",feet="Piety Duckbills +3"}
 
-	sets.midcast.Cure.DT = {main="Queller Rod",sub="Genmei Shield",ammo="Pemphredo Tathlum",
-		head="Ebers Cap +3",neck="Loricate Torque +1",ear1="Mendi. Earring",ear2="Glorious Earring",
-		body="Bunzi's Robe",hands=gear.chironic_nuke_hands,ring1="Defending Ring",ring2="Lebeche Ring",
-		back="Alaunus's Cape",waist="Luminary Sash",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
+	sets.midcast.Cure.DT = {main="Daybreak",sub="Culminus",range=empty,ammo="Staunch Tathlum +1",
+		head="Bunzi's Hat",neck="Loricate Torque +1",ear1="Mendi. Earring",ear2="Glorious Earring",
+		body="Bunzi's Robe",hands=gear.chironic_aspir_gloves,ring1="Defending Ring",ring2="Freke Ring",
+		back="Alaunus's Cape",waist="Emphatikos Rope",legs="Ebers Pant. +3",feet="Theo. Duckbills +2"}
 		
 	--Melee Curesets are used whenever your Weapons state is set to anything but None.
 	sets.midcast.MeleeCure = {main="Queller Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
@@ -250,7 +250,7 @@ function init_gear_sets()
 		body="Crepuscular Cloak",hands="Ebers Mitts +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Ebers Pant. +3",feet="Ebers Duckbills +3"}
 		
-	sets.midcast['Elemental Magic'] = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Ghastly Tathlum +1",
+	sets.midcast['Elemental Magic'] = {main="Bunzi's Rod",sub="Culminus",ammo="Ghastly Tathlum +1",
 		head="Bunzi's Hat",neck="Saevus Pendant +1",ear1="Friomisi Earring",ear2="Malignance Earring",
 		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Freke Ring",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Yamabuki-no-Obi",legs="Bunzi's Pants",feet="Bunzi's Sabots"}

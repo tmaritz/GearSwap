@@ -4,7 +4,7 @@ function user_job_setup()
     state.CastingMode:options('Normal','Resistant','Proc','OccultAcumen','9k')
     state.IdleMode:options('Normal','PDT')
 	state.HybridMode:options('Normal','PDT')
-	state.Weapons:options('None','Mpaca','Bunzi')
+	state.Weapons:options('None','Mpaca','Bunzi','Maxentius')
 	state.RecoverMode = M('Never','35%','60%','Always')
 
 	gear.nuke_jse_back = {name="Lugh's Cape",augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10',}}
@@ -69,9 +69,15 @@ function init_gear_sets()
 
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
+	
+	sets.precast.WS = {ammo="Oshasha's Treatise",
+		head="Nyame Helm",neck="Null Loop",ear1="Brutal Earring",ear2="Moonshade Earring",
+		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
+		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
+	
     sets.precast.WS['Myrkr'] = {ammo="Ghastly Tathlum +1",
 		head="Pixie Hairpin +1",neck="Sanctity Necklace",ear1="Etiolation Earring",ear2="Moonshade Earring",
-		body="Arbatel Gown +3",hands="Nyame Gauntlets",ring1=,"Mephitas's Ring +1"ring2="Metamor. Ring +1",
+		body="Arbatel Gown +3",hands="Nyame Gauntlets",ring1="Mephitas's Ring +1",ring2="Metamor. Ring +1",
 		back="Pahtli Cape",waist="Luminary Sash",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 
     -- Midcast Sets
@@ -203,7 +209,7 @@ function init_gear_sets()
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 
     -- Elemental Magic sets are default for handling low-tier nukes.
-    sets.midcast['Elemental Magic'] = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
+    sets.midcast['Elemental Magic'] = {main="Bunzi's Rod",sub="Culminus",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Saevus Pendant +1",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
         back=gear.nuke_jse_back,waist="Acuity Belt +1",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
@@ -327,8 +333,8 @@ function init_gear_sets()
     -- EG: sets.engaged.Dagger.Accuracy.Evasion
 
     -- Normal melee group
-    sets.engaged = {main="Daybreak",sub="Genmei Shield",ammo="Staunch Tathlum +1",
-		head="Nyame Helm",neck="Null Loop",ear1="Etiolation Earring",ear2="Ethereal Earring",
+    sets.engaged = {main="Maxentius",sub="Genmei Shield",ammo="Staunch Tathlum +1",
+		head="Nyame Helm",neck="Null Loop",ear1="Brutal Earring",ear2="Dedition Earring",
 		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
 
@@ -363,18 +369,19 @@ function init_gear_sets()
 	-- Weapons sets
 	sets.weapons.Mpaca = {main="Mpaca's Staff",sub="Clerisy Strap +1"}
 	sets.weapons.Bunzi = {main="Bunzi's Rod",sub="Ammurapi Shield"}
+	sets.weapons.Maxentius = {main="Maxentius",sub="Ammurapi Shield"}
 end
 
 -- Select default macro book on initial load or subjob change.
 -- Default macro set/book
 function select_default_macro_book()
 	if player.sub_job == 'RDM' then
-		set_macro_page(1, 18)
+		set_macro_page(1, 3)
 	elseif player.sub_job == 'BLM' then
-		set_macro_page(1, 18)
+		set_macro_page(1, 3)
 	elseif player.sub_job == 'WHM' then
-		set_macro_page(1, 18)
+		set_macro_page(1, 3)
 	else
-		set_macro_page(1, 18)
+		set_macro_page(1, 3)
 	end
 end

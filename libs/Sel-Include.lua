@@ -1251,7 +1251,7 @@ end
 function default_aftercast(spell, spellMap, eventArgs)
 	prepared_action = ''
 	if spell.interrupted then
-		if spell.type:contains('Magic') or spell.type == 'Ninjutsu' or spell.type == 'BardSong' then
+		if spell.action_type == 'Magic' then
 			next_cast = os.clock() + 3.35 - latency
 		else
 			next_cast = os.clock() + 1.75 - latency
@@ -1269,9 +1269,7 @@ function default_aftercast(spell, spellMap, eventArgs)
 	end
 	
 	if tickdelay < next_cast then tickdelay = next_cast +.1 end
-	
-	if tickdelay < next_cast then tickdelay = next_cast +.1 end
-	
+
 	if not spell.interrupted then
 		if spell.target.type == 'MONSTER' and spell.target.hpp > 0 then
 			in_combat = true

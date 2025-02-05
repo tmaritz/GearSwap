@@ -618,9 +618,10 @@ function handle_smartws(cmdParams)
 	
 	if cmdParams[1] then
 		if cmdParams[1] == 'ws' then
-			if cmdParams[2] then
-				smartws = table.concat(cmdParams, ' ')
-				add_to_chat(122,'SmartWS Set to: '..smartws..'.')
+			table.remove(cmdParams, 1)
+			if cmdParams[1] then
+				smartws = table.concat(cmdParams, ' '):ucfirst()
+				add_to_chat(122,'SmartWS set to: '..smartws..'.')
 			else
 				add_to_chat(122,'Invalid command, Syntax: //gs c smartws ws Weaponskill Name')
 			end

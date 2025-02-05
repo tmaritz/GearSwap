@@ -89,6 +89,7 @@ function check_reaction(act)
 	--if curact.category == 1 and not ((state.AutoEngageMode.value and player.status == 'Idle')) and in_combat then return end
 
 	if not ((curact.category == 1 or curact.category == 3 or curact.category == 4 or curact.category == 7 or curact.category == 8 or curact.category == 11 or curact.category == 13)) then return end
+	
 	-- Make sure it's a mob that's doing something.
     if windower.ffxi.get_mob_by_id(actor.id) then
         actor = windower.ffxi.get_mob_by_id(actor.id)
