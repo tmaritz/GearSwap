@@ -975,6 +975,7 @@ windower.raw_register_event('incoming chunk', function(id, data)
 		local action = packets.parse('incoming', data)
 		if action.message == 17 or action.message == 18 then
 			next_cast = 0
+			add_tick_delay()
 		end
 	end
 end)
@@ -2029,7 +2030,7 @@ end
 
 function add_tick_delay(seconds)
 	if seconds == nil then seconds = 0 end
-	local new_delay = os.clock() + seconds + latency
+	local new_delay = os.clock() + seconds + .25
 	if tickdelay < new_delay then tickdelay = new_delay end
 end
 
