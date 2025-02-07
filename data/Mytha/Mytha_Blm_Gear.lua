@@ -13,7 +13,7 @@ function user_job_setup()
 	send_command('bind ~^` gs c cycleback ElementalMode') --Robbiewobbie's idea
 	send_command('bind !q gs c weapons Default;gs c reset CastingMode;gs c reset DeathMode;gs c reset MagicBurstMode')
 	send_command('bind !r gs c set DeathMode Single;gs c set MagicBurstMode Single')
-	send_command('bind !\\\\ input /ja "Manawell" <me>')
+	send_command('bind !\\ input /ja "Manawell" <me>')
 	send_command('bind !` input /ma "Aspir III" <t>')
 	send_command('bind @` gs c cycle MagicBurstMode')
 	send_command('bind @f10 gs c cycle RecoverMode')

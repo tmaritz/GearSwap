@@ -31,9 +31,9 @@ function user_job_setup()
 	send_command('bind ^delete input /ja "Dark Arts" <me>')
 	send_command('bind !delete input /ja "Addendum: Black" <me>')
 	send_command('bind @delete input /ja "Manifestation" <me>')
-	send_command('bind ^\\\\ input /ma "Protect V" <t>')
-	send_command('bind @\\\\ input /ma "Shell V" <t>')
-	send_command('bind !\\\\ input /ma "Reraise" <me>')
+	send_command('bind ^\\ input /ma "Protect V" <t>')
+	send_command('bind @\\ input /ma "Shell V" <t>')
+	send_command('bind !\\ input /ma "Reraise" <me>')
 	send_command('bind @f10 gs c cycle RecoverMode')
 	send_command('bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
 	send_command('bind ^q gs c set weapons dwenspellonly;gs c set unlockweapons true')
@@ -53,6 +53,17 @@ function init_gear_sets()
 	-- Precast sets to enhance JAs
 	sets.precast.JA['Chainspell'] = {body="Viti. Tabard +3"}
 	
+	-- Steps (Pure Acc)
+    sets.precast.Step = {ammo="Ginsen",
+        head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Zennaroi Earring",
+        body="Malignance Tabard",hands="Malignance Gloves",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
+        back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
+		
+	-- Violent Flourish (Macc & Acc)
+    sets.precast.JA['Violent Flourish'] = {ammo="Ginsen",
+        head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Zennaroi Earring",
+        body="Malignance Tabard",hands="Malignance Gloves",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
+        back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 
 	-- Waltz set (chr and vit)
 	sets.precast.Waltz = {}
@@ -63,6 +74,11 @@ function init_gear_sets()
 	-- Fast cast sets for spells
 	
 	sets.precast.FC = {main="Daybreak",sub="Genmei Shield",ammo="Impatiens",
+		head="Atrophy Chapeau +3",neck="Loricate Torque +1",ear1="Malignance Earring",ear2="Lethargy Earring",
+		body="Viti. Tabard +3",hands="Nyame Gauntlets",ring1="Defending Ring",ring2="Lebeche Ring",
+		back="Perimede Cape",waist="Witful Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
+		
+	sets.precast.FC.DT = {main="Sakpata's Sword",sub="Genmei Shield",ammo="Impatiens",
 		head="Atrophy Chapeau +3",neck="Loricate Torque +1",ear1="Malignance Earring",ear2="Lethargy Earring",
 		body="Viti. Tabard +3",hands="Nyame Gauntlets",ring1="Defending Ring",ring2="Lebeche Ring",
 		back="Perimede Cape",waist="Witful Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
@@ -498,12 +514,12 @@ function init_gear_sets()
 		back="Ghostfyre Cape",waist="Orpheus's Sash",legs="Malignance Tights",feet="Malignance Boots"}
 		
 	sets.engaged.EnspellOnly.Acc = {ammo="Sroda Tathlum",
-		head="Malignance Chapeau",neck="Null Loop",ear1="Sherida Earring",ear2="Brutal Earring",
+		head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Lethargy Earring",
 		body="Malignance Tabard",hands="Ayanmo Manopolas",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Orpheus's Sash",legs="Malignance Tights",feet="Malignance Boots"}
 
 	sets.engaged.Acc = {ammo="Ginsen",
-		head="Malignance Chapeau",neck="Null Loop",ear1="Sherida Earring",ear2="Brutal Earring",
+		head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Telos Earring",
 		body="Malignance Tabard",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 
@@ -513,7 +529,7 @@ function init_gear_sets()
 		back="Null Shawl",waist="Windbuffet Belt +1",legs="Malignance Tights",feet="Malignance Boots"}
 		
 	sets.engaged.Acc.DT = {ammo="Ginsen",
-		head="Malignance Chapeau",neck="Null Loop",ear1="Sherida Earring",ear2="Brutal Earring",
+		head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Telos Earring",
 		body="Malignance Tabard",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 
@@ -524,17 +540,17 @@ function init_gear_sets()
 		back="Null Shawl",waist="Windbuffet Belt +1",legs="Malignance Tights",feet="Malignance Boots"}
 		
 	sets.engaged.DWEnspellOnly = {ammo="Sroda Tathlum",
-		head="Umuthi Hat",neck="Null Loop",ear1="Suppanomimi",ear2="Sherida Earring",
+		head="Umuthi Hat",neck="Null Loop",ear1="Sherida Earring",ear2="Suppanomimi",
 		body="Malignance Tabard",hands="Aya. Manopolas +2",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back="Ghostfyre Cape",waist="Orpheus's Sash",legs="Carmine Cuisses +1",feet="Malignance Boots"}
 		
 	sets.engaged.DWEnspellOnly.Acc = {ammo="Sroda Tathlum",
-		head="Malignance Chapeau",neck="Null Loop",ear1="Suppanomimi",ear2="Sherida Earring",
+		head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Lethargy Earring",
 		body="Malignance Tabard",hands="Aya. Manopolas +2",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Orpheus's Sash",legs="Carmine Cuisses +1",feet="Malignance Boots"}
 		
 	sets.engaged.DW.Acc = {ammo="Ginsen",
-		head="Malignance Chapeau",neck="Null Loop",ear1="Sherida Earring",ear2="Brutal Earring",
+		head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Telos Earring",
 		body="Malignance Tabard",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 		
@@ -544,7 +560,7 @@ function init_gear_sets()
 		back="Null Shawl",waist="Windbuffet Belt +1",legs="Malignance Tights",feet="Malignance Boots"}
 		
 	sets.engaged.DW.Acc.DT = {ammo="Ginsen",
-		head="Malignance Chapeau",neck="Null Loop",ear1="Sherida Earring",ear2="Brutal Earring",
+		head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Telos Earring",
 		body="Malignance Tabard",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 end
@@ -572,7 +588,17 @@ function user_job_buff_change(buff, gain)
 end
 
 function user_job_lockstyle()
-	windower.chat.input('/lockstyleset 020')
+	if player.sub_job == 'SCH' then
+		if state.Buff['Light Arts'] or state.Buff['Addendum: White'] then
+			windower.chat.input('/lockstyleset 001')
+		elseif state.Buff['Dark Arts'] or state.Buff['Addendum: Black'] then
+			windower.chat.input('/lockstyleset 002')
+		else
+			windower.chat.input('/lockstyleset 004')
+		end
+	elseif player.sub_job == 'NIN' or player.sub_job == 'DNC' then
+		windower.chat.input('/lockstyleset 020')
+	end
 end
 
 autows_list = {['Naegling']='Savage Blade',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualEvisceration']='Evisceration',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['EnspellDW']='Sanguine Blade',['DualPrime']='Exenterator'}

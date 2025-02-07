@@ -309,7 +309,7 @@ function job_aftercast(spell, spellMap, eventArgs)
 				add_to_chat(217, "Astral Conduit on, locking your "..spell.english.." set.")
 			end
 			eventArgs.handled = true
-		elseif pet_midaction() or avatars:contains(spell.english) then
+		elseif pet_midaction() or ((petWillAct + 2) > os.clock()) then
 			eventArgs.handled = true
         end
     end

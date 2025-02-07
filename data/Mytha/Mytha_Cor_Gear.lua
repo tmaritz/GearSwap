@@ -33,9 +33,9 @@ function user_job_setup()
 	send_command('bind !backspace input /ja "Fold" <me>')
 	send_command('bind ^@!backspace input /ja "Crooked Cards" <me>')
 	
-	send_command('bind ^\\\\ input /ja "Random Deal" <me>')
-    send_command('bind !\\\\ input /ja "Bolter\'s Roll" <me>')
-	send_command('bind ^@!\\\\ gs c toggle LuzafRing')
+	send_command('bind ^\\ input /ja "Random Deal" <me>')
+    send_command('bind !\\ input /ja "Bolter\'s Roll" <me>')
+	send_command('bind ^@!\\ gs c toggle LuzafRing')
 	send_command('bind @f7 gs c toggle RngHelper')
 
 	send_command('bind !r gs c weapons DualSavageWeapons;gs c update')

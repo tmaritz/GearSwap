@@ -27,8 +27,8 @@ function user_job_setup()
 	send_command('bind !backspace input /ja "Hide" <me>')
 	send_command('bind ^r gs c weapons Default;gs c set WeaponSkillMode match') --Requips weapons and gear.
 	send_command('bind !r gs c weapons MagicWeapons')
-	send_command('bind ^\\\\ input /ja "Despoil" <t>')
-	send_command('bind !\\\\ input /ja "Mug" <t>')
+	send_command('bind ^\\ input /ja "Despoil" <t>')
+	send_command('bind !\\ input /ja "Mug" <t>')
 
 	select_default_macro_book()
 end
@@ -65,7 +65,6 @@ function init_gear_sets()
 	sets.weapons.SwordThrowing = {main="Naegling",sub="Gleti's Knife",range="Raider's Bmrng.",ammo=empty}
 	sets.weapons.Bow = {main="Aeneas",sub="Kustawi +1",range="Kaja Bow",ammo="Chapuli Arrow"}
 	
-    -- Actions we want to use to tag TH.
     sets.precast.Step = {ammo="Yamarang",
         head="Malignance Chapeau",neck="Null Loop",ear1="Zennaroi Earring",ear2="Sherida Earring",
         body="Malignance Tabard",hands="Malignance Gloves",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
@@ -207,12 +206,12 @@ function init_gear_sets()
     -- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 
     sets.idle = {ammo="Staunch Tathlum +1",
-        head="Malignance Chapeau",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Sanare Earring",
+        head="Null Masque",neck="Loricate Torque +1",ear1="Etiolation Earring",ear2="Sanare Earring",
         body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Shadow Ring",
         back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 
     sets.idle.Refresh = {ammo="Staunch Tathlum +1",
-        head="Wivre Hairpin",neck="Sibyl Scarf",ear1="Etiolation Earring",ear2="Sanare Earring",
+        head="Null Masque",neck="Sibyl Scarf",ear1="Etiolation Earring",ear2="Sanare Earring",
         body="Mekosu. Harness",hands="Malignance Gloves",ring1="Stikini Ring +1",ring2="Stikini Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 		
@@ -244,22 +243,22 @@ function init_gear_sets()
 
     -- Normal melee group
     sets.engaged = {ammo="Yamarang",
-        head="Malignance Chapeau",neck="Iskur Gorget",ear1="Dedition Earring",ear2="Sherida Earring",
+        head="Malignance Chapeau",neck="Iskur Gorget",ear1="Suppanomimi",ear2="Dedition Earring",
         body="Malignance Tabard",hands="Malignance Gloves",ring1="Gere Ring",ring2="Epona's Ring",
         back="Null Shawl",waist="Windbuffet Belt +1",legs="Malignance Tights",feet="Malignance Boots"}
 		
 	sets.engaged.Acc = {ammo="Yamarang",
-        head="Malignance Chapeau",neck="Null Loop",ear1="Zennaroi Earring",ear2="Sherida Earring",
+        head="Malignance Chapeau",neck="Null Loop",ear1="Suppanomimi",ear2="Telos Earring",
         body="Malignance Tabard",hands="Malignance Gloves",ring1="Ilabrat Ring",ring2="Regal Ring",
         back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 
     sets.engaged.DT = {ammo="Staunch Tathlum +1",
-        head="Malignance Chapeau",neck="Null Loop",ear1="Dedition Earring",ear2="Sherida Earring",
+        head="Malignance Chapeau",neck="Null Loop",ear1="Suppanomimi",ear2="Sherida Earring",
         body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Moonlight Ring",
         back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 
     sets.engaged.Acc.DT = {ammo="Staunch Tathlum +1",
-        head="Malignance Chapeau",neck="Null Loop",ear1="Zennaroi Earring",ear2="Sherida Earring",
+        head="Malignance Chapeau",neck="Null Loop",ear1="Suppanomimi",ear2="Telos Earring",
         body="Malignance Tabard",hands="Malignance Gloves",ring1="Defending Ring",ring2="Moonlight Ring",
         back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 end

@@ -24,9 +24,9 @@ function user_job_setup()
 	send_command('bind @backspace gs c scholar aoe')
 	send_command('bind ^= input /ja "Dark Arts" <me>')
 	send_command('bind != input /ja "Light Arts" <me>')
-	send_command('bind ^\\\\ input /ma "Protect V" <t>')
-	send_command('bind @\\\\ input /ma "Shell V" <t>')
-	send_command('bind !\\\\ input /ma "Reraise III" <me>')
+	send_command('bind ^\\ input /ma "Protect V" <t>')
+	send_command('bind @\\ input /ma "Shell V" <t>')
+	send_command('bind !\\ input /ma "Reraise III" <me>')
 	
     select_default_macro_book()
 end
@@ -89,6 +89,12 @@ function init_gear_sets()
 	
 	-- Gear for specific elemental nukes.
 	sets.element.Dark = {head="Pixie Hairpin +1",ring2="Archon Ring"}
+
+
+    sets.midcast.Pet.BloodPactWard = {main="Espiritus",sub="Vox Grip",ammo="Epitaph",
+        head="Convoker's Horn +3",neck="Incanter's Torque",ear1="Andoaa Earring",ear2="Lodurr Earring",
+        body="Baayami Robe",hands="Baayami Cuffs",ring1="Evoker's Ring",ring2="Stikini Ring +1",
+        back="Conveyance Cape",waist="Kobo Obi",legs="Baayami Slops",feet="Baayami Sabots"}
 
     sets.midcast.FastRecast = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo="Impatiens",
         head="Amalric Coif +1",neck="Orunmila's Torque",ear1="Malignance Earring",ear2="Loquac. Earring",
@@ -278,14 +284,14 @@ function init_gear_sets()
 
      -- Resting sets
     sets.resting = {main="Mpaca's Staff",sub="Oneiros Grip",ammo="Homiliary",
-		head="Befouled Crown",neck="Sibyl Scarf",ear1="Etiolation Earring",ear2="Ethereal Earring",
+		head="Null Masque",neck="Sibyl Scarf",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Arbatel Gown +3",hands=gear.chironic_refresh_hands,ring1="Stikini Ring +1",ring2="Stikini Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.merlinic_refresh_legs,feet=gear.merlinic_refresh_feet}
 
     -- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 
 	sets.idle = {main="Mpaca's Staff",sub="Oneiros Grip",ammo="Homiliary",
-		head="Befouled Crown",neck="Sibyl Scarf",ear1="Etiolation Earring",ear2="Ethereal Earring",
+		head="Null Masque",neck="Sibyl Scarf",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Arbatel Gown +3",hands=gear.chironic_refresh_hands,ring1="Stikini Ring +1",ring2="Stikini Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.merlinic_refresh_legs,feet=gear.merlinic_refresh_feet}
 
@@ -335,6 +341,11 @@ function init_gear_sets()
     -- Normal melee group
     sets.engaged = {main="Maxentius",sub="Genmei Shield",ammo="Staunch Tathlum +1",
 		head="Nyame Helm",neck="Null Loop",ear1="Brutal Earring",ear2="Dedition Earring",
+		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
+		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
+		
+    sets.engaged.Acc = {main="Maxentius",sub="Genmei Shield",ammo="Staunch Tathlum +1",
+		head="Nyame Helm",neck="Null Loop",ear1="Crep. Earring",ear2="Telos Earring",
 		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
 
