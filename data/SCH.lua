@@ -538,13 +538,17 @@ function handle_elemental(cmdParams)
 	elseif command:contains('skillchain') then
 		if player.target.type ~= "MONSTER" then
 			add_to_chat(123,'Abort: You are not targeting a monster.')
+			return
 		elseif silent_check_silence() or buffactive.paralysis or silent_check_amnesia() then
 			add_to_chat(123,'You are disabled, cancelling skillchain.')
+			return
 		elseif (get_current_stratagem_count() + immactive) < 2 then
 			add_to_chat(123,'Abort: You have less than two stratagems available.')
+			return
 		elseif not (state.Buff['Dark Arts']  or state.Buff['Addendum: Black']) then
 			add_to_chat(123,"Can't use elemental skillchain commands without Dark Arts - Activating.")
 			windower.chat.input('/ja "Dark Arts" <me>')
+			return
 		end
 		local last_character = string.sub(command, -1)
 		
