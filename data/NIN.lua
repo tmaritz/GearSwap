@@ -454,6 +454,28 @@ function handle_elemental(cmdParams)
         return
     end
     local command = cmdParams[2]:lower()
+	
+	if command == 'spikes' then
+		windower.chat.input('/ma "'..data.elements.spikes_of[state.ElementalMode.value]..' Spikes" <me>')
+		return
+	elseif command == 'enspell' then
+		windower.chat.input('/ma "En'..data.elements.enspell_of[state.ElementalMode.value]..'" <me>')
+		return
+	--Leave out target, let shortcuts auto-determine it.
+	elseif command == 'weather' then
+		if player.sub_job == 'RDM' then
+			windower.chat.input('/ma "Phalanx" <me>')
+		else
+			local spell_recasts = windower.ffxi.get_spell_recasts()
+			if (player.target.type == 'SELF' or not player.target.in_party) and buffactive[data.elements.storm_of[state.ElementalMode.value]] and not buffactive['Klimaform'] and spell_recasts[287] < spell_latency then
+				windower.chat.input('/ma "Klimaform" <me>')
+			else
+				windower.chat.input('/ma "'..data.elements.storm_of[state.ElementalMode.value]..'"')
+			end
+		end
+		return
+	end
+	
 	local target = '<t>'
 	if cmdParams[3] then
 		if tonumber(cmdParams[3]) then
@@ -463,8 +485,9 @@ function handle_elemental(cmdParams)
 			target = get_closest_mob_id_by_name(target) or '<t>'
 		end
 	end
+
 	local spell_recasts = windower.ffxi.get_spell_recasts()
-	
+
 	if command == 'nuke' then
 		local tiers = {'San','Ni','Ichi'}
 		for k in ipairs(tiers) do
@@ -473,7 +496,7 @@ function handle_elemental(cmdParams)
 				return
 			end
 		end
-		add_to_chat(123,'Abort: All '..data.elements.nuke_of[state.ElementalMode.value]..' nukes on cooldown or or not enough MP.')
+		add_to_chat(123,'Abort: All '..data.elements.nuke_of[state.ElementalMode.value]..' nukes on cooldown.')
 	elseif S{'San','Ni','Ichi'}:contains(command) then
 		windower.chat.input('/ma "'..data.elements.ninjutsu_nuke_of[state.ElementalMode.value]..': '..command..'" '..target..'')
 	elseif command == 'proc' then

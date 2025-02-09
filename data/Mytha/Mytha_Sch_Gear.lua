@@ -158,7 +158,7 @@ function init_gear_sets()
 	sets.midcast['Enfeebling Magic'] = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Kishar Ring",ring2="Stikini Ring +1",
-        back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
+        back="Null Shawl",waist="Obstinate Sash",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 	
 	sets.midcast['Enfeebling Magic'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",

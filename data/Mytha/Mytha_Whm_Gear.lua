@@ -313,7 +313,7 @@ function init_gear_sets()
 	sets.midcast['Enfeebling Magic'] = {main="Daybreak",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
 		head="Ebers Cap +3",neck="Null Loop",ear1="Gwati Earring",ear2="Malignance Earring",
 		body="Theo. Bliaut +2",hands="Ebers Mitts +3",ring1="Kishar Ring",ring2="Stikini Ring +1",
-		back="Alaunus's Cape",waist="Luminary Sash",legs=gear.chironic_macc_legs,feet="Theo Duckbills +2"}
+		back="Alaunus's Cape",waist="Obstinate Sash",legs=gear.chironic_macc_legs,feet="Theo Duckbills +2"}
 
 	sets.midcast['Enfeebling Magic'].Resistant = {main="Daybreak",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
 		head="Ebers Cap +3",neck="Null Loop",ear1="Gwati Earring",ear2="Malignance Earring",
@@ -407,7 +407,7 @@ function init_gear_sets()
     sets.buff['Divine Caress'] = {hands="Ebers Mitts +3",back="Mending Cape"}
 
 	sets.HPDown = {main="Queller Rod",sub="Genmei Shield",ammo="Homiliary",
-		head="Wivre Hairpin",neck="Loricate Torque +1",ear1="Hirudinea Earring",ear2="Ethereal Earring",
+		head="Pixie Hairpin +1",neck="Loricate Torque +1",ear1="Hirudinea Earring",ear2="Ethereal Earring",
 		body="Councilor's Garb",hands="Hieros Mittens",ring1="Defending Ring",ring2="Persis Ring",
 		back="Null Shawl",waist="Null Belt",legs="",feet=""}
 

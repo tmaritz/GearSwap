@@ -584,6 +584,14 @@ function add_table_to_chat(table)
     end
 end
 
+function get_spell_id_by_name(spell_name)
+	return gearswap.validabils.english['/ma'][spell_name:lower()] or false
+end
+
+function get_weaponskill_id_by_name(spell_name)
+	return gearswap.validabils.english['/ws'][spell_name:lower()] or false
+end
+
 function get_spell_table_by_name(spell_name)
 	for k in pairs(res.spells) do
 		if res.spells[k][language] == spell_name then
@@ -1225,10 +1233,24 @@ function stepdown(spell, eventArgs)
 end
 
 function actual_cost(spell)
-    local cost = spell.mp_cost
-	if buffactive["Manafont"] or buffactive["Manawell"]
-		then return 0
-    elseif spell.type=="WhiteMagic" then
+	if buffactive["Manafont"] or buffactive["Manawell"] then
+		return 0
+	end
+
+	local spell_table
+
+	if type(spell) == "table" then
+		spell_table = spell
+	elseif type(spell) == 'string' then
+		spell_table = res.spells[get_spell_id_by_name(spell)]
+	elseif type(spell) == 'number' then
+		spell_table = res.spells[spell]
+	else
+		return false
+	end
+
+	local cost = spell_table.mp_cost
+	if spell_table.type=="WhiteMagic" then
         if buffactive["Penury"] then
             return cost*.5
         elseif state.Buff['Light Arts'] or state.Buff['Addendum: White'] then
@@ -1236,7 +1258,7 @@ function actual_cost(spell)
         elseif state.Buff['Dark Arts'] or state.Buff['Addendum: Black'] then
             return cost*1.1
         end
-    elseif spell.type=="BlackMagic" then
+    elseif spell_table.type=="BlackMagic" then
         if buffactive["Parsimony"] then
             return cost*.5
         elseif state.Buff['Dark Arts'] or state.Buff['Addendum: Black'] then
