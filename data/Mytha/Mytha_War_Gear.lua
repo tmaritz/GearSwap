@@ -9,7 +9,7 @@ function user_job_setup()
 	state.IdleMode:options('Normal', 'PDT')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode','None'}
 	state.Passive = M{['description'] = 'Passive Mode','None','Twilight'}
-	state.Weapons:options('Staff','DualWeapons','ProcDagger','ProcSword','ProcGreatSword','ProcScythe','ProcPolearm','ProcGreatKatana','ProcClub','ProcStaff')
+	state.Weapons:options('Staff','DualWeapons','ProcDagger','ProcSword','ProcGreatSword','ProcScythe','ProcPolearm','ProcKatana','ProcGreatKatana','ProcClub','ProcStaff')
 
 	-- Additional local binds
 	send_command('bind ^` input /ja "Hasso" <me>')
@@ -1223,14 +1223,14 @@ function init_gear_sets()
 	-- Weapons sets
 	sets.weapons.Staff = {main="Gozuki Mezuki",sub="Niobid Strap"}
 	sets.weapons.DualWeapons = {main="Naegling",sub="Demers. Degen +1"}
-	sets.weapons.ProcDagger = {main="Qutrub Knife",sub="Niobid Strap"}
-	sets.weapons.ProcSword = {main="Kyukoto",sub="Niobid Strap"}
+	sets.weapons.ProcDagger = {main="Qutrub Knife",sub="Beatific Shield +1"}
+	sets.weapons.ProcSword = {main="Kyukoto",sub="Beatific Shield +1"}
 	sets.weapons.ProcGreatSword = {main="Goujian",sub="Niobid Strap"}
 	sets.weapons.ProcScythe = {main="Ark Scythe",sub="Niobid Strap"}
 	sets.weapons.ProcPolearm = {main="Pitchfork",sub="Niobid Strap"}
-	sets.weapons.ProcKatana = {main="Hardwood Katana",sub="Niobid Strap"}
+	sets.weapons.ProcKatana = {main="Debahocho",sub="Beatific Shield +1"}
 	sets.weapons.ProcGreatKatana = {main="Hardwood Katana",sub="Niobid Strap"}
-	sets.weapons.ProcClub = {main="Hagoita",sub="Niobid Strap"}
+	sets.weapons.ProcClub = {main="Hagoita",sub="Beatific Shield +1"}
 	sets.weapons.ProcStaff = {main="Caver's Shovel",sub="Niobid Strap"}
 
 end
