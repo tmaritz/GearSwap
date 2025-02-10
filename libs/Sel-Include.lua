@@ -1019,11 +1019,14 @@ end
 function default_precast(spell, spellMap, eventArgs)
 	if eventArgs.cancel or spell.english == prepared_action then
 		cancel_spell()
+		eventArgs.cancel = true
 		return
 	else
 		prepared_action = spell.english
 	end
 	if just_acted(spell, spellMap, eventArgs) then
+		cancel_spell()
+		eventArgs.cancel = true
 		return	
 	else
 		equip(get_precast_set(spell, spellMap))
