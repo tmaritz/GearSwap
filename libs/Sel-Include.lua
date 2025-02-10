@@ -142,11 +142,9 @@ function init_include()
 	state.DisplayMode  	  	  = M(true, 'Display Mode')
 	state.UseCustomTimers 	  = M(true, 'Use Custom Timers')
 	state.CancelStoneskin	  = M(true, 'Auto Cancel Stoneskin')
-	state.BlockMidaction	  = M(true, 'Block Midaction')
 	state.MaintainAftermath	  = M(true, 'Maintain Aftermath')
 	state.RefineWaltz		  = M(true, 'RefineWaltz')
 	state.ElementalWheel 	  = M(false, 'Elemental Wheel')
-	state.MaintainDefense 	  = M(false, 'Maintain Defense')
 	state.SkipProcWeapons 	  = M(false, 'Skip Proc Weapons')
 	state.NotifyBuffs		  = M(false, 'Notify Buffs')
 	state.UnlockWeapons		  = M(false, 'Unlock Weapons')
@@ -623,69 +621,7 @@ function global_on_load()
 	end
 end
 
--- Function to revert binds when unloading.
 function global_unload()
-	send_command('unbind ^f8')
-	send_command('unbind !f8')
-	send_command('unbind @f8')
-	send_command('unbind f9')
-	send_command('unbind ^f9')
-	send_command('unbind !f9')
-	send_command('unbind @f9')
-	send_command('unbind f10')
-	send_command('unbind ^f10')
-	send_command('unbind !f10')
-	send_command('unbind @f10')
-	send_command('unbind f11')
-	send_command('unbind ^f11')
-	send_command('unbind !f11')
-	send_command('unbind @f11')
-	send_command('unbind f12')
-	send_command('unbind ^f12')
-	send_command('unbind !f12')
-	send_command('unbind @f12')
-	send_command('unbind ^@!pause')
-	send_command('unbind ^pause')
-	send_command('unbind !pause')
-	send_command('unbind @pause')
-	send_command('unbind ^@!pause')
-
-	send_command('unbind ^\\\\')
-	send_command('unbind @\\\\')
-	send_command('unbind !\\\\')
-
-	send_command('unbind ^`')
-	send_command('unbind !`')
-	send_command('unbind @`')
-
-	send_command('unbind ^backspace')
-	send_command('unbind !backspace')
-	send_command('unbind @backspace')
-
-	send_command('unbind ^r')
-	send_command('unbind !r')
-	send_command('unbind @r')
-
-	send_command('unbind ^y')
-	send_command('unbind !y')
-	send_command('unbind @y')
-
-	send_command('unbind ^q')
-	send_command('unbind !q')
-	send_command('unbind @q')
-	
-	send_command('unbind ^-')
-	send_command('unbind !-')
-	send_command('unbind @-')
-
-	send_command('unbind ^=')
-	send_command('unbind !=')
-	send_command('unbind @=')
-
-	send_command('unbind ^delete')
-	send_command('unbind !delete')
-	send_command('unbind @delete')
-	
 	if clear_job_states then
 		clear_job_states()
 	end		

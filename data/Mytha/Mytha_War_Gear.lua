@@ -9,7 +9,7 @@ function user_job_setup()
 	state.IdleMode:options('Normal', 'PDT')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode','None'}
 	state.Passive = M{['description'] = 'Passive Mode','None','Twilight'}
-	state.Weapons:options('Chango','DualWeapons','ProcDagger','ProcSword','ProcGreatSword','ProcScythe','ProcPolearm','ProcGreatKatana','ProcClub','ProcStaff')
+	state.Weapons:options('Staff','DualWeapons','ProcDagger','ProcSword','ProcGreatSword','ProcScythe','ProcPolearm','ProcGreatKatana','ProcClub','ProcStaff')
 
 	-- Additional local binds
 	send_command('bind ^` input /ja "Hasso" <me>')
@@ -1221,16 +1221,17 @@ function init_gear_sets()
 	sets.TreasureHunter = set_combine(sets.TreasureHunter, {ammo="Per. Lucky Egg"})
 	
 	-- Weapons sets
-	sets.weapons.Chango = {main="Chango",sub="Utu Grip"}
+	sets.weapons.Staff = {main="Gozuki Mezuki",sub="Niobid Strap"}
 	sets.weapons.DualWeapons = {main="Naegling",sub="Demers. Degen +1"}
-	sets.weapons.ProcDagger = {main="Qutrub Knife",sub=empty}
-	sets.weapons.ProcSword = {main="Kyukoto",sub=empty}
-	sets.weapons.ProcGreatSword = {main="Lament",sub=empty} --This
-	sets.weapons.ProcScythe = {main="Ark Scythe",sub=empty}
-	sets.weapons.ProcPolearm = {main="Pitchfork",sub=empty}
-	sets.weapons.ProcGreatKatana = {main="Hardwood Katana",sub=empty} --This
-	sets.weapons.ProcClub = {main="Hagoita",sub=empty}
-	sets.weapons.ProcStaff = {main="Caver's Shovel",sub=empty}
+	sets.weapons.ProcDagger = {main="Qutrub Knife",sub="Niobid Strap"}
+	sets.weapons.ProcSword = {main="Kyukoto",sub="Niobid Strap"}
+	sets.weapons.ProcGreatSword = {main="Goujian",sub="Niobid Strap"}
+	sets.weapons.ProcScythe = {main="Ark Scythe",sub="Niobid Strap"}
+	sets.weapons.ProcPolearm = {main="Pitchfork",sub="Niobid Strap"}
+	sets.weapons.ProcKatana = {main="Hardwood Katana",sub="Niobid Strap"}
+	sets.weapons.ProcGreatKatana = {main="Hardwood Katana",sub="Niobid Strap"}
+	sets.weapons.ProcClub = {main="Hagoita",sub="Niobid Strap"}
+	sets.weapons.ProcStaff = {main="Caver's Shovel",sub="Niobid Strap"}
 
 end
 	

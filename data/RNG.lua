@@ -72,7 +72,6 @@ function job_setup()
                    ['Fail-Not'] = "Bow",
                    ['Accipiter'] = "Bow",
                    ['Annihilator'] = "Gun",
-                   ['Armageddon'] = "Gun",
                    ['Fomalhaut'] = "Gun",
 				   ['Ataktos'] = "Gun",
 				   ['Armageddon'] = "Gun",

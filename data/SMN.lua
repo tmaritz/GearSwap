@@ -851,7 +851,7 @@ function handle_elemental(cmdParams)
 				end
 			end
 			add_to_chat(123,'Abort: All '..data.elements.nuke_of[state.ElementalMode.value]..' nukes on cooldown or or not enough MP.')
-		end
+	end
 		
 	elseif command == 'ninjutsu' then
 		windower.chat.input('/ma "'..data.elements.ninjutsu_nuke_of[state.ElementalMode.value]..': Ni" '..target..'')

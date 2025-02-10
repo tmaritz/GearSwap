@@ -37,7 +37,7 @@ function user_job_setup()
 	send_command('bind @f10 gs c cycle RecoverMode')
 	send_command('bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
 	send_command('bind ^q gs c set weapons dwenspellonly;gs c set unlockweapons true')
-	send_command('bind !r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c set weapons none')
+	send_command('bind !r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons none')
 	send_command('bind !q gs c set skipprocweapons false;gs c set weapons DualProcSword;gs c set weaponskillmode proc')
 	
 	select_default_macro_book()
