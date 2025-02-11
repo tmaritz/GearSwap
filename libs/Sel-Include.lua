@@ -244,6 +244,7 @@ function init_include()
 	rangedautowstp = 1000
 	latency = .5
 	spell_latency = nil
+	last_weapons = nil
 	buffup = ''
 	curecheat = false
 	next_cast = 0
@@ -1623,19 +1624,12 @@ function get_idle_set(petStatus)
 	end
 	
 	if (buffactive.sleep or buffactive.Lullaby) then
-		if sets.buff.Sleep then
-			idleSet = set_combine(idleSet, sets.buff.Sleep)
-		end
 		if item_available("Sacrifice Torque") and player.main_job == 'SMN' and pet.isvalid then
 			idleSet = set_combine(idleSet, {neck="Sacrifice Torque"})
+		elseif sets.buff.Sleep then
+			idleSet = set_combine(idleSet, sets.buff.Sleep)
 		elseif sets.WakeUpWeapons then
-			if state.Weapons.value == 'None' or state.UnlockWeapons.value then
-				idleSet = set_combine(idleSet, sets.WakeUpWeapons)
-			elseif state.WakeUpWeapons.value then
-				state.UnlockWeapons:set('true')
-				state.UnlockWeapons.set:schedule(3, state.UnlockWeapons, false)
-				idleSet = set_combine(idleSet, sets.WakeUpWeapons)
-			end
+			idleSet = set_combine(idleSet, sets.WakeUpWeapons)
 		end
 	end
 	
@@ -2475,20 +2469,29 @@ function buff_change(buff, gain)
 
 	if buff == 'Voidwatcher' then
 		state.SkipProcWeapons:set('False')
-	elseif (buff == 'sleep' or buff == 'Lullaby') and state.CancelStoneskin.value then
-		send_command('cancel stoneskin')
-	elseif (buff == 'Blink' or buff == 'Third Eye' or buff:startswith('Copy Image')) and not gain then
-		lastshadow = "None"
+	elseif (buff == 'sleep' or buff == 'Lullaby') then
+		if state.CancelStoneskin.value and gain then send_command('cancel stoneskin') end
+		if state.UnlockWeapons.value or state.WakeUpWeapons.value and state.Weapons.value ~= 'None' and state.Weapons:contains('None') then
+			if gain then
+				last_weapons = state.Weapons.value
+				state.Weapons:set('None')
+			elseif last_weapons then
+				state.Weapons:set(last_weapons)
+				last_weapons = nil
+			end
+		end
+	elseif (buff == 'Blink' or buff == 'Third Eye' or buff:startswith('Copy Image')) then
+		if not gain then lastshadow = "None" end
     elseif (buff == 'Commitment' or buff == 'Dedication') then
         if gain and (data.equipment.cprings:contains(player.equipment.left_ring) or data.equipment.xprings:contains(player.equipment.left_ring)) then
             enable("ring1")			
 		elseif gain and (player.equipment.head == "Guide Beret" or player.equipment.head == "Sprout Beret") then
 			enable("head")
         end
-	elseif rolled_eleven:contains(buff) and not gain then
-		remove_table_value(rolled_eleven, buff)
-	elseif buff == "Emporox's Gift" and gain then
-		if player.equipment.left_ring == "Emporox's Ring" then
+	elseif rolled_eleven:contains(buff) then
+		if not gain then remove_table_value(rolled_eleven, buff) end
+	elseif buff == "Emporox's Gift" then
+		if player.equipment.left_ring == "Emporox's Ring" and gain then
 			enable("ring1")
 		end
 	elseif buff:endswith('Imagery') then
