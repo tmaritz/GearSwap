@@ -78,7 +78,7 @@ EnhancingAbility = S{"Haste","Haste II","Flurry","Flurry II","Adloquium","Errati
 				 }
 
 function check_reaction(act)
-
+	if state.CraftingMode.value ~= 'None' then return end
 	--Gather Info
     local curact = T(act)
     local actor = T{}

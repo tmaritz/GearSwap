@@ -2052,8 +2052,15 @@ end
 
 function add_tick_delay(seconds)
 	if seconds == nil then seconds = 0 end
-	local new_delay = os.clock() + seconds + .25
+	local new_delay = os.clock() + seconds + .5 - latency
 	if tickdelay < new_delay then tickdelay = new_delay end
+end
+
+function add_next_cast_delay(seconds)
+	if seconds == nil then seconds = 0 end
+	local new_delay = os.clock() + seconds
+	if next_cast < new_delay then next_cast = new_delay end
+	if tickdelay < next_cast then tickdelay = next_cast +.1 end
 end
 
  --Equip command but accepts the set name as a string to work around inability to use equip() in raw events.
@@ -2630,6 +2637,8 @@ function set_dual_wield()
     -- Checks Job Traits directly. Will always recognize DW appropriately for all jobs (NIN ,DNC, THF, BLU)
     local traits = T(windower.ffxi.get_abilities().job_traits)
     can_dual_wield = traits:any(function(v) return gearswap.res.job_traits[v].english == 'Dual Wield' end)
+	
+	windower.send_command('gs c weapons default')
 end
 
 function get_closest_mob_id_by_name(name)

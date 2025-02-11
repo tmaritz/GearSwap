@@ -150,7 +150,7 @@ function init_include()
 	state.UnlockWeapons		  = M(false, 'Unlock Weapons')
 	state.SelfWarp2Block 	  = M(true, 'Block Warp2 on Self')
 	state.MiniQueue		 	  = M(true, 'MiniQueue')
-	state.WakeUpWeapons	 	  = M(false, 'Swap Weapons To Wake Up')
+	state.WakeUpWeapons 	  =	M(false, 'Swap Weapons To Wake Up')
 	
 
 	state.AutoBuffMode 		  = M{['description'] = 'Auto Buff Mode','Off','Auto'}
@@ -252,6 +252,7 @@ function init_include()
 	equipped = 0
 	consumable_bag = 'satchel'
 	currency_bag = 'sack'
+	default_dual_weapons = 'DualWeapons'
 	
 	time_test = false
 	selindrile_warned = false
@@ -612,12 +613,6 @@ function global_on_load()
 		else
 			state.SkipProcWeapons:reset()
 		end
-		
-		if state.Weapons.value == 'None' then
-			enable('main','sub','range','ammo')
-		else
-			send_command('@wait 4;gs c weapons Default')
-		end
 	end
 end
 
@@ -651,6 +646,7 @@ end
 -- action - string defining the function mapping to use (precast, midcast, etc)
 function handle_actions(spell, action)
     -- Init an eventArgs that allows cancelling.
+	if state.CraftingMode.value ~= 'None' then return end
     local eventArgs = {handled = false, cancel = false}
 
     mote_vars.set_breadcrumbs:clear()
@@ -970,19 +966,20 @@ function default_precast(spell, spellMap, eventArgs)
 	
     cancel_conflicting_buffs(spell, spellMap, eventArgs)
 	
+	local delay = 0
 	if spell.action_type == 'Magic' then
-		next_cast = os.clock() + (spell.cast_time/4) + 3 - latency
+		delay = (spell.cast_time/4) + 2.75
 	elseif spell.type == 'WeaponSkill' then
-		next_cast = os.clock() + 3 - latency
+		delay = 2.75
 	elseif spell.action_type == 'Ability' then
-		next_cast = os.clock() + 1.1 - latency
+		delay = .85
 	elseif spell.action_type == 'Item' then
-		next_cast = os.clock() +  1.8 - latency
+		delay = 1.55
 	elseif spell.action_type == 'Ranged Attack' then
-		next_cast = os.clock() + 1.15 - latency
+		delay = .9
 	end
 
-	if tickdelay < next_cast then tickdelay = next_cast +.1 end
+	add_next_cast_delay(delay)
 end
 
 function default_post_precast(spell, spellMap, eventArgs)
@@ -1189,26 +1186,27 @@ end
 
 function default_aftercast(spell, spellMap, eventArgs)
 	prepared_action = ''
+	local delay = 0
 	if spell.interrupted then
 		if spell.action_type == 'Magic' then
-			next_cast = os.clock() + 3.35 - latency
+			delay = 3.35 - latency
 		else
-			next_cast = os.clock() + 1.75 - latency
+			delay = 1.75 - latency
 		end
 	elseif spell.action_type == 'Magic' then
-		next_cast = os.clock() + 2.9 - latency
+		delay = 2.9 - latency
 	elseif spell.type == 'WeaponSkill' then
-		next_cast = os.clock() + 2.7 - latency
+		delay = 2.7 - latency
 	elseif spell.action_type == 'Ability' then
-		next_cast = os.clock() + .8 - latency
+		delay = .8 - latency
 	elseif spell.action_type == 'Item' then
-		next_cast = os.clock() + 1.5 - latency
+		delay = 1.5 - latency
 	elseif spell.action_type == 'Ranged Attack' then
-		next_cast = os.clock() + .85 - latency
+		delay = .85 - latency
 	end
 	
-	if tickdelay < next_cast then tickdelay = next_cast +.1 end
-
+	add_next_cast_delay(delay)
+	
 	if not spell.interrupted then
 		if spell.target.type == 'MONSTER' and spell.target.hpp > 0 then
 			in_combat = true
@@ -1623,7 +1621,7 @@ function get_idle_set(petStatus)
 		elseif sets.WakeUpWeapons then
 			if state.Weapons.value == 'None' or state.UnlockWeapons.value then
 				idleSet = set_combine(idleSet, sets.WakeUpWeapons)
-			elseif state.UnlockWakeUpWeapons.value then
+			elseif state.WakeUpWeapons.value then
 				state.UnlockWeapons:set('True')
 				state.UnlockWeapons.set:schedule(3, state.UnlockWeapons, false)
 				idleSet = set_combine(idleSet, sets.WakeUpWeapons)
@@ -1739,7 +1737,7 @@ function get_melee_set()
 		elseif sets.WakeUpWeapons then
 			if state.Weapons.value == 'None' or state.UnlockWeapons.value then
 				meleeSet = set_combine(meleeSet, sets.WakeUpWeapons)
-			elseif state.UnlockWakeUpWeapons.value then
+			elseif state.WakeUpWeapons.value then
 				state.UnlockWeapons:set('True')
 				state.UnlockWeapons.set:schedule(3, state.UnlockWeapons, false)
 				meleeSet = set_combine(meleeSet, sets.WakeUpWeapons)
