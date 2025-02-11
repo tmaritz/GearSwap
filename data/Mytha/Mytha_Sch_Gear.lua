@@ -48,8 +48,8 @@ function init_gear_sets()
     -- Fast cast sets for spells
     sets.precast.FC = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo="Impatiens",
         head="Amalric Coif +1",neck="Orunmila's Torque",ear1="Malignance Earring",ear2="Loquac. Earring",
-        body="Volte Doublet",hands="Gende. Gages +1",ring1="Kishar Ring",ring2="Lebeche Ring",
-        back="Perimede Cape",waist="Witful Belt",legs="Artsieq Hose",feet="Regal Pumps +1"}
+        body="Pinga Tunic",hands="Gende. Gages +1",ring1="Kishar Ring",ring2="Lebeche Ring",
+        back="Perimede Cape",waist="Witful Belt",legs="Pinga Pants",feet="Regal Pumps +1"}
 		
 	sets.precast.FC.Arts = {}
 	sets.precast.FC.Arts.Dispelga = {}
@@ -103,17 +103,17 @@ function init_gear_sets()
 		
 	sets.midcast.Cure = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo="Pemphredo Tathlum",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
-        body=gear.chironic_nuke_body,hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
-        back=gear.mnd_enfeebling_jse_back,waist="Luminary Sash",legs=gear.chironic_macc_legs,feet="Medium's Sabots"}
+        body="Pinga Tunic",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
+        back="Oretan. Cape +1",waist="Luminary Sash",legs=gear.chironic_macc_legs,feet="Medium's Sabots"}
 		
     sets.midcast.LightWeatherCure = {main="Chatoyant Staff",sub="Curatio Grip",range=empty,ammo="Pemphredo Tathlum",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
-        body=gear.chironic_nuke_body,hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
+        body="Pinga Tunic",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
         back="Twilight Cape",waist="Hachirin-no-Obi",legs=gear.chironic_macc_legs,feet="Medium's Sabots"}
 		
     sets.midcast.LightDayCure = {main="Chatoyant Staff",sub="Curatio Grip",range=empty,ammo="Pemphredo Tathlum",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
-        body=gear.chironic_nuke_body,hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
+        body="Pinga Tunic",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
         back="Twilight Cape",waist="Hachirin-no-Obi",legs=gear.chironic_macc_legs,feet="Medium's Sabots"}
 
     sets.midcast.Curaga = sets.midcast.Cure
