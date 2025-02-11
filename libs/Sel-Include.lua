@@ -253,6 +253,7 @@ function init_include()
 	consumable_bag = 'satchel'
 	currency_bag = 'sack'
 	default_dual_weapons = 'DualWeapons'
+	rolled_eleven = T{}
 	
 	time_test = false
 	selindrile_warned = false
@@ -531,6 +532,7 @@ function default_zone_change(new_id,old_id)
 	state.AutoFoodMode:reset()
 	state.AutoWSMode:reset()
 	state.AutoNukeMode:reset()
+	rolled_eleven = T{}
 	if state.CraftingMode.value ~= 'None' then
 		enable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
 		state.CraftingMode:reset()
@@ -1526,10 +1528,6 @@ function get_idle_set(petStatus)
         end
     end
 
-	if buffactive['Elvorseal'] and sets.buff.Elvorseal then
-		idleSet = set_combine(idleSet, sets.buff.Elvorseal)
-	end
-
 	--Apply time based gear.
     if (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) and not pet.isvalid then
 	    if player.hpp < 80 then
@@ -1547,12 +1545,14 @@ function get_idle_set(petStatus)
 		end
 	end
 
-    if data.areas.assault:contains(world.area) and sets.Assault then
-        idleSet = set_combine(idleSet, sets.Assault)
-    end
-	
-    if sets.Reive and buffactive['Reive Mark'] then
-        idleSet = set_combine(idleSet, sets.Reive)
+	if buffactive['Elvorseal'] then
+		if sets.buff.Elvorseal then
+			idleSet = set_combine(idleSet, sets.buff.Elvorseal)
+		end
+    elseif buffactive['Reive Mark'] then
+		if sets.Reive then
+			idleSet = set_combine(idleSet, sets.Reive)
+		end
     end
 
     if user_customize_idle_set then
@@ -1576,16 +1576,26 @@ function get_idle_set(petStatus)
 			idleSet = set_combine(idleSet, sets.Kiting)
 		end
 
-		if (world.area:contains('Adoulin') or world.area == "Celennia Memorial Library") and item_available("Councilor's Garb") then
-			idleSet = set_combine(idleSet, {body="Councilor's Garb"})
-		elseif (world.area:contains('Bastok') or world.area == "Metalworks") and item_available("Republic Aketon") then
-			idleSet = set_combine(idleSet, {body="Republic Aketon"})
-		elseif (world.area:contains('Windurst') or world.area == "Heavens Tower") and item_available("Federation Aketon") then
-			idleSet = set_combine(idleSet, {body="Federation Aketon"})
-		elseif (world.area:contains("San d'Oria") or world.area == "Chateau d'Oraguille") and item_available("Kingdom Aketon") then
-			idleSet = set_combine(idleSet, {body="Kingdom Aketon"})
-		elseif world.area == "Mog Garden" and item_available("Jubilee Shirt") then
-			idleSet = set_combine(idleSet, {body="Jubilee Shirt"})
+		if (world.area:contains('Adoulin') or world.area == "Celennia Memorial Library") then
+			if item_available("Councilor's Garb") then idleSet = set_combine(idleSet, {body="Councilor's Garb"}) end
+		elseif (world.area:contains('Bastok') or world.area == "Metalworks") then
+			if item_available("Republic Aketon") then idleSet = set_combine(idleSet, {body="Republic Aketon"}) end
+		elseif (world.area:contains('Windurst') or world.area == "Heavens Tower") then
+			if item_available("Federation Aketon") then idleSet = set_combine(idleSet, {body="Federation Aketon"}) end
+		elseif (world.area:contains("San d'Oria") or world.area == "Chateau d'Oraguille") then
+			if item_available("Kingdom Aketon") then idleSet = set_combine(idleSet, {body="Kingdom Aketon"}) end
+		elseif world.area == "Mog Garden" then
+			if item_available("Jubilee Shirt") then idleSet = set_combine(idleSet, {body="Jubilee Shirt"}) end
+		end
+    elseif data.areas.assault:contains(world.area) then
+		if sets.Assault then
+			idleSet = set_combine(idleSet, sets.Assault)
+		end
+	end
+
+	if rolled_eleven[1] then
+		if sets.buff.RolledEleven then
+			idleSet = set_combine(idleSet, sets.buff.RolledEleven)
 		end
 	end
 
@@ -2475,6 +2485,8 @@ function buff_change(buff, gain)
 		elseif gain and (player.equipment.head == "Guide Beret" or player.equipment.head == "Sprout Beret") then
 			enable("head")
         end
+	elseif rolled_eleven:contains(buff) and not gain then
+		remove_table_value(rolled_eleven, buff)
 	elseif buff == "Emporox's Gift" and gain then
 		if player.equipment.left_ring == "Emporox's Ring" then
 			enable("ring1")

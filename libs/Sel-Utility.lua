@@ -584,6 +584,14 @@ function add_table_to_chat(table)
     end
 end
 
+function remove_table_value(table, value)
+    for i = #table, 1, -1 do
+        if table[i] == value then
+            table.remove(table, i)
+        end
+    end
+end
+
 function get_spell_id_by_name(spell_name)
 	return gearswap.validabils.english['/ma'][spell_name:lower()] or false
 end

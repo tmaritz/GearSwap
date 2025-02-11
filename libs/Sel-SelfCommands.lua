@@ -1137,12 +1137,8 @@ function handle_help(cmdParams)
     end
 end
 
-
 -- A function for testing lua code.  Called via "gs c test".
-function handle_test(cmdParams)
-	table.vprint(spell_to_buff)
-	--table.vprint(gearswap.res.spells[56].targets)
-	--windower.add_to_chat(tostring(gearswap.res.spells[56].targets))
+function handle_test(cmdParams)	
     if user_test then
         user_test(cmdParams)
     elseif job_test then
