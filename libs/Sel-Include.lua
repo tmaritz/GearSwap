@@ -1632,7 +1632,7 @@ function get_idle_set(petStatus)
 			if state.Weapons.value == 'None' or state.UnlockWeapons.value then
 				idleSet = set_combine(idleSet, sets.WakeUpWeapons)
 			elseif state.WakeUpWeapons.value then
-				state.UnlockWeapons:set('True')
+				state.UnlockWeapons:set('true')
 				state.UnlockWeapons.set:schedule(3, state.UnlockWeapons, false)
 				idleSet = set_combine(idleSet, sets.WakeUpWeapons)
 			end

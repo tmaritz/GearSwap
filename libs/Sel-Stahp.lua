@@ -213,6 +213,7 @@ function check_reaction(act)
 				table.insert(rolled_eleven, actionName)
 			end
 		end
+		return
 	elseif curact.category == 13 then
 		act_info = res.job_abilities[curact.param]
 		if act_info.name == 'Hastega II' then
