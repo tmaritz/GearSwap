@@ -206,11 +206,22 @@ function check_reaction(act)
 					targetsMe = true
 				end
 			end
-			if rollValue == 11 and targetsMe then
-				if not rolled_eleven[1] then
-					send_command('gs c forceequip')
+			if  targetsMe then
+				if rollValue == 11 then
+					if not rolled_eleven[1] then
+						send_command('gs c forceequip')
+					end
+					table.insert(rolled_eleven, actionName)
+				else
+					if rolled_eleven:contains(actionName) then
+						remove_table_value(rolled_eleven, actionName)
+					end
+					for i = #rolled_eleven, 1, -1 do
+						if not buffactive[rolled_eleven[i]] then
+							remove_table_value(rolled_eleven, rolled_eleven[i])
+						end
+					end
 				end
-				table.insert(rolled_eleven, actionName)
 			end
 		end
 		return

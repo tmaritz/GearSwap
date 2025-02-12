@@ -1138,7 +1138,8 @@ function handle_help(cmdParams)
 end
 
 -- A function for testing lua code.  Called via "gs c test".
-function handle_test(cmdParams)	
+function handle_test(cmdParams)
+	table.print(rolled_eleven)
     if user_test then
         user_test(cmdParams)
     elseif job_test then
