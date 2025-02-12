@@ -197,8 +197,8 @@ function check_reaction(act)
 			end
 		end
 	elseif curact.category == 6 then
-		local actionName = res.job_abilities[curact.param].en
-		if actionName:endswith(' Roll') then
+		local actionName = res.job_abilities[curact.param] and res.job_abilities[curact.param].en or nil
+		if actionName and actionName:endswith(' Roll') then
 			local rollValue = curact.targets[1].actions[1].param
 			targetsMe = false
 			for i in pairs(curact.targets) do

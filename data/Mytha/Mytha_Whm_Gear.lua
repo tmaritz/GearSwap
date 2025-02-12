@@ -88,7 +88,7 @@ function init_gear_sets()
     sets.precast.WS['Flash Nova'] = {main="Daybreak",sub="Ammurapi Shield",ammo="Ghastly Tathlum +1",
 		head=gear.chironic_nuke_head,neck="Baetyl Pendant",ear1="Friomisi Earring",ear2="Malignance Earring",
 		body=gear.chironic_nuke_body,hands=gear.chironic_nuke_hands,ring1="Freke Ring",ring2="Cornelia's Ring",
-		back="Alaunus's Cape",waist="Yamabuki-no-Obi",legs=gear.chironic_macc_legs,feet=gear.chironic_treasure_feet}
+		back="Alaunus's Cape",waist="Sacro Cord",legs=gear.chironic_macc_legs,feet=gear.chironic_treasure_feet}
     sets.precast.WS['Mystic Boon'] = {}
 		
 	sets.MaxTP = {}
@@ -253,7 +253,7 @@ function init_gear_sets()
 	sets.midcast['Elemental Magic'] = {main="Bunzi's Rod",sub="Culminus",ammo="Ghastly Tathlum +1",
 		head="Bunzi's Hat",neck="Saevus Pendant +1",ear1="Friomisi Earring",ear2="Malignance Earring",
 		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Freke Ring",ring2="Metamor. Ring +1",
-		back="Null Shawl",waist="Yamabuki-no-Obi",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
+		back="Null Shawl",waist="Sacro Cord",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 
 	sets.midcast['Elemental Magic'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Ghastly Tathlum +1",
 		head="Bunzi's Hat",neck="Null Loop",ear1="Friomisi Earring",ear2="Malignance Earring",
@@ -273,7 +273,7 @@ function init_gear_sets()
 	sets.midcast.Holy = {main="Daybreak",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
 		head="C. Palug Crown",neck="Saevus Pendant +1",ear1="Gwati Earring",ear2="Malignance Earring",
 		body="Shamash Robe",hands="Bunzi's Gloves",ring1="Freke Ring",ring2="Metamor. Ring +1",
-		back="Null Shawl",waist="Yamabuki-no-Obi",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
+		back="Null Shawl",waist="Sacro Cord",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 
 	sets.midcast['Dark Magic'] = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
 		head="Ebers Cap +3",neck="Null Loop",ear1="Gwati Earring",ear2="Malignance Earring",
