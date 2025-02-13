@@ -974,8 +974,8 @@ function check_doom(spell, spellMap, eventArgs)
 end
 
 function just_acted(spell, spellMap, eventArgs)
-	if os.clock() < next_cast and not state.RngHelper.value then
-		if eventArgs and state.MiniQueue.value and not (spell.type:startswith('BloodPact') and state.Buff["Astral Conduit"]) then
+	if os.clock() < next_cast and not state.RngHelper.value and state.MiniQueue.value then
+		if eventArgs and not (spell.type:startswith('BloodPact') and state.Buff["Astral Conduit"]) then
 			eventArgs.cancel = true
 			delayed_cast = spell.english or ''
 			delayed_target = spell.target.id or ''
