@@ -197,28 +197,30 @@ function check_reaction(act)
 			end
 		end
 	elseif curact.category == 6 then
-		local actionName = res.job_abilities[curact.param] and res.job_abilities[curact.param].en or nil
-		if actionName and actionName:endswith(' Roll') then
-			local rollValue = curact.targets[1].actions[1].param
-			targetsMe = false
-			for i in pairs(curact.targets) do
-				if curact.targets[i].id == player.id then
-					targetsMe = true
+		if actor.in_party then
+			local actionName = res.job_abilities[curact.param].en
+			if actionName:endswith(' Roll') then
+				local rollValue = curact.targets[1].actions[1].param
+				targetsMe = false
+				for i in pairs(curact.targets) do
+					if curact.targets[i].id == player.id then
+						targetsMe = true
+					end
 				end
-			end
-			if  targetsMe then
-				if rollValue == 11 then
-					if not rolled_eleven[1] then
-						send_command('gs c forceequip')
-					end
-					table.insert(rolled_eleven, actionName)
-				else
-					if rolled_eleven:contains(actionName) then
-						remove_table_value(rolled_eleven, actionName)
-					end
-					for i = #rolled_eleven, 1, -1 do
-						if not buffactive[rolled_eleven[i]] then
-							remove_table_value(rolled_eleven, rolled_eleven[i])
+				if  targetsMe then
+					if rollValue == 11 then
+						if not rolled_eleven[1] then
+							send_command('gs c forceequip')
+						end
+						table.insert(rolled_eleven, actionName)
+					else
+						if rolled_eleven:contains(actionName) then
+							remove_table_value(rolled_eleven, actionName)
+						end
+						for i = #rolled_eleven, 1, -1 do
+							if not buffactive[rolled_eleven[i]] then
+								remove_table_value(rolled_eleven, rolled_eleven[i])
+							end
 						end
 					end
 				end

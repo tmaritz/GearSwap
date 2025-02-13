@@ -2272,9 +2272,16 @@ function status_change(newStatus, oldStatus)
     local eventArgs = {handled = false}
     mote_vars.set_breadcrumbs:clear()
 
-	if not (newStatus == 'Idle' or newStatus == 'Engaged') then
+    if newStatus == 'Engaged' then
+		update_combat_form()
+	elseif newStatus == 'Idle' then
+	else
 		if state.RngHelper.value then
 			send_command('gs rh clear')
+		end
+		
+		if newStatus == "Dead" or newStatus == "Engaged dead" then
+			rolled_eleven = T{}
 		end
 		
 		if useItem then
@@ -2300,10 +2307,6 @@ function status_change(newStatus, oldStatus)
 			useItemName = ''
 			useItemSlot = ''
 		end
-	end
-	
-    if newStatus == 'Engaged' then
-		update_combat_form()
 	end
 	
     -- Allow a global function to be called on status change.
