@@ -381,22 +381,33 @@ function handle_weapons(cmdParams)
 			enable('main','sub','range','ammo')
 		end
 	elseif weaponSet:lower() == 'default' then
-		if (player.sub_job == 'DNC' or player.sub_job == 'NIN') and default_dual_weapons and state.Weapons:contains(default_dual_weapons) and sets.weapons[default_dual_weapons] then
+		if not data.jobs.dual_wield_jobs:contains(player.main_job) and (player.sub_job == 'DNC' or player.sub_job == 'NIN') and state.Weapons:contains(default_dual_weapons) and sets.weapons[default_dual_weapons] then
 			state.Weapons:set(default_dual_weapons)
+		elseif state.Weapons:contains(default_weapons) and sets.weapons[default_weapons] then
+			state.Weapons:set(default_weapons)
 		else
 			state.Weapons:reset()
 		end
 		equip_weaponset(state.Weapons.value)
-	elseif sets.weapons[weaponSet] then
-		if state.Weapons:contains(weaponSet) and state.Weapons.value ~= weaponSet then
-			state.Weapons:set(weaponSet)
+	elseif weaponSet:lower() == 'initialize' then
+		if not data.jobs.dual_wield_jobs:contains(player.main_job) and (player.sub_job == 'DNC' or player.sub_job == 'NIN') and state.Weapons:contains(default_dual_weapons) and sets.weapons[default_dual_weapons] then
+			state.Weapons:set(default_dual_weapons)
+		elseif data.jobs.mage_jobs:contains(player.main_job) and not data.jobs.mage_jobs:contains(player.sub_job) and state.Weapons:contains(default_weapons) and sets.weapons[default_weapons] then
+			state.Weapons:set(default_weapons)
+		else
+			state.Weapons:reset()
 		end
-		equip_weaponset(weaponSet)
+		equip_weaponset(state.Weapons.value)
 	elseif weaponSet:lower() == 'none' then
 		if state.Weapons:contains('None') then
 			enable('main','sub','range','ammo')
 			state.Weapons:set('None')
 		end
+	elseif sets.weapons[weaponSet] then
+		if state.Weapons:contains(weaponSet) and state.Weapons.value ~= weaponSet then
+			state.Weapons:set(weaponSet)
+		end
+		equip_weaponset(weaponSet)
 	else
 		if sets.weapons[state.Weapons.value] then
 			equip_weaponset(state.Weapons.value)

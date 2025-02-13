@@ -254,6 +254,7 @@ function init_include()
 	consumable_bag = 'satchel'
 	currency_bag = 'sack'
 	default_dual_weapons = 'DualWeapons'
+	default_weapons = nil
 	rolled_eleven = T{}
 	
 	time_test = false

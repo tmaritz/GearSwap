@@ -8,7 +8,7 @@ function user_job_setup()
     state.PhysicalDefenseMode:options('PDT','NukeLock')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('None','Naegling','Maxentius','DualAcc','DualWeapons','DualProcSword','DualPrime','DualMaxentius','DualAeolian','EnspellOnly','DWEnspellOnly')
+	state.Weapons:options('None','Naegling','Maxentius','EnspellOnly','DualWeapons','DualWeaponsAcc','DualMaxentius','DualMaxentiusAcc','DualPrime','DualAeolian','DualEnspellOnly','DualProcSword')
 	state.BuffWeaponsMode = M{'Always','Never'}
 	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage','AutoTrial'}
 	state.RecoverMode = M('Never','35%','60%','Always')
@@ -36,9 +36,9 @@ function user_job_setup()
 	send_command('bind !\\ input /ma "Reraise" <me>')
 	send_command('bind @f10 gs c cycle RecoverMode')
 	send_command('bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
-	send_command('bind ^q gs c set weapons dwenspellonly;gs c set unlockweapons true')
+	send_command('bind ^q gs c set weapons DualEnspellOnly;gs c set unlockweapons true')
 	send_command('bind !r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons none')
-	send_command('bind !q gs c set skipprocweapons false;gs c set weapons DualProcSword;gs c set weaponskillmode proc')
+	send_command('bind !q gs c set skipprocweapons false;gs c weapons DualProcSword;gs c set weaponskillmode proc')
 	
 	select_default_macro_book()
 end
@@ -493,16 +493,17 @@ function init_gear_sets()
 	sets.weapons.Naegling = {main="Naegling",sub="Sacro Bulwark",range=empty}
 	sets.weapons.Maxentius = {main="Maxentius",sub="Sacro Bulwark",range=empty}
 	sets.weapons.DualWeapons = {main="Naegling",sub="Thibron",range=empty}
-	sets.weapons.DualAcc = {main="Naegling",sub="Gleti's Knife",range=empty}
+	sets.weapons.DualWeaponsAcc = {main="Naegling",sub="Gleti's Knife",range=empty}
 	sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
 	sets.weapons.DualEvisceration = {}
 	sets.weapons.DualAeolian = {main="Gleti's Knife",sub="Maxentius",range=empty}
 	sets.weapons.DualProcSword = {main="Demers. Degen +1",sub="Blurred Knife +1",range=empty}
 	sets.weapons.EnspellOnly = {main="Qutrub Knife",sub="Sacro Bulwark"}
-	sets.weapons.DWEnspellOnly = {main="Qutrub Knife",sub="Ceremonial Dagger"}
+	sets.weapons.DualEnspellOnly = {main="Qutrub Knife",sub="Ceremonial Dagger"}
 	sets.weapons.DualBow = {}
 	sets.weapons.BowMacc = {}
-	sets.weapons.DualMaxentius = {main="Maxentius",sub="Gleti's Knife",range=empty}
+	sets.weapons.DualMaxentius = {main="Maxentius",sub="Thibron",range=empty}
+	sets.weapons.DualMaxentiusAcc = {main="Maxentius",sub="Gleti's Knife",range=empty}
 	
     sets.buff.Sublimation = {waist="Embla Sash"}
     sets.buff.DTSublimation = {waist="Embla Sash"}
@@ -552,12 +553,12 @@ function init_gear_sets()
 		body="Malignance Tabard",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Windbuffet Belt +1",legs="Malignance Tights",feet="Malignance Boots"}
 		
-	sets.engaged.DWEnspellOnly = {ammo="Sroda Tathlum",
+	sets.engaged.DualEnspellOnly = {ammo="Sroda Tathlum",
 		head="Umuthi Hat",neck="Null Loop",ear1="Sherida Earring",ear2="Suppanomimi",
 		body="Malignance Tabard",hands="Aya. Manopolas +2",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back="Ghostfyre Cape",waist="Orpheus's Sash",legs="Carmine Cuisses +1",feet="Malignance Boots"}
 		
-	sets.engaged.DWEnspellOnly.Acc = {ammo="Sroda Tathlum",
+	sets.engaged.DualEnspellOnly.Acc = {ammo="Sroda Tathlum",
 		head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Lethargy Earring",
 		body="Malignance Tabard",hands="Aya. Manopolas +2",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Orpheus's Sash",legs="Carmine Cuisses +1",feet="Malignance Boots"}
@@ -614,7 +615,7 @@ function user_job_lockstyle()
 	end
 end
 
-autows_list = {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualEvisceration']='Evisceration',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['EnspellDW']='Sanguine Blade',['DualPrime']='Exenterator'}
+autows_list = {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualMaxentius']='Black Halo',['DualMaxentiusAcc']='Black Halo',['DualEvisceration']='Evisceration',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator'}
 
 buff_spell_lists = {
 	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat
