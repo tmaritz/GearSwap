@@ -10,23 +10,20 @@ function user_job_setup()
 	gear.nuke_jse_back = {name="Lugh's Cape",augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10',}}
 	
 		-- Additional local binds
-	send_command('bind ^` gs c cycle ElementalMode')
-	send_command('bind !` gs c scholar power')
-	send_command('bind @` gs c cycle MagicBurstMode')
-	send_command('bind ^q gs c weapons Khatvanga;gs c set CastingMode OccultAcumen')
-	send_command('bind !q gs c weapons default;gs c reset CastingMode')
-	send_command('bind @f10 gs c cycle RecoverMode')
-	send_command('bind @f8 gs c toggle AutoNukeMode')
-	send_command('bind !pause gs c toggle AutoSubMode') --Automatically uses sublimation and Myrkr.
-	send_command('bind @^` input /ja "Parsimony" <me>')
-	send_command('bind ^backspace input /ma "Stun" <t>')
+	send_command('bind @` gs c cycle ElementalMode')
+	send_command('bind ^` gs c scholar dark')
+	send_command('bind !` gs c scholar light')
 	send_command('bind !backspace gs c scholar speed')
-	send_command('bind @backspace gs c scholar aoe')
-	send_command('bind ^= input /ja "Dark Arts" <me>')
-	send_command('bind != input /ja "Light Arts" <me>')
+	send_command('bind ^backspace gs c scholar power')
+	send_command('bind @backspace gs c scholar cost')
 	send_command('bind ^\\ input /ma "Protect V" <t>')
 	send_command('bind @\\ input /ma "Shell V" <t>')
 	send_command('bind !\\ input /ma "Reraise III" <me>')
+	send_command('bind @f8 gs c toggle AutoNukeMode')
+	send_command('bind @f10 gs c cycle RecoverMode')
+	send_command('bind !pause gs c toggle AutoSubMode') --Automatically uses sublimation and Myrkr.
+	send_command('bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
+	send_command('bind !r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons none')
 	
     select_default_macro_book()
 end

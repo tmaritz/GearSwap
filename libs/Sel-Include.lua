@@ -938,7 +938,6 @@ function extra_default_filtered_action(spell, eventArgs)
 	elseif spell.action_type == 'Magic' and not silent_can_use(spell.recast_id) and stepdown(spell, eventArgs) then
 	elseif not can_use(spell) then
 	end
-	
 	cancel_spell()
 	eventArgs.cancel = true
 end

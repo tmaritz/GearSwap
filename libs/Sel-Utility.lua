@@ -774,12 +774,12 @@ function can_use(spell)
             add_to_chat(123,"Abort: You haven't set ["..(res.spells[spell.id][language] or spell.id).."].")
             return false
         end
-    elseif category == 7 or category == 9 then
+	elseif spell.type == 'WeaponSkill' or spell.action_type == 'Ability' then
         local available = windower.ffxi.get_abilities()
-        if category == 7 and not S(available.weapon_skills)[spell.id] then
+        if spell.type == 'WeaponSkill' and not S(available.weapon_skills)[spell.id] then
             add_to_chat(123,"Abort: You don't have access to ["..(res.weapon_skills[spell.id][language] or spell.id).."].")
             return false
-        elseif category == 9 then
+        elseif spell.action_type == 'Ability' then
 			if not S(available.job_abilities)[spell.id] then
 				add_to_chat(123,"Abort: You don't have access to ["..(res.job_abilities[spell.id][language] or spell.id).."].")
 				return false
@@ -793,12 +793,6 @@ function can_use(spell)
 				return false
 			end
         end
-    elseif category == 25 and (not player.main_job_id == 23 or not windower.ffxi.get_mjob_data().species or
-        not res.monstrosity[windower.ffxi.get_mjob_data().species] or not res.monstrosity[windower.ffxi.get_mjob_data().species].tp_moves[spell.id] or
-        not (res.monstrosity[windower.ffxi.get_mjob_data().species].tp_moves[spell.id] <= player.main_job_level)) then
-        -- Monstrosity filtering
-        add_to_chat(123,"Abort: You don't have access to ["..(res.monster_abilities[spell.id][language] or spell.id).."].")
-        return false
     end
     
     return true

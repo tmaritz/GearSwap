@@ -9,23 +9,18 @@ function user_job_setup()
 	gear.nuke_jse_back = {name="Taranus's Cape",augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10',}}
 
 		-- Additional local binds
-	send_command('bind ^` gs c cycle ElementalMode') 
-	send_command('bind ~^` gs c cycleback ElementalMode') --Robbiewobbie's idea
-	send_command('bind !\\ input /ja "Manawell" <me>')
-	send_command('bind !` input /ma "Aspir III" <t>')
-	send_command('bind @` gs c cycle MagicBurstMode')
-	send_command('bind @f10 gs c cycle RecoverMode')
+	send_command('bind @` gs c cycle ElementalMode')
+	send_command('bind ^` gs c scholar dark')
+	send_command('bind !` gs c scholar light')
+	send_command('bind ^backspace input /ma "Aspir III" <t>')
+	send_command('bind !backspace input /ja "Manawell" <me>')
+	send_command('bind @backspace gs c scholar cost')
+	send_command('bind ^\\ gs c scholar speed')
+	send_command('bind @\\ input /ja "Mana Wall" <me>')
+	send_command('bind !\\ input /ma "Reraise III" <me>')	
 	send_command('bind @f9 gs c cycle DeathMode')
-	send_command('bind @^` input /ja "Parsimony" <me>')
+	send_command('bind @f10 gs c cycle RecoverMode')
 	send_command('bind !pause gs c toggle AutoSubMode') --Automatically uses sublimation and Myrkr.
-	send_command('bind ^backspace input /ma "Stun" <t>')
-	send_command('bind !backspace input /ja "Enmity Douse" <t>')
-	send_command('bind @backspace input /ja "Alacrity" <me>')
-	send_command('bind != input /ja "Light Arts" <me>')
-	send_command('bind @= input /ja "Addendum: White" <me>')
-	send_command('bind ^delete input /ja "Dark Arts" <me>')
-	send_command('bind !delete input /ja "Addendum: Black" <me>')
-	send_command('bind @delete input /ja "Manifestation" <me>')
     
 	select_default_macro_book()
 end
@@ -37,7 +32,7 @@ function init_gear_sets()
     --------------------------------------
 	
 	-- Weapons sets
-	sets.weapons.Lathi = {main="Lathi",sub="Enki Strap"}
+	sets.weapons.Maxentius = {main="Maxientius",sub="Ammurapi Shield"}
 	sets.weapons.Bunzi = {main="Bunzi's Rod",sub="Ammurapi Shield"}
 	
     sets.buff.Sublimation = {waist="Embla Sash"}
@@ -50,38 +45,31 @@ function init_gear_sets()
     ---- Precast Sets ----
     
     -- Precast sets to enhance JAs
-    sets.precast.JA['Mana Wall'] = {back=gear.nuke_jse_back,feet="Wicce Sabots +2"}
+    sets.precast.JA['Mana Wall'] = {back=gear.nuke_jse_back,feet="Wicce Sabots +3"}
 
     sets.precast.JA.Manafont = {} --body="Sorcerer's Coat +2"
-    
-    -- equip to maximize HP (for Tarus) and minimize MP loss before using convert
-    sets.precast.JA.Convert = {}
-
 
     -- Fast cast sets for spells
 
     sets.precast.FC = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo="Impatiens",
-		head="Amalric Coif +1",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Malignance Earring",
-		body="Zendik Robe",hands="Volte Gloves",ring1="Kishar Ring",ring2="Lebeche Ring",
-		back="Perimede Cape",waist="Witful Belt",legs="Psycloth Lappas",feet="Regal Pumps +1"}
+		head="Amalric Coif +1",neck="Orunmila's Torque",ear1="Malignance Earring",ear2="Loquac. Earring",
+		body="Volte Doublet",hands="Telchine Gloves",ring1="Kishar Ring",ring2="Lebeche Ring",
+		back="Perimede Cape",waist="Witful Belt",legs="Artsieq Hose",feet="Regal Pumps +1"}
 		
-    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {waist="Siegel Sash"})
+    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {})
 	
 	sets.precast.FC.Stoneskin = set_combine(sets.precast.FC['Enhancing Magic'], {})
 
-    sets.precast.FC['Elemental Magic'] = set_combine(sets.precast.FC, {ammo="Staunch Tathlum +1",ear1="Malignance Earring",ring2="Prolix Ring",back="Swith Cape +1",waist="Siegel Sash"})
+    sets.precast.FC['Elemental Magic'] = set_combine(sets.precast.FC, {})
 
-	sets.precast.FC.Cure = set_combine(sets.precast.FC, {main="Serenity",sub="Clerisy Strap +1",body="Heka's Kalasiris"})
+	sets.precast.FC.Cure = set_combine(sets.precast.FC, {body="Heka's Kalasiris"})
 
     sets.precast.FC.Curaga = sets.precast.FC.Cure
 	
-	sets.precast.FC.Impact = set_combine(sets.precast.FC, {head=empty,body="Twilight Cloak"})
+	sets.precast.FC.Impact =  set_combine(sets.precast.FC, {head=empty,body="Crepuscular Cloak"})
 	sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {main="Daybreak",sub="Genmei Shield"})
 
-	sets.precast.FC.Death = {main=gear.grioavolr_nuke_staff,sub="Enki Strap",ammo="Impatiens",
-        head="Amalric Coif +1",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Loquac. Earring",
-        body="Amalric Doublet +1",hands="Volte Gloves",ring1="Mephitas's Ring +1",ring2="Lebeche Ring",
-        back="Perimede Cape",waist="Witful Belt",legs="Psycloth Lappas",feet="Regal Pumps +1"}
+	sets.precast.FC.Death = {}
 
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
@@ -343,7 +331,7 @@ function init_gear_sets()
 		back="Tempered Cape +1",waist="Witful Belt",legs="Psycloth Lappas",feet="Vanya Clogs"}
 	
 	sets.buff.Doom = set_combine(sets.buff.Doom, {})
-    sets.buff['Mana Wall'] = {back=gear.nuke_jse_back,feet="Wicce Sabots +2"}
+    sets.buff['Mana Wall'] = {back=gear.nuke_jse_back,feet="Wicce Sabots +3"}
 	
     -- Engaged sets
 

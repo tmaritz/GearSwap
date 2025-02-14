@@ -468,10 +468,10 @@ function handle_elemental(cmdParams)
 
 	elseif command:contains('aga') or command:contains('aja') then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
-		local tierkey = {['aja']='ja',['aga3']='ga III',['aga2']='ga II',['aga1']='ga',}
 		if command == 'aga' then
-			for k in pairs(tierkey) do
-				local spell_name = data.elements.nukega_of[state.ElementalMode.value]..tierkey[k]
+			local tiers = {'ja','ga III','ga II','ga'}
+			for k in ipairs(tiers) do
+				local spell_name = data.elements.nukega_of[state.ElementalMode.value]..tiers[k]
 				local spell_id = get_spell_id_by_name(spell_name)
 				if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
 					windower.chat.input('/ma "'..spell_name..'" '..target..'')
@@ -479,6 +479,7 @@ function handle_elemental(cmdParams)
 				end
 			end
 		else
+			local tierkey = {['aja']='ja',['aga3']='ga III',['aga2']='ga II',['aga1']='ga'}
 			windower.chat.input('/ma "'..data.elements.nukega_of[state.ElementalMode.value]..tierkey[command]..'" '..target..'')
 		end
 

@@ -6,25 +6,24 @@ function user_job_setup()
 	state.PhysicalDefenseMode:options('PDT')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('None','DualWeapons','MeleeWeapons')
+	state.Weapons:options('None','DualWeapons','Maxentius')
 	state.WeaponskillMode:options('Normal','Fodder')
 
 		-- Additional local binds
-	send_command('bind ^` input /ma "Afflatus Misery" <me>')
-	send_command('bind !` input /ja "Afflatus Solace" <me>')
-	send_command('bind @` gs c cycle MagicBurstMode')
+	send_command('bind @` gs c cycle ElementalMode')
+	send_command('bind ^` gs c scholar dark')
+	send_command('bind !` gs c scholar light')
 	send_command('bind ^@!` gs c toggle AutoCaress')
 	send_command('bind ^backspace input /ja "Sacrosanctity" <me>')
-	send_command('bind @backspace input /ma "Aurora Storm" <me>')
-	send_command('bind !pause gs c toggle AutoSubMode') --Automatically uses sublimation.
-	send_command('bind !backspace input /ja "Accession" <me>')
-	send_command('bind != input /ja "Sublimation" <me>')
-	send_command('bind ^delete input /ja "Dark Arts" <me>')
-	send_command('bind !delete input /ja "Addendum: Black" <me>')
-	send_command('bind @delete input /ja "Manifestation" <me>')
+	send_command('bind !backspace input /ja "Afflatus Solace" <me>')
+	send_command('bind @backspace input /ja "Afflatus Misery" <me>')
 	send_command('bind ^\\ input /ma "Protectra V" <me>')
 	send_command('bind @\\ input /ma "Shellra V" <me>')
 	send_command('bind !\\ input /ma "Reraise IV" <me>')
+	send_command('bind @f8 gs c toggle AutoNukeMode')
+	send_command('bind !pause gs c toggle AutoSubMode') --Automatically uses sublimation.
+	send_command('bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
+	send_command('bind !r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons none')
 
     select_default_macro_book()
 end
@@ -36,7 +35,7 @@ function init_gear_sets()
     --------------------------------------
 
 	-- Weapons sets
-	sets.weapons.MeleeWeapons = {main="Maxentius",sub="Genmei Shield"}
+	sets.weapons.Maxentius = {main="Maxentius",sub="Genmei Shield"}
 	sets.weapons.DualWeapons = {main="Maxentius",sub="Daybreak"}
 	
     sets.buff.Sublimation = {waist="Embla Sash"}
@@ -55,7 +54,7 @@ function init_gear_sets()
 		body="Inyanga Jubbah +2",hands="Fanatic Gloves",ring1="Kishar Ring",ring2="Lebeche Ring",
 		back="Perimede Cape",waist="Witful Belt",legs="Aya. Cosciales +2",feet="Regal Pumps +1"}
 
-    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {waist="Siegel Sash"})
+    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {})
 	
     sets.precast.FC.Stoneskin = set_combine(sets.precast.FC['Enhancing Magic'], {})
 
@@ -70,7 +69,6 @@ function init_gear_sets()
 	sets.precast.FC.CureSolace = sets.precast.FC.Cure
 
 	sets.precast.FC.Impact =  set_combine(sets.precast.FC, {head=empty,body="Crepuscular Cloak"})
-	
 	sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {main="Daybreak",sub="Genmei Shield"})
 
     -- Precast sets to enhance JAs
@@ -445,4 +443,4 @@ function user_job_lockstyle()
 	end
 end
 
-autows_list = {['DualWeapons']='Realmrazer',['MeleeWeapons']='Realmrazer'}
+autows_list = {['DualWeapons']='Realmrazer',['Maxentius']='Realmrazer'}

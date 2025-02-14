@@ -11,7 +11,7 @@ function user_job_setup()
 	state.Weapons:options('None','Naegling','Maxentius','EnspellOnly','DualWeapons','DualWeaponsAcc','DualMaxentius','DualMaxentiusAcc','DualPrime','DualAeolian','DualEnspellOnly','DualProcSword')
 	state.BuffWeaponsMode = M{'Always','Never'}
 	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage','AutoTrial'}
-	state.RecoverMode = M('Never','35%','60%','Always')
+	state.RecoverMode = M('35%','60%','Always','Never')
 	
 	gear.mnd_enfeebling_jse_back = {name="Sucellos's Cape",augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Haste+10',}}
 	gear.str_wsd_jse_back = {name="Sucellos's Cape",augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Damage taken-5%',}}
@@ -19,21 +19,16 @@ function user_job_setup()
 	gear.stp_jse_back = {name="Sucellos's Cape",augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}}
 	
 		-- Additional local binds
-	send_command('bind ^` gs c cycle ElementalMode')
-	send_command('bind @` gs c cycle MagicBurstMode')
-	send_command('bind ^@!` input /ja "Accession" <me>')
+	send_command('bind @` gs c cycle ElementalMode')
+	send_command('bind ^` gs c scholar dark')
+	send_command('bind !` gs c scholar light')
+	send_command('bind !backspace input /ja "Composure" <me>')
 	send_command('bind ^backspace input /ja "Saboteur" <me>')
-	send_command('bind !backspace input /ja "Spontaneity" <t>')
-	send_command('bind @backspace input /ja "Composure" <me>')
-	send_command('bind @f8 gs c toggle AutoNukeMode')
-	send_command('bind != input /ja "Penury" <me>')
-	send_command('bind @= input /ja "Parsimony" <me>')
-	send_command('bind ^delete input /ja "Dark Arts" <me>')
-	send_command('bind !delete input /ja "Addendum: Black" <me>')
-	send_command('bind @delete input /ja "Manifestation" <me>')
+	send_command('bind @backspace input /ja "Spontaneity" <t>')
 	send_command('bind ^\\ input /ma "Protect V" <t>')
 	send_command('bind @\\ input /ma "Shell V" <t>')
-	send_command('bind !\\ input /ma "Reraise" <me>')
+	send_command('bind !\\ input /ma "Reraise III" <me>')
+	send_command('bind @f8 gs c toggle AutoNukeMode')
 	send_command('bind @f10 gs c cycle RecoverMode')
 	send_command('bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
 	send_command('bind ^q gs c set weapons DualEnspellOnly;gs c set unlockweapons true')
@@ -152,7 +147,7 @@ function init_gear_sets()
 	sets.TreasureHunter = set_combine(sets.TreasureHunter, {legs=gear.merlinic_treasure_legs,feet=gear.chironic_treasure_feet})
 	
 	-- Gear that converts elemental damage done to recover MP.	
-	sets.RecoverMP = {} --body="Seidr Cotehardie"
+	sets.RecoverMP = {body="Seidr Cotehardie"}
 	
 	sets.midcast.FastRecast = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo="Hasty Pinion +1",
 		head="Atrophy Chapeau +3",neck="Orunmila's Torque",ear1="Malignance Earring",ear2="Lethargy Earring",
