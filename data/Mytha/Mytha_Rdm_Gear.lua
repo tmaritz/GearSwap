@@ -8,15 +8,17 @@ function user_job_setup()
     state.PhysicalDefenseMode:options('PDT','NukeLock')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('None','Naegling','Maxentius','EnspellOnly','DualWeapons','DualWeaponsAcc','DualMaxentius','DualMaxentiusAcc','DualPrime','DualAeolian','DualEnspellOnly','DualProcSword')
+	state.Weapons:options('None','Naegling','Maxentius','Tauret','EnspellOnly','DualWeapons','DualWeaponsAcc','DualMaxentius','DualMaxentiusAcc','DualPrime','DualAeolian','DualEnspellOnly','DualProcSword')
 	state.BuffWeaponsMode = M{'Always','Never'}
 	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage','AutoTrial'}
 	state.RecoverMode = M('35%','60%','Always','Never')
 	
-	gear.mnd_enfeebling_jse_back = {name="Sucellos's Cape",augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Haste+10',}}
+	gear.mnd_enfeebling_jse_back = {name="Sucellos's Cape",augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Haste+10','Damage taken-5%',}}
 	gear.str_wsd_jse_back = {name="Sucellos's Cape",augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Damage taken-5%',}}
+	gear.mnd_wsd_jse_back = {name="Sucellos's Cape",augments={'MND+20','Accuracy+20 Attack+20','MND+10','Weapon skill damage +10%','Damage taken-5%',}}
+	gear.int_magic_wsd_jse_back = {name="Sucellos's Cape",augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','Weapon skill damage +10%','Damage taken-5%',}}
 	gear.nuke_jse_back = {name="Sucellos's Cape",augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Damage taken-5%',}}
-	gear.stp_jse_back = {name="Sucellos's Cape",augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}}
+	gear.dw_jse_back = {name="Sucellos's Cape",augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Damage taken-5%',}}
 	
 		-- Additional local binds
 	send_command('bind @` gs c cycle ElementalMode')
@@ -34,7 +36,7 @@ function user_job_setup()
 	send_command('bind ^q gs c set weapons DualEnspellOnly;gs c set unlockweapons true')
 	send_command('bind !r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons none')
 	send_command('bind !q gs c set skipprocweapons false;gs c weapons DualProcSword;gs c set weaponskillmode proc')
-	
+
 	select_default_macro_book()
 end
 
@@ -114,9 +116,12 @@ function init_gear_sets()
 	sets.precast.WS['Savage Blade'] = {range=empty,ammo="Oshasha's Treatise",
 		head="Viti. Chapeau +3",neck="Rep. Plat. Medal",ear1="Sherida Earring",ear2="Moonshade Earring",
 		body="Nyame Mail",hands="Jhakri Cuffs +2",ring1="Sroda Ring",ring2="Cornelia's Ring",
-		back=gear.str_wsd_jse_back,waist="Sailifi Belt +1",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
+		back=gear.str_wsd_jse_back,waist="Sailfi Belt +1",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
 		
-	sets.precast.WS['Black Halo'] = sets.precast.WS['Savage Blade']	
+	sets.precast.WS['Black Halo'] = {range=empty,ammo="Oshasha's Treatise",
+		head="Viti. Chapeau +3",neck="Rep. Plat. Medal",ear1="Sherida Earring",ear2="Moonshade Earring",
+		body="Nyame Mail",hands="Jhakri Cuffs +2",ring1="Sroda Ring",ring2="Cornelia's Ring",
+		back=gear.mnd_wsd_jse_back,waist="Sailfi Belt +1",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
 		
 	sets.precast.WS['Sanguine Blade'] = {range=empty,ammo="Sroda Tathlum",
 		head="Leth. Chappel +3",neck="Baetyl Pendant",ear1="Malignance Earring",ear2="Moonshade Earring",
@@ -133,14 +138,14 @@ function init_gear_sets()
 	sets.precast.WS['Aeolian Edge'] = {range=empty,ammo="Sroda Tathlum",
 		head="Leth. Chappel +3",neck="Fotia Gorget",ear1="Malignance Earring",ear2="Moonshade Earring",
 		body="Nyame Mail",hands="Jhakri Cuffs +2",ring1="Freke Ring",ring2="Cornelia's Ring",
-		back=gear.str_wsd_jse_back,waist="Orpheus's Sash",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
+		back=gear.int_magic_wsd_jse_back,waist="Orpheus's Sash",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
 		
 	sets.precast.WS['Red Lotus Blade'] = sets.precast.WS['Aeolian Edge']
 
 	-- Swap to these on Moonshade using WS if at 3000 TP
 	sets.MaxTP = {ear2="Brutal Earring"}
 	sets.AccMaxTP = {ear2="Telos Earring"}
-	sets.MagicalMaxTP = {ear2=""}
+	sets.MagicalMaxTP = {ear2="Friomisi Earring"}
 	
 	-- Midcast Sets
 
@@ -223,14 +228,14 @@ function init_gear_sets()
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back=gear.mnd_enfeebling_jse_back,waist="Obstinate Sash",legs=gear.chironic_macc_legs,feet="Vitiation Boots +3"}
 		
-	sets.midcast['Enfeebling Magic'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast['Enfeebling Magic'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head="Leth. Chappel +3",neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Atrophy Tabard +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet="Leth. Houseaux +3"}
 		
 	sets.midcast['Enfeebling Magic'].DW = {main="Bunzi's Rod",sub="Maxentius"}
 		
-	sets.midcast.Sleep = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast.Sleep = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head="Leth. Chappel +3",neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Kishar Ring",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Obstinate Sash",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"} --Obstinate Sash
@@ -245,7 +250,7 @@ function init_gear_sets()
 	sets.midcast.Diaga = set_combine(sets.midcast.Sleep, sets.TreasureHunter)
 	sets.midcast.Bio = set_combine(sets.midcast.Sleep, sets.TreasureHunter)
 		
-	sets.midcast.Sleep.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast.Sleep.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head="Leth. Chappel +3",neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Atrophy Tabard +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet="Leth. Houseaux +3"}
@@ -257,7 +262,7 @@ function init_gear_sets()
 	sets.midcast.Bind.DW = sets.midcast.Sleep.DW
 	sets.midcast.Break.DW = sets.midcast.Sleep.DW
 
-	sets.midcast.Dispel = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast.Dispel = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head="Atrophy Chapeau +3",neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Atrophy Tabard +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet="Leth. Houseaux +3"}
@@ -268,14 +273,14 @@ function init_gear_sets()
 	
 	sets.midcast.Frazzle = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
 		head="Leth. Chappel +3",neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
-		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Globidonta Ring",ring2="Metamor. Ring +1",
+		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back=gear.mnd_enfeebling_jse_back,waist="Obstinate Sash",legs="Leth. Fuseau +3",feet="Vitiation Boots +3"}
 		
 	sets.midcast.Distract = sets.midcast.Frazzle
 		
-	sets.midcast.Frazzle.Resistant = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast.Frazzle.Resistant = {main="Daybreak",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
-		body="Atrophy Tabard +3",hands="Leth. Ganth. +3",ring1="Globidonta Ring",ring2="Metamor. Ring +1",
+		body="Atrophy Tabard +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet="Leth. Houseaux +3"}
 		
 	sets.midcast.Distract.Resistant = sets.midcast.Frazzle.Resistant
@@ -292,7 +297,7 @@ function init_gear_sets()
 	sets.midcast.Paralyze = sets.midcast.Addle
 	sets.midcast.Slow = sets.midcast.Addle
 	
-	sets.midcast.Addle.Resistant = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast.Addle.Resistant = {main="Daybreak",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head="Leth. Chappel +3",neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet="Leth. Houseaux +3"}
@@ -309,7 +314,7 @@ function init_gear_sets()
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Kishar Ring",ring2="Metamor. Ring +1",
 		back=gear.mnd_enfeebling_jse_back,waist="Acuity Belt +1",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 		
-	sets.midcast.Gravity.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast.Gravity.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Atrophy Tabard +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet="Leth. Houseaux +3"}
@@ -321,19 +326,19 @@ function init_gear_sets()
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Kishar Ring",ring2="Metamor. Ring +1",
 		back=gear.mnd_enfeebling_jse_back,waist="Obstinate Sash",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 		
-	sets.midcast.Blind.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast.Blind.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Atrophy Tabard +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet="Leth. Houseaux +3"}
 		
 	sets.midcast.Blind.DW = {main="Bunzi's Rod",sub="Maxentius"}
 	
-	sets.midcast.Silence = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast.Silence = {main="Daybreak",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head="Leth. Chappel +3",neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Kishar Ring",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Obstinate Sash",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 		
-	sets.midcast.Silence.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast.Silence.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Atrophy Tabard +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet="Leth. Houseaux +3"}
@@ -351,7 +356,7 @@ function init_gear_sets()
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
 		back=gear.nuke_jse_back,waist="Emphatikos Rope",legs="Bunzi's Pants",feet="Leth. Houseaux +3"}
 		
-    sets.midcast['Elemental Magic'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Ghastly Tathlum +1",
+    sets.midcast['Elemental Magic'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head="Leth. Chappel +3",neck="Sibyl Scarf",ear1="Malignance Earring",ear2="Friomisi Earring",
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
 		back=gear.nuke_jse_back,waist="Acuity Belt +1",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
@@ -366,7 +371,7 @@ function init_gear_sets()
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
 		back=gear.nuke_jse_back,waist="Acuity Belt +1",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 		
-	sets.midcast['Elemental Magic'].HighTierNuke.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Ghastly Tathlum +1",
+	sets.midcast['Elemental Magic'].HighTierNuke.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head="Leth. Chappel +3",neck="Sibyl Scarf",ear1="Malignance Earring",ear2="Friomisi Earring",
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
 		gear.nuke_jse_back,waist="Acuity Belt +1",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
@@ -392,22 +397,22 @@ function init_gear_sets()
 
 	sets.midcast.Aspir = sets.midcast.Drain
 	
-	sets.midcast['Absorb-TP'] = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast['Absorb-TP'] = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
         head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Lethargy Earring",
         body="Viti. Tabard +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back=gear.mnd_enfeebling_jse_back,waist="Null Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 		
-	sets.midcast['Absorb-TP'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast['Absorb-TP'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
         head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Lethargy Earring",
         body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 		
-	sets.midcast.Stun = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast.Stun = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
         head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Lethargy Earring",
         body="Viti. Tabard +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back=gear.mnd_enfeebling_jse_back,waist="Null Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 
-	sets.midcast.Stun.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast.Stun.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
         head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Lethargy Earring",
         body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
@@ -419,9 +424,9 @@ function init_gear_sets()
 	sets.buff.Saboteur = {hands="Leth. Ganth. +3"}
 	
 	sets.HPDown = {main="Mpaca's Staff",sub="Oneiros Grip",ammo="Homiliary",
-		head="Wivre Hairpin",neck="Loricate Torque +1",ear1="Hirudinea Earring",ear2="Ethereal Earring",
+		head="Pixie Hairpin +1",neck="Loricate Torque +1",ear1="Hirudinea Earring",ear2="Ethereal Earring",
 		body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Mephitas's Ring +1",ring2="Metamor. Ring +1",
-		back="Null Shawl",waist="Luminary Sash",legs="Jhakri Slops +1",feet="Jhakri Pigaches +2"}
+		back="Null Shawl",waist="Luminary Sash",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"}
 		
     sets.HPCure = {main="Daybreak",sub="Ammurapi Shield",ammo="Regal Gem",
 		head="Nyame Helm",neck="Sanctity Necklace",ear1="Etiolation Earring",ear2="Odnowa Earring +1",
@@ -438,6 +443,10 @@ function init_gear_sets()
 		body="Lethargy Sayon +3",hands=gear.merlinic_refresh_hands,ring1="Defending Ring",ring2="Sheltered Ring",
 		back="Null Shawl",waist="Null Belt",legs=gear.merlinic_refresh_legs,feet=gear.merlinic_refresh_feet}
 	
+	sets.Ballista = {main="Sakpata's Sword",sub="Sacro Bulwark",range=empty,ammo="Staunch Tathlum +1",
+		head="Bunzi's Hat",neck="Dls. Torque +2",ear1="Etiolation Earring",ear2="Lethargy Earring",
+		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Shneddick Ring",ring2="Shadow Ring",
+		back="Null Shawl",waist="Null Belt",legs="Bunzi's Pants",feet="Leth. Houseaux +3"}
 
 	-- Idle sets
 	sets.idle = {main="Mpaca's Staff",sub="Oneiros Grip",ammo="Homiliary",
@@ -487,6 +496,7 @@ function init_gear_sets()
 	-- Weapons sets
 	sets.weapons.Naegling = {main="Naegling",sub="Sacro Bulwark",range=empty}
 	sets.weapons.Maxentius = {main="Maxentius",sub="Sacro Bulwark",range=empty}
+	sets.weapons.Tauret = {main="Tauret",sub="Ammurapi Shield",range=empty}
 	sets.weapons.DualWeapons = {main="Naegling",sub="Thibron",range=empty}
 	sets.weapons.DualWeaponsAcc = {main="Naegling",sub="Gleti's Knife",range=empty}
 	sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
@@ -519,12 +529,12 @@ function init_gear_sets()
 		
 	sets.engaged.EnspellOnly = {ammo="Sroda Tathlum",
 		head="Umuthi Hat",neck="Null Loop",ear1="Sherida Earring",ear2="Brutal Earring",
-		body="Malignance Tabard",hands="Ayanmo Manopolas",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
+		body="Malignance Tabard",hands="Aya. Manopolas +2",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
 		back="Ghostfyre Cape",waist="Orpheus's Sash",legs="Malignance Tights",feet="Malignance Boots"}
 		
 	sets.engaged.EnspellOnly.Acc = {ammo="Sroda Tathlum",
 		head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Lethargy Earring",
-		body="Malignance Tabard",hands="Ayanmo Manopolas",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
+		body="Malignance Tabard",hands="Aya. Manopolas +2",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Orpheus's Sash",legs="Malignance Tights",feet="Malignance Boots"}
 
 	sets.engaged.Acc = {ammo="Coiste Bodhar",
@@ -610,7 +620,7 @@ function user_job_lockstyle()
 	end
 end
 
-autows_list = {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualMaxentius']='Black Halo',['DualMaxentiusAcc']='Black Halo',['DualEvisceration']='Evisceration',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator'}
+autows_list = {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['Tauret']='Aeolian Edge',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualMaxentius']='Black Halo',['DualMaxentiusAcc']='Black Halo',['DualEvisceration']='Evisceration',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator'}
 
 buff_spell_lists = {
 	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat

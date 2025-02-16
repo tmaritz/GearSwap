@@ -511,6 +511,7 @@ end
 -------------------------------------------------------------------------------------------------------------------
 
 function set_macro_page(set,book)
+	page_cache = tostring(set)
     if not tonumber(set) then
         add_to_chat(123,'Error setting macro page: Set is not a valid number ('..tostring(set)..').')
         return

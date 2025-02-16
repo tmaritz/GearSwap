@@ -256,6 +256,7 @@ function init_include()
 	default_dual_weapons = 'DualWeapons'
 	default_weapons = nil
 	rolled_eleven = T{}
+	page_cache = nil
 	
 	time_test = false
 	selindrile_warned = false

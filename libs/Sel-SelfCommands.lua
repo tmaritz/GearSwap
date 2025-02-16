@@ -882,6 +882,12 @@ function handle_displayshot()
 
 end
 
+function handle_macropage()
+	if page_cache then
+		send_command('@input /macro set '..page_cache)
+	end
+end
+
 function handle_curecheat(cmdParams)
     if sets.HPDown then
         curecheat = true
@@ -1197,4 +1203,5 @@ selfCommandMaps = {
 	['killstatue']		= handle_killstatue,
 	['smartws']			= handle_smartws,
 	['scholar']			= handle_scholar,
+	['macropage']		= handle_macropage,
 	}

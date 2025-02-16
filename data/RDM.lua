@@ -150,7 +150,6 @@ function job_precast(spell, spellMap, eventArgs)
 end
 
 function job_post_precast(spell, spellMap, eventArgs)
-
 	if spell.action_type == 'Magic' then
 		if state.Buff.Chainspell or state.Buff.Spontaneity then
 			equip(get_midcast_set(spell, spellMap))
@@ -185,89 +184,92 @@ end
 -- Run after the default midcast() is done.
 -- eventArgs is the same one used in job_midcast, in case information needs to be persisted.
 function job_post_midcast(spell, spellMap, eventArgs)
-	if spell.skill == 'Elemental Magic' and spellMap ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
-		if state.MagicBurstMode.value ~= 'Off' then
-			if state.CastingMode.value:contains('Resistant') and sets.ResistantMagicBurst then
-				equip(sets.ResistantMagicBurst)
-			else
-				equip(sets.MagicBurst)
-			end
+	local currentSet
+	local currentWeapons
+	if spell.action_type == 'Magic' then
+		if not state.UnlockWeapons.value and state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.value] then
+			currentSet = standardize_set(get_midcast_set(spell, spellMap))
+			currentWeapons = standardize_set(sets.weapons[state.Weapons.value])
 		end
-		if spell.element == world.weather_element or spell.element == world.day_element then
-			if state.CastingMode.value == 'Fodder' then
-				-- if item_available('Twilight Cape') and not LowTierNukes:contains(spell.english) and not state.Capacity.value then
-					-- sets.TwilightCape = {back="Twilight Cape"}
-					-- equip(sets.TwilightCape)
-				-- end
-				if spell.element == world.day_element then
-					if item_available('Zodiac Ring') then
-						sets.ZodiacRing = {ring2="Zodiac Ring"}
-						equip(sets.ZodiacRing)
+		if spell.skill == 'Elemental Magic' and spellMap ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
+			if state.MagicBurstMode.value ~= 'Off' then
+				if state.CastingMode.value:contains('Resistant') and sets.ResistantMagicBurst then
+					equip(sets.ResistantMagicBurst)
+				else
+					equip(sets.MagicBurst)
+				end
+			end
+			if currentSet and currentSet.range and currentSet.range == "Ullr" and currentWeapons.range and currentWeapons.range == 'empty' and not currentWeapons.ammo and item_available("Regal Gem") then
+				equip({ammo="Regal Gem"})
+			end
+			if spell.element == world.weather_element or spell.element == world.day_element then
+				if state.CastingMode.value == 'Fodder' then
+					-- if item_available('Twilight Cape') and not LowTierNukes:contains(spell.english) and not state.Capacity.value then
+						-- sets.TwilightCape = {back="Twilight Cape"}
+						-- equip(sets.TwilightCape)
+					-- end
+					if spell.element == world.day_element then
+						if item_available('Zodiac Ring') then
+							sets.ZodiacRing = {ring2="Zodiac Ring"}
+							equip(sets.ZodiacRing)
+						end
 					end
 				end
 			end
-		end
-		
-		if spell.element and sets.element[spell.element] then
-			equip(sets.element[spell.element])
-		end
-		
-		if state.RecoverMode.value ~= 'Never' and (state.RecoverMode.value == 'Always' or tonumber(state.RecoverMode.value:sub(1, -2)) > player.mpp) then
-			if state.MagicBurstMode.value ~= 'Off' then
-				if state.CastingMode.value:contains('Resistant') and sets.ResistantRecoverBurst then
-					equip(sets.ResistantRecoverBurst)
-				elseif sets.RecoverBurst then
-					equip(sets.RecoverBurst)
+			
+			if spell.element and sets.element[spell.element] then
+				equip(sets.element[spell.element])
+			end
+			if state.RecoverMode.value ~= 'Never' and (state.RecoverMode.value == 'Always' or tonumber(state.RecoverMode.value:sub(1, -2)) > player.mpp) then
+				if state.MagicBurstMode.value ~= 'Off' then
+					if state.CastingMode.value:contains('Resistant') and sets.ResistantRecoverBurst then
+						equip(sets.ResistantRecoverBurst)
+					elseif sets.RecoverBurst then
+						equip(sets.RecoverBurst)
+					elseif sets.RecoverMP then
+						equip(sets.RecoverMP)
+					end
 				elseif sets.RecoverMP then
 					equip(sets.RecoverMP)
 				end
-			elseif sets.RecoverMP then
-				equip(sets.RecoverMP)
 			end
-		end
-		
-    elseif spell.skill == 'Enfeebling Magic' or spell.skill == 'Dark Magic' then
-		if not state.UnlockWeapons.value and state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.value] then
-			local currentSet = standardize_set(get_midcast_set(spell, spellMap))
-			local currentWeapons = standardize_set(sets.weapons[state.Weapons.value])
-			
-			if currentSet.range and currentSet.range == "Ullr" and currentWeapons.range and currentWeapons.range == 'empty' and not currentWeapons.ammo and item_available("Regal Gem") then
+		elseif spell.skill == 'Enfeebling Magic' or spell.skill == 'Dark Magic' then
+			if currentSet and currentSet.range == "Ullr" and currentWeapons.range and currentWeapons.range == 'empty' and not currentWeapons.ammo and item_available("Regal Gem") then
 				equip({ammo="Regal Gem"})
 			end
-		end
-	
-		if spell.skill == 'Enfeebling Magic' and state.Buff.Saboteur then
-			equip(sets.buff.Saboteur)
-		end
-	elseif spell.skill == 'Enhancing Magic' then
-		equip(sets.midcast['Enhancing Magic'])
-	
-		if buffactive.Composure and spell.target.type == 'PLAYER' then
-			equip(sets.buff.ComposureOther)
-		end
+			if spell.skill == 'Enfeebling Magic' and state.Buff.Saboteur then
+				equip(sets.buff.Saboteur)
+			end
+		elseif spell.skill == 'Enhancing Magic' then
+			equip(sets.midcast['Enhancing Magic'])
 		
-		if sets.midcast[spell.english] then
-			equip(sets.midcast[spell.english])
+			if buffactive.Composure and spell.target.type == 'PLAYER' then
+				equip(sets.buff.ComposureOther)
+			end
 			
-			if can_dual_wield and sets.midcast[spell.english].DW then
-				equip(sets.midcast[spell.english].DW)
-			end
-		elseif sets.midcast[spellMap] then
-			equip(sets.midcast[spellMap])
+			if sets.midcast[spell.english] then
+				equip(sets.midcast[spell.english])
+				
+				if can_dual_wield and sets.midcast[spell.english].DW then
+					equip(sets.midcast[spell.english].DW)
+				end
+			elseif sets.midcast[spellMap] then
+				equip(sets.midcast[spellMap])
 
-			if can_dual_wield and sets.midcast[spellMap].DW then
-				equip(sets.midcast[spellMap].DW)
+				if can_dual_wield and sets.midcast[spellMap].DW then
+					equip(sets.midcast[spellMap].DW)
+				end
+			end
+
+			if spell.english:startswith('Phalanx') and spell.target.type =='SELF' and sets.Self_Phalanx then
+				equip(sets.Self_Phalanx)
+
+				if can_dual_wield and sets.Self_Phalanx.DW then
+					equip(sets.Self_Phalanx.DW)
+				end
 			end
 		end
-
-		if spell.english:startswith('Phalanx') and spell.target.type =='SELF' and sets.Self_Phalanx then
-			equip(sets.Self_Phalanx)
-
-			if can_dual_wield and sets.Self_Phalanx.DW then
-				equip(sets.Self_Phalanx.DW)
-			end
-		end
-    end
+	end
 end
 
 function job_aftercast(spell, spellMap, eventArgs)
