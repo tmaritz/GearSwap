@@ -491,8 +491,11 @@ function handle_elemental(cmdParams)
 	if command == 'nuke' then
 		local tiers = {'San','Ni','Ichi'}
 		for k in ipairs(tiers) do
-			if spell_recasts[get_spell_table_by_name(data.elements.ninjutsu_nuke_of[state.ElementalMode.value]..': '..tiers[k]..'').id] < spell_latency then
-				windower.chat.input('/ma "'..data.elements.ninjutsu_nuke_of[state.ElementalMode.value]..': '..tiers[k]..'" '..target..'')
+			local spell_name = data.elements.ninjutsu_nuke_of[state.ElementalMode.value]..': '..tiers[k]
+			local spell_id = get_spell_id_by_name(spell_name)
+			
+			if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency then
+				windower.chat.input('/ma "'..spell_name..'" '..target..'')
 				return
 			end
 		end

@@ -27,8 +27,8 @@ function user_job_setup()
 	send_command('bind !backspace input /ja "Hide" <me>')
 	send_command('bind ^r gs c weapons Default;gs c set WeaponSkillMode match') --Requips weapons and gear.
 	send_command('bind !r gs c weapons MagicWeapons')
-	send_command('bind ^\\ input /ja "Despoil" <t>')
-	send_command('bind !\\ input /ja "Mug" <t>')
+	send_command('bind ^\\\\ input /ja "Despoil" <t>')
+	send_command('bind !\\\\ input /ja "Mug" <t>')
 
 	select_default_macro_book()
 end
@@ -276,18 +276,18 @@ end
 function user_job_lockstyle()
 	if player.equipment.main == nil or player.equipment.main == 'empty' then
 		windower.chat.input('/lockstyleset 001')
-	elseif res.items[item_name_to_id(player.equipment.main)].skill == 3 then --Sword in main hand.
+	elseif res.items[get_item_id_by_name(player.equipment.main)].skill == 3 then --Sword in main hand.
 		if player.equipment.sub == nil or player.equipment.sub == 'empty' then --Sword/Nothing.
 				windower.chat.input('/lockstyleset 007')
-		elseif res.items[item_name_to_id(player.equipment.sub)].skill == 2 then --Sword/Dagger.
+		elseif res.items[get_item_id_by_name(player.equipment.sub)].skill == 2 then --Sword/Dagger.
 			windower.chat.input('/lockstyleset 007')
 		else
 			windower.chat.input('/lockstyleset 007') --Catchall just in case something's weird.
 		end
-	elseif res.items[item_name_to_id(player.equipment.main)].skill == 2 then --Dagger in main hand.
+	elseif res.items[get_item_id_by_name(player.equipment.main)].skill == 2 then --Dagger in main hand.
 		if player.equipment.sub == nil or player.equipment.sub == 'empty' then --Dagger/Nothing.
 			windower.chat.input('/lockstyleset 008')
-		elseif res.items[item_name_to_id(player.equipment.sub)].skill == 2 then --Dagger/Dagger.
+		elseif res.items[get_item_id_by_name(player.equipment.sub)].skill == 2 then --Dagger/Dagger.
 			windower.chat.input('/lockstyleset 008')
 		else
 			windower.chat.input('/lockstyleset 008') --Catchall just in case something's weird.

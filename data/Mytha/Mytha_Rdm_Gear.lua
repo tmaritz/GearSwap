@@ -27,9 +27,9 @@ function user_job_setup()
 	send_command('bind !backspace input /ja "Composure" <me>')
 	send_command('bind ^backspace input /ja "Saboteur" <me>')
 	send_command('bind @backspace input /ja "Spontaneity" <t>')
-	send_command('bind ^\\ input /ma "Protect V" <t>')
-	send_command('bind @\\ input /ma "Shell V" <t>')
-	send_command('bind !\\ input /ma "Reraise III" <me>')
+	send_command('bind ^\\\\ input /ma "Protect V" <t>')
+	send_command('bind @\\\\ input /ma "Shell V" <t>')
+	send_command('bind !\\\\ input /ma "Reraise III" <me>')
 	send_command('bind @f8 gs c toggle AutoNukeMode')
 	send_command('bind @f10 gs c cycle RecoverMode')
 	send_command('bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
@@ -691,12 +691,12 @@ buff_spell_lists = {
 		{Name='Phalanx II',		Buff='Phalanx',			SpellID=107,	Reapply=false},
 		{Name='Temper II',		Buff='Multi Strikes',	SpellID=895,	Reapply=false},
 		{Name='Gain-STR',		Buff='STR Boost',		SpellID=486,	Reapply=false},
-		{Name='Enthunder',		Buff='Enthunder',		SpellID=104,	Reapply=false},
-		{Name='Shock Spikes',	Buff='Shock Spikes',	SpellID=251,	Reapply=false},
+		--{Name='Enthunder',		Buff='Enthunder',		SpellID=104,	Reapply=false},
+		--{Name='Shock Spikes',	Buff='Shock Spikes',	SpellID=251,	Reapply=false},
 		{Name='Shell V',		Buff='Shell',			SpellID=52,		Reapply=false},
 		{Name='Protect V',		Buff='Protect',			SpellID=47,		Reapply=false},
-		{Name='Barblizzard',	Buff='Barblizzard',		SpellID=61,		Reapply=false},
-		{Name='Barparalyze',	Buff='Barparalyze',		SpellID=74,		Reapply=false},
+		--{Name='Barblizzard',	Buff='Barblizzard',		SpellID=61,		Reapply=false},
+		--{Name='Barparalyze',	Buff='Barparalyze',		SpellID=74,		Reapply=false},
 		{Name='Aquaveil',		Buff='Aquaveil',		SpellID=55,		Reapply=false},		
 		{Name='Regen II',		Buff='Regen',			SpellID=110,	Reapply=false},
 		{Name='Stoneskin',		Buff='Stoneskin',		SpellID=54,		Reapply=false},
