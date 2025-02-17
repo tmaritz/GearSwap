@@ -99,95 +99,83 @@ function init_include()
     -- General melee offense/defense modes, allowing for hybrid set builds, as well as idle/resting/weaponskill.
     -- This just defines the vars and sets the descriptions.  List modes with no values automatically
     -- get assigned a 'Normal' default value.
-	state.CraftingMode		  = M{['description'] = 'Crafting Mode','None','Alchemy','Bonecraft','Clothcraft','Cooking','Fishing','Goldsmithing','Leathercraft','Smithing','Woodworking'}
-	state.CraftQuality  	  = M{['description'] = 'Crafting Quality','Normal','HQ','NQ'}
-	state.OffenseMode         = M{['description'] = 'Offense Mode'}
-	state.HybridMode          = M{['description'] = 'Hybrid Mode'}
-	state.RangedMode          = M{['description'] = 'Ranged Mode'}
-	state.WeaponskillMode     = M{['description'] = 'Weaponskill Mode','Match'}
+	state.AutoBuffMode 		  = M{['description'] = 'Auto Buff Mode','Off','Auto'}
+	state.AutoSambaMode 	  = M{['description'] = 'Auto Samba Mode', 'Off', 'Haste Samba', 'Aspir Samba', 'Drain Samba II'}
 	state.CastingMode         = M{['description'] = 'Casting Mode'}
-	state.IdleMode            = M{['description'] = 'Idle Mode'}
-	state.RestingMode         = M{['description'] = 'Resting Mode'}
-
+	state.CombatForm          = M{['description'] = 'Combat Form', ['string']=''}
+	state.CombatWeapon        = M{['description'] = 'Combat Weapon', ['string']=''}
+	state.CraftQuality  	  = M{['description'] = 'Crafting Quality','Normal','HQ','NQ'}
+	state.CraftingMode		  = M{['description'] = 'Crafting Mode','None','Alchemy','Bonecraft','Clothcraft','Cooking','Fishing','Goldsmithing','Leathercraft','Smithing','Woodworking'}
 	state.DefenseMode         = M{['description'] = 'Defense Mode', 'None', 'Physical', 'Magical', 'Resist'}
-	state.PhysicalDefenseMode = M{['description'] = 'Physical Defense Mode', 'PDT'}
+	state.ElementalMode 	  = M{['description'] = 'Elemental Mode', 'Fire','Ice','Wind','Earth','Lightning','Water','Light','Dark'}
+	state.EquipStop           = M{['description'] = 'Stop Equipping Gear', 'off', 'precast', 'midcast', 'pet_midcast'}
+	state.HybridMode          = M{['description'] = 'Hybrid Mode'}
+	state.IdleMode            = M{['description'] = 'Idle Mode'}
+	state.MagicBurstMode 	  = M{['description'] = 'Magic Burst Mode', 'Off', 'Single', 'Lock'}
 	state.MagicalDefenseMode  = M{['description'] = 'Magical Defense Mode', 'MDT'}
-	state.ResistDefenseMode   = M{['description'] = 'Resistance Defense Mode', 'MEVA'}
-	
+	state.OffenseMode         = M{['description'] = 'Offense Mode'}
+	state.PCTargetMode        = M{['description'] = 'PC Target Mode', 'default', 'stpt', 'stal', 'stpc'}
 	state.Passive   		  = M{['description'] = 'Passive Mode','None'}
-	state.Kiting              = M(false, 'Kiting')
-	state.SelectNPCTargets    = M(false, 'Select NPC Targets')
-	state.Capacity 			  = M(false, 'Capacity Mode')
-	state.ReEquip 			  = M(false, 'ReEquip Mode')
-	state.AutoArts	 		  = M(false, 'AutoArts Mode')
-	state.AutoLockstyle	 	  = M(false, 'AutoLockstyle Mode')
-	state.AutoTrustMode 	  = M(false, 'Auto Trust Mode')
-	state.RngHelper		 	  = M(false, 'RngHelper')
-	state.HoverShot		 	  = M(true, 'HoverShot')
-	state.RngHelperQuickDraw  = M(false, 'RngHelperQuickDraw')
-	state.AutoTankMode 		  = M(false, 'Auto Tank Mode')
+	state.PhysicalDefenseMode = M{['description'] = 'Physical Defense Mode', 'PDT'}
+	state.RangedMode          = M{['description'] = 'Ranged Mode'}
+	state.ResistDefenseMode   = M{['description'] = 'Resistance Defense Mode', 'MEVA'}
+	state.RestingMode         = M{['description'] = 'Resting Mode'}
+	state.RuneElement 		  = M{['description'] = 'Rune Element','Ignis','Gelus','Flabra','Tellus','Sulpor','Unda','Lux','Tenebrae'}
+	state.SkillchainMode 	  = M{['description'] = 'Skillchain Mode', 'Off', 'Single', 'Lock'}
+	state.Weapons		  	  = M{['description'] = 'Weapons','None','Weapons'}
+	state.WeaponskillMode     = M{['description'] = 'Weaponskill Mode','Match'}
+	
 	state.AutoAcceptRaiseMode = M(false, 'Auto Accept Raise Mode')
+	state.AutoArts	 		  = M(false, 'AutoArts Mode')
+	state.AutoCleanupMode  	  = M(false, 'Auto Cleanup Mode')
+	state.AutoContradanceMode = M(true, 'Auto Contradance Mode')
+	state.AutoFoodMode		  = M(false, 'Auto Food Mode')
+	state.AutoHolyWaterMode   = M(true, 'Auto Holy Water Mode')
+	state.AutoLockstyle	 	  = M(false, 'AutoLockstyle Mode')
 	state.AutoNukeMode 		  = M(false, 'Auto Nuke Mode')
+	state.AutoRemoveDoomMode  = M(true, 'Auto Remove Doom Mode')
 	state.AutoRuneMode 		  = M(false, 'Auto Rune Mode')
 	state.AutoShadowMode 	  = M(false, 'Auto Shadow Mode')
-	state.AutoContradanceMode = M(true, 'Auto Contradance Mode')
-	state.AutoHolyWaterMode   = M(true, 'Auto Holy Water Mode')
-	state.AutoRemoveDoomMode  = M(true, 'Auto Remove Doom Mode')
+	state.AutoSubMode 		  = M(false, 'Auto Sublimation Mode')
+	state.AutoSuperJumpMode   = M(false, 'Auto SuperJump Mode')
+	state.AutoTankMode 		  = M(false, 'Auto Tank Mode')
+	state.AutoTrustMode 	  = M(false, 'Auto Trust Mode')
 	state.AutoWSMode		  = M(false, 'Auto Weaponskill Mode')
 	state.AutoWSRestore		  = M(true, 'Auto Weaponskill Restore Mode')
-	state.AutoFoodMode		  = M(false, 'Auto Food Mode')
-	state.AutoSubMode 		  = M(false, 'Auto Sublimation Mode')
-	state.AutoCleanupMode  	  = M(false, 'Auto Cleanup Mode')
-	state.AutoSuperJumpMode   = M(false, 'Auto SuperJump Mode')
-	state.DisplayMode  	  	  = M(true, 'Display Mode')
-	state.UseCustomTimers 	  = M(true, 'Use Custom Timers')
 	state.CancelStoneskin	  = M(true, 'Auto Cancel Stoneskin')
-	state.MaintainAftermath	  = M(true, 'Maintain Aftermath')
-	state.RefineWaltz		  = M(true, 'RefineWaltz')
+	state.Capacity 			  = M(false, 'Capacity Mode')
+	state.DisplayMode  	  	  = M(true, 'Display Mode')
 	state.ElementalWheel 	  = M(false, 'Elemental Wheel')
-	state.SkipProcWeapons 	  = M(false, 'Skip Proc Weapons')
-	state.NotifyBuffs		  = M(false, 'Notify Buffs')
-	state.UnlockWeapons		  = M(false, 'Unlock Weapons')
-	state.SelfWarp2Block 	  = M(true, 'Block Warp2 on Self')
+	state.HoverShot		 	  = M(true, 'HoverShot')
+	state.Kiting              = M(false, 'Kiting')
+	state.MaintainAftermath	  = M(true, 'Maintain Aftermath')
 	state.MiniQueue		 	  = M(true, 'MiniQueue')
+	state.NotifyBuffs		  = M(false, 'Notify Buffs')
+	state.ReEquip 			  = M(false, 'ReEquip Mode')
+	state.RefineWaltz		  = M(true, 'RefineWaltz')
+	state.RngHelper		 	  = M(false, 'RngHelper')
+	state.RngHelperQuickDraw  = M(false, 'RngHelperQuickDraw')
+	state.SelectNPCTargets    = M(false, 'Select NPC Targets')
+	state.SelfWarp2Block 	  = M(true, 'Block Warp2 on Self')
+	state.SkipProcWeapons 	  = M(false, 'Skip Proc Weapons')
+	state.UnlockWeapons		  = M(false, 'Unlock Weapons')
+	state.UseCustomTimers 	  = M(true, 'Use Custom Timers')
 	state.WakeUpWeapons 	  =	M(false, 'Swap Weapons To Wake Up')
-	
 
-	state.AutoBuffMode 		  = M{['description'] = 'Auto Buff Mode','Off','Auto'}
-	state.RuneElement 		  = M{['description'] = 'Rune Element','Ignis','Gelus','Flabra','Tellus','Sulpor','Unda','Lux','Tenebrae'}
-	state.ElementalMode 	  = M{['description'] = 'Elemental Mode', 'Fire','Ice','Wind','Earth','Lightning','Water','Light','Dark'}
-	state.AutoSambaMode 	  = M{['description']= 'Auto Samba Mode', 'Off', 'Haste Samba', 'Aspir Samba', 'Drain Samba II'}
-
-	state.MagicBurstMode 	  = M{['description'] = 'Magic Burst Mode', 'Off', 'Single', 'Lock'}
-	state.SkillchainMode 	  = M{['description'] = 'Skillchain Mode', 'Off', 'Single', 'Lock'}
-	state.PCTargetMode        = M{['description'] = 'PC Target Mode', 'default', 'stpt', 'stal', 'stpc'}
-	state.EquipStop           = M{['description'] = 'Stop Equipping Gear', 'off', 'precast', 'midcast', 'pet_midcast'}
-	state.CombatWeapon        = M{['description']='Combat Weapon', ['string']=''}
-	state.CombatForm          = M{['description']='Combat Form', ['string']=''}
-	
+    state.Buff = {}
 	NotifyBuffs = S{}
 	
-	if data.jobs.mage_jobs:contains(player.main_job) then
-		state.Weapons		  = M{['description'] = 'Weapons','None','Weapons'}
-	else
-		state.Weapons		  = M{['description'] = 'Weapons','Weapons','None'}
-	end
-	
-    -- Non-mode vars that are used for state tracking.
-    state.MaxWeaponskillDistance = 0
-    state.Buff = {}
-	
-	--Tracking these here because required quick actions on multiple jobs.
-	state.Buff['Light Arts'] = buffactive['Light Arts'] or false
-	state.Buff['Addendum: White'] = buffactive['Addendum: White'] or false
-	state.Buff['Dark Arts'] = buffactive['Dark Arts'] or false
-	state.Buff['Addendum: Black'] = buffactive['Addendum: Black'] or false
-	state.Buff['Accession'] = buffactive['Accession'] or false
-	state.Buff['Manifestation'] = buffactive['Manifestation'] or false
-	state.Buff['Warcry'] = buffactive['Warcry'] or false
-	state.Buff['SJ Restriction'] = buffactive['SJ Restriction'] or false
-	state.Buff['Invisible'] = buffactive['Invisible'] or false
-	state.Buff['Sneak'] = buffactive['Sneak'] or false
+	--Tracking these here because they require quick tracking on many jobs.
+	state.Buff['Light Arts'] 		= buffactive['Light Arts'] 		or false
+	state.Buff['Addendum: White'] 	= buffactive['Addendum: White'] or false
+	state.Buff['Dark Arts'] 		= buffactive['Dark Arts'] 		or false
+	state.Buff['Addendum: Black'] 	= buffactive['Addendum: Black'] or false
+	state.Buff['Accession'] 		= buffactive['Accession'] 		or false
+	state.Buff['Manifestation'] 	= buffactive['Manifestation'] 	or false
+	state.Buff['Warcry'] 			= buffactive['Warcry'] 			or false
+	state.Buff['SJ Restriction'] 	= buffactive['SJ Restriction'] 	or false
+	state.Buff['Invisible'] 		= buffactive['Invisible'] 		or false
+	state.Buff['Sneak'] 			= buffactive['Sneak'] 			or false
 	
     -- Classes describe a 'type' of action.  They are similar to state, but
     -- may have any free-form value, or describe an entire table of mapped values.
@@ -229,40 +217,40 @@ function init_include()
     end
 	
 	-- Define and default variables for global functions that can be overwritten.
-	useItem = false
-	useItemName = ''
-	useItemSlot = ''
-	petWillAct = 0
 	autonuke = 'Fire'
 	autows = ''
 	autows_list = {}
-	prepared_action = ''
-	weapons_pagelist = {}
-	smartws = nil
-	rangedautows = ''
 	autowstp = 1000
-	rangedautowstp = 1000
-	latency = .5
-	spell_latency = nil
-	last_weapons = nil
 	buffup = ''
-	curecheat = false
-	next_cast = 0
-	delayed_cast = ''
-	delayed_target = ''
-	equipped = 0
+	conserveshadows = true
 	consumable_bag = 'satchel'
+	curecheat = false
 	currency_bag = 'sack'
 	default_dual_weapons = 'DualWeapons'
 	default_weapons = nil
-	rolled_eleven = T{}
-	page_cache = nil
-	
-	time_test = false
-	selindrile_warned = false
-	utsusemi_cancel_delay = .5
-	conserveshadows = true
+	delayed_cast = ''
+	delayed_target = ''
+	equipped = 0
 	filtered_st_command = false
+	last_weapons = nil
+	latency = .5
+	next_cast = 0
+	page_cache = nil
+	petWillAct = 0
+	prepared_action = ''
+	rangedautows = ''
+	rangedautowstp = 1000
+	rolled_eleven = T{}
+	selindrile_warned = false
+	smartws = nil
+	spell_latency = nil
+	time_test = false
+	trust_list = {}
+	useItem = false
+	useItemName = ''
+	useItemSlot = ''
+	utsusemi_cancel_delay = .5
+	weapons_pagelist = {}
 	
 	-- Buff tracking that buffactive can't detect
 	lastshadow = "Utsusemi: San"
@@ -1434,7 +1422,6 @@ function handle_equipping_gear(playerStatus, petStatus)
     if job_handle_equipping_gear then
         job_handle_equipping_gear(playerStatus, eventArgs)
     end
-
 
 	if sets.weapons[state.Weapons.value] and state.ReEquip.value and state.Weapons.value ~= 'None' and not state.UnlockWeapons.value then
 		for i in pairs(data.slots.weapon_slots) do

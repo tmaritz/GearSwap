@@ -332,38 +332,6 @@ end
 -- Environment utility functions.
 -------------------------------------------------------------------------------------------------------------------
 
--- Returns true if you're in a party solely comprised of Trust NPCs.
--- TODO: Do we need a check to see if we're in a party partly comprised of Trust NPCs?
-function is_trust_party()
-    -- Check if we're solo
-    if party.count == 1 then
-        return false
-    end
-
-    -- If we're in an alliance, can't be a Trust party.
-    if alliance[2].count > 0 or alliance[3].count > 0 then
-        return false
-    end
-    
-    -- Check that, for each party position aside from our own, the party
-    -- member has one of the Trust NPC names, and that those party members
-    -- are flagged is_npc.
-    for i = 2,6 do
-        if party[i] then
-            if not data.npcs.trusts:contains(party[i].name) then
-                return false
-            end
-            if party[i].mob and party[i].mob.is_npc == false then
-                return false
-            end
-        end
-    end
-    
-    -- If it didn't fail any of the above checks, return true.
-    return true
-end
-
-
 -- Call these function with a list of equipment slots to check ('head', 'neck', 'body', etc)
 -- Returns true if any of the specified slots are currently encumbered.
 -- Returns false if all specified slots are unencumbered.
@@ -1499,35 +1467,17 @@ end
 function check_trust()
 	if not moving and state.AutoTrustMode.value and not data.areas.cities:contains(world.area) and (buffactive['Reive Mark'] or buffactive['Elvorseal'] or not in_combat) then
 		local party = windower.ffxi.get_party()
-		if party.p5 == nil then
-			local spell_recasts = windower.ffxi.get_spell_recasts()
+		if party.p5 ~= nil then return end
+		local spell_recasts = windower.ffxi.get_spell_recasts()
 		
-			if spell_recasts[979] < spell_latency and not have_trust("Selh'teus") then
-				windower.chat.input('/ma "Selh\'teus" <me>')
-				add_tick_delay()
+		for k, trust_name in ipairs(trust_list) do
+			local spell_id = get_spell_id_by_name(trust_name)
+			local party_name = res.spells[spell_id].party_name
+		
+			if spell_recasts[spell_id] < spell_latency and not have_trust(party_name) then
+				windower.chat.input('/ma "'..trust_name..'" <me>')
+				add_tick_delay(1.5)
 				return true
-			elseif spell_recasts[1012] < spell_latency and not have_trust("Nashmeira") then
-				windower.chat.input('/ma "Nashmeira II" <me>')
-				add_tick_delay()
-				return true
-			elseif spell_recasts[1018] < spell_latency and not have_trust("Iroha") then
-				windower.chat.input('/ma "Iroha II" <me>')
-				add_tick_delay()
-				return true
-			elseif spell_recasts[1017] < spell_latency and not have_trust("Arciela") then
-				windower.chat.input('/ma "Arciela II" <me>')
-				add_tick_delay()
-				return true
-			elseif spell_recasts[947] < spell_latency and not have_trust("UkaTotlihn") then
-				windower.chat.input('/ma "Uka Totlihn" <me>')
-				add_tick_delay()
-				return true
-			elseif spell_recasts[1013] < spell_latency and not have_trust("Lilisette") then
-				windower.chat.input('/ma "Lilisette II" <me>')
-				add_tick_delay()
-				return true
-			else
-				return false
 			end
 		end
 	end
@@ -1715,13 +1665,13 @@ function check_ws()
 	end
 end
 
-function have_trust(trustname)
+function have_trust(trust_name)
 	local party = windower.ffxi.get_party()
 
 	for i = 1,5 do
 		local member = party['p' .. i]
 		if member then
-			if member.name:lower() == trustname:lower() then return true end
+			if member.name:lower() == trust_name:lower() then return true end
 		end
 		
 	end
@@ -1729,13 +1679,13 @@ function have_trust(trustname)
 	return false
 end
 
-function is_party_member(playerid)
+function is_party_member(player_id)
 	local party = windower.ffxi.get_party()
 
 	for i = 1,5 do
 		local member = party['p' .. i]
 		if member.mob.id then
-			if member.mob.id == playerid then return true end
+			if member.mob.id == player_id then return true end
 		end
 		
 	end

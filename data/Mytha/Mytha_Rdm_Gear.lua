@@ -36,8 +36,12 @@ function user_job_setup()
 	send_command('bind ^q gs c set weapons DualEnspellOnly;gs c set unlockweapons true')
 	send_command('bind !r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons none')
 	send_command('bind !q gs c set skipprocweapons false;gs c weapons DualProcSword;gs c set weaponskillmode proc')
+	
+	default_weapons = 'Naegling'
 
+	trust_list = {"August","Yoran-Oran (UC)","Selh'teus","Iroha II","Ingrid II"}
 	select_default_macro_book()
+	autows_list = {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['Tauret']='Aeolian Edge',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualMaxentius']='Black Halo',['DualMaxentiusAcc']='Black Halo',['DualEvisceration']='Evisceration',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator'}
 end
 
 function init_gear_sets()
@@ -619,8 +623,6 @@ function user_job_lockstyle()
 		windower.chat.input('/lockstyleset 020')
 	end
 end
-
-autows_list = {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['Tauret']='Aeolian Edge',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualMaxentius']='Black Halo',['DualMaxentiusAcc']='Black Halo',['DualEvisceration']='Evisceration',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator'}
 
 buff_spell_lists = {
 	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat
