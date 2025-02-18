@@ -168,11 +168,13 @@ end
 
 function job_post_precast(spell, spellMap, eventArgs)
 	if spell.action_type == 'Magic' then
-		if arts_active() and sets.precast.FC.Arts then
-			if spell.english == 'Dispelga' and sets.precast.FC.Arts.Dispelga then
-				equip(sets.precast.FC.Arts.Dispelga)
-			elseif spell.english == 'Impact' and sets.precast.FC.Arts.Impact then 
-				equip(sets.precast.FC.Arts.Impact)
+		if spell.type:startswith(arts_active()) and sets.precast.FC.Arts then
+			if sets.precast.FC.Arts[spell.english] then
+				equip(sets.precast.FC.Arts[spell.english])
+			elseif sets.precast.FC.Arts[spellMap] then
+				equip(sets.precast.FC.Arts[spellMap])
+			elseif sets.precast.FC.Arts[spell.skill] then
+				equip(sets.precast.FC.Arts[spell.skill])
 			else
 				equip(sets.precast.FC.Arts)
 			end
@@ -294,20 +296,26 @@ end
 
 -- Custom spell mapping.
 function job_get_spell_map(spell, default_spell_map)
-    if spell.action_type == 'Magic' then
-		if  default_spell_map == 'Cure' or default_spell_map == 'Curaga'  then
+	if default_spell_map == 'Cure' or default_spell_map == 'Curaga'  then
+		if state.Weapons.value ~= 'None' and not state.UnlockWeapons.value then
 			if world.weather_element == 'Light' then
-					return 'LightWeatherCure'
+				return 'MeleeLightWeatherCure'
 			elseif world.day_element == 'Light' then
-					return 'LightDayCure'
+				return 'MeleeLightDayCure'
+			else
+				return 'MeleeCure'
 			end
-        elseif spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' and not spell.english:contains('helix') then
-            if LowTierNukes:contains(spell.english) then
-                return 'LowTierNuke'
-            else
-                return 'HighTierNuke'
-            end
-        end
+		elseif world.weather_element == 'Light' then
+			return 'LightWeatherCure'
+		elseif world.day_element == 'Light' then
+			return 'LightDayCure'
+		end
+	elseif spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' and not spell.english:contains('helix') then
+		if LowTierNukes:contains(spell.english) then
+			return 'LowTierNuke'
+		else
+			return 'HighTierNuke'
+		end
     end
 end
 

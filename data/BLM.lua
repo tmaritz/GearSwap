@@ -252,23 +252,27 @@ end
 
 -- Custom spell mapping.
 function job_get_spell_map(spell, default_spell_map)
-
-	if  default_spell_map == 'Cure' or default_spell_map == 'Curaga'  then
-		if world.weather_element == 'Light' then
-                return 'LightWeatherCure'
+	if default_spell_map == 'Cure' or default_spell_map == 'Curaga'  then
+		if state.Weapons.value ~= 'None' and not state.UnlockWeapons.value then
+			if world.weather_element == 'Light' then
+				return 'MeleeLightWeatherCure'
+			elseif world.day_element == 'Light' then
+				return 'MeleeLightDayCure'
+			else
+				return 'MeleeCure'
+			end
+		elseif world.weather_element == 'Light' then
+			return 'LightWeatherCure'
 		elseif world.day_element == 'Light' then
-                return 'LightDayCure'
-        end
-
-    elseif spell.skill == 'Elemental Magic' then
-		if default_spell_map == 'ElementalEnfeeble' or spell.english:contains('helix') then
-			return
-        elseif LowTierNukes:contains(spell.english) then
-            return 'LowTierNuke'
-        else
-            return 'HighTierNuke'
-        end
-	end
+			return 'LightDayCure'
+		end
+	elseif spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' and not spell.english:contains('helix') then
+		if LowTierNukes:contains(spell.english) then
+			return 'LowTierNuke'
+		else
+			return 'HighTierNuke'
+		end
+    end
 end
 
 -- Modify the default idle set after it was constructed.

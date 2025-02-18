@@ -2415,8 +2415,10 @@ function get_current_stratagem_count()
 end
 
 function arts_active()
-	if state.Buff['Light Arts'] or state.Buff['Addendum: White'] or state.Buff['Dark Arts'] or state.Buff['Addendum: Black'] then
-		return true
+	if state.Buff['Light Arts'] or state.Buff['Addendum: White'] then
+		return 'White'
+	elseif state.Buff['Dark Arts'] or state.Buff['Addendum: Black'] then
+		return 'Black'
 	else
 		return false
 	end

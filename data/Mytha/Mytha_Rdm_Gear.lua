@@ -8,10 +8,16 @@ function user_job_setup()
     state.PhysicalDefenseMode:options('PDT','NukeLock')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('None','Naegling','Maxentius','Tauret','EnspellOnly','DualWeapons','DualWeaponsAcc','DualMaxentius','DualMaxentiusAcc','DualPrime','DualAeolian','DualEnspellOnly','DualProcSword')
 	state.BuffWeaponsMode = M{'Always','Never'}
 	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage','AutoTrial'}
 	state.RecoverMode = M('35%','60%','Always','Never')
+	state.Weapons:options('None','Naegling','Maxentius','Tauret','EnspellOnly','DualWeapons','DualWeaponsAcc','DualMaxentius','DualMaxentiusAcc','DualPrime','DualAeolian','DualEnspellOnly','DualProcSword')
+
+	default_weapons = 'Naegling'
+	default_dual_weapons = 'DualWeapons'
+
+	autows_list = {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['Tauret']='Aeolian Edge',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualMaxentius']='Black Halo',['DualMaxentiusAcc']='Black Halo',['DualEvisceration']='Evisceration',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator'}
+	trust_list = {"August","Yoran-Oran (UC)","Selh'teus","Iroha II","Ingrid II"}
 	
 	gear.mnd_enfeebling_jse_back = {name="Sucellos's Cape",augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Haste+10','Damage taken-5%',}}
 	gear.str_wsd_jse_back = {name="Sucellos's Cape",augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Damage taken-5%',}}
@@ -37,17 +43,30 @@ function user_job_setup()
 	send_command('bind !r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons none')
 	send_command('bind !q gs c set skipprocweapons false;gs c weapons DualProcSword;gs c set weaponskillmode proc')
 	
-	default_weapons = 'Naegling'
-
-	trust_list = {"August","Yoran-Oran (UC)","Selh'teus","Iroha II","Ingrid II"}
 	select_default_macro_book()
-	autows_list = {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['Tauret']='Aeolian Edge',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualMaxentius']='Black Halo',['DualMaxentiusAcc']='Black Halo',['DualEvisceration']='Evisceration',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator'}
 end
 
 function init_gear_sets()
 	--------------------------------------
 	-- Start defining the sets
 	--------------------------------------
+
+	-- Weapons sets
+	sets.weapons.Naegling = {main="Naegling",sub="Sacro Bulwark",range=empty}
+	sets.weapons.Maxentius = {main="Maxentius",sub="Sacro Bulwark",range=empty}
+	sets.weapons.Tauret = {main="Tauret",sub="Ammurapi Shield",range=empty}
+	sets.weapons.DualWeapons = {main="Naegling",sub="Thibron",range=empty}
+	sets.weapons.DualWeaponsAcc = {main="Naegling",sub="Gleti's Knife",range=empty}
+	sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
+	sets.weapons.DualEvisceration = {}
+	sets.weapons.DualAeolian = {main="Gleti's Knife",sub="Maxentius",range=empty}
+	sets.weapons.DualProcSword = {main="Demers. Degen +1",sub="Blurred Knife +1",range=empty}
+	sets.weapons.EnspellOnly = {main="Qutrub Knife",sub="Sacro Bulwark"}
+	sets.weapons.DualEnspellOnly = {main="Qutrub Knife",sub="Ceremonial Dagger"}
+	sets.weapons.DualBow = {}
+	sets.weapons.BowMacc = {}
+	sets.weapons.DualMaxentius = {main="Maxentius",sub="Thibron",range=empty}
+	sets.weapons.DualMaxentiusAcc = {main="Maxentius",sub="Gleti's Knife",range=empty}
 	
 	-- Precast Sets
 	
@@ -73,7 +92,6 @@ function init_gear_sets()
 	sets.precast.Waltz['Healing Waltz'] = {}
 
 	-- Fast cast sets for spells
-	
 	sets.precast.FC = {main="Sakpata's Sword",sub="Sacro Bulwark",ammo="Impatiens",
 		head="Atrophy Chapeau +3",neck="Loricate Torque +1",ear1="Malignance Earring",ear2="Lethargy Earring",
 		body="Viti. Tabard +3",hands="Nyame Gauntlets",ring1="Defending Ring",ring2="Lebeche Ring",
@@ -87,7 +105,7 @@ function init_gear_sets()
 	sets.precast.FullFC = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo="Impatiens",
 		head="Atrophy Chapeau +3",neck="Orunmila's Torque",ear1="Malignance Earring",ear2="Lethargy Earring",
 		body="Viti. Tabard +3",hands="Gende. Gages +1",ring1="Kishar Ring",ring2="Lebeche Ring",
-		back="Perimede Cape",waist="Witful Belt",legs="Aya. Cosciales +2",feet="Regal Pumps +1"}
+		back="Perimede Cape",waist="Witful Belt",legs="Aya. Cosciales +2",feet=gear.merlinic_fc_feet}
 		
 	sets.precast.FC.Impact = set_combine(sets.precast.FullFC, {head=empty,body="Crepuscular Cloak"})
 	sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {main="Daybreak",sub="Sacro Bulwark"})
@@ -153,41 +171,37 @@ function init_gear_sets()
 	
 	-- Midcast Sets
 
-	sets.TreasureHunter = set_combine(sets.TreasureHunter, {legs=gear.merlinic_treasure_legs,feet=gear.chironic_treasure_feet})
-	
 	-- Gear that converts elemental damage done to recover MP.	
-	sets.RecoverMP = {body="Seidr Cotehardie"}
-	
-	sets.midcast.FastRecast = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo="Hasty Pinion +1",
-		head="Atrophy Chapeau +3",neck="Orunmila's Torque",ear1="Malignance Earring",ear2="Lethargy Earring",
-		body="Viti. Tabard +3",hands="Gende. Gages +1",ring1="Kishar Ring",ring2="Lebeche Ring",
-		back="Perimede Cape",waist="Witful Belt",legs="Aya. Cosciales +2",feet="Regal Pumps +1"}
+	sets.midcast.FastRecast = {main="Sakpata's Sword",sub="Sacro Bulwark",ammo="Staunch Tathlum +1",
+		head="Atrophy Chapeau +3",neck="Loricate Torque +1",ear1="Malignance Earring",ear2="Lethargy Earring",
+		body="Viti. Tabard +3",hands="Bunzi's Gloves",ring1="Defending Ring",ring2="Freke Ring",
+		back=gear.mnd_enfeebling_jse_back,waist="Emphatikos Rope",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 
     sets.midcast.Cure = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
-        body="Bunzi's Robe",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
-        back=gear.mnd_enfeebling_jse_back,waist="Luminary Sash",legs="Atrophy Tights +3",feet="Medium's Sabots"}
+        body="Bunzi's Robe",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Menelaus's Ring",
+        back=gear.mnd_enfeebling_jse_back,waist="Luminary Sash",legs="Atrophy Tights +3",feet="Vanya Clogs"}
 		
-    sets.midcast.LightWeatherCure = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+    sets.midcast.LightWeatherCure = {main="Chatoyant Staff",sub="Curatio Grip",range=empty,ammo="Regal Gem",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
-        body="Bunzi's Robe",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
-        back=gear.mnd_enfeebling_jse_back,waist="Luminary Sash",legs="Carmine Cuisses +1",feet="Medium's Sabots"}
+        body="Bunzi's Robe",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Menelaus's Ring",
+        back="Twilight Cape",waist="Hachirin-no-Obi",legs="Atrophy Tights +3",feet="Vanya Clogs"}
 		
 		--Cureset for if it's not light weather but is light day.
     sets.midcast.LightDayCure = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
-        body="Bunzi's Robe",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Stikini Ring +1",
-        back=gear.mnd_enfeebling_jse_back,waist="Hachirin-no-Obi",legs="Carmine Cuisses +1",feet="Medium's Sabots"}
+        body="Bunzi's Robe",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Menelaus's Ring",
+        back="Twilight Cape",waist="Hachirin-no-Obi",legs="Atrophy Tights +3",feet="Vanya Clogs"}
 		
     sets.midcast.Cure.DT = {main="Daybreak",sub="Culminus",range=empty,ammo="Staunch Tathlum +1",
         head="Leth. Chappel +3",neck="Loricate Torque +1",ear1="Halasz Earring",ear2="Mendi. Earring",
-        body="Bunzi's Robe",hands=gear.chironic_aspir_gloves,ring1="Defending Ring",ring2="Freke Ring",
+        body="Bunzi's Robe",hands=gear.chironic_nuke_hands,ring1="Defending Ring",ring2="Freke Ring",
         back=gear.mnd_enfeebling_jse_back,waist="Emphatikos Rope",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 		
 	sets.midcast.Cursna = {main=gear.grioavolr_fc_staff,sub="Curatio Grip",range=empty,ammo="Hasty Pinion +1",
         head="Vanya Hood",neck="Debilis Medallion",ear1="Meili Earring",ear2="Lethargy Earring",
         body="Viti. Tabard +3",hands="Hieros Mittens",ring1="Haoma's Ring",ring2="Menelaus's Ring",
-        back="Oretan. Cape +1",waist="Bishop's Sash",legs="Carmine Cuisses +1",feet="Vanya Clogs"}
+        back="Oretan. Cape +1",waist="Bishop's Sash",legs="Atrophy Tights +3",feet="Vanya Clogs"}
 
 	sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {main=gear.grioavolr_fc_staff,sub="Clemency Grip"})
 		
@@ -250,6 +264,7 @@ function init_gear_sets()
 	sets.midcast['Bio III'] = sets.midcast.Sleep
 	sets.midcast.Inundation = sets.midcast.Sleep
 	
+	sets.TreasureHunter = set_combine(sets.TreasureHunter, {legs=gear.merlinic_treasure_legs,feet=gear.chironic_treasure_feet})
 	sets.midcast.Dia = set_combine(sets.midcast.Sleep, sets.TreasureHunter)
 	sets.midcast.Diaga = set_combine(sets.midcast.Sleep, sets.TreasureHunter)
 	sets.midcast.Bio = set_combine(sets.midcast.Sleep, sets.TreasureHunter)
@@ -379,6 +394,9 @@ function init_gear_sets()
 		head="Leth. Chappel +3",neck="Sibyl Scarf",ear1="Malignance Earring",ear2="Friomisi Earring",
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
 		gear.nuke_jse_back,waist="Acuity Belt +1",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
+		
+	-- Gear that Recovers MP when nuking.
+	sets.RecoverMP = {body="Seidr Cotehardie"}
 	
 	-- Gear for Magic Burst mode.
     sets.MagicBurst = {main="Bunzi's Rod",sub="Ammurapi Shield",neck="Mizu. Kubikazari",hands="Bunzi's Gloves",ring1="Mujin Band"}
@@ -496,23 +514,6 @@ function init_gear_sets()
 	sets.latent_refresh_grip = {sub="Oneiros Grip"}
 	sets.DayIdle = {}
 	sets.NightIdle = {}
-	
-	-- Weapons sets
-	sets.weapons.Naegling = {main="Naegling",sub="Sacro Bulwark",range=empty}
-	sets.weapons.Maxentius = {main="Maxentius",sub="Sacro Bulwark",range=empty}
-	sets.weapons.Tauret = {main="Tauret",sub="Ammurapi Shield",range=empty}
-	sets.weapons.DualWeapons = {main="Naegling",sub="Thibron",range=empty}
-	sets.weapons.DualWeaponsAcc = {main="Naegling",sub="Gleti's Knife",range=empty}
-	sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
-	sets.weapons.DualEvisceration = {}
-	sets.weapons.DualAeolian = {main="Gleti's Knife",sub="Maxentius",range=empty}
-	sets.weapons.DualProcSword = {main="Demers. Degen +1",sub="Blurred Knife +1",range=empty}
-	sets.weapons.EnspellOnly = {main="Qutrub Knife",sub="Sacro Bulwark"}
-	sets.weapons.DualEnspellOnly = {main="Qutrub Knife",sub="Ceremonial Dagger"}
-	sets.weapons.DualBow = {}
-	sets.weapons.BowMacc = {}
-	sets.weapons.DualMaxentius = {main="Maxentius",sub="Thibron",range=empty}
-	sets.weapons.DualMaxentiusAcc = {main="Maxentius",sub="Gleti's Knife",range=empty}
 	
     sets.buff.Sublimation = {waist="Embla Sash"}
     sets.buff.DTSublimation = {waist="Embla Sash"}
