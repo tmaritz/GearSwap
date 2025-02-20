@@ -14,6 +14,7 @@ function user_job_setup()
 	-- Additional local binds
 	send_command('bind ^` input /ja "Hasso" <me>')
 	send_command('bind !` input /ja "Seigan" <me>')
+	send_command('bind @f7 gs c cycleback Weapons')
 	send_command('bind @` gs c cycle SkillchainMode')
 	send_command('bind !r gs c weapons Greatsword;gs c update')
 
@@ -77,8 +78,8 @@ function init_gear_sets()
 	-- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS = {ammo="Oshasha's Treatise",
 		head="Nyame Helm",neck="Rep. Plat. Medal",ear1="Moonshade Earring",ear2="Boii Earring +1",
-		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
-		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
+		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Sroda Ring",ring2="Cornelia's Ring",
+		back="Null Shawl",waist="Sailfi Belt +1",legs="Nyame Flanchard",feet="Nyame Sollerets"}
 		
     sets.precast.WS.Proc = {ammo="Staunch Tathlum +1",
 		head="Volte Cap",neck="Combatant's Torque",ear1="Zennaroi Earring",ear2="Boii Earring +1",
@@ -1232,7 +1233,6 @@ function init_gear_sets()
 	sets.weapons.ProcGreatKatana = {main="Hardwood Katana",sub="Niobid Strap"}
 	sets.weapons.ProcClub = {main="Hagoita",sub="Beatific Shield +1"}
 	sets.weapons.ProcStaff = {main="Caver's Shovel",sub="Niobid Strap"}
-
 end
 	
 -- Select default macro book on initial load or subjob change.
