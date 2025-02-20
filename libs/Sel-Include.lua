@@ -941,22 +941,9 @@ function default_pretarget(spell, spellMap, eventArgs)
 end
 
 function default_precast(spell, spellMap, eventArgs)
-	if eventArgs.cancel or spell.english == prepared_action then
-		cancel_spell()
-		eventArgs.cancel = true
-		return
-	else
-		prepared_action = spell.english
-	end
-	if just_acted(spell, spellMap, eventArgs) then
-		cancel_spell()
-		eventArgs.cancel = true
-		return	
-	else
-		equip(get_precast_set(spell, spellMap))
-	end
-	
+	prepared_action = spell.english
     cancel_conflicting_buffs(spell, spellMap, eventArgs)
+	equip(get_precast_set(spell, spellMap))
 	
 	local delay = 0
 	if spell.action_type == 'Magic' then
@@ -1832,7 +1819,6 @@ function get_precast_set(spell, spellMap)
     
     if spell.action_type == 'Magic' then
 		if (state.CastingMode.current:contains('DT') or state.CastingMode.current:contains('SIRD')) and not in_combat then
-		elseif state.CastingMode.current:contains('Resistant') and (buffactive.Stymie or buffactive['Elemental Seal']) then
         elseif equipSet[state.CastingMode.current] then
             equipSet = equipSet[state.CastingMode.current]
             mote_vars.set_breadcrumbs:append(state.CastingMode.current)
@@ -1855,7 +1841,6 @@ function get_precast_set(spell, spellMap)
 				equipSet = set_combine(equipSet, sets.precast.FC.DW)
 			end
 		end
-		
     elseif spell.type == 'WeaponSkill' then
         equipSet = get_weaponskill_set(equipSet, spell, spellMap)
     elseif spell.action_type == 'Ability' then

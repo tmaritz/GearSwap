@@ -331,9 +331,14 @@ function init_gear_sets()
 	sets.midcast.Gravity = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
 		head="Leth. Chappel +3",neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Kishar Ring",ring2="Metamor. Ring +1",
-		back=gear.mnd_enfeebling_jse_back,waist="Acuity Belt +1",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
+		back=gear.mnd_enfeebling_jse_back,waist="Obstinate Sash",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 		
-	sets.midcast.Gravity.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
+	sets.midcast.Gravity.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+		head="Leth. Chappel +3",neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
+		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
+		back=gear.mnd_enfeebling_jse_back,waist="Null Belt",legs=gear.chironic_macc_legs,feet="Leth. Houseaux +3"}
+		
+	sets.midcast.Gravity.MaxResistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head="Atrophy Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Atrophy Tabard +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet="Leth. Houseaux +3"}

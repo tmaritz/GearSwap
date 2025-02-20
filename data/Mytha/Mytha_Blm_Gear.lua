@@ -203,6 +203,11 @@ function init_gear_sets()
         body="Wicce Coat +3",hands="Wicce Gloves +3",ring1="Freke Ring",ring2="Metamor. Ring +1",
         back=gear.nuke_jse_back,waist="Acuity Belt +1",legs="Wicce Chausses +3",feet="Wicce Sabots +3"}
 		
+    sets.midcast['Elemental Magic'].DT = {main="Bunzi's Rod",sub="Culminus",ammo="Staunch Tathlum +1",
+        head="Wicce Petasos +3",neck="Loricate Torque +1",ear1="Malignance Earring",ear2="Wicce Earring +1",
+        body="Wicce Coat +3",hands="Wicce Gloves +3",ring1="Defending Ring",ring2="Freke Ring",
+        back=gear.nuke_jse_back,waist="Acuity Belt +1",legs="Wicce Chausses +3",feet="Wicce Sabots +3"}
+		
     sets.midcast['Elemental Magic'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
         head="Wicce Petasos +3",neck="Null Loop",ear1="Malignance Earring",ear2="Wicce Earring +1",
         body="Wicce Coat +3",hands="Wicce Gloves +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",

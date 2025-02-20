@@ -279,7 +279,7 @@ function job_aftercast(spell, spellMap, eventArgs)
 				end
 			end
 
-			if state.CastingMode.value == 'Resistant' then
+			if state.CastingMode.value:contains('Resistant') then
 				if sets.midcast.Pet[spell.english] and sets.midcast.Pet[spell.english].Acc then
 					equip(sets.midcast.Pet[spell.english].Acc)
 				elseif spellMap == 'PhysicalBloodPactRage' and sets.midcast.Pet.PhysicalBloodPactRage.Acc then
