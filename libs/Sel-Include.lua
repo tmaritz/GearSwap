@@ -125,6 +125,7 @@ function init_include()
 	state.Weapons		  	  = M{['description'] = 'Weapons','None','Weapons'}
 	state.WeaponskillMode     = M{['description'] = 'Weaponskill Mode','Match'}
 	
+	state.AdjustTargets	  	  = M(true, 'Automatically Adjust Targets')
 	state.AutoAcceptRaiseMode = M(false, 'Auto Accept Raise Mode')
 	state.AutoArts	 		  = M(false, 'AutoArts Mode')
 	state.AutoCleanupMode  	  = M(false, 'Auto Cleanup Mode')

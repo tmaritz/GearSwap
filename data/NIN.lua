@@ -333,7 +333,7 @@ function job_self_command(commandArgs, eventArgs)
 			local spell_recasts = windower.ffxi.get_spell_recasts()
 
 			if spell_recasts[112] < spell_latency then
-				send_command('input /ma "Flash" <t>')
+				windower.chat.input('/ma "Flash" <t>')
 				return
 			end
 		

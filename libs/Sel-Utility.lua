@@ -990,7 +990,7 @@ function just_acted(spell, spellMap, eventArgs)
 		eventArgs.cancel = true
 		return true
 	elseif os.clock() < next_cast then
-		if eventArgs and not (spell.type:startswith('BloodPact') and state.Buff["Astral Conduit"]) and not state.RngHelper.value and state.MiniQueue.value then
+		if eventArgs and not state.RngHelper.value and state.MiniQueue.value and not (spell.type:startswith('BloodPact') and state.Buff["Astral Conduit"]) then
 			cancel_spell()
 			eventArgs.cancel = true
 			delayed_cast = spell.english or ''
@@ -1177,15 +1177,20 @@ function check_warps(spell, spellMap, eventArgs)
 end
 
 function check_spell_targets(spell, spellMap, eventArgs)
+	--windower.add_to_chat('spell.targets:  '.. tostring(spell.targets))
+	--windower.add_to_chat('spell.target.type:  '.. tostring(spell.target.type))
+	--table.vprint(spell.targets)
 	if spellMap == 'Cure' or spellMap == 'Curaga' then
 		if spell.target.distance > 21 and spell.target.type == 'PLAYER' then
 			cancel_spell()
 			eventArgs.cancel = true
 			add_to_chat(123,'Target out of range, too far to heal!')
+			return true
 		elseif spell.english:startswith('Curaga') and spell.target.type == 'PLAYER' and not spell.target.in_party then
 			if (state.Buff['Light Arts'] or state.Buff['Addendum: White']) then
 				if get_current_stratagem_count() > 0 then
 					local number = spell.english:match('Curaga ?%a*'):sub(7) or ''
+					cancel_spell()
 					eventArgs.cancel = true
 					if buffactive['Accession'] then
 						windower.chat.input('/ma "Cure'..number..'" '..spell.target.name..'')
@@ -1206,9 +1211,20 @@ function check_spell_targets(spell, spellMap, eventArgs)
 			end
 			return true
 		end
+	elseif state.AdjustTargets.value and not spell.targets.Enemy and spell.target.type == 'MONSTER' then
+		cancel_spell()
+		eventArgs.cancel = true
+		if spell.targets.Ally then
+			windower.chat.input('/ma "'..spell.name..'" <stal>')
+		elseif spell.targets.Party or spell.type == 'BardSong' or spell.english:startswith('Indi') then
+			windower.chat.input('/ma "'..spell.name..'" <stpt>')
+		elseif spell.targets.Self then
+			windower.chat.input('/ma "'..spell.name..'" <me>')
+		end
+		return true
+	else
+		return false
 	end
-
-	return false
 end
 
 function check_abilities(spell, spellMap, eventArgs)

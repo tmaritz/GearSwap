@@ -36,8 +36,9 @@ function init_gear_sets()
     --------------------------------------
 	
 	-- Weapons sets
-	sets.weapons.Maxentius = {main="Maxientius",sub="Ammurapi Shield"}
+	sets.weapons.Maxentius = {main="Maxentius",sub="Ammurapi Shield"}
 	sets.weapons.Bunzi = {main="Bunzi's Rod",sub="Ammurapi Shield"}
+	sets.weapons.Lathi = {main="Lathi",sub="Niobid Strap"}
 	
     sets.buff.Sublimation = {waist="Embla Sash"}
     sets.buff.DTSublimation = {waist="Embla Sash"}	
@@ -304,9 +305,9 @@ function init_gear_sets()
     -- Buff sets: Gear that needs to be worn to actively enhance a current player buff.
 	
 	sets.HPDown = {main="Mpaca's Staff",sub="Oneiros Grip",ammo="Staunch Tathlum +1",
-		head="Wivre Hairpin",neck="Loricate Torque +1",ear1="Hirudinea Earring",ear2="Ethereal Earring",
+		head="Pixie Hairpin +1",neck="Loricate Torque +1",ear1="Hirudinea Earring",ear2="Ethereal Earring",
 		body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Mephitas's Ring +1",ring2="Metamor. Ring +1",
-		back="Null Shawl",waist="Luminary Sash",legs="Jhakri Slops +1",feet="Jhakri Pigaches +2"}
+		back="Null Shawl",waist="Luminary Sash",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"}
 		
 	sets.HPCure = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo="Pemphredo Tathlum",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
