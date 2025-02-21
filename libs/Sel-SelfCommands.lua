@@ -86,14 +86,13 @@ function self_command(commandArgs)
         -- the list (it will be used to determine which function to call), and
         -- send the remaining words as parameters for the function.
         local handleCmd = (table.remove(commandArgs, 1)):lower()
+		local functionName = "handle_" .. handleCmd
 
-        if selfCommandMaps[handleCmd] then
-            selfCommandMaps[handleCmd](commandArgs)
-        end
+		if _G[functionName] then
+			_G[functionName](commandArgs)
+		end
     end
 end
-
-
 -------------------------------------------------------------------------------------------------------------------
 -- Functions for manipulating state vars.
 -------------------------------------------------------------------------------------------------------------------
@@ -951,7 +950,6 @@ function handle_stna(cmdParams)
 			break
 		end
 	end
-	
 	if not targetBuffs then
 		add_to_chat(123, 'STNA Target not found.')
 		return
@@ -1227,42 +1225,3 @@ end
 -------------------------------------------------------------------------------------------------------------------
 -- The below table maps text commands to the above handler functions.
 -------------------------------------------------------------------------------------------------------------------
-
-selfCommandMaps = {
-    ['toggle']   		= handle_toggle,
-    ['cycle']    		= handle_cycle,
-    ['cycleback']		= handle_cycleback,
-    ['set']      		= handle_set,
-    ['reset']    		= handle_reset,
-    ['unset']    		= handle_unset,
-    ['update']   		= handle_update,
-    ['showtp']   		= handle_showtp,
-    ['naked']    		= handle_naked,
-	['weapons']  		= handle_weapons,
-	['showset']  		= handle_showset,
-    ['help']     		= handle_help,
-    ['forceequip']  	= handle_forceequip,
-	['useitem']			= handle_useitem,
-    ['quietenable'] 	= handle_quietenable,
-	['quietdisable']	= handle_quietdisable,
-	['autonuke'] 		= handle_autonuke,
-	['autows'] 			= handle_autows,
-	['autofood']		= handle_autofood,
-	['facemob']			= handle_facemob,
-    ['test']        	= handle_test,
-	['displayrune'] 	= handle_displayrune,
-	['displayshot'] 	= handle_displayshot,
-	['displayelement'] 	= handle_displayelement,
-	['curecheat'] 		= handle_curecheat,
-	['smartcure']		= handle_smartcure,
-	['mount'] 			= handle_mount,
-	['shadows']			= handle_shadows,
-	['buffup']			= handle_buffup,
-	['delayedcast']		= handle_delayedcast,
-	['runeelement']		= handle_runeelement,
-	['killstatue']		= handle_killstatue,
-	['smartws']			= handle_smartws,
-	['scholar']			= handle_scholar,
-	['macropage']		= handle_macropage,
-	['stna']			= handle_stna,
-}
