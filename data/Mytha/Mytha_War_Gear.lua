@@ -14,7 +14,6 @@ function user_job_setup()
 	-- Additional local binds
 	send_command('bind ^` input /ja "Hasso" <me>')
 	send_command('bind !` input /ja "Seigan" <me>')
-	send_command('bind @f7 gs c cycleback Weapons')
 	send_command('bind @` gs c cycle SkillchainMode')
 	send_command('bind !r gs c weapons Greatsword;gs c update')
 
