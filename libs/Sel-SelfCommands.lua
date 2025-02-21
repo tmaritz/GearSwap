@@ -964,7 +964,7 @@ function handle_stna(cmdParams)
 	end
 	if silent_can_use('Erase') then
 		for key in pairs(targetBuffs) do
-			if data.erasable_statuses:contains(key) or (type(key) == "string" and key:endswith(' down')) then
+			if type(key) == "string" and (data.erasable_statuses:contains(key) or key:endswith(' down')) then
 				windower.chat.input('/ma "Erase" '..removalTarget.name)
 				return
 			end
