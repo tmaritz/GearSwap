@@ -294,7 +294,7 @@ function job_check_buff()
 			windower.chat.input('/ja "Restraint" <me>')
 			add_tick_delay()
 			return true
-		elseif not state.Buff['Blood Rage'] and abil_recasts[11] < latency then
+		elseif not state.Buff['Blood Rage'] and not state.Buff['Warcry'] and abil_recasts[11] < latency then
 			windower.chat.input('/ja "Blood Rage" <me>')
 			add_tick_delay()
 			return true
