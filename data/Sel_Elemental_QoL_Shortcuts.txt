@@ -1,6 +1,7 @@
 Selecting an element:
 //gs c set element value		Where value is Earth, Fire, Water, Wind, Light, Dark, Blizzard, Thunder
-/con gs c set value			(for macro ingame)
+/con gs c set value				(for macro ingame)
+
 Can also cycle this,
 //gs c cycle element
 /con gs c cycle element
@@ -33,6 +34,9 @@ Nuke:
 /con gs c elemental ara
 
 //gs c elemental aga			Will cast available aga nuke from highest tier to lowest matching the set element
+/con gs c elemental aga
+
+//gs c elemental smallaga		Will cast either aga2 or aga1 on cooldown, only used on BLM currently as other jobs don't have access to high tier agas
 /con gs c elemental aga
 
 //gs c elemental helix			Will cast the highest available helix spell that matches the set element
