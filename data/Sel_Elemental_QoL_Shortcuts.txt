@@ -1,10 +1,10 @@
 Selecting an element:
-//gs c set element value		Where value is Earth, Fire, Water, Wind, Light, Dark, Blizzard, Thunder
+//gs c set elementalmode value		Where value is Earth, Fire, Water, Wind, Light, Dark, Blizzard, Thunder
 /con gs c set value				(for macro ingame)
 
 Can also cycle this,
-//gs c cycle element
-/con gs c cycle element
+//gs c cycle elementalmode
+/con gs c cycle elementalmode
 
 Once that is set you have a number of short cuts that will perform action of the selected element
 

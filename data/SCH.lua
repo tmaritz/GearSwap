@@ -168,7 +168,8 @@ end
 
 function job_post_precast(spell, spellMap, eventArgs)
 	if spell.action_type == 'Magic' then
-		if spell.type:startswith(arts_active()) and sets.precast.FC.Arts then
+		local arts_active = arts_active()
+		if arts_active and spell.type:startswith(arts_active) and sets.precast.FC.Arts then
 			if sets.precast.FC.Arts[spell.english] then
 				equip(sets.precast.FC.Arts[spell.english])
 			elseif sets.precast.FC.Arts[spellMap] then
