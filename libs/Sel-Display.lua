@@ -105,7 +105,7 @@ function init_job_states(job_bools,job_modes)
     stateBox:stroke_width(strokewidth)
     stateBox:stroke_transparency(stroketransparancy)
 
-    update_job_states(stateBox)
+    update_job_states()
 
 end
 
