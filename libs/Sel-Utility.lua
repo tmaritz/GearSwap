@@ -2313,7 +2313,8 @@ function check_ws_acc()
 end
 
 --Checks to see if you're 'Fencing', 'Dual Wielding', or 'Hand-to-Hand', or 'Two-Handed', or 'Unarmed'
-function wielding()
+function wielding(wield_check)
+	local wield_type
 	local main_id
 	local sub_id
 	
@@ -2327,15 +2328,21 @@ function wielding()
 	sub_id = sub_id or get_item_id_by_name(player.equipment.sub) or 'empty'
 	
 	if main_id == 'empty' and sub_id ~= 'empty' then
-		return 'Unarmed'
-	elseif (main_id == 'empty' and sub_id == 'empty') or (main_id ~= 'empty' and res.items[main_id].skill == 1) then
-		return 'Hand-to-Hand'
-	elseif (main_id ~= 'empty' and data.skills.one_handed_combat:contains(res.items[main_id].skill)) and (sub_id == 'empty' or res.items[sub_id].shield_size) then
-		return 'Fencing'
-	elseif sub_id ~= 'empty' and data.skills.one_handed_combat:contains(res.items[sub_id].skill) then
-		return 'Dual Wielding'
+		wield_type = 'Unarmed'
 	elseif main_id ~= 'empty' and data.skills.two_handed_combat:contains(res.items[main_id].skill) then
-		return 'Two-Handed'
+		wield_type = 'Two-Handed'
+	elseif (main_id == 'empty' and sub_id == 'empty') or (main_id ~= 'empty' and res.items[main_id].skill == 1) then
+		wield_type = 'Hand-to-Hand'
+	elseif (main_id ~= 'empty' and data.skills.one_handed_combat:contains(res.items[main_id].skill)) and (sub_id == 'empty' or res.items[sub_id].shield_size) then
+		wield_type = 'Fencing'
+	elseif sub_id ~= 'empty' and data.skills.one_handed_combat:contains(res.items[sub_id].skill) then
+		wield_type = 'Dual Wielding'
+	end
+	
+	if wield_check then
+		return wield_check == wield_type
+	else
+		return wield_type
 	end
 end
 

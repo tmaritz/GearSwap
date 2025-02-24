@@ -284,7 +284,7 @@ function init_include()
 	sets.DuskIdle = {}
 	sets.DayIdle = {}
 	sets.NightIdle = {}
-	
+
     gear = {}
     gear.default = {}
 

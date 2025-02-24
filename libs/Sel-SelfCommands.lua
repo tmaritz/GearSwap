@@ -369,7 +369,7 @@ function handle_weapons(cmdParams)
 	local weaponSet
 	if type(cmdParams) == 'string' then
 		weaponSet = cmdParams
-	elseif type(cmdParams) == 'table' then
+	elseif type(cmdParams) == 'table' and #cmdParams > 0 then
 		weaponSet = table.concat(cmdParams, ' ')
 	end
 	
@@ -619,6 +619,12 @@ end
 function handle_smartws(cmdParams)
 	local target
 	local weaponskill = smartws or autows
+
+	local weaponskill_id = get_weaponskill_id_by_name(weaponskill)
+	if res.weapon_skills[weaponskill_id].targets:contains('Self') then
+		send_command(''..weaponskill..' <me>')
+		return
+	end
 	
 	if cmdParams[1] then
 		if cmdParams[1] == 'ws' then
@@ -627,39 +633,37 @@ function handle_smartws(cmdParams)
 				smartws = table.concat(cmdParams, ' '):ucfirst()
 				add_to_chat(122,'SmartWS set to: '..smartws..'.')
 			else
-				add_to_chat(122,'Invalid command, Syntax: //gs c smartws ws Weaponskill Name')
+				add_to_chat(123,'Invalid command, Syntax: //gs c smartws ws Weaponskill Name')
 			end
 			return
 		--elseif tonumber(cmdParams[1]) then
 		--	target = windower.ffxi.get_mob_by_id(tonumber(cmdParams[1]))
 		else
 			target = table.concat(cmdParams, ' ')
-			target = get_closest_mob_by_name(target) 
+			target = get_closest_mob_by_name(target)
 			
-			if not (target.name and target.hpp > 0) then
-				target = player.target or player
+			if not target then
+				target = player.target
 			end
 		end
 	elseif player.target.type == 'MONSTER' then
 		target = player.target
-	elseif player.target.type == "SELF" or player.target.type == 'NONE' then
-		target = player
 	end
 
-	if target == player then
-		send_command(''..weaponskill..' '..player.name..'')
+	if not (target and target.valid_target) then
+		windower.add_to_chat(123,'SmartWS Could not find a target!')
 	elseif math.sqrt(target.distance) < 4 or (data.weaponskills.ranged:contains(weaponskill) and math.sqrt(target.distance) < 21) then
 		local self = windower.ffxi.get_mob_by_id(player.id)
 		local angle = (math.atan2((target.y - self.y), (target.x - self.x))*180/math.pi)*-1
 		local turn = angle:radian()
+		windower.ffxi.turn(turn)
 		if math.abs(turn - self.facing) < .3 then
 			send_command(''..weaponskill..' '..target.id..'')
 		else
 			send_command:schedule(.3,''..weaponskill..' '..target.id..'')
 		end
-		windower.ffxi.turn(turn)
 	else
-		windower.add_to_chat(122,'SmartWS Target out of range!')
+		windower.add_to_chat(123,'SmartWS Target out of range!')
 	end
 end
 
@@ -980,8 +984,8 @@ function handle_smartcure(cmdParams)
 		else
 			cureTarget = table.concat(cmdParams, ' ')
 			cureTarget = get_closest_mob_by_name(cureTarget) 
-			if not cureTarget.name then
-				if player.target then 
+			if not (cureTarget and cureTarget.name) then
+				if player.target.type ~= 'NONE' then 
 					cureTarget = player.target
 				else
 					cureTarget = player
@@ -1215,8 +1219,7 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
-	table.vprint(party)
-	--table.vprint(player.target)
+	windower.add_to_chat(tostring(wielding('Fencing')))
     if user_test then
         user_test(cmdParams)
     elseif job_test then
