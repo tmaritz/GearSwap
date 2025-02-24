@@ -2389,6 +2389,10 @@ function get_item_table(item)
 	end
 end
 
+function is_rare(item)
+	return get_item_table(item).flags:contains('Rare')
+end
+
 function set_to_item(set)
 	for k, v in pairs(sets[set]) do
 		if v ~= empty then

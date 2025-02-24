@@ -327,7 +327,7 @@ function check_ammo_precast(spell, action, spellMap, eventArgs)
 			equip({ammo=DefaultAmmo[WeaponType[player.equipment.range]].Unlimited})
 		end
 		return
-	elseif player.equipment.ammo:startswith('Hauksbok') or player.equipment.ammo == "Animikii Bullet" then
+	elseif is_rare(player.equipment.ammo) then
 		cancel_spell()
 		eventArgs.cancel = true
 		enable('ammo')
@@ -375,7 +375,7 @@ end
 function job_midcast(spell, action, spellMap, eventArgs)
 	--Probably overkill but better safe than sorry.
 	if spell.action_type == 'Ranged Attack' then
-		if player.equipment.ammo:startswith('Hauksbok') or player.equipment.ammo == "Animikii Bullet" then
+		if is_rare(player.equipment.ammo) then
 			enable('ammo')
 			equip({ammo=empty})
 			add_to_chat(123,"Abort Ranged Attack: Don't shoot your good ammo!")
