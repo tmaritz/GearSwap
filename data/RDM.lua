@@ -446,7 +446,7 @@ function handle_job_elemental(command, target)
 
 				if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
 					windower.chat.input('/ma "'..spell_name..'" '..target..'')
-					return
+					return true
 				end
 			end
 			add_to_chat(123,'Abort: All '..state.ElementalMode.value..' nukes on cooldown or or not enough MP.')

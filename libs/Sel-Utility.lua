@@ -2087,7 +2087,7 @@ end
 function add_next_cast_delay(seconds)
 	if seconds == nil then seconds = 0 end
 	local new_delay = os.clock() + seconds
-	if next_cast < new_delay then next_cast = new_delay end
+	next_cast = new_delay
 	if tickdelay < next_cast then tickdelay = next_cast +.1 end
 end
 

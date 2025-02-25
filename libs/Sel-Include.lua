@@ -948,7 +948,7 @@ function default_precast(spell, spellMap, eventArgs)
 	
 	local delay = 0
 	if spell.action_type == 'Magic' then
-		delay = (spell.cast_time/4) + 2.75
+		delay = (spell.cast_time/4) + 3
 	elseif spell.type == 'WeaponSkill' then
 		delay = 2.75
 	elseif spell.action_type == 'Ability' then
