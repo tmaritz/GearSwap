@@ -163,7 +163,6 @@ function update_job_states()
 		AutoSuperJumpMode = "Auto SuperJump",
 		AutoTankMode = "Auto Tank",
 		AutoTrustMode = "Auto Trust",
-		AutoWSMode = "Auto WS: "..autows..": "..autowstp.."",
 		BuffWeaponsMode = "Buff Weapons",
 		Capacity = "Capacity",
 		CarnMode = "Carn Mode",
@@ -219,9 +218,29 @@ function update_job_states()
         if state[n].index then
 			if n == 'AutoWSMode' and state.AutoWSMode.value then
 				if state.RngHelper.value then
-					stateBox:append(string.format("%sAuto WS: "..rangedautows..": "..rangedautowstp.."%s", clr.h, clr.n))
+					if state.MaintainAftermath.value then
+						if data.equipment.mythic_weapons:contains(player.equipment.range) then
+							stateBox:append(string.format("%sAuto WS: "..rangedautows..": AM3+"..rangedautowstp.."%s", clr.h, clr.n))
+						elseif data.equipment.relic_weapons:contains(player.equipment.range) then
+							stateBox:append(string.format("%sAuto WS: "..rangedautows..": AM+"..rangedautowstp.."%s", clr.h, clr.n))
+						else
+							stateBox:append(string.format("%sAuto WS: "..rangedautows..": "..rangedautowstp.."%s", clr.h, clr.n))
+						end
+					else
+						stateBox:append(string.format("%sAuto WS: "..rangedautows..": "..rangedautowstp.."%s", clr.h, clr.n))
+					end
 				else
-					stateBox:append(string.format("%sAuto WS: "..autows..": "..autowstp.."%s", clr.h, clr.n))
+					if state.MaintainAftermath.value then
+						if data.equipment.mythic_weapons:contains(player.equipment.main) then
+							stateBox:append(string.format("%sAuto WS: "..autows..": AM3+"..autowstp.."%s", clr.h, clr.n))
+						elseif data.equipment.relic_weapons:contains(player.equipment.main) then
+							stateBox:append(string.format("%sAuto WS: "..autows..": AM+"..autowstp.."%s", clr.h, clr.n))
+						else
+							stateBox:append(string.format("%sAuto WS: "..autows..": "..autowstp.."%s", clr.h, clr.n))
+						end
+					else
+						stateBox:append(string.format("%sAuto WS: "..autows..": "..autowstp.."%s", clr.h, clr.n))
+					end
 				end
 				stateBox:append(spc)
 			elseif n == 'AutoRuneMode' and (player.main_job == 'RUN' or player.sub_job == 'RUN') and state.AutoRuneMode.value then
