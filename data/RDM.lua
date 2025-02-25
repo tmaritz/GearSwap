@@ -45,15 +45,15 @@
 
 -- Initialization function for this job file.
 function get_sets()
-    -- Load and initialize the include file.
-    include('Sel-Include.lua')
+	-- Load and initialize the include file.
+	include('Sel-Include.lua')
 end
 
 
 -- Setup vars that are user-independent.  state.Buff vars initialized here will automatically be tracked.
 function job_setup()
 
-    state.Buff.Saboteur = buffactive.Saboteur or false
+	state.Buff.Saboteur = buffactive.Saboteur or false
 	state.Buff.Spontaneity = buffactive.Spontaneity or false
 	state.Buff.Stymie = buffactive.Stymie or false
 	state.Buff['Elemental Seal'] = buffactive['Elemental Seal'] or false
@@ -65,9 +65,9 @@ function job_setup()
 	-- Whether to swap weapons for Temper/Phalanx under a certain tp threshhold even when weapons are locked.
 	state.BuffWeaponsMode = M{'Never','500','1000','Always'}
 	
-    LowTierNukes = S{'Stone', 'Water', 'Aero', 'Fire', 'Blizzard', 'Thunder',
-        'Stone II', 'Water II', 'Aero II', 'Fire II', 'Blizzard II', 'Thunder II',
-        'Stonega', 'Waterga', 'Aeroga', 'Firaga', 'Blizzaga', 'Thundaga'}
+	LowTierNukes = S{'Stone', 'Water', 'Aero', 'Fire', 'Blizzard', 'Thunder',
+		'Stone II', 'Water II', 'Aero II', 'Fire II', 'Blizzard II', 'Thunder II',
+		'Stonega', 'Waterga', 'Aeroga', 'Firaga', 'Blizzaga', 'Thundaga'}
 	
 	state.RecoverMode = M('35%', '60%', 'Always', 'Never')
 	
@@ -90,46 +90,46 @@ function job_filtered_action(spell, eventArgs)
 		local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
 		-- WS 112 is Double Thrust, meaning a Spear is equipped.
 		if available_ws:contains(160) then
-            if spell.english == "Savage Blade" then
+			if spell.english == "Savage Blade" then
 				windower.chat.input('/ws "Black Halo" '..spell.target.raw)
-                cancel_spell()
+				cancel_spell()
 				eventArgs.cancel = true
-            elseif spell.english == "Shining Blade" then
-                send_command('@input /ws "Shining Strike" '..spell.target.raw)
-                cancel_spell()
+			elseif spell.english == "Shining Blade" then
+				send_command('@input /ws "Shining Strike" '..spell.target.raw)
+				cancel_spell()
 				eventArgs.cancel = true
-            elseif spell.english == "Flat Blade" then
-                send_command('@input /ws "Brainshaker" '..spell.target.raw)
-                cancel_spell()
+			elseif spell.english == "Flat Blade" then
+				send_command('@input /ws "Brainshaker" '..spell.target.raw)
+				cancel_spell()
 				eventArgs.cancel = true
-            elseif spell.english == "Chant Du Cygne" then
-                send_command('@input /ws "True Strike" '..spell.target.raw)
-                cancel_spell()
+			elseif spell.english == "Chant Du Cygne" then
+				send_command('@input /ws "True Strike" '..spell.target.raw)
+				cancel_spell()
 				eventArgs.cancel = true
-            elseif spell.english == "Sanguine Blade" then
-                send_command('@input /ws "Starlight" '..spell.target.raw)
-                cancel_spell()
+			elseif spell.english == "Sanguine Blade" then
+				send_command('@input /ws "Starlight" '..spell.target.raw)
+				cancel_spell()
 				eventArgs.cancel = true
-            end
+			end
 		elseif available_ws:contains(16) then
-            if spell.english == "Savage Blade" then
+			if spell.english == "Savage Blade" then
 				windower.chat.input('/ws "Exenterator" '..spell.target.raw)
-                cancel_spell()
+				cancel_spell()
 				eventArgs.cancel = true
-            elseif spell.english == "Circle Blade" then
-                send_command('@input /ws "Aeolian Edge" '..spell.target.raw)
-                cancel_spell()
+			elseif spell.english == "Circle Blade" then
+				send_command('@input /ws "Aeolian Edge" '..spell.target.raw)
+				cancel_spell()
 				eventArgs.cancel = true
-            elseif spell.english == "Chant Du Cygne" then
-                send_command('@input /ws "Evisceration" '..spell.target.raw)
-                cancel_spell()
+			elseif spell.english == "Chant Du Cygne" then
+				send_command('@input /ws "Evisceration" '..spell.target.raw)
+				cancel_spell()
 				eventArgs.cancel = true
-            elseif spell.english == "Sanguine Blade" then
-                send_command('@input /ws "Energy Drain" '..spell.target.raw)
-                cancel_spell()
+			elseif spell.english == "Sanguine Blade" then
+				send_command('@input /ws "Energy Drain" '..spell.target.raw)
+				cancel_spell()
 				eventArgs.cancel = true
-            end		
-        end
+			end		
+		end
 	end
 end
 
@@ -304,12 +304,8 @@ function job_update(cmdParams, eventArgs)
 	update_melee_groups()
 end
 
-    -- Allow jobs to override this code
+	-- Allow jobs to override this code
 function job_self_command(commandArgs, eventArgs)
-	if commandArgs[1]:lower() == 'elemental' then
-		handle_elemental(commandArgs)
-		eventArgs.handled = true			
-	end
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -318,15 +314,15 @@ end
 
 -- Modify the default idle set after it was constructed.
 function job_customize_idle_set(idleSet)
-    if buffactive['Sublimation: Activated'] then
-        if (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) and sets.buff.Sublimation then
-            idleSet = set_combine(idleSet, sets.buff.Sublimation)
-        elseif state.IdleMode.value:contains('DT') and sets.buff.DTSublimation then
-            idleSet = set_combine(idleSet, sets.buff.DTSublimation)
-        end
-    end
+	if buffactive['Sublimation: Activated'] then
+		if (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) and sets.buff.Sublimation then
+			idleSet = set_combine(idleSet, sets.buff.Sublimation)
+		elseif state.IdleMode.value:contains('DT') and sets.buff.DTSublimation then
+			idleSet = set_combine(idleSet, sets.buff.DTSublimation)
+		end
+	end
 
-    if state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere') then
+	if state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere') then
 		if player.mpp < 51 then
 			if sets.latent_refresh then
 				idleSet = set_combine(idleSet, sets.latent_refresh)
@@ -345,8 +341,8 @@ function job_customize_idle_set(idleSet)
 			end
 		end
    end
-    
-    return idleSet
+	
+	return idleSet
 end
 
 function job_customize_melee_set(meleeSet)
@@ -371,13 +367,13 @@ function job_customize_melee_set(meleeSet)
 		end
 	end
 
-    return meleeSet
+	return meleeSet
 end
 
 -- Set eventArgs.handled to true if we don't want the automatic display to be run.
 function display_current_job_state(eventArgs)
-    display_current_caster_state()
-    eventArgs.handled = true
+	display_current_caster_state()
+	eventArgs.handled = true
 end
 
 -- Custom spell mapping.
@@ -402,56 +398,30 @@ function job_get_spell_map(spell, default_spell_map)
 		else
 			return 'HighTierNuke'
 		end
-    end
+	end
 end
 
--- Handling Elemental spells within Gearswap.
--- Format: gs c elemental <nuke, helix, skillchain1, skillchain2, weather>
-function handle_elemental(cmdParams)
-    -- cmdParams[1] == 'elemental'
-    -- cmdParams[2] == ability to use
-
-    if not cmdParams[2] then
-        add_to_chat(123,'Error: No elemental command given.')
-        return
-    end
-    local command = cmdParams[2]:lower()
-
-	if command == 'spikes' then
-		windower.chat.input('/ma "'..data.elements.spikes_of[state.ElementalMode.value]..' Spikes" <me>')
-		return
-	elseif command == 'enspell' then
+function handle_job_elemental(command, target)
+	if command == 'enspell' then
 		if  (player.sub_job == 'NIN' or player.sub_job == 'DNC') then 
 			windower.chat.input('/ma "En'..data.elements.enspell_of[state.ElementalMode.value]..'" <me>')
 		else
 			windower.chat.input('/ma "En'..data.elements.enspell_of[state.ElementalMode.value]..' II" <me>')
 		end
-		return
+		return true
 	elseif command == 'weather' then
 		if player.sub_job ~= 'SCH' then
-			windower.chat.input('/ma "Phalanx II" <me>')
+			windower.chat.input('/ma "Phalanx II" '..target)
 		else
 			local spell_recasts = windower.ffxi.get_spell_recasts()
-			if (player.target.type == 'SELF' or not player.target.in_party) and buffactive[data.elements.storm_of[state.ElementalMode.value]] and not buffactive['Klimaform'] and spell_recasts[287] < spell_latency then
+			if target == player.id and buffactive[data.elements.storm_of[state.ElementalMode.value]] and not buffactive['Klimaform'] and spell_recasts[287] < spell_latency then
 				windower.chat.input('/ma "Klimaform" <me>')
 			else
-				windower.chat.input('/ma "'..data.elements.storm_of[state.ElementalMode.value]..'"')
+				windower.chat.input('/ma "'..data.elements.storm_of[state.ElementalMode.value]..'" '..target)
 			end
 		end
-		return
-	end
-
-	local target = '<t>'
-	if cmdParams[3] then
-		if tonumber(cmdParams[3]) then
-			target = tonumber(cmdParams[3])
-		else
-			target = table.concat(cmdParams, ' ', 3)
-			target = get_closest_mob_id_by_name(target) or '<t>'
-		end
-	end
-
-    if command:endswith('nuke') then
+		return true
+	elseif command:endswith('nuke') then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		
 		if state.ElementalMode.value == 'Light' then
@@ -475,50 +445,16 @@ function handle_elemental(cmdParams)
 				local spell_id = get_spell_id_by_name(spell_name)
 
 				if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
-					windower.chat.input('/ma "'..data.elements.nuke_of[state.ElementalMode.value]..''..tiers[k]..'" '..target..'')
+					windower.chat.input('/ma "'..spell_name..'" '..target..'')
 					return
 				end
 			end
-			add_to_chat(123,'Abort: All '..data.elements.nuke_of[state.ElementalMode.value]..' nukes on cooldown or or not enough MP.')
+			add_to_chat(123,'Abort: All '..state.ElementalMode.value..' nukes on cooldown or or not enough MP.')
 		end
-
-	elseif command == 'ninjutsu' then
-		windower.chat.input('/ma "'..data.elements.ninjutsu_nuke_of[state.ElementalMode.value]..': Ni" '..target..'')
-
-	elseif command == 'ancientmagic' then
-		windower.chat.input('/ma "'..data.elements.ancient_nuke_of[state.ElementalMode.value]..'" '..target..'')
-
-	elseif command:startswith('tier') then
-		local spell_recasts = windower.ffxi.get_spell_recasts()
-		local tierlist = {['tier1']='',['tier2']=' II',['tier3']=' III',['tier4']=' IV',['tier5']=' V',['tier6']=' VI'}
-		
-		windower.chat.input('/ma "'..data.elements.nuke_of[state.ElementalMode.value]..tierlist[command]..'" '..target..'')
-		
-	elseif command == 'ara' then
-		windower.chat.input('/ma "'..data.elements.nukera_of[state.ElementalMode.value]..'ra" '..target..'')
-		
-	elseif command == 'aga' then
-		local spell_recasts = windower.ffxi.get_spell_recasts()
-		local lower_spell = string.lower(data.elements.nukega_of[state.ElementalMode.value]..'ga II')
-		local spell_id = gearswap.validabils.english['/ma'][lower_spell]
-		if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
-			windower.chat.input('/ma "'..data.elements.nukega_of[state.ElementalMode.value]..'ga II'..'" '..target..'')
-		else
-			windower.chat.input('/ma "'..data.elements.nukega_of[state.ElementalMode.value]..'ga" '..target..'')
-		end
-
-	elseif command == 'helix' then
-		windower.chat.input('/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix" '..target..'')
-		
-	elseif command == 'enfeeble' then
-		windower.chat.input('/ma "'..data.elements.elemental_enfeeble_of[state.ElementalMode.value]..'" '..target..'')
-		
-	elseif command == 'bardsong' then
-		windower.chat.input('/ma "'..data.elements.threnody_of[state.ElementalMode.value]..' Threnody" '..target..'')
-		
-    else
-        add_to_chat(123,'Unrecognized elemental command.')
-    end
+		return true
+	end
+	
+	return false
 end
 
 function job_tick()
@@ -528,29 +464,29 @@ function job_tick()
 	return false
 end
 
-function check_arts()	
+function check_arts()
 	if buffup ~= '' or (not data.areas.cities:contains(world.area) and ((state.AutoArts.value and in_combat) or state.AutoBuffMode.value ~= 'Off')) then
 
- 		local abil_recasts = windower.ffxi.get_ability_recasts()	
+		local abil_recasts = windower.ffxi.get_ability_recasts()
 
- 		if not buffactive.Composure then	
-			local abil_recasts = windower.ffxi.get_ability_recasts()	
+		if not buffactive.Composure then
+			local abil_recasts = windower.ffxi.get_ability_recasts()
 			if abil_recasts[50] < latency then	
-				windower.chat.input('/ja "Composure" <me>')	
+				windower.chat.input('/ja "Composure" <me>')
 				add_tick_delay()
-				return true	
-			end	
-		end	
+				return true
+			end
+		end
 
- 		if player.sub_job == 'SCH' and not (state.Buff['SJ Restriction'] or arts_active()) and abil_recasts[228] < latency then	
+		if player.sub_job == 'SCH' and not (state.Buff['SJ Restriction'] or arts_active()) and abil_recasts[228] < latency then	
 			windower.chat.input('/ja "Light Arts" <me>')	
 			add_tick_delay()
-			return true	
-		end	
+			return true
+		end
 
- 	end	
+	end
 
- 	return false	
+	return false
 end
 
 function update_melee_groups()
@@ -597,7 +533,7 @@ buff_spell_lists = {
 		{Name='Protect V',		Buff='Protect',			SpellID=47,		When='Always'},
 		{Name='Stoneskin',		Buff='Stoneskin',		SpellID=54,		When='Always'},
 	},
-	
+
 	Default = {
 		{Name='Haste II',		Buff='Haste',			SpellID=511,	Reapply=false},
 		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	Reapply=false},
@@ -634,7 +570,7 @@ buff_spell_lists = {
 		{Name='Protect V',		Buff='Protect',			SpellID=47,		Reapply=false},
 		{Name='Barblizzard',	Buff='Barblizzard',		SpellID=61,		Reapply=false},
 		{Name='Barparalyze',	Buff='Barparalyze',		SpellID=74,		Reapply=false},
-		{Name='Aquaveil',		Buff='Aquaveil',		SpellID=55,		Reapply=false},		
+		{Name='Aquaveil',		Buff='Aquaveil',		SpellID=55,		Reapply=false},
 		{Name='Regen II',		Buff='Regen',			SpellID=110,	Reapply=false},
 		{Name='Stoneskin',		Buff='Stoneskin',		SpellID=54,		Reapply=false},
 		{Name='Blink',			Buff='Blink',			SpellID=53,		Reapply=false},

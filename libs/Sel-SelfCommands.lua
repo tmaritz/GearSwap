@@ -535,6 +535,136 @@ function handle_buffup(cmdParams)
 	if need_delay then add_tick_delay(.2) end
 end
 
+--Handle elemental commands.
+function handle_elemental(cmdParams)
+    if not cmdParams[1] then
+        add_to_chat(123,'Error: No elemental command given.')
+        return
+    end
+
+    local command = (table.remove(cmdParams, 1)):lower()
+	local target
+
+	if cmdParams[1] then
+		if cmdParams[1] == '<me>' or cmdParams[1] == 'me' then
+			target = player.id
+		elseif cmdParams[1] == '<t>' or cmdParams[1] == 't' then
+			if player.target.type ~= 'NONE' and player.target.id then
+				target = player.target.id
+			else
+				add_to_chat(123, 'Elemental command could not find a valid target.')
+			end
+		elseif tonumber(cmdParams[1]) then
+			target = cmdParams[1]
+		else
+			target = table.concat(cmdParams, ' ')
+			target = get_closest_mob_id_by_name(target)
+		end
+	end
+	
+	if not target then
+		if player.target.type ~= 'NONE' and player.target.id then
+			target = player.target.id
+		else
+			target = player.id
+		end
+	end
+
+	if handle_job_elemental and handle_job_elemental(command, target) then 
+		return 
+	end
+
+	if command == 'spikes' then
+		windower.chat.input('/ma "'..data.elements.spikes_of[state.ElementalMode.value]..' Spikes" <me>')
+	elseif command == 'enspell' then
+		windower.chat.input('/ma "En'..data.elements.enspell_of[state.ElementalMode.value]..'" <me>')
+	elseif command == 'weather' then
+		if player.sub_job == 'SCH' then
+			local spell_recasts = windower.ffxi.get_spell_recasts()
+			if target == player.id and buffactive[data.elements.storm_of[state.ElementalMode.value]] and not buffactive['Klimaform'] and spell_recasts[287] < spell_latency then
+				windower.chat.input('/ma "Klimaform" <me>')
+			else
+				windower.chat.input('/ma "'..data.elements.storm_of[state.ElementalMode.value]..'" '..target)
+			end
+		elseif player.sub_job == 'RDM' then
+			windower.chat.input('/ma "Phalanx" <me>')
+		end
+	elseif command:endswith('nuke') then
+		local spell_recasts = windower.ffxi.get_spell_recasts()
+		
+		if state.ElementalMode.value == 'Light' then
+			local spells = {'Holy','Banish III','Banish II','Banish'}
+			
+			if command == 'smallnuke' then
+				spells = {'Banish II','Banish'}
+			end
+			
+			for k in ipairs(spells) do
+				local spell_name = spells[k]
+				local spell_id = get_spell_id_by_name(spell_name)
+				
+				if spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
+					windower.chat.input('/ma "'..spell_name..'" '..target)
+					return
+				end
+			end
+		else
+			tiers = {' III',' II',''}
+
+			for k in ipairs(tiers) do
+				local spell_name = data.elements.nuke_of[state.ElementalMode.value]..tiers[k]
+				local spell_id = get_spell_id_by_name(spell_name)
+
+				if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
+					windower.chat.input('/ma "'..data.elements.nuke_of[state.ElementalMode.value]..''..tiers[k]..'" '..target)
+					return
+				end
+			end
+			add_to_chat(123,'Abort: All '..data.elements.nuke_of[state.ElementalMode.value]..' nukes on cooldown or or not enough MP.')
+		end
+	elseif command == 'ninjutsu' then
+		windower.chat.input('/ma "'..data.elements.ninjutsu_nuke_of[state.ElementalMode.value]..': Ni" '..target)
+
+	elseif command == 'ancientmagic' then
+		windower.chat.input('/ma "'..data.elements.ancient_nuke_of[state.ElementalMode.value]..'" '..target)
+
+	elseif command:startswith('tier') then
+		local spell_recasts = windower.ffxi.get_spell_recasts()
+		local tierlist = {['tier1']='',['tier2']=' II',['tier3']=' III',['tier4']=' IV',['tier5']=' V',['tier6']=' VI'}
+		
+		windower.chat.input('/ma "'..data.elements.nuke_of[state.ElementalMode.value]..tierlist[command]..'" '..target)
+		
+	elseif command == 'ara' then
+		windower.chat.input('/ma "'..data.elements.nukera_of[state.ElementalMode.value]..'ra" '..target)
+
+	elseif command == 'aga' or command == 'smallaga' then
+		local spell_recasts = windower.ffxi.get_spell_recasts()
+		local lower_spell = string.lower(data.elements.nukega_of[state.ElementalMode.value]..'ga II')
+		local spell_id = gearswap.validabils.english['/ma'][lower_spell]
+		if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
+			windower.chat.input('/ma "'..data.elements.nukega_of[state.ElementalMode.value]..'ga II'..'" '..target)
+		else
+			windower.chat.input('/ma "'..data.elements.nukega_of[state.ElementalMode.value]..'ga" '..target)
+		end
+
+	elseif command:startswith('aga') then
+		local tierkey = {['aga3']='ga III',['aga2']='ga II',['aga1']='ga'}
+		windower.chat.input('/ma "'..data.elements.nukega_of[state.ElementalMode.value]..tierkey[command]..'" '..target)
+			
+	elseif command == 'helix' then
+		windower.chat.input('/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix" '..target)
+	
+	elseif command == 'enfeeble' then
+		windower.chat.input('/ma "'..data.elements.elemental_enfeeble_of[state.ElementalMode.value]..'" '..target)
+	
+	elseif command == 'bardsong' then
+		windower.chat.input('/ma "'..data.elements.threnody_of[state.ElementalMode.value]..' Threnody" '..target)
+		
+    else
+        add_to_chat(123,'Unrecognized elemental command.')
+    end
+end
+
 -- General handling of scholar commands in an Arts-agnostic way.
 -- Format: gs c scholar <stratagem>
 function handle_scholar(cmdParams)
@@ -1219,7 +1349,6 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
-	windower.add_to_chat(tostring(wielding('Fencing')))
     if user_test then
         user_test(cmdParams)
     elseif job_test then
