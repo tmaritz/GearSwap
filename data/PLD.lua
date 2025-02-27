@@ -67,7 +67,7 @@ function job_setup()
 	autofood = 'Miso Ramen'
 	
 	update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoTankMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoNukeMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","Stance","IdleMode","Passive","RuneElement","PhysicalDefenseMode","MagicalDefenseMode","ResistDefenseMode","CastingMode","TreasureMode",})
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoTankMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoNukeMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","Stance","IdleMode","Passive","RuneElement","CastingMode","PhysicalDefenseMode","MagicalDefenseMode","ResistDefenseMode","ExtraDefenseMode","TreasureMode"})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -182,8 +182,6 @@ end
 
 -- Handle notifications of general user state change.
 function job_state_change(stateField, newValue, oldValue)
-    classes.CustomDefenseGroups:clear()
-    classes.CustomDefenseGroups:append(state.ExtraDefenseMode.current)
     classes.CustomMeleeGroups:clear()
     classes.CustomMeleeGroups:append(state.ExtraDefenseMode.current)
 end
@@ -355,26 +353,6 @@ function job_customize_idle_set(idleSet)
 
     return idleSet
 end
-
--- Modify the default melee set after it was constructed.
-function job_customize_melee_set(meleeSet)
-
-    if state.ExtraDefenseMode.value ~= 'None' then
-        meleeSet = set_combine(meleeSet, sets[state.ExtraDefenseMode.value])
-    end
-   
-    return meleeSet
-
-end
-
-function job_customize_defense_set(defenseSet)
-    if state.ExtraDefenseMode.value ~= 'None' then
-        defenseSet = set_combine(defenseSet, sets[state.ExtraDefenseMode.value])
-    end
-
-    return defenseSet
-end
-
 
 function display_current_job_state(eventArgs)
     local msg = 'Melee'

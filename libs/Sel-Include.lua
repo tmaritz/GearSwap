@@ -108,6 +108,7 @@ function init_include()
 	state.CraftingMode		  = M{['description'] = 'Crafting Mode','None','Alchemy','Bonecraft','Clothcraft','Cooking','Fishing','Goldsmithing','Leathercraft','Smithing','Woodworking'}
 	state.DefenseMode         = M{['description'] = 'Defense Mode', 'None', 'Physical', 'Magical', 'Resist'}
 	state.ElementalMode 	  = M{['description'] = 'Elemental Mode', 'Fire','Ice','Wind','Earth','Lightning','Water','Light','Dark'}
+	state.ExtraDefenseMode 	  = M{['description'] = 'Extra Defense Mode','None'}
 	state.EquipStop           = M{['description'] = 'Stop Equipping Gear', 'off', 'precast', 'midcast', 'pet_midcast'}
 	state.HybridMode          = M{['description'] = 'Hybrid Mode'}
 	state.IdleMode            = M{['description'] = 'Idle Mode'}
@@ -2082,6 +2083,8 @@ function apply_defense(baseSet)
 		if user_job_customize_defense_set then
 			defenseSet = user_job_customize_defense_set(defenseSet)
 		end
+		
+		apply_extra_defense(baseSet)
 
 		baseSet = set_combine(baseSet, defenseSet)
 	end
@@ -2106,8 +2109,16 @@ function apply_passive(baseSet)
 	if user_job_customize_passive_set then
 		baseSet = user_job_customize_passive_set(baseSet)
 	end
-
+	
+	apply_extra_defense(baseSet)
+	
 	return baseSet
+end
+
+function apply_extra_defense(baseSet)
+	if state.ExtraDefenseMode.value ~= 'None' then
+		baseSet = set_combine(baseSet, sets[state.ExtraDefenseMode.value])
+	end
 end
 
 -- Function to add kiting gear on top of the base set if kiting state is true.
