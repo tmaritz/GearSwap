@@ -113,8 +113,8 @@ function job_setup()
 
 	update_melee_groups()
 	init_job_states(
-	{ "Capacity", "AutoRuneMode", "AutoTrustMode", "AutoWSMode", "AutoShadowMode", "AutoFoodMode", "AutoStunMode",
-		"AutoDefenseMode", },
+		{ "Capacity", "AutoRuneMode", "AutoTrustMode", "AutoWSMode", "AutoShadowMode", "AutoFoodMode", "AutoStunMode",
+			"AutoDefenseMode", },
 		{ "AutoBuffMode", "AutoSambaMode", "Weapons", "OffenseMode", "WeaponskillMode", "IdleMode", "DanceStance",
 			"Passive", "RuneElement", "TreasureMode", })
 end
@@ -163,7 +163,7 @@ function job_precast(spell, spellMap, eventArgs)
 			add_tick_delay(1.1)
 			return
 		end
-	elseif spell.type == 'Step' and player.main_job_level >= 77 and state.AutoPrestoMode.value and player.tp > 99 and player.status == 'Engaged' and under3FMs() then
+	elseif spell.type == 'Step' and state.AutoPrestoMode.value and player.tp > 99 and player.status == 'Engaged' and under3FMs() then
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 
 		if abil_recasts[236] < latency and abil_recasts[220] < latency then
@@ -275,8 +275,9 @@ function display_current_job_state(eventArgs)
 
 	if state.DefenseMode.value ~= 'None' then
 		msg = msg ..
-		', ' ..
-		'Defense: ' .. state.DefenseMode.value .. ' (' .. state[state.DefenseMode.value .. 'DefenseMode'].value .. ')'
+			', ' ..
+			'Defense: ' ..
+			state.DefenseMode.value .. ' (' .. state[state.DefenseMode.value .. 'DefenseMode'].value .. ')'
 	end
 
 	if state.Kiting.value then

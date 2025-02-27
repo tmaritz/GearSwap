@@ -105,7 +105,7 @@ function init_job_states(job_bools,job_modes)
     stateBox:stroke_width(strokewidth)
     stateBox:stroke_transparency(stroketransparancy)
 
-    update_job_states(stateBox)
+    update_job_states()
 
 end
 
@@ -163,7 +163,6 @@ function update_job_states()
 		AutoSuperJumpMode = "Auto SuperJump",
 		AutoTankMode = "Auto Tank",
 		AutoTrustMode = "Auto Trust",
-		AutoWSMode = "Auto WS: "..autows..": "..autowstp.."",
 		BuffWeaponsMode = "Buff Weapons",
 		Capacity = "Capacity",
 		CarnMode = "Carn Mode",
@@ -173,6 +172,7 @@ function update_job_states()
 		ElementalMode = "Element",
 		ElementalWheel = "Elemental Wheel",
 		ExtraSongsMode = "Songs",
+		ExtraDefenseMode = "Extra Defense",
 		JugMode = "Pet",
 		LearningMode = "Learning",
 		LuzafRing = "Luzaf's Ring",
@@ -219,9 +219,29 @@ function update_job_states()
         if state[n].index then
 			if n == 'AutoWSMode' and state.AutoWSMode.value then
 				if state.RngHelper.value then
-					stateBox:append(string.format("%sAuto WS: "..rangedautows..": "..rangedautowstp.."%s", clr.h, clr.n))
+					if state.MaintainAftermath.value then
+						if data.equipment.mythic_weapons:contains(player.equipment.range) then
+							stateBox:append(string.format("%sAuto WS: "..rangedautows..": AM3+"..rangedautowstp.."%s", clr.h, clr.n))
+						elseif data.equipment.relic_weapons:contains(player.equipment.range) then
+							stateBox:append(string.format("%sAuto WS: "..rangedautows..": AM+"..rangedautowstp.."%s", clr.h, clr.n))
+						else
+							stateBox:append(string.format("%sAuto WS: "..rangedautows..": "..rangedautowstp.."%s", clr.h, clr.n))
+						end
+					else
+						stateBox:append(string.format("%sAuto WS: "..rangedautows..": "..rangedautowstp.."%s", clr.h, clr.n))
+					end
 				else
-					stateBox:append(string.format("%sAuto WS: "..autows..": "..autowstp.."%s", clr.h, clr.n))
+					if state.MaintainAftermath.value then
+						if data.equipment.mythic_weapons:contains(player.equipment.main) then
+							stateBox:append(string.format("%sAuto WS: "..autows..": AM3+"..autowstp.."%s", clr.h, clr.n))
+						elseif data.equipment.relic_weapons:contains(player.equipment.main) then
+							stateBox:append(string.format("%sAuto WS: "..autows..": AM+"..autowstp.."%s", clr.h, clr.n))
+						else
+							stateBox:append(string.format("%sAuto WS: "..autows..": "..autowstp.."%s", clr.h, clr.n))
+						end
+					else
+						stateBox:append(string.format("%sAuto WS: "..autows..": "..autowstp.."%s", clr.h, clr.n))
+					end
 				end
 				stateBox:append(spc)
 			elseif n == 'AutoRuneMode' and (player.main_job == 'RUN' or player.sub_job == 'RUN') and state.AutoRuneMode.value then
@@ -292,9 +312,6 @@ function update_job_states()
 				elseif state.DefenseMode.value == 'Resist' then
 					stateBox:append(string.format("%s%s: %s%s", clr.h, state.DefenseMode.current, state.ResistDefenseMode.current, clr.w))
 				end
-				if state.ExtraDefenseMode and state.ExtraDefenseMode.value ~= 'None' then
-					stateBox:append(string.format("%s / %s%s%s", clr.n, clr.h, state.ExtraDefenseMode.current, clr.n))
-				end
 				stateBox:append(spc)
 			else
 				stateBox:append(string.format("%s%s: ${%s}", clr.w, labels[n], n))
@@ -327,6 +344,10 @@ function update_job_states()
 			end
 		elseif n == 'Passive' then
 			if state.Passive.value ~= 'None' and state.DefenseMode.value == 'None' then
+				stateBox:append(string.format("%s%s: ${%s}    ", clr.w, labels[n], n))
+			end
+		elseif n == 'ExtraDefenseMode' then
+			if state.ExtraDefenseMode.value ~= 'None' then
 				stateBox:append(string.format("%s%s: ${%s}    ", clr.w, labels[n], n))
 			end
 		elseif n == 'TreasureMode' then
@@ -386,10 +407,6 @@ function update_job_states()
 			stateBox:append(string.format("%s%s: ${%s}    ", clr.w, labels[n], n))
 		end
     end
-	
-	if state.ExtraDefenseMode and state.ExtraDefenseMode.value ~= 'None' and state.DefenseMode.value == 'None' then
-		stateBox:append(string.format("%sExtra Defense: %s%s    ", clr.w, clr.h, state.ExtraDefenseMode.value))
-	end
     -- Update and display current info
     stateBox:update(info)
     stateBox:show()
