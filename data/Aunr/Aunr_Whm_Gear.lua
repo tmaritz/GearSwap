@@ -14,13 +14,6 @@ function user_job_setup()
     -- state.BarStatus = M{['description']='BarStatus', 'Baramnesra', 'Barvira', 'Barparalyzra', 'Barsilencera', 'Barpetra', 'Barpoisonra', 'Barblindra', 'Barsleepra'}
     -- state.BoostSpell = M{['description']='BoostSpell', 'Boost-STR', 'Boost-INT', 'Boost-AGI', 'Boost-VIT', 'Boost-DEX', 'Boost-MND', 'Boost-CHR'}
 
-    gear.obi_cure_waist = "Austerity Belt +1"
-    gear.obi_cure_back = "Alaunus's Cape"
-
-    gear.obi_nuke_waist = "Sekhmet Corset"
-    gear.obi_high_nuke_waist = "Yamabuki-no-Obi"
-    gear.obi_nuke_back = "Toro Cape"
-
     -- Additional local binds
     send_command('bind ^backspace input /ja "Sacrosanctity" <me>')
     send_command('bind @backspace input /ma "Aurorastorm" <me>')
@@ -297,8 +290,8 @@ function init_gear_sets()
     sets.midcast['Full Cure'] = sets.midcast.FastRecast
 
     sets.midcast.Cure = {
-        main = "Chatoyant Staff",
-        sub = "Enki Strap",
+        main = "Queller Rod",
+        sub = "Sors Shield",
         ammo = "Clarus Stone",
         head = "Ebers Cap +2",
         body = "Theo. Bliaut +3",
@@ -311,152 +304,36 @@ function init_gear_sets()
         right_ear = "Glorious Earring",
         left_ring = "Stikini Ring",
         right_ring = "Lebeche Ring",
-        back = "Alaunus's Cape"
+        back = "Twilight Cape"
     }
 
     sets.midcast.CureSolace = {
         main = "Queller Rod",
         sub = "Sors Shield",
-        ammo = "Pemphredo Tathlum",
-        head = "Gende. Caubeen +1",
-        neck = "Incanter's Torque",
-        ear1 = "Regal Earring",
-        ear2 = "Glorious Earring",
+        ammo = "Clarus Stone",
+        head = "Ebers Cap +2",
         body = "Ebers Bliaut +2",
         hands = "Theophany Mitts +3",
-        ring1 = "Janniston Ring",
-        ring2 = "Lebeche Ring",
-        back = "Alaunus's Cape",
-        waist = "Luminary Sash",
         legs = "Ebers Pant. +2",
-        feet = gear.vanya_cure_feet
+        feet = gear.vanya_cure_feet,
+        neck = "Cleric's Torque",
+        waist = "Austerity Belt",
+        left_ear = "Mendi. Earring",
+        right_ear = "Glorious Earring",
+        left_ring = "Stikini Ring",
+        right_ring = "Lebeche Ring",
+        back = "Alaunus's Cape"
     }
 
-    sets.midcast.LightWeatherCure = {
-        main = "Chatoyant Staff",
-        sub = "Curatio Grip",
-        ammo = "Esper Stone +1",
-        head = "Gende. Caubeen +1",
-        neck = "Incanter's Torque",
-        ear1 = "Nourish. Earring +1",
-        ear2 = "Glorious Earring",
-        body = "Kaykaus Bliaut",
-        hands = "Theophany Mitts +3",
-        ring1 = "Janniston Ring",
-        ring2 = "Lebeche Ring",
-        back = "Twilight Cape",
-        waist = "Korin Obi",
-        legs = "Ebers Pant. +2",
-        feet = gear.vanya_cure_feet
-    }
+    sets.midcast.LightWeatherCure = set_combine(sets.midcast.Cure, {waist = "Korin Obi"})
+    sets.midcast.LightDayCure = set_combine(sets.midcast.Cure, {waist = "Korin Obi"})
 
-    sets.midcast.LightWeatherCureSolace = {
-        main = "Chatoyant Staff",
-        sub = "Curatio Grip",
-        ammo = "Esper Stone +1",
-        head = "Gende. Caubeen +1",
-        neck = "Incanter's Torque",
-        ear1 = "Regal Earring",
-        ear2 = "Glorious Earring",
-        body = "Ebers Bliaut +2",
-        hands = "Theophany Mitts +3",
-        ring1 = "Janniston Ring",
-        ring2 = "Lebeche Ring",
-        back = "Alaunus's Cape",
-        waist = "Korin Obi",
-        legs = "Ebers Pant. +2",
-        feet = gear.vanya_cure_feet
-    }
+    sets.midcast.LightWeatherCureSolace = set_combine(sets.midcast.CureSolace, {waist = "Korin Obi"})
+    sets.midcast.LightDayCureSolace = set_combine(sets.midcast.CureSolace, {waist = "Korin Obi"})
 
-    sets.midcast.LightDayCureSolace = {
-        main = "Queller Rod",
-        sub = "Sors Shield",
-        ammo = "Pemphredo Tathlum",
-        head = "Gende. Caubeen +1",
-        neck = "Incanter's Torque",
-        ear1 = "Regal Earring",
-        ear2 = "Glorious Earring",
-        body = "Ebers Bliaut +2",
-        hands = "Theophany Mitts +3",
-        ring1 = "Janniston Ring",
-        ring2 = "Lebeche Ring",
-        back = "Alaunus's Cape",
-        waist = "Korin Obi",
-        legs = "Ebers Pant. +2",
-        feet = gear.vanya_cure_feet
-    }
-
-    sets.midcast.LightDayCure = {
-        main = "Queller Rod",
-        sub = "Sors Shield",
-        ammo = "Pemphredo Tathlum",
-        head = "Gende. Caubeen +1",
-        neck = "Incanter's Torque",
-        ear1 = "Nourish. Earring +1",
-        ear2 = "Glorious Earring",
-        body = "Theo. Bliaut +3",
-        hands = "Theophany Mitts +3",
-        ring1 = "Janniston Ring",
-        ring2 = "Lebeche Ring",
-        back = "Twilight Cape",
-        waist = "Korin Obi",
-        legs = "Ebers Pant. +2",
-        feet = gear.vanya_cure_feet
-    }
-
-    sets.midcast.Curaga = {
-        main = "Queller Rod",
-        sub = "Sors Shield",
-        ammo = "Pemphredo Tathlum",
-        head = "Gende. Caubeen +1",
-        neck = "Incanter's Torque",
-        ear1 = "Regal Earring",
-        ear2 = "Glorious Earring",
-        body = "Theo. Bliaut +3",
-        hands = "Theophany Mitts +3",
-        ring1 = "Janniston Ring",
-        ring2 = "Lebeche Ring",
-        back = "Alaunus's Cape",
-        waist = "Luminary Sash",
-        legs = "Ebers Pant. +2",
-        feet = gear.vanya_cure_feet
-    }
-
-    sets.midcast.LightWeatherCuraga = {
-        main = "Chatoyant Staff",
-        sub = "Curatio Grip",
-        ammo = "Esper Stone +1",
-        head = "Gende. Caubeen +1",
-        neck = "Incanter's Torque",
-        ear1 = "Nourish. Earring +1",
-        ear2 = "Glorious Earring",
-        body = "Kaykaus Bliaut",
-        hands = "Theophany Mitts +3",
-        ring1 = "Janniston Ring",
-        ring2 = "Lebeche Ring",
-        back = "Twilight Cape",
-        waist = "Korin Obi",
-        legs = "Ebers Pant. +2",
-        feet = gear.vanya_cure_feet
-    }
-
-    sets.midcast.LightDayCuraga = {
-        main = "Queller Rod",
-        sub = "Sors Shield",
-        ammo = "Pemphredo Tathlum",
-        head = "Gende. Caubeen +1",
-        neck = "Incanter's Torque",
-        ear1 = "Nourish. Earring +1",
-        ear2 = "Glorious Earring",
-        body = "Theo. Bliaut +3",
-        hands = "Theophany Mitts +3",
-        ring1 = "Janniston Ring",
-        ring2 = "Lebeche Ring",
-        back = "Twilight Cape",
-        waist = "Korin Obi",
-        legs = "Ebers Pant. +2",
-        feet = gear.vanya_cure_feet
-    }
+    sets.midcast.Curaga = sets.midcast.Cure
+    sets.midcast.LightWeatherCuraga = set_combine(sets.midcast.Curaga, {waist = "Korin Obi"})
+    sets.midcast.LightDayCuraga = set_combine(sets.midcast.Curaga, {waist = "Korin Obi"})
 
     sets.midcast.Cure.DT = {
         main = "Queller Rod",

@@ -7,7 +7,7 @@ function user_job_setup()
     state.PhysicalDefenseMode:options('PDT')
     state.MagicalDefenseMode:options('MDT')
     state.ResistDefenseMode:options('MEVA')
-    state.Weapons:options('Aeneas', 'LowBuff')
+    state.Weapons:options('Aeneas', 'Trial')
     state.ExtraMeleeMode = M {
         ['description'] = 'Extra Melee Mode',
         'None',
@@ -77,9 +77,9 @@ function init_gear_sets()
         main = "Gleti's Knife",
         sub = "Kaja Knife"
     }
-    sets.weapons.LowBuff = {
+    sets.weapons.Trial = {
         main = "Gleti's Knife",
-        sub = "Taming Sari"
+        sub = "Fusetto"
     }
 
     -- Precast Sets

@@ -331,7 +331,7 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
         head = "Jhakri Coronal +2",
-        neck = "Src. Stole +1",
+        neck = "Src. Stole +2",
         ear1 = "Barkaro. Earring",
         ear2 = "Malignance Earring",
         body = "Wicce Coat +2",
@@ -636,6 +636,10 @@ function init_gear_sets()
         feet = gear.merlinic_refresh_feet
     }
 
+    sets.idle.Town = set_combine(sets.idle, {
+        neck = "Src. Stole +2",
+    })
+
     -- Defense sets
 
     sets.defense.PDT = {
@@ -767,7 +771,7 @@ function init_gear_sets()
         sub = "Enki Strap",
         ammo = "Ghastly Tathlum +1",
         head = "Wicce Petasos +2",
-        neck = "Src. Stole +1",
+        neck = "Src. Stole +2",
         ear1 = "Barkaro. Earring",
         ear2 = "Malignance Earring",
         body = "Wicce Coat +2",
