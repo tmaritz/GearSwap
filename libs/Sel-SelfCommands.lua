@@ -573,7 +573,6 @@ function handle_elemental(cmdParams)
 	if handle_job_elemental and handle_job_elemental(command, target) then 
 		return 
 	end
-
 	if command == 'spikes' then
 		windower.chat.input('/ma "'..data.elements.spikes_of[state.ElementalMode.value]..' Spikes" <me>')
 	elseif command == 'enspell' then
@@ -1349,6 +1348,7 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
+	table.vprint(player.target)
     if user_test then
         user_test(cmdParams)
     elseif job_test then
