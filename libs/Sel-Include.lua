@@ -1584,20 +1584,6 @@ function get_idle_set(petStatus)
 		idleSet = set_combine(idleSet, sets.weapons[state.Weapons.value])
 	end
 	
-	if (buffactive.sleep or buffactive.Lullaby) then
-		if item_available("Sacrifice Torque") and player.main_job == 'SMN' and pet.isvalid then
-			idleSet = set_combine(idleSet, {neck="Sacrifice Torque"})
-		elseif sets.buff.Sleep then
-			idleSet = set_combine(idleSet, sets.buff.Sleep)
-		elseif sets.WakeUpWeapons then
-			idleSet = set_combine(idleSet, sets.WakeUpWeapons)
-		end
-	end
-	
-	if buffactive.doom then
-		idleSet = set_combine(idleSet, sets.buff.Doom)
-	end
-
 	if extra_user_customize_idle_set then
 		idleSet = extra_user_customize_idle_set(idleSet)
 	end
@@ -1686,34 +1672,7 @@ function get_melee_set()
 	if buffactive['Reive Mark'] and sets.Reive then
 		meleeSet = set_combine(meleeSet, sets.Reive)
 	end
-	
-	if (buffactive.sleep or buffactive.Lullaby) and sets.buff.Sleep then
-		if sets.buff.Sleep then
-			meleeSet = set_combine(meleeSet, sets.buff.Sleep)
-		end
-		if item_equippable("Vim Torque") then
-			meleeSet = set_combine(meleeSet, {neck="Vim Torque"})
-		elseif item_equippable("Vim Torque +1") then
-			meleeSet = set_combine(meleeSet, {neck="Vim Torque +1"})
-		elseif item_equippable("Frenzy Sallet") then
-			meleeSet = set_combine(meleeSet, {head="Frenzy Sallet"})
-		elseif item_equippable("Berserker's Torque") then
-			meleeSet = set_combine(meleeSet, {neck="Berserker's Torque"})
-		elseif sets.WakeUpWeapons then
-			if state.Weapons.value == 'None' or state.UnlockWeapons.value then
-				meleeSet = set_combine(meleeSet, sets.WakeUpWeapons)
-			elseif state.WakeUpWeapons.value then
-				state.UnlockWeapons:set('True')
-				state.UnlockWeapons.set:schedule(3, state.UnlockWeapons, false)
-				meleeSet = set_combine(meleeSet, sets.WakeUpWeapons)
-			end
-		end
-	end
-	
-	if buffactive.doom then
-		meleeSet = set_combine(meleeSet, sets.buff.Doom)
-	end
-	
+
 	if extra_user_customize_melee_set then
 		meleeSet = extra_user_customize_melee_set(meleeSet)
 	end
@@ -2427,16 +2386,33 @@ function buff_change(buff, gain)
 
 	if buff == 'Voidwatcher' then
 		state.SkipProcWeapons:set('False')
-	elseif (buff == 'sleep' or buff == 'Lullaby') then
-		if state.CancelStoneskin.value and gain then send_command('cancel stoneskin') end
-		if state.UnlockWeapons.value or state.WakeUpWeapons.value and state.Weapons.value ~= 'None' and state.Weapons:contains('None') then
-			if gain then
-				last_weapons = state.Weapons.value
-				state.Weapons:set('None')
-			elseif last_weapons then
-				state.Weapons:set(last_weapons)
-				last_weapons = nil
+	elseif buff == 'doom' then
+		if gain then
+			internal_disable_set(sets.buff.Doom, "Doom")
+		else
+			internal_enable_set("Doom")
+		end
+	elseif buff == 'sleep' or buff == 'Lullaby' then
+		if gain then
+			if item_equippable("Sacrifice Torque") and pet.isvalid then
+				internal_disable_set({neck="Sacrifice Torque"}, "Sleep")
+			elseif player.status == 'Engaged' then
+				if item_equippable("Vim Torque") then
+					internal_disable_set({neck="Vim Torque"}, "Sleep")
+				elseif item_equippable("Vim Torque +1") then
+					internal_disable_set({neck="Vim Torque +1"}, "Sleep")
+				elseif item_equippable("Frenzy Sallet") then
+					internal_disable_set({head="Frenzy Sallet"}, "Sleep")
+				elseif item_equippable("Berserker's Torque") then
+					internal_disable_set({neck="Berserker's Torque"}, "Sleep")
+				elseif state.WakeUpWeapons.value and sets.WakeUpWeapons then
+					internal_disable_set(sets.WakeUpWeapons, "Sleep")
+				end
+			elseif state.WakeUpWeapons.value and sets.WakeUpWeapons then
+				internal_disable_set(sets.WakeUpWeapons, "Sleep")
 			end
+		else
+			internal_enable_set("Sleep")
 		end
 	elseif (buff == 'Blink' or buff == 'Third Eye' or buff:startswith('Copy Image')) then
 		if not gain then lastshadow = "None" end
