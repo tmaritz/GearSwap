@@ -3,7 +3,7 @@ function user_job_setup()
     state.CastingMode:options('Normal', 'OccultAcumen')
     state.OffenseMode:options('Normal')
     state.IdleMode:options('Normal', 'DT')
-    state.Weapons:options('None', 'Mpaca')
+    state.Weapons:options('None', 'Mpaca', 'Marin')
 
     gear.obi_cure_waist = "Witful Belt"
     gear.obi_low_nuke_waist = "Sekhmet Corset"
@@ -40,6 +40,11 @@ function init_gear_sets()
     -- Weapons sets
     sets.weapons.Mpaca = {
         main = "Mpaca's Staff",
+        sub = "Enki Strap"
+    }
+
+    sets.weapons.Marin = {
+        main = "Marin Staff +1",
         sub = "Enki Strap"
     }
 
@@ -158,40 +163,40 @@ function init_gear_sets()
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     sets.precast.WS['Vidohunir'] = {
-        ammo = "Dosis Tathlum",
-        head = "Hagondes Hat +1",
-        neck = "Saevus Pendant +1",
+        ammo = "Ghastly Tathlum +1",
+        head = "Pixie Hairpin +1",
+        neck = "Src. Stole +2",
         ear1 = "Malignance Earring",
-        ear2 = "Crematio Earring",
-        body = "Zendik Robe",
-        hands = "Hagondes Cuffs +1",
-        ring1 = "Freke Ring",
-        ring2 = "Shiva Ring",
+        ear2 = "Barkaro. Earring",
+        body = "Nyame Mail",
+        hands = "Nyame Gauntlets",
+        ring1 = "Medada's Ring",
+        ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
-        waist = "Fotia Belt",
-        legs = "Hagondes Pants +1",
-        feet = gear.merlinic_nuke_feet
+        waist = "Acuity Belt +1",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.precast.WS['Myrkr'] = {
-        ammo = "Staunch Tathlum",
+        ammo = "Strobilus",
         head = "Pixie Hairpin +1",
-        neck = "Sanctity Necklace",
-        ear1 = "Moonshade Earring",
-        ear2 = "Etiolation Earring",
-        body = "Amalric Doublet",
-        hands = "Regal Cuffs",
+        neck = "Dualism Collar +1",
+        ear1 = "Etiolation Earring",
+        ear2 = "Moonshade Earring",
+        body = "Wicce Coat +3",
+        hands = "Nyame Gauntlets",
         ring1 = "Mephitas's Ring +1",
-        ring2 = "Mephitas's Ring",
-        back = "Aurist's Cape +1",
-        waist = "Yamabuki-no-Obi",
-        legs = "Psycloth Lappas",
-        feet = "Medium's Sabots"
+        ring2 = "Lebeche Ring",
+        back = gear.idlefc_jse_back,
+        waist = "Fucho-no-Obi",
+        legs = "Arch. Tonban +3",
+        feet = "Nyame Sollerets"
     }
 
     sets.MaxTPMyrkr = {
-        ear1 = "Evans Earring",
-        ear2 = "Etiolation Earring"
+        ear1 = "Mendi. Earring",
+        ear2 = "Gifted Earring"
     }
 
     ---- Midcast Sets ----
@@ -334,7 +339,7 @@ function init_gear_sets()
         neck = "Src. Stole +2",
         ear1 = "Barkaro. Earring",
         ear2 = "Malignance Earring",
-        body = "Wicce Coat +2",
+        body = "Wicce Coat +3",
         hands = "Amalric Gages",
         ring1 = "Medada's Ring",
         ring2 = "Metamor. Ring +1",
@@ -390,7 +395,7 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         ammo = "Plumose Sachet",
         head = "Pixie Hairpin +1",
-        body = "Wicce Coat +2",
+        body = "Wicce Coat +3",
         hands = gear.merlinic_aspir_hands,
         legs = gear.merlinic_aspir_legs,
         feet = "Agwu\'s Pigaches",
@@ -505,7 +510,7 @@ function init_gear_sets()
         neck = "Sibyl Scarf",
         ear1 = "Barkaro. Earring",
         ear2 = "Malignance Earring",
-        body = "Wicce Coat +2",
+        body = "Wicce Coat +3",
         hands = "Wicce Gloves +2",
         ring1 = "Medada's Ring",
         ring2 = "Metamor. Ring +1",
@@ -570,8 +575,8 @@ function init_gear_sets()
         head = "Wicce Petasos +2",
         neck = "Sibyl Scarf",
         ear1 = "Eabani Earring",
-        ear2 = "Infused Earring",
-        body = "Wicce Coat +2",
+        ear2 = "Etiolation Earring",
+        body = "Wicce Coat +3",
         hands = "Wicce Gloves +2",
         ring1 = "Defending Ring",
         ring2 = "Shadow Ring",
@@ -751,7 +756,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = "Hearty Earring",
         ear2 = "Ethereal Earring",
-        body = "Wicce Coat +2",
+        body = "Wicce Coat +3",
         hands = "Wicce Gloves +2",
         ring1 = "Defending Ring",
         ring2 = "Supershear Ring",
@@ -774,7 +779,7 @@ function init_gear_sets()
         neck = "Src. Stole +2",
         ear1 = "Barkaro. Earring",
         ear2 = "Malignance Earring",
-        body = "Wicce Coat +2",
+        body = "Wicce Coat +3",
         hands = "Agwu's Gloves",
         ring1 = "Medada's Ring",
         ring2 = "Mujin Band",

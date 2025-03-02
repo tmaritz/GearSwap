@@ -578,8 +578,8 @@ function init_gear_sets()
         feet = "Nyame Sollerets",
         neck = "Loricate Torque +1",
         waist = "Slipor Sash",
-        left_ear = "Lugalbanda Earring",
-        right_ear = "Eabani Earring",
+        left_ear = "Eabani Earring",
+        right_ear = "Etiolation Earring",
         left_ring = "Defending Ring",
         right_ring = "Shadow Ring",
         back = "Solemnity Cape"
@@ -687,8 +687,8 @@ function init_gear_sets()
         feet = "Bagua Sandals +3",
         neck = "Loricate Torque +1",
         waist = "Acuity Belt +1",
-        left_ear = "Lugalbanda Earring",
-        right_ear = "Eabani Earring",
+        left_ear = "Malignance Earring",
+        right_ear = "Etiolation Earring",
         left_ring = "Defending Ring",
         right_ring = "Shadow Ring",
         back = "Shadow Mantle"
@@ -713,8 +713,8 @@ function init_gear_sets()
         feet = "Nyame Sollerets",
         neck = "Bagua Charm +1",
         waist = "Carrier's Sash",
-        left_ear = "Lugalbanda Earring",
-        right_ear = "Eabani Earring",
+        left_ear = "Eabani Earring",
+        right_ear = "Etiolation Earring",
         left_ring = "Defending Ring",
         right_ring = "Shadow Ring",
         back = gear.idle_jse_back

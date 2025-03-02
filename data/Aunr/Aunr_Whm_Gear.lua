@@ -973,7 +973,7 @@ function init_gear_sets()
         -- neck = "Yngvi Choker",
         waist = "Carrier's Sash",
         left_ear = "Eabani Earring",
-        right_ear = "Hearty Earring",
+        right_ear = "Etiolation Earring",
         right_ring = "Inyanga Ring",
         left_ring = "Defending Ring",
         back = "Alaunus's Cape"

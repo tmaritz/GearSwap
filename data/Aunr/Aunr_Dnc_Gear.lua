@@ -429,7 +429,7 @@ function init_gear_sets()
         head = "Gleti's Mask",
         neck = "Warder's Charm +1",
         ear1 = "Eabani Earring",
-        ear2 = "Sanare Earring",
+        ear2 = "Etiolation Earring",
         body = "Gleti's Cuirass",
         hands = "Gleti's Gauntlets",
         ring1 = "Defending Ring",
