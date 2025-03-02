@@ -830,17 +830,28 @@ for _, rline in pairs(gearswap.res.spells) do
 	end
 end
 
-data.status_map = {
-	[1] = {buff='doom',spell='Cursna'},
-	[2] = {buff='petrification',spell='Stona'},
-	[3] = {buff='sleep',spell='Cure'},
-	[4] = {buff='curse',spell='Cursna'},
-	[5] = {buff='paralysis',spell='Paralyna'},
-	[6] = {buff='silence',spell='Silena'},
-	[7] = {buff='poison',spell='Poisona'},
-	[8] = {buff='blindness',spell='Blindna'},
-	[9] = {buff='plague',spell='Viruna'},
-	[10] = {buff='diseased',spell='Viruna'},
+data.status_map = T{
+	{buff='doom',spell='Cursna'},
+	{buff='petrification',spell='Stona'},
+	{buff='sleep',spell='Cure'},
+	{buff='curse',spell='Cursna'},
+	{buff='paralysis',spell='Paralyna'},
+	{buff='bind',spell='Erase'},
+	{buff='slow',spell='Erase'},
+	{buff='elegy',spell='Erase'},
+	{buff='weight',spell='Erase'},
+	{buff='silence',spell='Silena'},
+	{buff='poison',spell='Poisona'},
+	{buff='blindness',spell='Blindna'},
+	{buff='bio',spell='Erase'},
+	{buff='dia',spell='Erase'},
+	{buff='requiem',spell='Erase'},
+	{buff='plague',spell='Viruna'},
+	{buff='burn',spell='Erase'},
+	{buff='frost',spell='Erase'},
+	{buff='choke',spell='Erase'},
+	{buff='rasp',spell='Erase'},
+	{buff='shock',spell='Erase'},
+	{buff='drown',spell='Erase'},
+	{buff='diseased',spell='Viruna'},
 }
-
-data.erasable_statuses = S{"bind","weight","burn","frost","choke","rasp","shock","drown","dia","bio","requiem","elegy","slow"}

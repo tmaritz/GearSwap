@@ -1244,6 +1244,7 @@ function check_abilities(spell, spellMap, eventArgs)
 			end
 		elseif spell.type == 'Step' then
 			if player.status == 'Idle' and windower.ffxi.get_ability_recasts()[220] and spell.target and spell.target.valid_target and spell.target.spawn_type == 16 and spell.target.distance < (3.2 + player.target.model_size) then
+				do_lockon_tracking()
                 packets.inject(packets.new('outgoing', 0x1a, {
                     ['Target'] = spell.target.id,
                     ['Target Index'] = spell.target.index,
@@ -1360,6 +1361,21 @@ function check_buff()
 	else
 		return false
 	end
+end
+
+function do_lockon_tracking()
+	track_lockon = true
+	track_lockon.target_locked = player.target_locked
+end
+
+function check_lockon()
+	if track_lockon then
+		if player.target_locked ~= track_lockon.target_locked then
+			windower.chat.input('/lockon')
+		end
+	end
+	
+	track_lockon = false
 end
 
 function check_buffup()
@@ -1528,6 +1544,7 @@ end
 
 function check_use_item()
 	if useItem then
+		local time_offset = 18000-os.time()
 		if useItemSlot == 'item' and (player.inventory[useItemName] or player.temporary[useItemName]) then
 			windower.chat.input('/item "'..useItemName..'" <me>')
 			add_tick_delay(2)

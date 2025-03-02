@@ -209,6 +209,7 @@ function init_include()
 	-- Var for tracking misc info
 	info = {}
 	options = {}
+	track_lockon = false
 
 	-- Special control flags.
 	mote_vars = {}
@@ -254,8 +255,7 @@ function init_include()
 	utsusemi_cancel_delay = .5
 	weapons_pagelist = {}
 	disabled_sets = {}
-	time_offset = 18000-os.time()
-	
+
 	-- Buff tracking that buffactive can't detect
 	lastshadow = "Utsusemi: San"
 	lastwarcry = ''
@@ -1235,6 +1235,8 @@ function default_aftercast(spell, spellMap, eventArgs)
 			if state.DisplayMode.value then update_job_states()	end
 		end
 	end
+
+	check_lockon()
 
 	if not eventArgs.handled then
 		handle_equipping_gear(player.status)

@@ -1044,20 +1044,21 @@ function handle_stna(cmdParams)
 		return
 	end
 
-	for i in ipairs(data.status_map) do
-		if targetBuffs[data.status_map[i].buff] and silent_can_use(data.status_map[i].spell) then
-			windower.chat.input('/ma "'..data.status_map[i].spell..'" '..removalTarget.name)
-			return
-		end
-	end
-	if silent_can_use('Erase') then
-		for key in pairs(targetBuffs) do
-			if type(key) == "string" and (data.erasable_statuses:contains(key) or key:endswith(' down')) then
-				windower.chat.input('/ma "Erase" '..removalTarget.name)
+
+	local can_use_na = {}
+	for i, status in ipairs(data.status_map) do
+		local spell = status.spell
+		if targetBuffs[status.buff] then
+			if can_use_na[spell] == nil then
+				can_use_na[spell] = silent_can_use(spell)
+			end
+			if can_use_na[spell] then
+				windower.chat.input('/ma "'..spell..'" '..removalTarget.name)
 				return
 			end
 		end
 	end
+
 	add_to_chat(123,'No statuses found that are removable by STNA.')
 end
 
