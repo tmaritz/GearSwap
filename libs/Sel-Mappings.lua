@@ -419,6 +419,19 @@ data.equipment.rema_ammo_pouch_of = {
 	['Quelling Bolt'] = 'Quelling B. Quiver'
 }
 
+disable_priority = T{
+	"User",
+	"Showset",
+	"Crafting",
+	"Doom",
+	"Sleep",
+	"Useitem",
+	"OneHour",
+	"Weapons",
+	"Ability",
+	"TreasureHunter",
+}:reverse() --We reverse the list here so that the highest priority is at the top.
+
 data.equipment.cprings = L{"Endorsement Ring","Trizek Ring","Vocation Ring","Capacity Ring","Facility Ring"}
 data.equipment.xprings = L{"Echad Ring","Caliber Ring","Emperor Band","Empress Band","Resolution Ring"}
 

@@ -333,7 +333,6 @@ function check_ammo_precast(spell, action, spellMap, eventArgs)
 		enable('ammo')
 		if sets.weapons[state.Weapons.value].ammo and item_available(sets.weapons[state.Weapons.value].ammo) then
 			equip({ammo=sets.weapons[state.Weapons.value].ammo})
-			disable('ammo')
 		elseif item_available(DefaultAmmo[WeaponType[player.equipment.range]].Default) then
 			equip({ammo=DefaultAmmo[WeaponType[player.equipment.range]].Default})
 		else

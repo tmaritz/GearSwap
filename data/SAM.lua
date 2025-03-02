@@ -224,8 +224,7 @@ function job_aftercast(spell, spellMap, eventArgs)
 			send_command('cancel Meikyo Shisui')
 		end
     elseif spell.english == "Meikyo Shisui" and not spell.interrupted and sets.buff['Meikyo Shisui'] then
-		equip(sets.buff['Meikyo Shisui'])
-		disable('feet')
+		internal_disable_set(sets.buff['Meikyo Shisui'], "OneHour")
 	end
 end
 
@@ -241,7 +240,7 @@ end
 
 function job_buff_change(buff, gain)
     if buff == 'Meikyo Shisui' and not gain then
-		enable('feet')
+		internal_enable_set("OneHour")
     end
 
 	update_melee_groups()

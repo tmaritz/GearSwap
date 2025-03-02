@@ -129,24 +129,17 @@ end
 function lock_TH()
     state.th_gear_is_locked = true
     local slots = T{}
-    for slot,item in pairs(sets.TreasureHunter) do
-        slots:append(slot)
-    end
-    disable(slots)
+    internal_disable_set(sets.TreasureHunter, "Treasure Hunter")
 end
 
 
 -- Set locked TH flag to false, and enable relevant gear slots.
 function unlock_TH()
 	if state.th_gear_is_locked then
-		local slots = T{}
-		for slot,item in pairs(sets.TreasureHunter) do
-			slots:append(slot)
-		end
-		enable(slots)
+		internal_enable_set(sets.TreasureHunter, "Treasure Hunter")
 	end
 	state.th_gear_is_locked = false
-    send_command('gs c update auto')
+    send_command('gs c update')
 end
 
 

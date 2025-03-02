@@ -1528,23 +1528,20 @@ end
 
 function check_use_item()
 	if useItem then
-		local Offset = 18000-os.time()
-
-		if time_test then
-			windower.add_to_chat(tostring(seconds_to_clock(get_usable_item('Warp Ring').next_use_time + Offset)))
-		end
-
 		if useItemSlot == 'item' and (player.inventory[useItemName] or player.temporary[useItemName]) then
 			windower.chat.input('/item "'..useItemName..'" <me>')
 			add_tick_delay(2)
 			return true
 		elseif useItemSlot == 'set' then
-			if item_equipped(set_to_item(useItemName)) and get_usable_item(set_to_item(useItemName)).usable then
-				windower.chat.input('/item "'..set_to_item(useItemName)..'" <me>')
-				add_tick_delay(2)
-				return true
-			elseif item_available(set_to_item(useItemName)) and ((get_usable_item(set_to_item(useItemName)).next_use_time) + Offset) < 10 then
-				send_command('gs c forceequip '..useItemSlot..' '..useItemName..'')
+			if item_equipped(set_to_item(useItemName)) then
+				if get_usable_item(set_to_item(useItemName)).usable then
+					windower.chat.input('/item "'..set_to_item(useItemName)..'" <me>')
+					add_tick_delay(2)
+					return true
+				end
+			elseif item_available(set_to_item(useItemName)) and ((get_usable_item(set_to_item(useItemName)).next_use_time) + time_offset) < 10 then
+				internal_disable_set({useItemSlot=useItemName}, "Useitem")
+				send_command('gs c update')
 				add_tick_delay(2)
 				return true
 			elseif player.satchel[set_to_item(useItemName)] then
@@ -1556,16 +1553,19 @@ function check_use_item()
 				useItem = false
 				return false
 			end
-		elseif item_equipped(useItemName) and get_usable_item(useItemName).usable then
-			windower.chat.input('/item "'..useItemName..'" <me>')
-			add_tick_delay(2)
-			return true
+		elseif item_equipped(useItemName) then
+			if get_usable_item(useItemName).usable then
+				windower.chat.input('/item "'..useItemName..'" <me>')
+				add_tick_delay(2)
+				return true
+			end
 		elseif player.satchel[useItemName] then
 			send_command('get "'..useItemName..'" '..consumable_bag)
 			add_tick_delay(2)
 			return true
-		elseif item_available(useItemName) and ((get_usable_item(useItemName).next_use_time) + Offset) < 10 then
-			send_command('gs c forceequip '..useItemSlot..' '..useItemName..'')
+		elseif item_available(useItemName) and ((get_usable_item(useItemName).next_use_time) + time_offset) < 10 then
+			internal_disable_set({[useItemSlot]=useItemName}, "Useitem")
+			send_command('gs c update')
 			add_tick_delay(2)
 			return true
 		elseif item_stepdown[useItemName] then
@@ -1745,19 +1745,15 @@ function get_usable_item(name)--returns time that you can use the item again
 	end
 end
 
-function cp_ring_equip(ring)--equips given ring
-	enable("ring1")
-	gearswap.equip_sets('equip_command',nil,{ring1=ring})
-	disable("ring1")
+function cp_ring_equip(ring)
+	internal_disable_set({ring1=ring}, "Useitem")
 end
 
 function check_cpring()
-	local Offset = 18000-os.time()
-
 	if player.main_job_level < 99 or buffactive["Emporox's Gift"] then
 
 		if data.equipment.xprings:contains(player.equipment.left_ring) and get_usable_item(player.equipment.left_ring).usable then
-			send_command('input /item "'..player.equipment.left_ring..'" <me>')
+			windower.chat.input('/item "'..player.equipment.left_ring..'" <me>')
 			cp_delay = 0
 			return true
 		end
@@ -1769,10 +1765,8 @@ function check_cpring()
 				cp_delay = 0
 				return true
 
-			elseif ((sprout_beret.next_use_time + Offset) < 6 and sprout_beret.charges_remaining > 0) then
-				enable("head")
-				gearswap.equip_sets('equip_command',nil,{head="Sprout Beret"})
-				disable("head")
+			elseif ((sprout_beret.next_use_time + time_offset) < 6 and sprout_beret.charges_remaining > 0) then
+				internal_disable_set({head="Sprout Beret"}, "Useitem")
 				cp_delay = 10
 				return true
 			end
@@ -1781,7 +1775,7 @@ function check_cpring()
 		if item_available('Echad Ring') then
 			local echad_ring = get_usable_item('Echad Ring')
 
-			if ((echad_ring.next_use_time + Offset) < 6 and echad_ring.charges_remaining > 0) then
+			if ((echad_ring.next_use_time + time_offset) < 6 and echad_ring.charges_remaining > 0) then
 				cp_ring_equip('Echad Ring')
 				cp_delay = 10
 				return true
@@ -1791,7 +1785,7 @@ function check_cpring()
 		if item_available('Caliber Ring') then
 			local caliber_ring = get_usable_item('Caliber Ring')
 
-			if ((caliber_ring.next_use_time + Offset) < 6 and caliber_ring.charges_remaining > 0) then
+			if ((caliber_ring.next_use_time + time_offset) < 6 and caliber_ring.charges_remaining > 0) then
 				cp_ring_equip('Caliber Ring')
 				cp_delay = 10
 				return true
@@ -1801,7 +1795,7 @@ function check_cpring()
 		if item_available('Emperor Band') then
 			local emperor_band = get_usable_item('Emperor Band')
 
-			if ((emperor_band.next_use_time + Offset) < 6 and emperor_band.charges_remaining > 0) then
+			if ((emperor_band.next_use_time + time_offset) < 6 and emperor_band.charges_remaining > 0) then
 				cp_ring_equip('Emperor Band')
 				cp_delay = 10
 				return true
@@ -1811,7 +1805,7 @@ function check_cpring()
 		if item_available('Empress Band') then
 			local empress_band = get_usable_item('Empress Band')
 
-			if ((empress_band.next_use_time + Offset) < 6 and empress_band.charges_remaining > 0) then
+			if ((empress_band.next_use_time + time_offset) < 6 and empress_band.charges_remaining > 0) then
 				cp_ring_equip('Empress Band')
 				cp_delay = 10
 				return true
@@ -1821,7 +1815,7 @@ function check_cpring()
 		if item_available('Resolution Ring') then
 			local resolution_ring = get_usable_item('Resolution Ring')
 
-			if ((resolution_ring.next_use_time + Offset) < 6 and resolution_ring.charges_remaining > 0) then
+			if ((resolution_ring.next_use_time + time_offset) < 6 and resolution_ring.charges_remaining > 0) then
 				cp_ring_equip('Resolution Ring')
 				cp_delay = 10
 				return true
@@ -1839,7 +1833,7 @@ function check_cpring()
 					cp_delay = 0
 					return true
 
-				elseif ((emporox_ring.next_use_time + Offset) < 6 and emporox_ring.charges_remaining > 0) then
+				elseif ((emporox_ring.next_use_time + time_offset) < 6 and emporox_ring.charges_remaining > 0) then
 					cp_ring_equip("Emporox's Ring")
 					cp_delay = 10
 					return true
@@ -1860,10 +1854,8 @@ function check_cpring()
 				cp_delay = 0
 				return true
 
-			elseif ((guide_beret.next_use_time + Offset) < 6 and guide_beret.charges_remaining > 0) then
-				enable("head")
-				gearswap.equip_sets('equip_command',nil,{head="Guide Beret"})
-				disable("head")
+			elseif ((guide_beret.next_use_time + time_offset) < 6 and guide_beret.charges_remaining > 0) then
+				internal_disable_set({head="Guide Beret"}, "Useitem")
 				cp_delay = 10
 				return true
 			end
@@ -1872,7 +1864,7 @@ function check_cpring()
 		if item_available('Endorsement Ring') then
 			local endorsement_ring = get_usable_item('Endorsement Ring')
 
-			if ((endorsement_ring.next_use_time + Offset) < 6 and endorsement_ring.charges_remaining > 0) then
+			if ((endorsement_ring.next_use_time + time_offset) < 6 and endorsement_ring.charges_remaining > 0) then
 				cp_ring_equip('Endorsement Ring')
 				cp_delay = 10
 				return true
@@ -1882,7 +1874,7 @@ function check_cpring()
 		if item_available('Trizek Ring') then
 			local trizek_ring = get_usable_item('Trizek Ring')
 
-			if ((trizek_ring.next_use_time + Offset) < 6 and trizek_ring.charges_remaining > 0) then
+			if ((trizek_ring.next_use_time + time_offset) < 6 and trizek_ring.charges_remaining > 0) then
 				cp_ring_equip('Trizek Ring')
 				cp_delay = 10
 				return true
@@ -1892,7 +1884,7 @@ function check_cpring()
 		if item_available('Capacity Ring') then
 			local capacity_ring = get_usable_item('Capacity Ring')
 
-			if ((capacity_ring.next_use_time + Offset) < 6 and capacity_ring.charges_remaining > 0) then
+			if ((capacity_ring.next_use_time + time_offset) < 6 and capacity_ring.charges_remaining > 0) then
 				cp_ring_equip('Capacity Ring')
 				cp_delay = 10
 				return true
@@ -1902,7 +1894,7 @@ function check_cpring()
 		if item_available('Vocation Ring') then
 			local vocation_ring = get_usable_item('Vocation Ring')
 
-			if ((vocation_ring.next_use_time + Offset) < 6 and vocation_ring.charges_remaining > 0) then
+			if ((vocation_ring.next_use_time + time_offset) < 6 and vocation_ring.charges_remaining > 0) then
 				cp_ring_equip('Vocation Ring')
 				cp_delay = 10
 				return true
@@ -1912,7 +1904,7 @@ function check_cpring()
 		if item_available('Facility Ring') then
 			local facility_ring = get_usable_item('Facility Ring')
 
-			if ((facility_ring.next_use_time + Offset) < 6 and facility_ring.charges_remaining > 0) then
+			if ((facility_ring.next_use_time + time_offset) < 6 and facility_ring.charges_remaining > 0) then
 				cp_ring_equip('Facility Ring')
 				cp_delay = 10
 				return true
@@ -2109,6 +2101,26 @@ end
  --Equip command but accepts the set name as a string to work around inability to use equip() in raw events.
 function do_equip(setname)
 	send_command('gs equip '..setname..'')
+end
+
+function internal_disable_set(set, priority)
+	disabled_sets[priority] = set
+
+	build_internal_disable()
+end
+
+function build_internal_disable()
+	internal_disable = {}
+
+	for i, priority in ipairs(disable_priority) do
+		internal_disable = set_combine(internal_disable, disabled_sets[priority])
+	end
+end
+
+function internal_enable_set(priority)
+	disabled_sets[priority] = nil
+
+	build_internal_disable()
 end
 
 function seconds_to_clock(seconds)
@@ -2486,7 +2498,7 @@ windower.raw_register_event('outgoing chunk',function(id,data,modified,is_inject
 
 		if moving then
 			if sets.Kiting and not wasmoving and not (player.status == 'Event' or midaction() or pet_midaction() or (os.clock() < (petWillAct + 2))) then
-				send_command('gs c forceequip')
+				send_command('gs c update')
 			end
 			if state.RngHelper.value and not buffactive['Hover Shot'] then
 				send_command('gs rh clear')
@@ -2500,7 +2512,7 @@ windower.raw_register_event('outgoing chunk',function(id,data,modified,is_inject
 			prepared_action = ''
 		elseif wasmoving then
 			if not (player.status == 'Event' or (os.clock() < (next_cast + 1)) or pet_midaction() or (os.clock() < (petWillAct + 2))) then
-				send_command('gs c forceequip')
+				send_command('gs c update')
 			end
 		end
 
@@ -2565,18 +2577,16 @@ end
 
 function standardize_set(set)
 	local standardized_set = {}
-
 	for slot, inner in pairs(set) do
 		if data.slots.slot_names:contains(slot) then
 			standardized_set[slot] = standardize_slot(inner)
 		end
 	end
-
-	standardized_set.ear1 = standardized_set.ear1 or standardized_set.left_ear or standardized_set.lear or ''
-	standardized_set.ear2 = standardized_set.ear2 or standardized_set.right_ear or standardized_set.rear or ''
-	standardized_set.ring1 = standardized_set.ring1 or standardized_set.left_ring or standardized_set.lring or ''
-	standardized_set.ring2 = standardized_set.ring2 or standardized_set.right_ring or standardized_set.rring or ''
-	standardized_set.range = standardized_set.range or standardized_set.ranged or ''
+	standardized_set.ear1 = standardized_set.ear1 or standardized_set.left_ear or standardized_set.lear or nil
+	standardized_set.ear2 = standardized_set.ear2 or standardized_set.right_ear or standardized_set.rear or nil
+	standardized_set.ring1 = standardized_set.ring1 or standardized_set.left_ring or standardized_set.lring or nil
+	standardized_set.ring2 = standardized_set.ring2 or standardized_set.right_ring or standardized_set.rring or nil
+	standardized_set.range = standardized_set.range or standardized_set.ranged or nil
 
 	return standardized_set
 end

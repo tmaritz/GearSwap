@@ -126,7 +126,7 @@ function job_precast(spell, spellMap, eventArgs)
 	if spell.type == 'BardSong' then
 
 		if state.CarnMode.value ~= 'Never' and (state.CarnMode.value == 'Always' or tonumber(state.CarnMode.value) > player.tp) then
-			enable('main','sub','range','ammo')
+			internal_enable_set("Weapons")
 		end
 
 		if not sets.precast.FC[spell.english] and spell.targets.Enemy then
@@ -283,17 +283,8 @@ end
 function job_aftercast(spell, spellMap, eventArgs)
 	
 	if spell.type == 'BardSong' then
-		if state.CarnMode.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.Value] then
-			equip(sets.weapons[state.Weapons.Value])
-			disable('main','sub')
-			if sets.weapons[state.Weapons.value] then
-				if  (sets.weapons[state.Weapons.value].range or sets.weapons[state.Weapons.value].ranged) then
-					disable('range')
-				end
-				if sets.weapons[state.Weapons.value].ammo then
-					disable('ammo')
-				end
-			end
+		if state.CarnMode.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' then
+			equip_weaponset(state.Weapons.value)
 		end
 
 	elseif spell.skill == 'Elemental Magic' and state.MagicBurstMode.value == 'Single' then

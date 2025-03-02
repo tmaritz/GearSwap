@@ -156,7 +156,7 @@ windower.raw_register_event('action', function(act)
 			elseif act.param == 1947 then
 				PupFlashReady = os.clock() + PupFlashRecast
 			end
-			send_command('gs c forceequip')
+			send_command('gs c update')
 		end
 	end
 end)

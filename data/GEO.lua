@@ -147,7 +147,7 @@ function job_precast(spell, spellMap, eventArgs)
 	if spell.action_type == 'Magic' then
 		if spell.skill == 'Geomancy' then
 			if state.UnlockGeomancy.value ~= 'Never' and (state.UnlockGeomancy.value == 'Always' or tonumber(state.UnlockGeomancy.value) > player.tp) then
-				enable('main','sub','range','ammo')
+				internal_enable_set("Weapons")
 			end
 		elseif spellMap == 'Cure' or spellMap == 'Curaga' then
 			gear.default.obi_back = gear.obi_cure_back
@@ -230,8 +230,7 @@ function job_post_midcast(spell, spellMap, eventArgs)
 	elseif spell.skill == 'Geomancy' then
 		if spell.english:startswith('Geo-') then
 			if state.Buff['Blaze of Glory'] and sets.buff['Blaze of Glory'] then
-				equip(sets.buff['Blaze of Glory'])
-				disable('head')
+				internal_disable_set(sets.buff['Blaze of Glory'], "Ability")
 				blazelocked = true
 			end
 		elseif spell.english:startswith('Indi-') then
@@ -285,19 +284,9 @@ function job_aftercast(spell, spellMap, eventArgs)
 		end
 	end
 
-	if spell.action_type == 'Magic' and spell.skill == 'Geomancy' then
-		if state.UnlockGeomancy.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.Value] then
-			equip(sets.weapons[state.Weapons.Value])
-			disable('main','sub')
-
-			if sets.weapons[state.Weapons.value] then
-				if  (sets.weapons[state.Weapons.value].range or sets.weapons[state.Weapons.value].ranged) then
-					disable('range')
-				end
-				if sets.weapons[state.Weapons.value].ammo then
-					disable('ammo')
-				end
-			end
+	if spell.skill == 'Geomancy' then
+		if state.UnlockGeomancy.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' then
+			equip_weaponset()
 		end
 	end
 
@@ -403,7 +392,7 @@ function job_pet_change(pet, gain)
 	end
 
 	if blazelocked then
-		enable('head')
+		internal_enable_set("Ability")
 		blazelocked = false
 	end
 end
