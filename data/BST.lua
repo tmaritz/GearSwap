@@ -519,7 +519,7 @@ function job_buff_change(buff, gain)
 	update_melee_groups()
 	if buff == 'Unleash' and UnleashLocked and not gain then
 		UnleashLocked = false
-		internal_enable_set("One Hour")
+		internal_enable_set("OneHour")
 		add_to_chat(217, "Unleash has worn, enabling all slots.")
 	end
 end
