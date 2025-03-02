@@ -1544,7 +1544,7 @@ end
 
 function check_use_item()
 	if useItem then
-		local time_offset = 18000-os.time()
+		local time_offset = local_offset - os.time()
 		if useItemSlot == 'item' and (player.inventory[useItemName] or player.temporary[useItemName]) then
 			windower.chat.input('/item "'..useItemName..'" <me>')
 			add_tick_delay(2)

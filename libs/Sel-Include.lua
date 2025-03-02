@@ -255,6 +255,7 @@ function init_include()
 	utsusemi_cancel_delay = .5
 	weapons_pagelist = {}
 	disabled_sets = {}
+	local_offset = 18000
 
 	-- Buff tracking that buffactive can't detect
 	lastshadow = "Utsusemi: San"
