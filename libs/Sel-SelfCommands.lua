@@ -1058,6 +1058,19 @@ function handle_stna(cmdParams)
 			end
 		end
 	end
+	
+	if can_use_na['Erase'] == nil then
+		can_use_na['Erase'] = silent_can_use('Erase')
+	end
+	
+	if can_use_na['Erase'] then
+		for key in pairs(targetBuffs) do
+			if type(key) == "string" and key:endswith(' down') then
+				windower.chat.input('/ma "Erase" '..removalTarget.name)
+				return
+			end
+		end
+	end
 
 	add_to_chat(123,'No statuses found that are removable by STNA.')
 end
