@@ -286,7 +286,6 @@ function job_aftercast(spell, spellMap, eventArgs)
 		if state.CarnMode.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' then
 			equip_weaponset(state.Weapons.value)
 		end
-
 	elseif spell.skill == 'Elemental Magic' and state.MagicBurstMode.value == 'Single' then
 		state.MagicBurstMode:reset()
 		if state.DisplayMode.value then update_job_states()	end
