@@ -1243,7 +1243,7 @@ function check_abilities(spell, spellMap, eventArgs)
 				return true
 			end
 		elseif spell.type == 'Step' then
-			if player.status == 'Idle' and windower.ffxi.get_ability_recasts()[220] and spell.target and spell.target.valid_target and spell.target.spawn_type == 16 and spell.target.distance < (3.2 + player.target.model_size) then
+			if player.status == 'Idle' and windower.ffxi.get_ability_recasts()[220] and spell.target and spell.target.valid_target and spell.target.spawn_type == 16 and spell.target.distance < (3.2 + player.target.model_size) and player.tp > 99 then
                 packets.inject(packets.new('outgoing', 0x1a, {
                     ['Target'] = spell.target.id,
                     ['Target Index'] = spell.target.index,
