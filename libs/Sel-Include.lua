@@ -2210,6 +2210,8 @@ function status_change(newStatus, oldStatus)
 			send_command('gs rh clear')
 		end
 		
+		moving = false
+		
 		if newStatus == "Dead" or newStatus == "Engaged dead" then
 			rolled_eleven = T{}
 		end
