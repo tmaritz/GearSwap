@@ -1206,17 +1206,16 @@ function default_aftercast(spell, spellMap, eventArgs)
 		elseif spell.action_type == 'Item' then
 			if useItem and (spell.english == useItemName or useItemSlot == 'set') then
 				useItem = false
-				if useItemSlot == 'item' then
-					send_command('put '..useItemName..' satchel')
-				elseif useItemSlot == 'set' then
-					internal_enable_set(sets[useItemName], "Useitem")
-					if player.inventory[useItemName] then
-						send_command('wait 1;put '..set_to_item(useItemName)..' satchel')
-					end
-				else 
-					internal_enable_set("Useitem")
-					if player.inventory[useItemName] then
-						send_command('wait 1;put '..useItemName..' satchel')
+				if disabled_sets['UseItem'] then
+					internal_enable_set("UseItem")
+					if useItemSlot == 'set' then
+						if player.inventory[useItemName] then
+							send_command('wait 1;put '..set_to_item(useItemName)..' satchel')
+						end
+					else 
+						if player.inventory[useItemName] then
+							send_command('wait 1;put '..useItemName..' satchel')
+						end
 					end
 				end
 				useItemName = ''
@@ -2221,12 +2220,12 @@ function status_change(newStatus, oldStatus)
 			if useItemSlot == 'item' then
 				send_command('put '..useItemName..' satchel')
 			elseif useItemSlot == 'set' then
-				internal_enable_set(sets[useItemName], "Useitem")
+				internal_enable_set(sets[useItemName], "UseItem")
 				if player.inventory[useItemName] then
 					send_command('wait 1;put '..set_to_item(useItemName)..' satchel')
 				end
 			else 
-				internal_enable_set("Useitem")
+				internal_enable_set("UseItem")
 				if player.inventory[useItemName] then
 					send_command('wait 1;put '..useItemName..' satchel')
 				end
@@ -2234,6 +2233,7 @@ function status_change(newStatus, oldStatus)
 			add_to_chat(217,"Cancelling using "..useItemName..".")
 			useItemName = ''
 			useItemSlot = ''
+			internal_enable_set("UseItem")
 		end
 	end
 	
@@ -2328,7 +2328,7 @@ function state_change(stateField, newValue, oldValue)
 			send_command('wait .001;gs c DisplayElement')
 		end
 	elseif stateField == 'Capacity' and newValue == 'false' and data.equipment.cprings:contains(player.equipment.left_ring) then
-			internal_enable_set("Useitem")
+			internal_enable_set("UseItem")
 	elseif stateField == 'Crafting Mode' then
 		internal_enable_set("Crafting")
 		if newValue ~= 'None' then
@@ -2422,15 +2422,15 @@ function buff_change(buff, gain)
 		if not gain then lastshadow = "None" end
 	elseif (buff == 'Commitment' or buff == 'Dedication') then
 		if gain and (data.equipment.cprings:contains(player.equipment.left_ring) or data.equipment.xprings:contains(player.equipment.left_ring)) then
-			internal_enable_set("Useitem")
+			internal_enable_set("UseItem")
 		elseif gain and (player.equipment.head == "Guide Beret" or player.equipment.head == "Sprout Beret") then
-			internal_enable_set("Useitem")
+			internal_enable_set("UseItem")
 		end
 	elseif rolled_eleven:contains(buff) then
 		if not gain then remove_table_value(rolled_eleven, buff) end
 	elseif buff == "Emporox's Gift" then
 		if player.equipment.left_ring == "Emporox's Ring" and gain then
-			internal_enable_set("Useitem")
+			internal_enable_set("UseItem")
 		end
 	elseif buff:endswith('Imagery') then
 		local craft = T(buff:split(' '))

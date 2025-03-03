@@ -1537,23 +1537,24 @@ function check_use_item()
 			add_tick_delay(2)
 			return true
 		elseif useItemSlot == 'set' then
-			if item_equipped(set_to_item(useItemName)) then
-				if get_usable_item(set_to_item(useItemName)).usable then
-					windower.chat.input('/item "'..set_to_item(useItemName)..'" <me>')
+			local set_to_item_name = set_to_item(useItemName)
+			if item_equipped(set_to_item_name) then
+				if get_usable_item(set_to_item_name).usable then
+					windower.chat.input('/item "'..set_to_item_name..'" <me>')
 					add_tick_delay(2)
 					return true
 				end
-			elseif item_available(set_to_item(useItemName)) and ((get_usable_item(set_to_item(useItemName)).next_use_time) + time_offset) < 10 then
-				internal_disable_set({useItemSlot=useItemName}, "Useitem")
+			elseif player.satchel[set_to_item_name] then
+				send_command('get "'..set_to_item_name..'" '..consumable_bag)
+				add_tick_delay(2)
+				return true
+			elseif item_available(set_to_item_name) and ((get_usable_item(set_to_item_name).next_use_time) + time_offset) < 10 then
+				internal_disable_set(sets[useItemName], "UseItem")
 				send_command('gs c update')
 				add_tick_delay(2)
 				return true
-			elseif player.satchel[set_to_item(useItemName)] then
-				send_command('get "'..set_to_item(useItemName)..'" '..consumable_bag)
-				add_tick_delay(2)
-				return true
 			else
-				add_to_chat(123,''..set_to_item(useItemName)..' not available or ready for use.')
+				add_to_chat(123,''..set_to_item_name..' not available or ready for use.')
 				useItem = false
 				return false
 			end
@@ -1568,7 +1569,7 @@ function check_use_item()
 			add_tick_delay(2)
 			return true
 		elseif item_available(useItemName) and ((get_usable_item(useItemName).next_use_time) + time_offset) < 10 then
-			internal_disable_set({[useItemSlot]=useItemName}, "Useitem")
+			internal_disable_set({[useItemSlot]=useItemName}, "UseItem")
 			send_command('gs c update')
 			add_tick_delay(2)
 			return true
@@ -1750,7 +1751,7 @@ function get_usable_item(name)--returns time that you can use the item again
 end
 
 function cp_ring_equip(ring)
-	internal_disable_set({ring1=ring}, "Useitem")
+	internal_disable_set({ring1=ring}, "UseItem")
 end
 
 function check_cpring()
@@ -1771,7 +1772,7 @@ function check_cpring()
 				return true
 
 			elseif ((sprout_beret.next_use_time + time_offset) < 6 and sprout_beret.charges_remaining > 0) then
-				internal_disable_set({head="Sprout Beret"}, "Useitem")
+				internal_disable_set({head="Sprout Beret"}, "UseItem")
 				cp_delay = 10
 				return true
 			end
@@ -1860,7 +1861,7 @@ function check_cpring()
 				return true
 
 			elseif ((guide_beret.next_use_time + time_offset) < 6 and guide_beret.charges_remaining > 0) then
-				internal_disable_set({head="Guide Beret"}, "Useitem")
+				internal_disable_set({head="Guide Beret"}, "UseItem")
 				cp_delay = 10
 				return true
 			end

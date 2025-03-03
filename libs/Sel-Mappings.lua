@@ -425,7 +425,7 @@ disable_priority = T{
 	"Crafting",
 	"Doom",
 	"Sleep",
-	"Useitem",
+	"UseItem",
 	"OneHour",
 	"Weapons",
 	"Ability",
