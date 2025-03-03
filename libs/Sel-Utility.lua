@@ -1244,14 +1244,16 @@ function check_abilities(spell, spellMap, eventArgs)
 			end
 		elseif spell.type == 'Step' then
 			if player.status == 'Idle' and windower.ffxi.get_ability_recasts()[220] and spell.target and spell.target.valid_target and spell.target.spawn_type == 16 and spell.target.distance < (3.2 + player.target.model_size) then
-				do_lockon_tracking()
                 packets.inject(packets.new('outgoing', 0x1a, {
                     ['Target'] = spell.target.id,
                     ['Target Index'] = spell.target.index,
                     ['Category']     = 0x02,
                 }))
-				send_command:schedule(0.1,'/ja "'..spell.english..'" '..spell.target.id..';wait 1;input /attack off')
-				--send_command('wait .1;input /ja "'..spell.english..'" '..spell.target.id..';wait 1;attack off')
+				send_command:schedule(0.1,'/ja "'..spell.english..'" '..spell.target.id)
+				
+				if state.IdleStep.value then
+					send_command:schedule(1,'input /attack off')
+				end
 				return true
 			end
 		elseif data.abilities.white_stratagems:contains(spell.english) then
@@ -1361,21 +1363,6 @@ function check_buff()
 	else
 		return false
 	end
-end
-
-function do_lockon_tracking()
-	track_lockon = true
-	track_lockon.target_locked = player.target_locked
-end
-
-function check_lockon()
-	if track_lockon then
-		if player.target_locked ~= track_lockon.target_locked then
-			windower.chat.input('/lockon')
-		end
-	end
-	
-	track_lockon = false
 end
 
 function check_buffup()

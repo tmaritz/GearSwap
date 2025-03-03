@@ -149,6 +149,7 @@ function init_include()
 	state.DisplayMode  	  	  = M(true, 'Display Mode')
 	state.ElementalWheel 	  = M(false, 'Elemental Wheel')
 	state.HoverShot		 	  = M(true, 'HoverShot')
+	state.IdleStep			  = M(true, 'Idle Step Mode')
 	state.Kiting              = M(false, 'Kiting')
 	state.MaintainAftermath	  = M(true, 'Maintain Aftermath')
 	state.MiniQueue		 	  = M(true, 'MiniQueue')
@@ -1236,8 +1237,6 @@ function default_aftercast(spell, spellMap, eventArgs)
 			if state.DisplayMode.value then update_job_states()	end
 		end
 	end
-
-	check_lockon()
 
 	if not eventArgs.handled then
 		handle_equipping_gear(player.status)
