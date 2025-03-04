@@ -7,7 +7,7 @@ function user_job_setup()
     state.PhysicalDefenseMode:options('PDT')
     state.MagicalDefenseMode:options('MDT')
     state.ResistDefenseMode:options('MEVA')
-    state.Weapons:options('Aeneas', 'Trial')
+    state.Weapons:options('GletiCento', 'TwashTrial')
     state.ExtraMeleeMode = M {
         ['description'] = 'Extra Melee Mode',
         'None',
@@ -73,13 +73,13 @@ function init_gear_sets()
     }
 
     -- Weapons sets
-    sets.weapons.Aeneas = {
+    sets.weapons.GletiCento = {
         main = "Gleti's Knife",
-        sub = "Kaja Knife"
+        sub = "Fusetto +2"
     }
-    sets.weapons.Trial = {
+    sets.weapons.TwashTrial = {
         main = "Gleti's Knife",
-        sub = "Fusetto"
+        sub = "Renegade"
     }
 
     -- Precast Sets
@@ -261,12 +261,12 @@ function init_gear_sets()
     }
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
-    sets.precast.WS["Rudra's Storm"] = set_combine(sets.precast.WS, {
+    sets.precast.WS["Rudra's Storm"] = set_combine(sets.precast.WS, { -- this actually needs to be midBuff
         ammo = "C. Palug Stone",
-        head = "Nyame Helm",
+        head = "Maculele Tiara +2",
         neck = "Rep. Plat. Medal",
-        ear1 = "Moonshade Earring",
-        ear2 = "Ishvara Earring",
+        ear1 = "Sherida Earring",
+        ear2 = "Moonshade Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Ilabrat Ring",
@@ -275,13 +275,19 @@ function init_gear_sets()
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     })
-    sets.precast.WS["Rudra's Storm"].SomeAcc = set_combine(sets.precast.WS.SomeAcc, {
+    sets.precast.WS["Rudra's Storm"].SomeAcc = set_combine(sets.precast.WS, { -- this actually needs to be highBuff
         ammo = "C. Palug Stone",
-        head = "Lilitu Headpiece",
-        neck = "Caro Necklace",
-        ear1 = "Moonshade Earring",
-        body = "Meg. Cuirie +2",
-        legs = gear.herculean_wsd_legs
+        head = "Maculele Tiara +2",
+        neck = "Rep. Plat. Medal",
+        ear1 = "Macu. Earring +1",
+        ear2 = "Moonshade Earring",
+        body = "Nyame Mail",
+        hands = "Nyame Gauntlets",
+        ring1 = "Ilabrat Ring",
+        ring2 = "Karieyh Ring",
+        waist = "Grunfeld Rope",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     })
     sets.precast.WS["Rudra's Storm"].Acc = set_combine(sets.precast.WS.Acc, {
         ear1 = "Moonshade Earring",
@@ -508,10 +514,10 @@ function init_gear_sets()
     -- Normal melee group
     sets.engaged = {
         ammo = "Coiste Bodhar",
-        head = "Malignance Chapeau",
+        head = "Maculele Tiara +2",
         neck = "Charis Necklace",
-        ear1 = "Brutal Earring",
-        ear2 = "Sherida Earring",
+        ear1 = "Sherida Earring",
+        ear2 = "Macu. Earring +1",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Gere Ring",
@@ -522,173 +528,24 @@ function init_gear_sets()
         feet = "Malignance Boots"
     }
 
-    sets.engaged.DTLite = {
-        ammo = "Yamarang",
-        head = "Dampening Tam",
-        neck = "Loricate Torque +1",
-        ear1 = "Brutal Earring",
-        ear2 = "Sherida Earring",
-        body = "Adhemar Jacket +1",
-        hands = "Adhemar Wrist. +1",
-        ring1 = "Defending Ring",
-        ring2 = "Epona's Ring",
-        back = gear.stp_jse_back,
-        waist = "Sailfi Belt +1",
-        legs = "Gleti's Breeches",
-        feet = gear.herculean_ta_feet
-    }
-
-    sets.engaged.SomeAcc = {
-        ammo = "Yamarang",
-        head = "Dampening Tam",
-        neck = "Combatant's Torque",
-        ear1 = "Brutal Earring",
-        ear2 = "Sherida Earring",
-        body = "Adhemar Jacket +1",
-        hands = "Adhemar Wrist. +1",
-        ring1 = "Gere Ring",
-        ring2 = "Epona's Ring",
-        back = gear.stp_jse_back,
-        waist = "Windbuffet Belt +1",
-        legs = "Gleti's Breeches",
-        feet = gear.herculean_ta_feet
-    }
-
-    sets.engaged.Acc = {
-        ammo = "Yamarang",
-        head = "Dampening Tam",
-        neck = "Combatant's Torque",
-        ear1 = "Telos Earring",
-        ear2 = "Sherida Earring",
-        body = "Mummu Jacket +2",
-        hands = "Floral Gauntlets",
-        ring1 = "Ilabrat Ring",
-        ring2 = "Regal Ring",
-        back = gear.stp_jse_back,
-        waist = "Reiki Yotai",
-        legs = "Meg. Chausses +2",
-        feet = "Malignance Boots"
-    }
-
-    sets.engaged.FullAcc = {
-        ammo = "C. Palug Stone",
-        head = "Dampening Tam",
-        neck = "Combatant's Torque",
-        ear1 = "Telos Earring",
-        ear2 = "Digni. Earring",
-        body = "Mummu Jacket +2",
-        hands = "Adhemar Wrist. +1",
-        ring1 = "Ramuh Ring +1",
-        ring2 = "Ramuh Ring +1",
-        back = gear.stp_jse_back,
-        waist = "Olseni Belt",
-        legs = "Meg. Chausses +2",
-        feet = "Malignance Boots"
-    }
-
-    sets.engaged.Fodder = {
-        ammo = "Yamarang",
-        head = "Dampening Tam",
-        neck = "Ainia Collar",
-        ear1 = "Brutal Earring",
-        ear2 = "Sherida Earring",
-        body = "Adhemar Jacket +1",
-        hands = "Adhemar Wrist. +1",
-        ring1 = "Gere Ring",
-        ring2 = "Epona's Ring",
-        back = gear.stp_jse_back,
-        waist = "Windbuffet Belt +1",
-        legs = "Gleti's Breeches",
-        feet = gear.herculean_ta_feet
-    }
-
-    sets.engaged.PDT = {
-        ammo = "Staunch Tathlum",
-        head = "Dampening Tam",
-        neck = "Loricate Torque +1",
-        ear1 = "Dudgeon Earring",
-        ear2 = "Heartseeker Earring",
-        body = "Meg. Cuirie +2",
-        hands = "Meg. Gloves +2",
-        ring1 = "Defending Ring",
-        ring2 = "Moonlight Ring",
-        back = "Solemnity Cape",
-        waist = "Flume Belt +1",
-        legs = "Meg. Chausses +2",
-        feet = "Ahosi Leggings"
-    }
-
-    sets.engaged.SomeAcc.PDT = {
-        ammo = "Staunch Tathlum",
-        head = "Dampening Tam",
-        neck = "Loricate Torque +1",
-        ear1 = "Dudgeon Earring",
-        ear2 = "Heartseeker Earring",
-        body = "Meg. Cuirie +2",
-        hands = "Meg. Gloves +2",
-        ring1 = "Defending Ring",
-        ring2 = "Patricius Ring",
-        back = "Solemnity Cape",
-        waist = "Flume Belt +1",
-        legs = "Meg. Chausses +2",
-        feet = "Ahosi Leggings"
-    }
-
-    sets.engaged.Acc.PDT = {
-        ammo = "Staunch Tathlum",
-        head = "Dampening Tam",
-        neck = "Loricate Torque +1",
-        ear1 = "Dudgeon Earring",
-        ear2 = "Heartseeker Earring",
-        body = "Meg. Cuirie +2",
-        hands = "Meg. Gloves +2",
-        ring1 = "Defending Ring",
-        ring2 = "Patricius Ring",
-        back = "Solemnity Cape",
-        waist = "Flume Belt +1",
-        legs = "Meg. Chausses +2",
-        feet = "Ahosi Leggings"
-    }
-
-    sets.engaged.FullAcc.PDT = {
-        ammo = "Staunch Tathlum",
-        head = "Dampening Tam",
-        neck = "Loricate Torque +1",
-        ear1 = "Dudgeon Earring",
-        ear2 = "Heartseeker Earring",
-        body = "Meg. Cuirie +2",
-        hands = "Meg. Gloves +2",
-        ring1 = "Defending Ring",
-        ring2 = "Patricius Ring",
-        back = "Solemnity Cape",
-        waist = "Olseni Belt",
-        legs = "Meg. Chausses +2",
-        feet = "Ahosi Leggings"
-    }
-
-    sets.engaged.Fodder.PDT = {
-        ammo = "Staunch Tathlum",
-        head = "Dampening Tam",
-        neck = "Loricate Torque +1",
-        ear1 = "Dudgeon Earring",
-        ear2 = "Heartseeker Earring",
-        body = "Meg. Cuirie +2",
-        hands = "Meg. Gloves +2",
-        ring1 = "Defending Ring",
-        ring2 = "Dark Ring",
-        back = "Solemnity Cape",
-        waist = "Flume Belt +1",
-        legs = "Meg. Chausses +2",
-        feet = "Malignance Boots"
-    }
+    sets.engaged.DTLite = sets.engaged
+    sets.engaged.SomeAcc = sets.engaged
+    sets.engaged.Acc = sets.engaged
+    sets.engaged.FullAcc = sets.engaged
+    sets.engaged.Fodder = sets.engaged
+    sets.engaged.PDT = sets.engaged
+    sets.engaged.SomeAcc.PDT = sets.engaged
+    sets.engaged.Acc.PDT = sets.engaged
+    sets.engaged.FullAcc.PDT = sets.engaged
+    sets.engaged.Fodder.PDT = sets.engaged
 
     -- Buff sets: Gear that needs to be worn to actively enhance a current player buff.
     sets.buff['Saber Dance'] = {} -- legs="Horos Tights"
     sets.buff['Climactic Flourish'] = {
-        ammo = "Charis Feather",
-        head = "Adhemar Bonnet",
-        body = "Meg. Cuirie +2"
-    } -- head="Charis Tiara +2"
+        -- ammo = "Charis Feather",
+        head = "Maculele Tiara +2",
+        -- body = "Meg. Cuirie +2"
+    }
     sets.buff.Doom = set_combine(sets.buff.Doom, {})
     sets.buff.Sleep = {
         head = "Frenzy Sallet"

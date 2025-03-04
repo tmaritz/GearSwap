@@ -447,21 +447,21 @@ function init_gear_sets()
     }
 
     sets.midcast.Stun = {
-        main = gear.grioavolr_fc_staff,
-        sub = "Clerisy Strap",
-        ammo = "Hasty Pinion +1",
-        head = "Amalric Coif +1",
-        neck = "Voltsurge Torque",
-        ear1 = "Enchntr. Earring +1",
+        main = "Mpaca's Staff",
+        sub = "Enki Strap",
+        ammo = "Ghastly Tathlum +1",
+        head = "Wicce Petasos +2",
+        neck = "Src. Stole +2",
+        ear1 = "Barkaro. Earring",
         ear2 = "Malignance Earring",
-        body = "Zendik Robe",
-        hands = "Volte Gloves",
-        ring1 = "Stikini Ring",
+        body = "Wicce Coat +3",
+        hands = "Wicce Gloves +2",
+        ring1 = "Medada's Ring",
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
-        waist = "Witful Belt",
-        legs = "Psycloth Lappas",
-        feet = "Regal Pumps +1"
+        waist = "Acuity Belt +1",
+        legs = "Wicce Chausses +3",
+        feet = "Wicce Sabots +2"
     }
 
     sets.midcast.BardSong = {
@@ -507,7 +507,7 @@ function init_gear_sets()
         sub = "Enki Strap",
         ammo = "Ghastly Tathlum +1",
         head = "Wicce Petasos +2",
-        neck = "Sibyl Scarf",
+        neck = "Src. Stole +2",
         ear1 = "Barkaro. Earring",
         ear2 = "Malignance Earring",
         body = "Wicce Coat +3",
@@ -516,7 +516,7 @@ function init_gear_sets()
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
-        legs = "Wicce Chausses +2",
+        legs = "Wicce Chausses +3",
         feet = "Wicce Sabots +2"
     }
 
@@ -642,7 +642,19 @@ function init_gear_sets()
     }
 
     sets.idle.Town = set_combine(sets.idle, {
+        ammo = "Ghastly Tathlum +1",
+        head = "Wicce Petasos +2",
         neck = "Src. Stole +2",
+        ear1 = "Barkaro. Earring",
+        ear2 = "Malignance Earring",
+        body = "Wicce Coat +3",
+        hands = "Wicce Gloves +2",
+        ring1 = "Medada's Ring",
+        ring2 = "Metamor. Ring +1",
+        back = gear.nuke_jse_back,
+        waist = "Acuity Belt +1",
+        legs = "Wicce Chausses +3",
+        feet = "Wicce Sabots +2"
     })
 
     -- Defense sets
@@ -762,7 +774,7 @@ function init_gear_sets()
         ring2 = "Supershear Ring",
         back = gear.idlefc_jse_back,
         waist = "Plat. Mog. Belt",
-        legs = "Wicce Chausses +2",
+        legs = "Wicce Chausses +3",
         feet = "Wicce Sabots +2"
     }
 
@@ -785,7 +797,7 @@ function init_gear_sets()
         ring2 = "Mujin Band",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
-        legs = "Wicce Chausses +2",
+        legs = "Wicce Chausses +3",
         feet = "Agwu's Pigaches"
     }
 
