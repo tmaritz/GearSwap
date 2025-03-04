@@ -74,16 +74,16 @@ function init_gear_sets()
 	sets.precast.JA['Chainspell'] = {body="Viti. Tabard +3"}
 	
 	-- Steps (Pure Acc)
-    sets.precast.Step = {ammo="Ginsen",
-        head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Zennaroi Earring",
-        body="Malignance Tabard",hands="Malignance Gloves",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
-        back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
+    sets.precast.Step = {ammo="Hasty Pinion +1",
+		head="Malignance Chapeau",neck="Null Loop",ear1="Zennaroi Earring",ear2="Crepuscular Earring",
+		body="Malignance Tabard",hands="Malignance Gloves",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
+		back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 		
 	-- Violent Flourish (Macc & Acc)
-    sets.precast.JA['Violent Flourish'] = {ammo="Ginsen",
-        head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Zennaroi Earring",
-        body="Malignance Tabard",hands="Malignance Gloves",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
-        back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
+    sets.precast.JA['Violent Flourish'] = {ammo="Hasty Pinion +1",
+		head="Malignance Chapeau",neck="Null Loop",ear1="Zennaroi Earring",ear2="Crepuscular Earring",
+		body="Malignance Tabard",hands="Malignance Gloves",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
+		back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 
 	-- Waltz set (chr and vit)
 	sets.precast.Waltz = {}
@@ -117,9 +117,9 @@ function init_gear_sets()
 		body="Nyame Mail",hands="Jhakri Cuffs +2",ring1="Sroda Ring",ring2="Cornelia's Ring",
 		back=gear.str_wsd_jse_back,waist="Fotia Belt",legs="Nyame Flanchard",feet="Leth. Houseaux +3"}
 		
-	sets.precast.WS.Proc = 	{ammo="Ginsen",
-		head="Malignance Chapeau",neck="Null Loop",ear1="Sherida Earring",ear2="Brutal Earring",
-		body="Malignance Tabard",hands="Malignance Gloves",ring1="Chirich Ring +1",ring2="Chirich Ring +1",
+	sets.precast.WS.Proc = 	{ammo="Hasty Pinion +1",
+		head="Malignance Chapeau",neck="Null Loop",ear1="Zennaroi Earring",ear2="Crepuscular Earring",
+		body="Malignance Tabard",hands="Malignance Gloves",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 		
 	-- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.

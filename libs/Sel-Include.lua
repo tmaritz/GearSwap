@@ -2269,9 +2269,10 @@ end
 -- Handle notifications of general state change.
 function state_change(stateField, newValue, oldValue)
 	if stateField == 'Weapons' then
-		if stateField == 'Weapons' and state.AutoLockstyle.value and newValue ~= oldValue then
+		if state.AutoLockstyle.value and newValue ~= oldValue then
 			style_lock = true
 		end
+		
 		if newValue == 'None' then
 			internal_enable_set("Weapons")
 		elseif ((newValue:contains('DW') or newValue:contains('Dual')) and not can_dual_wield) or (newValue:contains('Proc') and state.SkipProcWeapons.value) then
@@ -2281,6 +2282,7 @@ function state_change(stateField, newValue, oldValue)
 				if startindex == state.Weapons.index then break end
 			end
 			newValue = state.Weapons.value
+			equip_weaponset(newValue)
 			if newValue == 'None' or state.UnlockWeapons.value then
 				internal_enable_set("Weapons")
 			elseif not state.ReEquip.value then
