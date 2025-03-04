@@ -168,16 +168,9 @@ end
 function job_aftercast(spell, spellMap, eventArgs)
     if spell.type == 'CorsairRoll' and not spell.interrupted then
 		if state.CompensatorMode.value ~= 'Never' then
-			if (player.equipment.range and player.equipment.range == 'Compensator') and sets.weapons[state.Weapons.value] and sets.weapons[state.Weapons.value].range then
-				equip({range=sets.weapons[state.Weapons.value].range})
-				disable('range')
-			end
-			if sets.precast.CorsairRoll.main and sets.weapons[state.Weapons.value] and sets.weapons[state.Weapons.value].main then
-				equip({main=sets.weapons[state.Weapons.value].main})
-				disable('main')
-			end
+			equip_weaponset()
 		end
-        display_roll_info(spell)
+		display_roll_info(spell)
 	end
 	
 	if state.UseDefaultAmmo.value then
@@ -263,14 +256,7 @@ function job_post_precast(spell, spellMap, eventArgs)
 			equip(sets.precast.LuzafRing)
 		end
 		if spell.type == 'CorsairRoll' and state.CompensatorMode.value ~= 'Never' and (state.CompensatorMode.value == 'Always' or tonumber(state.CompensatorMode.value) > player.tp) then
-			if item_available("Compensator") then
-				enable('range')
-				equip({range="Compensator"})
-			end
-			if sets.precast.CorsairRoll.main and sets.precast.CorsairRoll.main ~= player.equipment.main then
-				enable('main')
-				equip({main=sets.precast.CorsairRoll.main})
-			end
+			internal_enable_set("Weapons")
 		end
     elseif spell.english == 'Fold' and buffactive['Bust'] == 2 and sets.precast.FoldDoubleBust then
 		equip(sets.precast.FoldDoubleBust)
@@ -338,7 +324,6 @@ function do_bullet_checks(spell, spellMap, eventArgs)
 
 		if sets.weapons[state.Weapons.value].ammo and item_available(sets.weapons[state.Weapons.value].ammo) then
 			equip({ammo=sets.weapons[state.Weapons.value].ammo})
-			disable('ammo')
 		elseif item_available(gear.RAbullet) then
 			equip({ammo=gear.RAbullet})
 		else

@@ -4,25 +4,11 @@ PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME
 
 PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME
 
-PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME
-
-PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME
-
-PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME
-
-PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME
-
-PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME
-
-PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME
-
-PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME
-
 You will be either ignored or blacklisted if you message multiple times.
 
-Feel free to send me a way to contact you outside of game,and I'm happy to help, my preferred way of being contacted is Discord, my Stream discord is here: https://discord.gg/ug6xtvQ
+Feel free to send me a way to contact you outside of game,and I'm happy to help, my preferred way of being contacted is Discord, my support discord is here: https://discord.gg/ug6xtvQ
 
-Setting up my Gearswaps and Github updating.
+Setting up my Gearswaps and Github updating:
 
 0.) DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME.
 
@@ -50,13 +36,9 @@ Setting up my Gearswaps and Github updating.
 
 12.) Optional: If you're new to editing files like this I highly reccomend Notepad++, https://notepad-plus-plus.org/ and using File: Open Folder as Workspace, and adding your Gearswap\Data folder there.
 
-13.) Optional: Obtain Init file (Goes in Windower\Script folder) from: https://www.dropbox.com/sh/20vy32liub3glxz/AAAiIVHAasFdwCK1SZdZz7d_a?dl=0 https://github.com/Headtatt/Gearswap/blob/main/init.txt and place it in your Windower\Scripts folder (Rename and keep your original just in case)
+13.) Optional: Obtain Init file (Goes in Windower\Script folder) from: this repo and place it in your Windower\Scripts folder (Rename and keep your original just in case you want to revert.)
 
 14.) Read the Cheat Sheet in your Data Folder, feel free to contact me if there's anything you don't understand but again:
-
-PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME
-
-PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME
 
 PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME
 

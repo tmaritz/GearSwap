@@ -264,48 +264,46 @@ function job_aftercast(spell, spellMap, eventArgs)
 			petWillAct = os.clock()
 			if ConduitLocked and ConduitLocked ~= spell.english then
 				ConduitLocked = nil
-				if state.Weapons.value == 'None' then
-					enable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
-				else
-					enable('range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
-				end
+				internal_enable_set("OneHour")
 			end
-			equip(get_pet_midcast_set(spell, spellMap))
+			local currentSet = (get_pet_midcast_set(spell, spellMap))
 			if state.Buff['Aftermath: Lv.3'] then
 				if sets.midcast.Pet[spell.english] and sets.midcast.Pet[spell.english].AM then
-					equip(sets.midcast.Pet[spell.english].AM)
+					currentSet = set_combine(curentSet, sets.midcast.Pet[spell.english].AM)
 				elseif spellMap == 'PhysicalBloodPactRage' and sets.midcast.Pet.PhysicalBloodPactRage.AM then
-					equip(sets.midcast.Pet.PhysicalBloodPactRage.AM)
+					currentSet = set_combine(curentSet, sets.midcast.Pet.PhysicalBloodPactRage.AM)
 				end
 			end
 
 			if state.CastingMode.value:contains('Resistant') then
 				if sets.midcast.Pet[spell.english] and sets.midcast.Pet[spell.english].Acc then
-					equip(sets.midcast.Pet[spell.english].Acc)
+					currentSet = set_combine(curentSet, sets.midcast.Pet[spell.english].Acc)
 				elseif spellMap == 'PhysicalBloodPactRage' and sets.midcast.Pet.PhysicalBloodPactRage.Acc then
-					equip(sets.midcast.Pet.PhysicalBloodPactRage.Acc)
+					currentSet = set_combine(curentSet, sets.midcast.Pet.PhysicalBloodPactRage.Acc)
 				elseif spellMap == 'MagicalBloodPactRage' and sets.midcast.Pet.MagicalBloodPactRage.Acc then
-						equip(sets.midcast.Pet.MagicalBloodPactRage.Acc)
+					currentSet = set_combine(curentSet, sets.midcast.Pet.MagicalBloodPactRage.Acc)
 				end
 			end
 
 			if spellMap == 'PhysicalBloodPactRage' then
 				if sets.midcast.Pet.PhysicalBloodPactRage[pet.name] then
-					equip(sets.midcast.Pet.PhysicalBloodPactRage[pet.name])
+					currentSet = set_combine(curentSet, sets.midcast.Pet.PhysicalBloodPactRage[pet.name])
 				end
 			elseif spellMap == 'MagicalBloodPactRage' then
 				if sets.midcast.Pet.MagicalBloodPactRage[pet.name] then
-					equip(sets.midcast.Pet.MagicalBloodPactRage[pet.name])
+					currentSet = set_combine(curentSet, sets.midcast.Pet.MagicalBloodPactRage[pet.name])
 				end
 			elseif spellMap == 'DebuffBloodPactWard' then
 				if sets.midcast.Pet.BloodPactWard[pet.name] then
-					equip(sets.midcast.Pet.BloodPactWard[pet.name])
+					currentSet = set_combine(curentSet, sets.midcast.Pet.BloodPactWard[pet.name])
 				end
 			end
 
+			equip(currentSet)
+
 			if state.Buff['Astral Conduit'] and ConduitLock and ConduitLocked == nil then
 				ConduitLocked = spell.english
-				disable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
+				internal_disable_set(currentSet, "OneHour")
 				add_to_chat(217, "Astral Conduit on, locking your "..spell.english.." set.")
 			end
 			eventArgs.handled = true
@@ -343,12 +341,7 @@ function job_buff_change(buff, gain)
 	if buff == 'Astral Conduit' and ConduitLocked ~= nil and not gain then
 		ConduitLocked = nil
 		add_to_chat(217, "Astral Conduit has worn, enabling all slots.")
-
-		if state.Weapons.value == 'None' then
-			enable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
-		else
-			enable('range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
-		end
+		internal_enable_set("OneHour")
 	end
 end
 
@@ -378,9 +371,7 @@ function job_pet_change(petparam, gain)
 			add_to_chat(217, "No Avatar summoned, enabling slots.")
 
 			if state.OffenseMode.value == 'None' then
-				enable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
-			else
-				enable('range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
+				internal_enable_set("OneHour")
 			end
 		end
 	end

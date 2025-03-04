@@ -144,7 +144,7 @@ end
 function job_precast(spell, spellMap, eventArgs)
 	if spell.english:startswith('Temper') or (spell.english:startswith('Phalanx') and spell.target.type =='SELF') then
 		if state.BuffWeaponsMode.value ~= 'Never' and (state.BuffWeaponsMode.value == 'Always' or tonumber(state.BuffWeaponsMode.value) > player.tp) then
-			enable('main','sub','range','ammo')
+			internal_enable_set("Weapons")
 		end
 	end
 end
@@ -157,7 +157,7 @@ function job_post_precast(spell, spellMap, eventArgs)
 	elseif spell.type == 'WeaponSkill' then
 		local WSset = standardize_set(get_precast_set(spell, spellMap))
 		local wsacc = check_ws_acc()
-		
+
 		if (WSset.ear1 == "Moonshade Earring" or WSset.ear2 == "Moonshade Earring") then
 			-- Replace Moonshade Earring if we're at cap TP
 			if get_effective_player_tp(spell, WSset) >= 3000 then
@@ -273,18 +273,9 @@ function job_post_midcast(spell, spellMap, eventArgs)
 end
 
 function job_aftercast(spell, spellMap, eventArgs)
-	if spell.english:startswith('Temper') or (spell.english:startswith('Phalanx') and spell.target.type =='SELF') then
-		if state.BuffWeaponsMode.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.Value] then
-			equip(sets.weapons[state.Weapons.Value])
-			disable('main','sub')
-			if sets.weapons[state.Weapons.value] then
-				if  (sets.weapons[state.Weapons.value].range or sets.weapons[state.Weapons.value].ranged) then
-					disable('range')
-				end
-				if sets.weapons[state.Weapons.value].ammo then
-					disable('ammo')
-				end
-			end
+	if spell.english:startswith('Temper') or spellMap == 'Enspell' or (spell.english:startswith('Phalanx') and spell.target.type =='SELF') then
+		if state.BuffWeaponsMode.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' then
+			equip_weaponset()
 		end
 	end
 end

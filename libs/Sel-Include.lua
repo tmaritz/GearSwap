@@ -149,6 +149,7 @@ function init_include()
 	state.DisplayMode  	  	  = M(true, 'Display Mode')
 	state.ElementalWheel 	  = M(false, 'Elemental Wheel')
 	state.HoverShot		 	  = M(true, 'HoverShot')
+	state.IdleStep			  = M(true, 'Idle Step Mode')
 	state.Kiting              = M(false, 'Kiting')
 	state.MaintainAftermath	  = M(true, 'Maintain Aftermath')
 	state.MiniQueue		 	  = M(true, 'MiniQueue')
@@ -209,6 +210,7 @@ function init_include()
 	-- Var for tracking misc info
 	info = {}
 	options = {}
+	track_lockon = false
 
 	-- Special control flags.
 	mote_vars = {}
@@ -253,7 +255,9 @@ function init_include()
 	useItemSlot = ''
 	utsusemi_cancel_delay = .5
 	weapons_pagelist = {}
-	
+	disabled_sets = {}
+	local_offset = 18000
+
 	-- Buff tracking that buffactive can't detect
 	lastshadow = "Utsusemi: San"
 	lastwarcry = ''
@@ -446,7 +450,7 @@ function init_include()
 			if not bt or bt.hpp == 0 then
 				in_combat = false
 				if player.status == 'Idle' and not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock())) then
-					send_command('gs c forceequip')
+					send_command('gs c update')
 				end
 				if state.AutoDefenseMode.value and state.DefenseMode.value ~= 'None' then
 					state.DefenseMode:reset()
@@ -527,7 +531,6 @@ function default_zone_change(new_id,old_id)
 	state.AutoNukeMode:reset()
 	rolled_eleven = T{}
 	if state.CraftingMode.value ~= 'None' then
-		enable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
 		state.CraftingMode:reset()
 	end
 	send_command('gs rh disable')
@@ -573,7 +576,7 @@ function time_change(new_time, old_time)
 		if user_job_time_change then
 			user_job_time_change(new_time, old_time)
 		end
-		handle_update({'auto'})
+		send_command('gs c update')
 	end
 end
 
@@ -641,7 +644,6 @@ end
 -- action - string defining the function mapping to use (precast, midcast, etc)
 function handle_actions(spell, action)
 	-- Init an eventArgs that allows cancelling.
-	if state.CraftingMode.value ~= 'None' then return end
 	local eventArgs = {handled = false, cancel = false}
 
 	mote_vars.set_breadcrumbs:clear()
@@ -696,7 +698,6 @@ function handle_actions(spell, action)
 			
 			if eventArgs.cancel and (action == 'pretarget' or action == 'precast') then
 				cancel_spell()
-				return
 			end
 		end
 		
@@ -706,7 +707,6 @@ function handle_actions(spell, action)
 			
 			if eventArgs.cancel and (action == 'pretarget' or action == 'precast') then
 				cancel_spell()
-				return
 			end
 		end
 		
@@ -715,7 +715,6 @@ function handle_actions(spell, action)
 			
 			if eventArgs.cancel and (action == 'pretarget' or action == 'precast') then
 				cancel_spell()
-				return
 			end
 		end
 	
@@ -726,7 +725,6 @@ function handle_actions(spell, action)
 			
 			if eventArgs.cancel and (action == 'pretarget' or action == 'precast') then
 				cancel_spell()
-				return
 			end
 		end
 		
@@ -736,7 +734,6 @@ function handle_actions(spell, action)
 			
 			if eventArgs.cancel and (action == 'pretarget' or action == 'precast') then
 				cancel_spell()
-				return
 			end
 		end
 		
@@ -768,6 +765,8 @@ function handle_actions(spell, action)
 	if _G['cleanup_'..action] then
 		_G['cleanup_'..action](spell, spellMap, eventArgs)
 	end
+	
+	equip(internal_disable)
 end
 
 
@@ -1207,21 +1206,16 @@ function default_aftercast(spell, spellMap, eventArgs)
 		elseif spell.action_type == 'Item' then
 			if useItem and (spell.english == useItemName or useItemSlot == 'set') then
 				useItem = false
-				if useItemSlot == 'item' then
-					send_command('put '..useItemName..' satchel')
-				elseif useItemSlot == 'set' then
-					local slots = T{}
-					for slot,item in pairs(sets[useItemName]) do
-						slots:append(slot)
-					end
-					enable(slots)
-					if player.inventory[useItemName] then
-						send_command('wait 1;put '..set_to_item(useItemName)..' satchel')
-					end
-				else 
-					enable(useItemSlot)
-					if player.inventory[useItemName] then
-						send_command('wait 1;put '..useItemName..' satchel')
+				if disabled_sets['UseItem'] then
+					internal_enable_set("UseItem")
+					if useItemSlot == 'set' then
+						if player.inventory[useItemName] then
+							send_command('wait 1;put '..set_to_item(useItemName)..' satchel')
+						end
+					else 
+						if player.inventory[useItemName] then
+							send_command('wait 1;put '..useItemName..' satchel')
+						end
 					end
 				end
 				useItemName = ''
@@ -1397,12 +1391,12 @@ end
 -- Central point to call to equip gear based on status.
 -- Status - Player status that we're using to define what gear to equip.
 function handle_equipping_gear(playerStatus, petStatus)
-	local current_time = os.clock()
-	if current_time < equipped then
-		return
-	else
-		equipped = current_time + .1
-	end
+	-- local current_time = os.clock()
+	-- if current_time < equipped then
+		-- return
+	-- else
+		-- equipped = current_time + .1
+	-- end
 	
 	-- init a new eventArgs
 	local eventArgs = {handled = false}
@@ -1412,21 +1406,12 @@ function handle_equipping_gear(playerStatus, petStatus)
 		job_handle_equipping_gear(playerStatus, eventArgs)
 	end
 
-	if sets.weapons[state.Weapons.value] and state.ReEquip.value and state.Weapons.value ~= 'None' and not state.UnlockWeapons.value then
-		for i in pairs(data.slots.weapon_slots) do
-			if (player.equipment[data.slots.weapon_slots[i]] and sets.weapons[state.Weapons.value][data.slots.weapon_slots[i]]) then
-				if player.equipment[data.slots.weapon_slots[i]] ~= standardize_slot(sets.weapons[state.Weapons.value][data.slots.weapon_slots[i]]) then
-					equip_weaponset(state.Weapons.value)
-					break
-				end
-			end
-		end
-	end
-
 	-- Equip default gear if job didn't handle it.
 	if not eventArgs.handled then
 		equip_gear_by_status(playerStatus, petStatus)
 	end
+	
+	equip(internal_disable)
 end
 
 
@@ -1600,20 +1585,6 @@ function get_idle_set(petStatus)
 		idleSet = set_combine(idleSet, sets.weapons[state.Weapons.value])
 	end
 	
-	if (buffactive.sleep or buffactive.Lullaby) then
-		if item_available("Sacrifice Torque") and player.main_job == 'SMN' and pet.isvalid then
-			idleSet = set_combine(idleSet, {neck="Sacrifice Torque"})
-		elseif sets.buff.Sleep then
-			idleSet = set_combine(idleSet, sets.buff.Sleep)
-		elseif sets.WakeUpWeapons then
-			idleSet = set_combine(idleSet, sets.WakeUpWeapons)
-		end
-	end
-	
-	if buffactive.doom then
-		idleSet = set_combine(idleSet, sets.buff.Doom)
-	end
-
 	if extra_user_customize_idle_set then
 		idleSet = extra_user_customize_idle_set(idleSet)
 	end
@@ -1702,34 +1673,7 @@ function get_melee_set()
 	if buffactive['Reive Mark'] and sets.Reive then
 		meleeSet = set_combine(meleeSet, sets.Reive)
 	end
-	
-	if (buffactive.sleep or buffactive.Lullaby) and sets.buff.Sleep then
-		if sets.buff.Sleep then
-			meleeSet = set_combine(meleeSet, sets.buff.Sleep)
-		end
-		if item_equippable("Vim Torque") then
-			meleeSet = set_combine(meleeSet, {neck="Vim Torque"})
-		elseif item_equippable("Vim Torque +1") then
-			meleeSet = set_combine(meleeSet, {neck="Vim Torque +1"})
-		elseif item_equippable("Frenzy Sallet") then
-			meleeSet = set_combine(meleeSet, {head="Frenzy Sallet"})
-		elseif item_equippable("Berserker's Torque") then
-			meleeSet = set_combine(meleeSet, {neck="Berserker's Torque"})
-		elseif sets.WakeUpWeapons then
-			if state.Weapons.value == 'None' or state.UnlockWeapons.value then
-				meleeSet = set_combine(meleeSet, sets.WakeUpWeapons)
-			elseif state.WakeUpWeapons.value then
-				state.UnlockWeapons:set('True')
-				state.UnlockWeapons.set:schedule(3, state.UnlockWeapons, false)
-				meleeSet = set_combine(meleeSet, sets.WakeUpWeapons)
-			end
-		end
-	end
-	
-	if buffactive.doom then
-		meleeSet = set_combine(meleeSet, sets.buff.Doom)
-	end
-	
+
 	if extra_user_customize_melee_set then
 		meleeSet = extra_user_customize_melee_set(meleeSet)
 	end
@@ -2247,7 +2191,7 @@ function sub_job_change(newSubjob, oldSubjob)
 		user_job_sub_job_change(newSubjob, oldSubjob)
 	end
 	
-	handle_update({'auto'})
+	send_command('gs c update')
 end
 
 
@@ -2265,6 +2209,8 @@ function status_change(newStatus, oldStatus)
 			send_command('gs rh clear')
 		end
 		
+		moving = false
+		
 		if newStatus == "Dead" or newStatus == "Engaged dead" then
 			rolled_eleven = T{}
 		end
@@ -2274,16 +2220,12 @@ function status_change(newStatus, oldStatus)
 			if useItemSlot == 'item' then
 				send_command('put '..useItemName..' satchel')
 			elseif useItemSlot == 'set' then
-				local slots = T{}
-				for slot,item in pairs(sets[useItemName]) do
-					slots:append(slot)
-				end
-				enable(slots)
+				internal_enable_set(sets[useItemName], "UseItem")
 				if player.inventory[useItemName] then
 					send_command('wait 1;put '..set_to_item(useItemName)..' satchel')
 				end
 			else 
-				enable(useItemSlot)
+				internal_enable_set("UseItem")
 				if player.inventory[useItemName] then
 					send_command('wait 1;put '..useItemName..' satchel')
 				end
@@ -2291,6 +2233,7 @@ function status_change(newStatus, oldStatus)
 			add_to_chat(217,"Cancelling using "..useItemName..".")
 			useItemName = ''
 			useItemSlot = ''
+			internal_enable_set("UseItem")
 		end
 	end
 	
@@ -2326,36 +2269,30 @@ end
 -- Handle notifications of general state change.
 function state_change(stateField, newValue, oldValue)
 	if stateField == 'Weapons' then
-		
 		if stateField == 'Weapons' and state.AutoLockstyle.value and newValue ~= oldValue then
 			style_lock = true
 		end
-	
 		if newValue == 'None' then
-			enable('main','sub','range','ammo')
+			internal_enable_set("Weapons")
 		elseif ((newValue:contains('DW') or newValue:contains('Dual')) and not can_dual_wield) or (newValue:contains('Proc') and state.SkipProcWeapons.value) then
 			local startindex = state.Weapons.index
 			while ((state.Weapons.value:contains('DW') or state.Weapons.value:contains('Dual')) and not can_dual_wield) or (state.SkipProcWeapons.value and state.Weapons.value:contains('Proc')) do
 				state.Weapons:cycle()
 				if startindex == state.Weapons.index then break end
 			end
-			
 			newValue = state.Weapons.value
-			
 			if newValue == 'None' or state.UnlockWeapons.value then
-				enable('main','sub','range','ammo')
+				internal_enable_set("Weapons")
 			elseif not state.ReEquip.value then
 				equip_weaponset(newValue)
 			end
 		elseif sets.weapons[newValue] then
-			if not state.ReEquip.value then equip_weaponset(newValue) end
+			equip_weaponset(newValue)
 		else
 			if not sets.weapons[newValue] then
 				add_to_chat(123,"sets.weapons."..newValue.." does not exist, resetting weapon state.")
 			end
 			state.Weapons:reset()
-			newValue = state.Weapons.value
-			if not state.ReEquip.value then	equip_weaponset(newValue) end
 		end
 
 		if autows_list[newValue] then
@@ -2372,7 +2309,7 @@ function state_change(stateField, newValue, oldValue)
 		end
 	elseif stateField == 'Unlock Weapons' then
 		if newValue == true then
-			enable('main','sub','range','ammo')
+			internal_enable_set("Weapons")
 		else
 			equip_weaponset(state.Weapons.value)
 		end
@@ -2391,12 +2328,10 @@ function state_change(stateField, newValue, oldValue)
 			send_command('wait .001;gs c DisplayElement')
 		end
 	elseif stateField == 'Capacity' and newValue == 'false' and data.equipment.cprings:contains(player.equipment.left_ring) then
-			enable("ring1")
+			internal_enable_set("UseItem")
 	elseif stateField == 'Crafting Mode' then
-		enable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
-		if newValue == 'None' then
-			handle_update({'auto'})
-		else
+		internal_enable_set("Crafting")
+		if newValue ~= 'None' then
 			local craftingset = sets.crafting
 			if sets.crafting[newValue] then
 				craftingset = set_combine(craftingset,sets.crafting[newValue])
@@ -2408,8 +2343,7 @@ function state_change(stateField, newValue, oldValue)
 				craftingset = set_combine(craftingset,sets.crafting[newValue].NQ)
 			end
 			
-			equip(craftingset)
-			disable('main','sub','range','ammo','head','neck','lear','rear','body','hands','lring','rring','back','waist','legs','feet')
+			internal_disable_set(craftingset, "Crafting")
 		end
 	end
 
@@ -2424,7 +2358,6 @@ function state_change(stateField, newValue, oldValue)
 	if user_job_state_change then
 		user_job_state_change(stateField, newValue, oldValue)
 	end
-	
 	if state.DisplayMode.value then update_job_states()	end
 end
 
@@ -2457,30 +2390,47 @@ function buff_change(buff, gain)
 
 	if buff == 'Voidwatcher' then
 		state.SkipProcWeapons:set('False')
-	elseif (buff == 'sleep' or buff == 'Lullaby') then
-		if state.CancelStoneskin.value and gain then send_command('cancel stoneskin') end
-		if state.UnlockWeapons.value or state.WakeUpWeapons.value and state.Weapons.value ~= 'None' and state.Weapons:contains('None') then
-			if gain then
-				last_weapons = state.Weapons.value
-				state.Weapons:set('None')
-			elseif last_weapons then
-				state.Weapons:set(last_weapons)
-				last_weapons = nil
+	elseif buff == 'doom' then
+		if gain then
+			internal_disable_set(sets.buff.Doom, "Doom")
+		else
+			internal_enable_set("Doom")
+		end
+	elseif buff == 'sleep' or buff == 'Lullaby' then
+		if gain then
+			if item_equippable("Sacrifice Torque") and pet.isvalid then
+				internal_disable_set({neck="Sacrifice Torque"}, "Sleep")
+			elseif player.status == 'Engaged' then
+				if item_equippable("Vim Torque") then
+					internal_disable_set({neck="Vim Torque"}, "Sleep")
+				elseif item_equippable("Vim Torque +1") then
+					internal_disable_set({neck="Vim Torque +1"}, "Sleep")
+				elseif item_equippable("Frenzy Sallet") then
+					internal_disable_set({head="Frenzy Sallet"}, "Sleep")
+				elseif item_equippable("Berserker's Torque") then
+					internal_disable_set({neck="Berserker's Torque"}, "Sleep")
+				elseif state.WakeUpWeapons.value and sets.WakeUpWeapons then
+					internal_disable_set(sets.WakeUpWeapons, "Sleep")
+				end
+			elseif state.WakeUpWeapons.value and sets.WakeUpWeapons then
+				internal_disable_set(sets.WakeUpWeapons, "Sleep")
 			end
+		else
+			internal_enable_set("Sleep")
 		end
 	elseif (buff == 'Blink' or buff == 'Third Eye' or buff:startswith('Copy Image')) then
 		if not gain then lastshadow = "None" end
 	elseif (buff == 'Commitment' or buff == 'Dedication') then
 		if gain and (data.equipment.cprings:contains(player.equipment.left_ring) or data.equipment.xprings:contains(player.equipment.left_ring)) then
-			enable("ring1")			
+			internal_enable_set("UseItem")
 		elseif gain and (player.equipment.head == "Guide Beret" or player.equipment.head == "Sprout Beret") then
-			enable("head")
+			internal_enable_set("UseItem")
 		end
 	elseif rolled_eleven:contains(buff) then
 		if not gain then remove_table_value(rolled_eleven, buff) end
 	elseif buff == "Emporox's Gift" then
 		if player.equipment.left_ring == "Emporox's Ring" and gain then
-			enable("ring1")
+			internal_enable_set("UseItem")
 		end
 	elseif buff:endswith('Imagery') then
 		local craft = T(buff:split(' '))

@@ -98,7 +98,7 @@ function job_precast(spell, spellMap, eventArgs)
 		local equippedweapons = standardize_set(sets.weapons[state.Weapons.value])
 
 		if mijinmain == 'Nagi' and item_available('Nagi') and not equippedweapons:contains('Nagi') then
-			enable('main','sub','range','ammo')
+			internal_enable_set("Weapons")
 		end
 	end
 end
@@ -177,19 +177,19 @@ end
 
 -- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.
 function job_aftercast(spell, spellMap, eventArgs)
-	if spell.english == "Mijin Gakure" then
+	if spell.english == "Mijin Gakure" and item_available("Nagi") then
 		if not state.Weapons.value == 'None' then
-			disable('main','sub','range','ammo')
+			internal_enable_set("Weapons")
 		end
 	elseif spell.interrupted then
 		return
 	elseif spell.english == "Migawari: Ichi" then
 		state.Buff.Migawari = true
 	elseif spellMap == 'ElementalNinjutsu' then
-			if state.MagicBurstMode.value == 'Single' then
-				state.MagicBurstMode:reset()
-			end
-			if state.DisplayMode.value then update_job_states()	end
+		if state.MagicBurstMode.value == 'Single' then
+			state.MagicBurstMode:reset()
+		end
+		if state.DisplayMode.value then update_job_states()	end
 	end
 end
 

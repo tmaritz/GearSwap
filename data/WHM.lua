@@ -352,7 +352,6 @@ end
 
 -- Called by the 'update' self-command.
 function job_update(cmdParams, eventArgs)
-	if cmdParams[1] == 'user' then check_arts() end
 end
 
 

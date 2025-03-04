@@ -157,7 +157,7 @@ function check_reaction(act)
 				}))
 				
 			elseif player.status == 'Idle' and not (midaction() or pet_midaction() or (petWillAct + 2) > os.clock()) then
-				send_command('gs c forceequip')
+				send_command('gs c update')
 			end
 		elseif otherTarget.in_party then
 			if isTarget and check_cover then
@@ -210,7 +210,7 @@ function check_reaction(act)
 				if  targetsMe then
 					if rollValue == 11 then
 						if not rolled_eleven[1] then
-							send_command('gs c forceequip')
+							send_command('gs c update')
 						end
 						table.insert(rolled_eleven, actionName)
 					else
@@ -242,17 +242,17 @@ function check_reaction(act)
 			if state.TankAutoDefense.value then
 				if state.DefenseMode.value ~= 'Physical' then
 					state.DefenseMode:set('Physical')
-					send_command('gs c forceequip')
+					send_command('gs c update')
 					if state.DisplayMode.value then update_job_states()	end
 				end
 			else
 				state.DefenseMode:reset()
-				send_command('gs c forceequip')
+				send_command('gs c update')
 				if state.DisplayMode.value then update_job_states()	end
 			end
 		elseif not (actor.id == player.id or midaction() or pet_midaction()) and (targetsMe or (otherTarget.in_alliance and targetsDistance < 10)) then
 			--reequip proper gear after curaga/recieved buffs
-			send_command('gs c forceequip')
+			send_command('gs c update')
 		end
 		if isTarget and otherTarget.in_party and check_cover then
 			check_cover(otherTarget)
@@ -401,7 +401,7 @@ function check_reaction(act)
 					if ability_type and state.DefenseMode.value ~= ability_type then
 						state.DefenseMode:set(ability_type)
 					end
-					send_command('gs c forceequip')
+					send_command('gs c update')
 					if state.DisplayMode.value then update_job_states()	end
 				end
 			end
@@ -412,7 +412,7 @@ function check_reaction(act)
 		if targetsMe or otherTarget.in_party or otherTarget.in_alliance then
 			if not in_combat then
 				if not (midaction() or pet_midaction()) then
-					send_command('gs c forceequip')
+					send_command('gs c update')
 				end
 				in_combat = true
 			end
@@ -421,7 +421,7 @@ function check_reaction(act)
 	elseif otherTarget.race == 0 and otherTarget.hpp > 0 and (actor.in_party or actor.in_alliance) then
 		if not in_combat then
 			if not (midaction() or pet_midaction()) then
-				send_command('gs c forceequip')
+				send_command('gs c update')
 			end
 			in_combat = true
 		end
