@@ -153,7 +153,7 @@ function job_post_precast(spell, spellMap, eventArgs)
 				if wsacc:contains('Acc') and not state.Buff['Sneak Attack'] and sets.AccMaxTP then
 					local AccMaxTPset = standardize_set(sets.AccMaxTP)
 
-					if if (AccMaxTPset.ear1:startswith("Lugra Earring") or AccMaxTPset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.AccDayMaxTPWSEars then
+					if (AccMaxTPset.ear1:startswith("Lugra Earring") or AccMaxTPset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.AccDayMaxTPWSEars then
 						equip(sets.AccDayMaxTPWSEars[spell.english] or sets.AccDayMaxTPWSEars)
 					else
 						equip(sets.AccMaxTP[spell.english] or sets.AccMaxTP)
