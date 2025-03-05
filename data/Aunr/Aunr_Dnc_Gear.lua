@@ -75,7 +75,11 @@ function init_gear_sets()
     -- Weapons sets
     sets.weapons.GletiCento = {
         main = "Gleti's Knife",
-        sub = "Fusetto +2"
+        sub = "Centovente"
+    }
+    sets.weapons.TauretCento = {
+        main = "Kaja Knife",
+        sub = "Centovente"
     }
     sets.weapons.TwashTrial = {
         main = "Gleti's Knife",
@@ -265,8 +269,8 @@ function init_gear_sets()
         ammo = "C. Palug Stone",
         head = "Maculele Tiara +2",
         neck = "Rep. Plat. Medal",
-        ear1 = "Sherida Earring",
-        ear2 = "Moonshade Earring",
+        ear1 = "Moonshade Earring",
+        ear2 = "Macu. Earring +1",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Ilabrat Ring",

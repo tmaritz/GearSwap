@@ -780,7 +780,7 @@ function init_gear_sets()
 
     -- Gear that converts elemental damage done to recover MP.	
     sets.RecoverMP = {
-        body = "Spae. Coat +1",
+        body = "Spaekona's Coat +2",
     }
     -- Gear for Magic Burst mode.
     sets.MagicBurst = {
