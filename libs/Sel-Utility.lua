@@ -1234,7 +1234,6 @@ function check_spell_targets(spell, spellMap, eventArgs)
 end
 
 function check_abilities(spell, spellMap, eventArgs)
-
 	if spell.action_type == 'Ability' then
 		if spell.english == 'Seigan' then
 			if buffactive['Seigan'] and windower.ffxi.get_ability_recasts()[133] < latency then
@@ -1244,13 +1243,12 @@ function check_abilities(spell, spellMap, eventArgs)
 			end
 		elseif spell.type == 'Step' then
 			if player.status == 'Idle' and windower.ffxi.get_ability_recasts()[220] and spell.target and spell.target.valid_target and spell.target.spawn_type == 16 and spell.target.distance < (3.2 + player.target.model_size) and player.tp > 99 then
-                packets.inject(packets.new('outgoing', 0x1a, {
-                    ['Target'] = spell.target.id,
-                    ['Target Index'] = spell.target.index,
-                    ['Category']     = 0x02,
-                }))
-				send_command:schedule(0.1,'/ja "'..spell.english..'" '..spell.target.id)
-				
+				packets.inject(packets.new('outgoing', 0x1a, {
+					['Target'] = spell.target.id,
+					['Target Index'] = spell.target.index,
+					['Category']     = 0x02,
+				}))
+
 				if state.IdleStep.value then
 					send_command:schedule(1,'input /attack off')
 				end
@@ -2588,11 +2586,12 @@ function standardize_set(set)
 			standardized_set[slot] = standardize_slot(inner)
 		end
 	end
-	standardized_set.ear1 = standardized_set.ear1 or standardized_set.left_ear or standardized_set.lear or nil
-	standardized_set.ear2 = standardized_set.ear2 or standardized_set.right_ear or standardized_set.rear or nil
-	standardized_set.ring1 = standardized_set.ring1 or standardized_set.left_ring or standardized_set.lring or nil
-	standardized_set.ring2 = standardized_set.ring2 or standardized_set.right_ring or standardized_set.rring or nil
-	standardized_set.range = standardized_set.range or standardized_set.ranged or nil
+	--We need to set '' instead of nil because we're going to be using string functions on these items.
+	standardized_set.ear1 = standardized_set.ear1 or standardized_set.left_ear or standardized_set.lear or ''
+	standardized_set.ear2 = standardized_set.ear2 or standardized_set.right_ear or standardized_set.rear or ''
+	standardized_set.ring1 = standardized_set.ring1 or standardized_set.left_ring or standardized_set.lring or ''
+	standardized_set.ring2 = standardized_set.ring2 or standardized_set.right_ring or standardized_set.rring or ''
+	standardized_set.range = standardized_set.range or standardized_set.ranged or ''
 
 	return standardized_set
 end
