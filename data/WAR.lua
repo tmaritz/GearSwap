@@ -153,14 +153,14 @@ function job_post_precast(spell, spellMap, eventArgs)
 				if wsacc:contains('Acc') and not state.Buff['Sneak Attack'] and sets.AccMaxTP then
 					local AccMaxTPset = standardize_set(sets.AccMaxTP)
 
-					if ((MaxTPset.ear1 and MaxTPset.ear1:startswith("Lugra Earring")) or (MaxTPset.ear2 and MaxTPset.ear2:startswith("Lugra Earring"))) and not classes.DuskToDawn and sets.AccDayMaxTPWSEars then
+					if if (AccMaxTPset.ear1:startswith("Lugra Earring") or AccMaxTPset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.AccDayMaxTPWSEars then
 						equip(sets.AccDayMaxTPWSEars[spell.english] or sets.AccDayMaxTPWSEars)
 					else
 						equip(sets.AccMaxTP[spell.english] or sets.AccMaxTP)
 					end
 				elseif sets.MaxTP then
 					local MaxTPset = standardize_set(sets.MaxTP)
-					if ((MaxTPset.ear1 and MaxTPset.ear1:startswith("Lugra Earring")) or (MaxTPset.ear2 and MaxTPset.ear2:startswith("Lugra Earring"))) and not classes.DuskToDawn and sets.DayMaxTPWSEars then
+					if (MaxTPset.ear1:startswith("Lugra Earring") or MaxTPset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.DayMaxTPWSEars then
 						equip(sets.DayMaxTPWSEars[spell.english] or sets.DayMaxTPWSEars)
 					else
 						equip(sets.MaxTP[spell.english] or sets.MaxTP)
@@ -168,13 +168,13 @@ function job_post_precast(spell, spellMap, eventArgs)
 				else
 				end
 			else
-				if wsacc:contains('Acc') and not state.Buff['Sneak Attack'] and ((MaxTPset.ear1 and MaxTPset.ear1:startswith("Lugra Earring")) or (MaxTPset.ear2 and MaxTPset.ear2:startswith("Lugra Earring"))) and not classes.DuskToDawn and sets.AccDayWSEars then
+				if wsacc:contains('Acc') and not state.Buff['Sneak Attack'] and (WSset.ear1:startswith("Lugra Earring") or WSset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.AccDayWSEars then
 					equip(sets.AccDayWSEars[spell.english] or sets.AccDayWSEars)
-				elseif ((MaxTPset.ear1 and MaxTPset.ear1:startswith("Lugra Earring")) or (MaxTPset.ear2 and MaxTPset.ear2:startswith("Lugra Earring"))) and not classes.DuskToDawn and sets.DayWSEars then
+				elseif (WSset.ear1:startswith("Lugra Earring") or WSset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn and sets.DayWSEars then
 					equip(sets.DayWSEars[spell.english] or sets.DayWSEars)
 				end
 			end
-		elseif ((MaxTPset.ear1 and MaxTPset.ear1:startswith("Lugra Earring")) or (MaxTPset.ear2 and MaxTPset.ear2:startswith("Lugra Earring"))) and not classes.DuskToDawn then
+		elseif (WSset.ear1:startswith("Lugra Earring") or WSset.ear2:startswith("Lugra Earring")) and not classes.DuskToDawn then
 			if wsacc:contains('Acc') and not state.Buff['Sneak Attack'] and sets.AccDayWSEars then
 				equip(sets.AccDayWSEars[spell.english] or sets.AccDayWSEars)
 			elseif sets.DayWSEars then
