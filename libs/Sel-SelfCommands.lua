@@ -570,7 +570,7 @@ function handle_elemental(cmdParams)
 				local spell_name = data.elements.nuke_of[state.ElementalMode.value]..tiers[k]
 				local spell_id = get_spell_id_by_name(spell_name)
 
-				if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
+				if silent_can_cast(spell_name) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
 					windower.chat.input('/ma "'..data.elements.nuke_of[state.ElementalMode.value]..''..tiers[k]..'" '..target)
 					return
 				end
@@ -596,7 +596,7 @@ function handle_elemental(cmdParams)
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		local lower_spell = string.lower(data.elements.nukega_of[state.ElementalMode.value]..'ga II')
 		local spell_id = gearswap.validabils.english['/ma'][lower_spell]
-		if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
+		if silent_can_cast(spell_name) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
 			windower.chat.input('/ma "'..data.elements.nukega_of[state.ElementalMode.value]..'ga II'..'" '..target)
 		else
 			windower.chat.input('/ma "'..data.elements.nukega_of[state.ElementalMode.value]..'ga" '..target)
@@ -835,11 +835,11 @@ function handle_shadows()
 	else
 		if player.main_job == 'SAM' and windower.ffxi.get_ability_recasts()[133] < latency then
 			windower.chat.input('/ja "Third Eye" <me>')
-		elseif silent_can_use(679) and spell_recasts[679] < spell_latency then
+		elseif silent_can_cast("Occultation") and spell_recasts[679] < spell_latency then
 			windower.chat.input('/ma "Occultation" <me>')
-		elseif silent_can_use(53) and spell_recasts[53] < spell_latency then
+		elseif silent_can_cast("Blink") and spell_recasts[53] < spell_latency then
 			windower.chat.input('/ma "Blink" <me>')
-		elseif silent_can_use(647) and spell_recasts[647] < spell_latency then
+		elseif silent_can_cast("Zephyr Mantle") and spell_recasts[647] < spell_latency then
 			windower.chat.input('/ma "Zephyr Mantle" <me>')
 		elseif player.sub_job == 'SAM' and windower.ffxi.get_ability_recasts()[133] < latency then
 			windower.chat.input('/ja "Third Eye" <me>')
@@ -982,7 +982,7 @@ function handle_curecheat(cmdParams)
 		equip(sets.HPDown)
 		if player.main_job == 'BLU' then
 			windower.chat.input('/ma "Magic Fruit" <me>')
-		elseif player.main_job == 'WHM' or not silent_can_use(4) then
+		elseif player.main_job == 'WHM' or not silent_can_cast("Cure IV") then
 			windower.chat.input('/ma "Cure III" <me>')
 		else
 			windower.chat.input('/ma "Cure IV" <me>')
@@ -992,7 +992,7 @@ function handle_curecheat(cmdParams)
 		curecheat = true
 		if player.main_job == 'BLU' then
 			windower.chat.input('/ma "Magic Fruit" <me>')
-		elseif player.main_job == 'WHM' or not silent_can_use(4) then
+		elseif player.main_job == 'WHM' or not silent_can_cast("Cure IV") then
 			windower.chat.input('/ma "Cure III" <me>')
 		else
 			windower.chat.input('/ma "Cure IV" <me>')
@@ -1044,26 +1044,17 @@ function handle_stna(cmdParams)
 		return
 	end
 
-
-	local can_use_na = {}
 	for i, status in ipairs(data.status_map) do
 		local spell = status.spell
 		if targetBuffs[status.buff] then
-			if can_use_na[spell] == nil then
-				can_use_na[spell] = silent_can_use(spell)
-			end
-			if can_use_na[spell] then
+			if silent_can_cast(spell) then
 				windower.chat.input('/ma "'..spell..'" '..removalTarget.name)
 				return
 			end
 		end
 	end
 	
-	if can_use_na['Erase'] == nil then
-		can_use_na['Erase'] = silent_can_use('Erase')
-	end
-	
-	if can_use_na['Erase'] then
+	if silent_can_cast("Erase") then
 		for key in pairs(targetBuffs) do
 			if type(key) == "string" and key:endswith(' down') then
 				windower.chat.input('/ma "Erase" '..removalTarget.name)
@@ -1145,7 +1136,7 @@ function handle_smartcure(cmdParams)
 			add_to_chat(123,'Abort: Appropriate cures are on cooldown.')
 		end
 	else
-		if silent_can_use(4) and spell_recasts[4] < spell_latency then
+		if silent_can_cast("Cure IV") and spell_recasts[4] < spell_latency then
 			windower.chat.input('/ma "Cure IV" '..cureTarget.id..'')
 		elseif spell_recasts[3] < spell_latency then
 			windower.chat.input('/ma "Cure III" '..cureTarget.id..'')
@@ -1318,7 +1309,7 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
-	table.vprint(disabled_sets)
+	table.vprint(silent_can_use_cache)
 	if user_test then
 		user_test(cmdParams)
 	elseif job_test then
