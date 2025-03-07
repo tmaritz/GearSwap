@@ -1,3 +1,6 @@
+--Have a Crafting/Gathering Modes state
+--Have a Normal/HQ/NQ state
+--Watch for gained buffs containing Imagery, if it does, jump to the correct Crafting Mode
 --[[
 sets.Chocobo = {main="Chocobo Wand",head="Egg Helm",neck="Chocobo Torque",body="Blue Race Silks",hands="Chocobo Gloves",waist="Chocobo Rope",legs="Chocobo Hose",feet="Chocobo Boots"}
 sets.Chocobo.skill = {body="S. Blue Race Silks"}
