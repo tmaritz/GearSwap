@@ -450,7 +450,7 @@ function handle_job_elemental(command, target)
 				local spell_name = data.elements.nuke_of[state.ElementalMode.value]..tiers[k]
 				local spell_id = get_spell_id_by_name(spell_name)
 
-				if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
+				if silent_can_cast(spell_name) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
 					windower.chat.input('/ma "'..spell_name..'" '..target..'')
 					return true
 				end
@@ -466,7 +466,7 @@ function handle_job_elemental(command, target)
 			for k in pairs(tierkey) do
 				local spell_name = data.elements.nukera_of[state.ElementalMode.value]..tierkey[k]
 				local spell_id = get_spell_id_by_name(spell_name)
-				if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
+				if silent_can_cast(spell_name) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
 					windower.chat.input('/ma "'..spell_name..'" '..target..'')
 					return true
 				end

@@ -256,6 +256,7 @@ function init_include()
 	utsusemi_cancel_delay = .5
 	weapons_pagelist = {}
 	disabled_sets = {}
+	silent_can_use_cache = {['/ma']={},['/ja']={},['/ws']={}}
 	local_offset = 18000
 
 	-- Buff tracking that buffactive can't detect
@@ -368,7 +369,7 @@ function init_include()
 				if p['Target Name'] == 'Mytha' then
 					for i in pairs(naughty_list) do 
 						if p['Message']:contains(naughty_list[i]) then
-							windower.add_to_chat(123,'Message Aborted: Please do not message me about anything third party ingame.')
+							windower.add_to_chat(123,'Message Aborted: Please do not message me about anything third party ingame. -50DKP')
 							windower.add_to_chat(123,'Contact me on Discord: KalesAndRancor#5410 or https://discord.gg/ug6xtvQ')
 							return true
 						end
@@ -518,7 +519,7 @@ function zone_change(new_id,old_id)
 	
 	default_zone_change(new_id,old_id)
 end
-	
+
 function default_zone_change(new_id,old_id)
 	add_tick_delay(10)
 	state.AutoBuffMode:reset()
@@ -530,6 +531,7 @@ function default_zone_change(new_id,old_id)
 	state.AutoWSMode:reset()
 	state.AutoNukeMode:reset()
 	rolled_eleven = T{}
+	silent_can_use_cache = {['/ma']={},['/ja']={},['/ws']={}}
 	if state.CraftingMode.value ~= 'None' then
 		state.CraftingMode:reset()
 	end
@@ -925,7 +927,7 @@ end
 function extra_default_filtered_action(spell, eventArgs)
 	if spell.action_type == 'Item' and world.area == "Mog Garden" then
 		return
-	elseif spell.action_type == 'Magic' and not silent_can_use(spell.recast_id) and stepdown(spell, eventArgs) then
+	elseif spell.action_type == 'Magic' and not silent_can_cast(spell.name) and stepdown(spell, eventArgs) then
 	elseif not can_use(spell) then
 	end
 	cancel_spell()
@@ -2269,6 +2271,7 @@ end
 -- Handle notifications of general state change.
 function state_change(stateField, newValue, oldValue)
 	if stateField == 'Weapons' then
+		silent_can_use_cache['/ws']= {}
 		if state.AutoLockstyle.value and newValue ~= oldValue then
 			style_lock = true
 		end
