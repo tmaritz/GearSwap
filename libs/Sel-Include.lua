@@ -105,7 +105,7 @@ function init_include()
 	state.CombatForm          = M{['description'] = 'Combat Form', ['string']=''}
 	state.CombatWeapon        = M{['description'] = 'Combat Weapon', ['string']=''}
 	state.CraftQuality  	  = M{['description'] = 'Crafting Quality','Normal','HQ','NQ'}
-	state.CraftingMode		  = M{['description'] = 'Crafting Mode','None','Alchemy','Bonecraft','Clothcraft','Cooking','Fishing','Goldsmithing','Leathercraft','Smithing','Woodworking'}
+	state.CraftingMode		  = M{['description'] = 'Crafting Mode','None','Alchemy','Bonecraft','Clothcraft','Cooking','Fishing','Gathering','Goldsmithing','Leathercraft','Smithing','Woodworking'}
 	state.DefenseMode         = M{['description'] = 'Defense Mode', 'None', 'Physical', 'Magical', 'Resist'}
 	state.ElementalMode 	  = M{['description'] = 'Elemental Mode', 'Fire','Ice','Wind','Earth','Lightning','Water','Light','Dark'}
 	state.ExtraDefenseMode 	  = M{['description'] = 'Extra Defense Mode','None'}
@@ -2336,19 +2336,29 @@ function state_change(stateField, newValue, oldValue)
 			internal_enable_set("UseItem")
 	elseif stateField == 'Crafting Mode' then
 		internal_enable_set("Crafting")
-		if newValue ~= 'None' then
-			local craftingset = sets.crafting
+		if newValue ~= 'None' and sets.crafting and sets.crafting[newValue] then
+			local craftingSet = sets.crafting
 			if sets.crafting[newValue] then
-				craftingset = set_combine(craftingset,sets.crafting[newValue])
+				craftingSet = set_combine(craftingSet,sets.crafting[newValue])
 			end
 			
-			if state.CraftQuality.value == 'HQ' and sets.crafting.HQ then
-				craftingset = set_combine(craftingset,sets.crafting.HQ)
-			elseif state.CraftQuality.value == 'NQ' and sets.crafting[newValue] and sets.crafting[newValue].NQ then
-				craftingset = set_combine(craftingset,sets.crafting[newValue].NQ)
+			if state.CraftQuality.value == 'HQ' then
+				if sets.crafting[newValue].HQ then
+					craftingSet = set_combine(craftingSet,sets.crafting[newValue].HQ)
+				elseif sets.crafting.HQ then
+					craftingSet = set_combine(craftingSet,sets.crafting.HQ)
+				end
+			elseif state.CraftQuality.value == 'NQ' then
+				if sets.crafting[newValue].NQ then
+					craftingSet = set_combine(craftingSet,sets.crafting[newValue].NQ)
+				elseif sets.crafting.NQ then
+					craftingSet = set_combine(craftingSet,sets.crafting.NQ)
+				end
 			end
-			
-			internal_disable_set(craftingset, "Crafting")
+			internal_disable_set(craftingSet, "Crafting")
+		else
+			add_to_chat(123, "No matching crafting set for: ["..newValue.."], resetting Crafting Mode.")
+			state.CraftingMode:reset()
 		end
 	end
 
