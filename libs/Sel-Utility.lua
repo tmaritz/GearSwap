@@ -112,7 +112,7 @@ do
 	auto_translate = function(term)
 		if not cache[term] then
 			local entry = res.auto_translates:with('english', term)
-			cache[term] = entry and 'CH>HC':pack(0xFD, 0x0202, entry.id, 0xFD) or term
+			cache[term] = entry and ('CH>HC'):pack(0xFD, 0x0202, entry.id, 0xFD) or term
 		end
 
 		return cache[term]
@@ -617,14 +617,14 @@ function silent_can_use(action, action_type)
 			silent_can_use_cache['/ma'][action] = false
 		-- Filter for spells that you know, but do not currently have access to
 		elseif (not spell_jobs[player.main_job_id] or not (spell_jobs[player.main_job_id] <= player.main_job_level or
-			(spell_jobs[player.main_job_id] >= 100 and number_of_jps(player.job_points[player.main_job:lower()]) >= spell_jobs[player.main_job_id]))) and
+			(spell_jobs[player.main_job_id] >= 100 and number_of_jps(player.job_points[(res.jobs[player.main_job_id].ens):lower()]) >= spell_jobs[player.main_job_id]))) and
 			(not spell_jobs[player.sub_job_id] or not (spell_jobs[player.sub_job_id] <= player.sub_job_level)) then
 			silent_can_use_cache['/ma'][action] = false
 		else
 			silent_can_use_cache['/ma'][action] = true
 		end
 	elseif action_type == '/ja' then
-		local available_abilities = windower.ffxi.get_ability_recasts()
+		local available_abilities = get_ability_recasts()
 		if available_abilities[action_id] then
 			silent_can_use_cache['/ja'][action] = true
 		else
@@ -643,38 +643,6 @@ end
 
 function silent_can_cast(spell)
 	return silent_can_use(spell, '/ma')
-end
-
-function silent_can_ability(spell)
-	return silent_can_use(spell, '/ja')
-end
-
-function silent_can_weaponskill(spell)
-	return silent_can_use(spell, '/ws')
-end
-
-function lock_crafting_gear()
-	if state.CraftingMode.value ~= 'None' then
-		if sets.crafting then
-			local craftingSet = sets.crafting
-			if sets.crafting[state.CraftQuality.value] then
-				craftingSet = set_combine(craftingSet,sets.crafting[state.CraftQuality.value])
-			end
-			if sets.crafting[state.CraftingMode.value] then
-				craftingSet = set_combine(craftingSet,sets.crafting[state.CraftingMode.value])
-				if sets.crafting[state.CraftingMode.value][state.CraftQuality.value] then
-					craftingSet = set_combine(craftingSet,sets.crafting[state.CraftingMode.value][state.CraftQuality.value])
-				end
-			end
-			internal_disable_set(craftingSet, "Crafting")
-		else
-			add_to_chat(123, "No crafting set available, resetting Crafting Mode.")
-			state.CraftingMode:reset()
-			internal_enable_set("Crafting")
-		end
-	else
-		internal_enable_set("Crafting")
-	end
 end
 
 function can_use(spell)

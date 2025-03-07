@@ -689,8 +689,8 @@ function handle_elemental(cmdParams)
 
 	elseif command == 'aga' or command == 'smallaga' then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
-		local spell_name = data.elements.nukega_of[state.ElementalMode.value]..'ga II'
-		local spell_id = get_spell_id_by_name(spell_name)
+		local lower_spell = string.lower(data.elements.nukega_of[state.ElementalMode.value]..'ga II')
+		local spell_id = gearswap.validabils.english['/ma'][lower_spell]
 		if silent_can_cast(spell_name) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
 			windower.chat.input('/ma "'..data.elements.nukega_of[state.ElementalMode.value]..'ga II'..'" '..target)
 		else
@@ -1076,9 +1076,9 @@ function handle_curecheat(cmdParams, eventArgs)
 		curecheat = true
 		equip(sets.HPDown)
 		if player.main_job == 'BLU' then
-			windower.chat.input:schedule(.2,'/ma "Magic Fruit" <me>')
+			windower.chat.input('/ma "Magic Fruit" <me>')
 		elseif player.main_job == 'WHM' or not silent_can_cast("Cure IV") then
-			windower.chat.input:schedule(.2,'/ma "Cure III" <me>')
+			windower.chat.input('/ma "Cure III" <me>')
 		else
 			windower.chat.input:schedule(.2,'/ma "Cure IV" <me>')
 		end
@@ -1405,6 +1405,7 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
+	table.vprint(silent_can_use_cache)
 	if user_test then
 		user_test(cmdParams)
 	elseif job_test then
