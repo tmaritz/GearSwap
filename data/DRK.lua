@@ -67,6 +67,10 @@ function job_setup()
 	autofood = 'Soy Ramen'
 
 	update_melee_groups()
+	
+	wants_dark_seal = S{
+	'Absorb-STR','Absorb-DEX','Absorb-VIT','Absorb-Attri',
+	'Absorb-INT','Absorb-MND','Absorb-CHR','Absorb-AGI','Absorb-ACC', 'Dread Spikes', 'Drain II', 'Drain III'}
 
 	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoNukeMode","AutoStunMode","AutoDefenseMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","Stance","IdleMode","Passive","RuneElement","DrainSwapWeaponMode","CastingMode","TreasureMode",})
 end
@@ -78,43 +82,49 @@ end
 -- Set eventArgs.useMidcastGear to true if we want midcast gear equipped on precast.
 
 function job_precast(spell, spellMap, eventArgs)
-
 	if spell.type == 'WeaponSkill' and state.AutoBuffMode.value ~= 'Off' then
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 		if spell.english == 'Entropy' and not buffactive['Sekkanoki'] and abil_recasts[95] < latency then
 			eventArgs.cancel = true
 			windower.chat.input('/ja "Consume Mana" <me>')
 			windower.chat.input:schedule(1.1,'/ws "Entropy" <t>')
-			add_tick_delay(1.1)
+			add_tick_delay(2.1)
 			return
 		elseif player.sub_job == 'SAM' and not state.Buff['SJ Restriction'] then
-				if player.tp > 1850 and not buffactive['Consume Mana'] and abil_recasts[140] < latency then
-					eventArgs.cancel = true
-					windower.chat.input('/ja "Sekkanoki" <me>')
-					windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
-					add_tick_delay(1.1)
-					return
-				elseif abil_recasts[134] < latency then
-					eventArgs.cancel = true
-					windower.chat.input('/ja "Meditate" <me>')
-					windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
-					add_tick_delay(1.1)
-					return
-				end
+			if player.tp > 1850 and not buffactive['Consume Mana'] and abil_recasts[140] < latency then
+				eventArgs.cancel = true
+				windower.chat.input('/ja "Sekkanoki" <me>')
+				windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+				add_tick_delay(2.1)
+				return
+			elseif abil_recasts[134] < latency then
+				eventArgs.cancel = true
+				windower.chat.input('/ja "Meditate" <me>')
+				windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+				add_tick_delay(2.1)
+				return
 			end
+		end
+	elseif spell.skill == 'Dark Magic' and wants_dark_seal:contains(spell.english) and (state.DrainSwapWeaponMode.value == 'Always' or tonumber(state.DrainSwapWeaponMode.value) > player.tp) then
+		internal_enable_set("Weapons")
 	end
-
 end
 
 function job_aftercast(spell, spellMap, eventArgs)
 	if not spell.interrupted then
-		if (spell.english == 'Drain II' or spell.english == 'Drain III' or spellMap == "Absorb" or spell.english == 'Dread Spikes') and state.DrainSwapWeaponMode.value ~= 'Never' then			
-				equip_weaponset()			
-		elseif state.UseCustomTimers.value and (spell.english == 'Sleep' or spell.english == 'Sleepga') then
-			send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 60 down spells/00220.png')
-		elseif spell.skill == 'Elemental Magic' and state.MagicBurstMode.value == 'Single' then
-			state.MagicBurstMode:reset()
-			if state.DisplayMode.value then update_job_states()	end
+		if spell.skill == 'Dark Magic' then
+			if (spellMap == "Drain" or spellMap == "Absorb" or spell.english == 'Dread Spikes') and state.DrainSwapWeaponMode.value ~= 'Never' then			
+				equip_weaponset()
+			end
+		elseif (spell.english == 'Sleep' or spell.english == 'Sleepga') then
+			if state.UseCustomTimers.value then
+				send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 60 down spells/00220.png')
+			end
+		elseif spell.skill == 'Elemental Magic' then
+			if state.MagicBurstMode.value == 'Single' then
+				state.MagicBurstMode:reset()
+				if state.DisplayMode.value then update_job_states()	end
+			end
 		end
 	end
 end
@@ -190,54 +200,48 @@ function job_post_precast(spell, spellMap, eventArgs)
 	end
 end
 
-Wants_Dark_Seal_maps = S{
-	'Absorb-STR','Absorb-DEX','Absorb-VIT',
-	'Absorb-INT','Absorb-MND','Absorb-CHR','Absorb-AGI','Absorb-ACC', 'Dread Spikes', 'Drain II', 'Drain III'}
+
 
 
 function job_post_midcast(spell, spellMap, eventArgs)
-if spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
-	if state.MagicBurstMode.value ~= 'Off' then equip(sets.MagicBurst) end
-	if spell.element == world.weather_element or spell.element == world.day_element then
-		if state.CastingMode.value == 'Fodder' then
-			if spell.element == world.day_element then
-				if item_available('Zodiac Ring') then
-					sets.ZodiacRing = {ring2="Zodiac Ring"}
-					equip(sets.ZodiacRing)
+	if spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
+		if state.MagicBurstMode.value ~= 'Off' then equip(sets.MagicBurst) end
+		if spell.element == world.weather_element or spell.element == world.day_element then
+			if state.CastingMode.value == 'Fodder' then
+				if spell.element == world.day_element then
+					if item_available('Zodiac Ring') then
+						sets.ZodiacRing = {ring2="Zodiac Ring"}
+						equip(sets.ZodiacRing)
+					end
 				end
 			end
 		end
-	end
 
-	if spell.element and sets.element[spell.element] then
-		equip(sets.element[spell.element])
-	end
-elseif spell.skill == 'Dark Magic' then
-	if state.Buff['Nether Void'] and sets.buff['Nether Void'] and (Wants_Dark_Seal_maps:contains(spell.english) or spell.english == 'Absorb-Attri') then
-		equip(sets.buff['Nether Void'])
-	end
-	if state.Buff['Dark Seal'] and sets.buff['Dark Seal'] and Wants_Dark_Seal_maps:contains(spell.english)  then
-		equip(sets.buff['Dark Seal'])
-	end
-	if (spell.english == 'Drain II' or spell.english == 'Drain III') and state.DrainSwapWeaponMode.value ~= 'Never' then
-		if sets.DrainWeapon and (state.DrainSwapWeaponMode.value == 'Always' or tonumber(state.DrainSwapWeaponMode.value) > player.tp) then
-			internal_enable_set("Weapons")
-			equip(sets.DrainWeapon)
+		if spell.element and sets.element[spell.element] then
+			equip(sets.element[spell.element])
+		end
+	elseif spell.skill == 'Dark Magic' then
+		if state.Buff['Nether Void'] and sets.buff['Nether Void'] and (not spell.english == 'Dread Spikes' and wants_dark_seal:contains(spell.english)) then
+			equip(sets.buff['Nether Void'])
+		end
+		if state.Buff['Dark Seal'] and sets.buff['Dark Seal'] and wants_dark_seal:contains(spell.english)  then
+			equip(sets.buff['Dark Seal'])
+		end
+		
+		if spellMap == "Drain" then
+			if sets.DrainWeapon then
+				equip(sets.DrainWeapon)
+			end
+		elseif spellMap == "Absorb" then
+			if sets.AbsorbWeapon then
+				equip(sets.AbsorbWeapon)
+			end
+		elseif spell.english == 'Dread Spikes' then
+			if sets.DreadbWeapon then
+				equip(sets.DreadWeapon)
+			end
 		end
 	end
-		if Wants_Dark_Seal_maps:contains(spell.english) and spellMap == "Absorb" and state.DrainSwapWeaponMode.value ~= 'Never' then
-		if sets.AbsorbWeapon and (state.DrainSwapWeaponMode.value == 'Always' or tonumber(state.DrainSwapWeaponMode.value) > player.tp) then
-			internal_enable_set("Weapons")
-			equip(sets.AbsorbWeapon)
-		end
-	end
-		if spell.english == 'Dread Spikes' and state.DrainSwapWeaponMode.value ~= 'Never' then
-		if sets.DreadWeapon and (state.DrainSwapWeaponMode.value == 'Always' or tonumber(state.DrainSwapWeaponMode.value) > player.tp) then
-			internal_enable_set("Weapons")
-			equip(sets.DreadWeapon)
-		end
-	end
-end
 end
 
 function job_tick()
