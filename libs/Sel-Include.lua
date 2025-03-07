@@ -2334,31 +2334,35 @@ function state_change(stateField, newValue, oldValue)
 		end
 	elseif stateField == 'Capacity' and newValue == 'false' and data.equipment.cprings:contains(player.equipment.left_ring) then
 			internal_enable_set("UseItem")
-	elseif stateField == 'Crafting Mode' then
-		internal_enable_set("Crafting")
-		if newValue ~= 'None' and sets.crafting and sets.crafting[newValue] then
-			local craftingSet = sets.crafting
-			if sets.crafting[newValue] then
-				craftingSet = set_combine(craftingSet,sets.crafting[newValue])
-			end
-			
-			if state.CraftQuality.value == 'HQ' then
-				if sets.crafting[newValue].HQ then
-					craftingSet = set_combine(craftingSet,sets.crafting[newValue].HQ)
-				elseif sets.crafting.HQ then
-					craftingSet = set_combine(craftingSet,sets.crafting.HQ)
+	elseif stateField == 'Crafting Mode' or stateField == 'Crafting Quality' then
+		if state.CraftingMode.value ~= 'None' then
+			if sets.crafting and sets.crafting[state.CraftingMode.value] then
+				local craftingSet = sets.crafting
+				if sets.crafting[state.CraftQuality.value] then
+					craftingSet = set_combine(craftingSet,sets.crafting[state.CraftQuality.value])
 				end
-			elseif state.CraftQuality.value == 'NQ' then
-				if sets.crafting[newValue].NQ then
-					craftingSet = set_combine(craftingSet,sets.crafting[newValue].NQ)
-				elseif sets.crafting.NQ then
-					craftingSet = set_combine(craftingSet,sets.crafting.NQ)
+				
+				if state.CraftQuality.value == 'HQ' then
+					if sets.crafting[state.CraftingMode.value].HQ then
+						craftingSet = set_combine(craftingSet,sets.crafting[state.CraftQuality.value].HQ)
+					elseif sets.crafting.HQ then
+						craftingSet = set_combine(craftingSet,sets.crafting.HQ)
+					end
+				elseif state.CraftQuality.value == 'NQ' then
+					if sets.crafting[state.CraftQuality.value].NQ then
+						craftingSet = set_combine(craftingSet,sets.crafting[state.CraftQuality.value].NQ)
+					elseif sets.crafting.NQ then
+						craftingSet = set_combine(craftingSet,sets.crafting.NQ)
+					end
 				end
+				internal_disable_set(craftingSet, "Crafting")
+			else
+				add_to_chat(123, "No matching crafting set for: ["..newValue.."], resetting Crafting Mode.")
+				state.CraftingMode:reset()
+				internal_enable_set("Crafting")
 			end
-			internal_disable_set(craftingSet, "Crafting")
 		else
-			add_to_chat(123, "No matching crafting set for: ["..newValue.."], resetting Crafting Mode.")
-			state.CraftingMode:reset()
+			internal_enable_set("Crafting")
 		end
 	end
 
