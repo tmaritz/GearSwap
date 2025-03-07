@@ -112,19 +112,13 @@ end
 
 function job_aftercast(spell, spellMap, eventArgs)
 	if not spell.interrupted then
-		if spell.skill == 'Dark Magic' then
-			if (spellMap == "Drain" or spellMap == "Absorb" or spell.english == 'Dread Spikes') and state.DrainSwapWeaponMode.value ~= 'Never' then			
-				equip_weaponset()
-			end
-		elseif (spell.english == 'Sleep' or spell.english == 'Sleepga') then
-			if state.UseCustomTimers.value then
-				send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 60 down spells/00220.png')
-			end
-		elseif spell.skill == 'Elemental Magic' then
-			if state.MagicBurstMode.value == 'Single' then
-				state.MagicBurstMode:reset()
-				if state.DisplayMode.value then update_job_states()	end
-			end
+		if (spell.english == 'Drain II' or spell.english == 'Drain III' or spellMap == "Absorb" or spell.english == 'Dread Spikes') and state.DrainSwapWeaponMode.value ~= 'Never' then			
+				equip_weaponset()			
+		elseif state.UseCustomTimers.value and (spell.english == 'Sleep' or spell.english == 'Sleepga') then
+			send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 60 down spells/00220.png')
+		elseif spell.skill == 'Elemental Magic' and state.MagicBurstMode.value == 'Single' then
+			state.MagicBurstMode:reset()
+			if state.DisplayMode.value then update_job_states()	end
 		end
 	end
 end
