@@ -28,3 +28,7 @@ sets.crafting.Synergy = {}
 sets.crafting.Gathering = {}
 sets.crafting.Fishing = {range="Ebisu Fishing Rod",neck="Fisher's Torque",body="Fisherman's Smock",hands="Fsh. Gloves",ring1="Noddy Ring",ring2=="Puffin Ring",waist="Fisher's Rope",legs="Fisherman's Hose",feet="Waders"}
 ]]
+
+sets.crafting = {head="Blistering Sallet +1"}
+sets.crafting.Alchemy = {head="Theophany Cap +2"}
+sets.crafting.Leathercraft = {head="Volte Cap"}
