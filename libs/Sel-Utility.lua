@@ -653,6 +653,30 @@ function silent_can_weaponskill(spell)
 	return silent_can_use(spell, '/ws')
 end
 
+function lock_crafting_gear()
+	if state.CraftingMode.value ~= 'None' then
+		if sets.crafting then
+			local craftingSet = sets.crafting
+			if sets.crafting[state.CraftQuality.value] then
+				craftingSet = set_combine(craftingSet,sets.crafting[state.CraftQuality.value])
+			end
+			if sets.crafting[state.CraftingMode.value] then
+				craftingSet = set_combine(craftingSet,sets.crafting[state.CraftingMode.value])
+				if sets.crafting[state.CraftingMode.value][state.CraftQuality.value] then
+					craftingSet = set_combine(craftingSet,sets.crafting[state.CraftingMode.value][state.CraftQuality.value])
+				end
+			end
+			internal_disable_set(craftingSet, "Crafting")
+		else
+			add_to_chat(123, "No crafting set available, resetting Crafting Mode.")
+			state.CraftingMode:reset()
+			internal_enable_set("Crafting")
+		end
+	else
+		internal_enable_set("Crafting")
+	end
+end
+
 function can_use(spell)
 	if world.in_mog_house then
 		add_to_chat(123,"Abort: You are currently in a Mog House zone.")

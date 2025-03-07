@@ -2335,27 +2335,7 @@ function state_change(stateField, newValue, oldValue)
 	elseif stateField == 'Capacity' and newValue == 'false' and data.equipment.cprings:contains(player.equipment.left_ring) then
 			internal_enable_set("UseItem")
 	elseif stateField == 'Crafting Mode' or stateField == 'Crafting Quality' then
-		if state.CraftingMode.value ~= 'None' then
-			if sets.crafting then
-				local craftingSet = sets.crafting
-				if sets.crafting[state.CraftQuality.value] then
-					craftingSet = set_combine(craftingSet,sets.crafting[state.CraftQuality.value])
-				end
-				if sets.crafting[state.CraftingMode.value] then
-					craftingSet = set_combine(craftingSet,sets.crafting[state.CraftingMode.value])
-					if sets.crafting[state.CraftingMode.value][state.CraftQuality.value] then
-						craftingSet = set_combine(craftingSet,sets.crafting[state.CraftingMode.value][state.CraftQuality.value])
-					end
-				end
-				internal_disable_set(craftingSet, "Crafting")
-			else
-				add_to_chat(123, "No crafting set available, resetting Crafting Mode.")
-				state.CraftingMode:reset()
-				internal_enable_set("Crafting")
-			end
-		else
-			internal_enable_set("Crafting")
-		end
+		lock_crafting_gear()
 	end
 
 	if user_state_change then
@@ -2447,6 +2427,7 @@ function buff_change(buff, gain)
 		local craft = T(buff:split(' '))
 		if state.CraftingMode:contains(craft[1]) then
 			state.CraftingMode:set(craft[1])
+			lock_crafting_gear()
 		end
 	end
 
