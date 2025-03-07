@@ -1309,7 +1309,7 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
-	table.vprint(silent_can_use_cache)
+	table.vprint(disabled_sets)
 	if user_test then
 		user_test(cmdParams)
 	elseif job_test then
