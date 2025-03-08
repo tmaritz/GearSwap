@@ -1,6 +1,3 @@
---Have a Crafting/Gathering Modes state
---Have a Normal/HQ/NQ state
---Watch for gained buffs containing Imagery, if it does, jump to the correct Crafting Mode
 --[[
 sets.Chocobo = {main="Chocobo Wand",head="Egg Helm",neck="Chocobo Torque",body="Blue Race Silks",hands="Chocobo Gloves",waist="Chocobo Rope",legs="Chocobo Hose",feet="Chocobo Boots"}
 sets.Chocobo.skill = {body="S. Blue Race Silks"}
@@ -28,7 +25,3 @@ sets.crafting.Synergy = {}
 sets.crafting.Gathering = {}
 sets.crafting.Fishing = {range="Ebisu Fishing Rod",neck="Fisher's Torque",body="Fisherman's Smock",hands="Fsh. Gloves",ring1="Noddy Ring",ring2=="Puffin Ring",waist="Fisher's Rope",legs="Fisherman's Hose",feet="Waders"}
 ]]
-
-sets.crafting = {head="Blistering Sallet +1"}
-sets.crafting.Alchemy = {head="Theophany Cap +2"}
-sets.crafting.Leathercraft = {head="Volte Cap"}
