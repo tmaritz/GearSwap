@@ -78,12 +78,12 @@ function init_gear_sets()
 		head="Malignance Chapeau",neck="Null Loop",ear1="Zennaroi Earring",ear2="Crepuscular Earring",
 		body="Malignance Tabard",hands="Malignance Gloves",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
-		
+
 	-- Violent Flourish (Macc & Acc)
-    sets.precast.JA['Violent Flourish'] = {ammo="Hasty Pinion +1",
-		head="Malignance Chapeau",neck="Null Loop",ear1="Zennaroi Earring",ear2="Crepuscular Earring",
-		body="Malignance Tabard",hands="Malignance Gloves",ring1="Cacoethic Ring +1",ring2="Chirich Ring +1",
-		back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
+    sets.precast.JA['Violent Flourish'] = {ammo="Regal Gem",--Or range="Ullr" but swapping to this makes you lose TP.
+		head="Leth. Chappel +3",neck="Null Loop",ear1="Malignance Earring",ear2="Crepuscular Earring",
+		body="Malignance Tabard",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamorph Ring +1",
+		back="Null Shawl",waist="Null Belt",legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
 
 	-- Waltz set (chr and vit)
 	sets.precast.Waltz = {}
