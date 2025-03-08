@@ -68,6 +68,7 @@ function job_setup()
     state.Buff.Seigan = buffactive.Seigan or false
 	state.Buff['Sneak Attack'] = buffactive['Sneak Attack'] or false
 	state.Stance = M{['description']='Stance','Hasso','Seigan','None'}
+	state.ConquerorMode = M{['description']='Conqueror Mode','Never','500','1000','Always'}
 
 	autows = "Ukko's Fury"
 	autofood = 'Soy Ramen'
@@ -100,28 +101,36 @@ function job_filtered_action(spell, eventArgs)
 end
 
 function job_precast(spell, spellMap, eventArgs)
-	if spell.type == 'WeaponSkill' and state.AutoBuffMode.value ~= 'Off' then
-		local abil_recasts = windower.ffxi.get_ability_recasts()
-		if player.tp < 2250 and not state.Buff['Blood Rage'] and not state.Buff.Warcry and abil_recasts[2] < latency then
-			eventArgs.cancel = true
-			windower.chat.input('/ja "Warcry" <me>')
-			windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
-			add_tick_delay(1.1)
-			return
-		elseif state.Buff['SJ Restriction'] then
-			return
-		elseif player.sub_job == 'SAM' and player.tp > 1850 and abil_recasts[140] < latency then
-			eventArgs.cancel = true
-			windower.chat.input('/ja "Sekkanoki" <me>')
-			windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
-			add_tick_delay(1.1)
-			return
-		elseif player.sub_job == 'SAM' and abil_recasts[134] < latency then
-			eventArgs.cancel = true
-			windower.chat.input('/ja "Meditate" <me>')
-			windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
-			add_tick_delay(1.1)
-			return
+	if spell.type == 'WeaponSkill' then
+		if state.AutoBuffMode.value ~= 'Off' then
+			local abil_recasts = windower.ffxi.get_ability_recasts()
+			if player.tp < 2250 and not state.Buff['Blood Rage'] and not state.Buff.Warcry and abil_recasts[2] < latency then
+				eventArgs.cancel = true
+				windower.chat.input('/ja "Warcry" <me>')
+				windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+				add_tick_delay(1.1)
+				return
+			elseif state.Buff['SJ Restriction'] then
+				return
+			elseif player.sub_job == 'SAM' and player.tp > 1850 and abil_recasts[140] < latency then
+				eventArgs.cancel = true
+				windower.chat.input('/ja "Sekkanoki" <me>')
+				windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+				add_tick_delay(1.1)
+				return
+			elseif player.sub_job == 'SAM' and abil_recasts[134] < latency then
+				eventArgs.cancel = true
+				windower.chat.input('/ja "Meditate" <me>')
+				windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
+				add_tick_delay(1.1)
+				return
+			end
+		end
+	elseif spell.type == "JobAbility" then
+		if spell.english == 'Berserk' then
+			if state.ConquerorMode.value == 'Always' or (state.ConquerorMode.value ~= 'Never' and tonumber(state.ConquerorMode.value) > player.tp) then
+				internal_enable_set("Weapons") 
+			end
 		end
 	end
 end
@@ -220,8 +229,14 @@ function job_update(cmdParams, eventArgs)
 end
 
 function job_aftercast(spell, spellMap, eventArgs)
-	if not spell.interrupted then
-		if spell.english == 'Warcry' then
+	if spell.type == "JobAbility" then
+		if spell.english == 'Berserk' then
+			if state.ConquerorMode.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' then
+				equip_weaponset()
+			end
+		end
+	elseif spell.english == 'Warcry' then
+		if not spell.interrupted then
 			lastwarcry = player.name
 		end
 	end

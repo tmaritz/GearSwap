@@ -2423,11 +2423,13 @@ function buff_change(buff, gain)
 		if player.equipment.left_ring == "Emporox's Ring" and gain then
 			internal_enable_set("UseItem")
 		end
-	elseif buff:endswith('Imagery') then
-		local craft = T(buff:split(' '))
-		if state.CraftingMode:contains(craft[1]) then
-			state.CraftingMode:set(craft[1])
-			lock_crafting_gear()
+	elseif buff:endswith('Imagery')  then
+		if gain then
+			local craft = T(buff:split(' '))
+			if state.CraftingMode:contains(craft[1]) then
+				state.CraftingMode:set(craft[1])
+				lock_crafting_gear()
+			end
 		end
 	end
 
