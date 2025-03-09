@@ -594,8 +594,8 @@ function handle_elemental(cmdParams)
 
 	elseif command == 'aga' or command == 'smallaga' then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
-		local lower_spell = string.lower(data.elements.nukega_of[state.ElementalMode.value]..'ga II')
-		local spell_id = gearswap.validabils.english['/ma'][lower_spell]
+		local spell_name = data.elements.nukega_of[state.ElementalMode.value]..'ga II'
+		local spell_id = get_spell_id_by_name(spell_name)
 		if silent_can_cast(spell_name) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
 			windower.chat.input('/ma "'..data.elements.nukega_of[state.ElementalMode.value]..'ga II'..'" '..target)
 		else
