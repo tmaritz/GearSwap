@@ -1805,9 +1805,9 @@ function cp_ring_equip(ring)
 end
 
 function check_cpring()
-	if player.main_job_level < 99 or buffactive["Emporox's Gift"] then
-		local time_offset = local_offset - os.time()
+	local time_offset = local_offset - os.time()
 
+	if player.main_job_level < 99 or buffactive["Emporox's Gift"] then
 		if data.equipment.xprings:contains(player.equipment.left_ring) and get_usable_item(player.equipment.left_ring).usable then
 			windower.chat.input('/item "'..player.equipment.left_ring..'" <me>')
 			cp_delay = 0
@@ -1877,10 +1877,8 @@ function check_cpring()
 				return true
 			end
 		end
-	end
 
-	if player.main_job_level == 99 then
-
+	elseif player.main_job_level == 99 then
 		if player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent == 2100 and not buffactive["Emporox's Gift"] then
 			if item_available("Emporox's Ring") then
 				local emporox_ring = get_usable_item("Emporox's Ring")
