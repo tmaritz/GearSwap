@@ -2417,10 +2417,6 @@ function buff_change(buff, gain)
 		end
 	elseif rolled_eleven:contains(buff) then
 		if not gain then remove_table_value(rolled_eleven, buff) end
-	elseif buff == "Emporox's Gift" then
-		if player.equipment.left_ring == "Emporox's Ring" and gain then
-			internal_enable_set("UseItem")
-		end
 	elseif buff:endswith('Imagery')  then
 		if gain then
 			local craft = T(buff:split(' '))
