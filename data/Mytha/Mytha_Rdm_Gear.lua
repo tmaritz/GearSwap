@@ -9,7 +9,7 @@ function user_job_setup()
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
 	state.BuffWeaponsMode = M{'Always','Never'}
-	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage','AutoTrial'}
+	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage'}
 	state.RecoverMode = M('35%','60%','Always','Never')
 	state.Weapons:options('None','Naegling','Maxentius','Tauret','EnspellOnly','DualWeapons','DualWeaponsAcc','DualMaxentius','DualMaxentiusAcc','DualPrime','DualAeolian','DualEnspellOnly','DualProcSword')
 
@@ -656,17 +656,6 @@ buff_spell_lists = {
 		{Name='Shell V',		Buff='Shell',			SpellID=52,		When='Always'},
 		{Name='Protect V',		Buff='Protect',			SpellID=47,		When='Always'},
 		{Name='Stoneskin',		Buff='Stoneskin',		SpellID=54,		When='Always'},
-	},
-	
-	AutoTrial = {
-		{Name='Phalanx II',		Buff='Phalanx',			SpellID=107,	When='Always'},
-		{Name='Haste II',		Buff='Haste',			SpellID=511,	When='Always'},
-		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	When='Always'},
-		{Name='Temper II',		Buff='Multi Strikes',	SpellID=895,	When='Always'},
-		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	When='Always'},
-		{Name='Gain-DEX',		Buff='DEX Boost',		SpellID=480,	When='Always'},
-		{Name='Protect V',		Buff='Protect',			SpellID=47,		When='Always'},
-		{Name='Shell V',		Buff='Shell',			SpellID=52,		When='Always'},
 	},
 	
 	Default = {
