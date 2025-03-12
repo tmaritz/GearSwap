@@ -237,7 +237,7 @@ function job_post_midcast(spell, spellMap, eventArgs)
 				equip(sets.AbsorbWeapon)
 			end
 		elseif spell.english == 'Dread Spikes' then
-			if sets.DreadbWeapon then
+			if sets.DreadWeapon then
 				equip(sets.DreadWeapon)
 			end
 		end
