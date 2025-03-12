@@ -942,28 +942,36 @@ end
 
 --Find out if an item is equippable by item name.
 function item_equippable(item)
-	local item_id = get_item_id_by_name(item)
-	if item_id and res.items[item_id].jobs:contains(player.main_job_id) then
-		return true
-	else
-		return false
+	for bag in res.bags:it() do
+		if bag.equippable and player[bag.api][item] then
+			if player[bag.api][item].jobs:contains(player.main_job_id) then
+				return true
+			else
+				return false
+			end
+		end
 	end
+	return false
 end
 
 function item_available(item)
-	if player.inventory[item] or player.wardrobe[item] or player.wardrobe2[item] or player.wardrobe3[item] or player.wardrobe4[item] or player.wardrobe5[item] or player.wardrobe6[item] or player.wardrobe7[item] or player.wardrobe8[item] or player.satchel[item] then
-		return true
-	else
-		return false
+	for bag in res.bags:it() do
+		if player[bag.api] and (bag.access == "Everywhere" or bag.api == "Temporary") and player[bag.api][item] then
+			if player[bag.api][item] then
+				return true
+			end
+		end
 	end
+	return false
 end
 
 function item_owned(item)
-	if player.inventory[item] or player.wardrobe[item] or player.wardrobe2[item] or player.wardrobe3[item] or player.wardrobe4[item] or player.wardrobe5[item] or player.wardrobe6[item] or player.wardrobe7[item] or player.wardrobe8[item] or player.safe[item] or player.safe2[item] or player.storage[item] or player.locker[item] or player.satchel[item] or player.sack[item] or player.case[item] then
-		return true
-	else
-		return false
+	for bag in res.bags:it() do
+		if player[bag.api] and player[bag.api][item] then
+			return true
+		end
 	end
+	return false
 end
 
 function check_disable(spell, spellMap, eventArgs)
@@ -2449,9 +2457,15 @@ function update_combat_form()
 end
 
 function get_item_id_by_name(name)
-	if name == nil or name == 'empty' then return end
+	if name == nil or name == 'empty' or (type(name) == 'table' and not name.name) then return end
 
-	return (player.inventory[name] or player.wardrobe[name] or player.wardrobe2[name] or player.wardrobe3[name] or player.wardrobe4[name] or player.wardrobe5[name] or player.wardrobe6[name] or player.wardrobe7[name] or player.wardrobe8[name] or {}).id
+	for bag in res.bags:it() do
+		if player[bag.api] and player[bag.api][name] then
+			return player[bag.api][name].id
+		end
+	end
+	--Kept just in case the above causes issues.
+	--return (player.inventory[name] or player.wardrobe[name] or player.wardrobe2[name] or player.wardrobe3[name] or player.wardrobe4[name] or player.wardrobe5[name] or player.wardrobe6[name] or player.wardrobe7[name] or player.wardrobe8[name] or {}).id
 end
 
 function get_item_table(item)
