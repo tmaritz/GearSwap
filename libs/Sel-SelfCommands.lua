@@ -95,9 +95,9 @@ function self_command(commandArgs)
 
 	if not eventArgs.handled and not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock())) then
 		handle_equipping_gear(player.status)
-		equip(internal_disable)
 	end
 
+	equip(internal_disable)
 end
 -------------------------------------------------------------------------------------------------------------------
 -- Functions for manipulating state vars.
