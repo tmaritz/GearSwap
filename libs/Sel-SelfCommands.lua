@@ -1076,9 +1076,9 @@ function handle_curecheat(cmdParams, eventArgs)
 		curecheat = true
 		equip(sets.HPDown)
 		if player.main_job == 'BLU' then
-			windower.chat.input('/ma "Magic Fruit" <me>')
+			windower.chat.input:schedule(.2,'/ma "Magic Fruit" <me>')
 		elseif player.main_job == 'WHM' or not silent_can_cast("Cure IV") then
-			windower.chat.input('/ma "Cure III" <me>')
+			windower.chat.input:schedule(.2,'/ma "Cure III" <me>')
 		else
 			windower.chat.input:schedule(.2,'/ma "Cure IV" <me>')
 		end
