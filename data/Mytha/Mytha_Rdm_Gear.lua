@@ -17,7 +17,7 @@ function user_job_setup()
 	default_dual_weapons = 'DualWeapons'
 
 	autows_list = {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['Tauret']='Aeolian Edge',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualMaxentius']='Black Halo',['DualMaxentiusAcc']='Black Halo',['DualEvisceration']='Evisceration',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator'}
-	trust_list = {"August","Yoran-Oran (UC)","Selh'teus","Iroha II","Ingrid II"}
+	trust_list = {"Joachim","Ulmia","Qultada","Yoran-Oran (UC)","Selh'teus"}
 	
 	gear.mnd_enfeebling_jse_back = {name="Sucellos's Cape",augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Haste+10','Damage taken-5%',}}
 	gear.str_wsd_jse_back = {name="Sucellos's Cape",augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Damage taken-5%',}}
@@ -59,7 +59,7 @@ function init_gear_sets()
 	sets.weapons.DualWeaponsAcc = {main="Naegling",sub="Gleti's Knife",range=empty}
 	sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
 	sets.weapons.DualEvisceration = {}
-	sets.weapons.DualAeolian = {main="Gleti's Knife",sub="Maxentius",range=empty}
+	sets.weapons.DualAeolian = {main="Tauret",sub="Maxentius",range=empty}
 	sets.weapons.DualProcSword = {main="Demers. Degen +1",sub="Blurred Knife +1",range=empty}
 	sets.weapons.EnspellOnly = {main="Qutrub Knife",sub="Sacro Bulwark"}
 	sets.weapons.DualEnspellOnly = {main="Qutrub Knife",sub="Ethereal Dagger"}
@@ -177,7 +177,7 @@ function init_gear_sets()
 		body="Viti. Tabard +3",hands="Bunzi's Gloves",ring1="Defending Ring",ring2="Freke Ring",
 		back=gear.mnd_enfeebling_jse_back,waist="Emphatikos Rope",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 
-    sets.midcast.Cure = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
+	sets.midcast.Cure = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
         head="Vanya Hood",neck="Incanter's Torque",ear1="Meili Earring",ear2="Mendi. Earring",
         body="Bunzi's Robe",hands="Gende. Gages +1",ring1="Sirona's Ring",ring2="Menelaus's Ring",
         back=gear.mnd_enfeebling_jse_back,waist="Luminary Sash",legs="Atrophy Tights +3",feet="Vanya Clogs"}
@@ -639,10 +639,11 @@ buff_spell_lists = {
 	},
 	
 	AutoMelee = {
-		{Name='Phalanx II',		Buff='Phalanx',			SpellID=107,	When='Always'},
-		{Name='Haste II',		Buff='Haste',			SpellID=511,	When='Always'},
-		{Name='Temper II',		Buff='Multi Strikes',	SpellID=895,	When='Always'},
-		{Name='Refresh III',	Buff='Refresh',			SpellID=894,	When='Always'},
+		{Name='Phalanx II',		Buff='Phalanx',			SpellID=107,	When='Combat'},
+		{Name='Haste II',		Buff='Haste',			SpellID=511,	When='Combat'},
+		{Name='Temper II',		Buff='Multi Strikes',	SpellID=895,	When='Combat'},
+		--{Name='Refresh III',	Buff='Refresh',			SpellID=894,	When='Always'},
+		{Name='Gain-STR',		Buff='STR Boost',		SpellID=486,	When='Combat'},
 	},
 	
 	AutoMage = {

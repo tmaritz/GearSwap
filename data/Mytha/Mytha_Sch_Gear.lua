@@ -213,10 +213,10 @@ function init_gear_sets()
         body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
         back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
 		
-    sets.midcast['Elemental Magic']['9k'] = {main="Bunzi's Rod",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
-        head="Arbatel Bonnet +3",neck="Null Loop",ear1="Malignance Earring",ear2="Arbatel Earring +2",
-        body="Arbatel Gown +3",hands="Arbatel Bracers +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
-        back="Null Shawl",waist="Null Belt",legs="Arbatel Pants +3",feet="Arbatel Loafers +3"}
+    sets.midcast['Elemental Magic']['9k'] = {main="Maxentius",sub="Ammurapi Shield",ammo="Pemphredo Tathlum",
+        head="Null Masque",neck="Null Loop",ear1="Crep. Earring",ear2="Gwati Earring",
+        body="Volte Doublet",hands="Volte Bracers",ring1="Stikini Ring +1",ring2="Stikini Ring +1",
+        back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet="Arbatel Loafers +3"}
 		
     sets.midcast['Elemental Magic'].Proc = {main="Mafic Cudgel",sub="Genmei Shield",ammo="Impatiens",
         head="Null Masque",neck="Null Loop",ear1="Etiolation Earring",ear2="Loquac. Earring",
