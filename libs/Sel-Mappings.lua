@@ -428,6 +428,7 @@ disable_priority = T{
 	"UseItem",
 	"OneHour",
 	"Weapons",
+	"ShowTP",
 	"Ability",
 	"TreasureHunter",
 }:reverse() --We reverse the list here so that the highest priority is at the top.

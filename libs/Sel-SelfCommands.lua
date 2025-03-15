@@ -89,11 +89,11 @@ function self_command(commandArgs)
 		local functionName = "handle_" .. handleCmd
 
 		if _G[functionName] then
-			_G[functionName](commandArgs)
+			_G[functionName](commandArgs, eventArgs)
 		end
 	end
 
-	if not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock())) then
+	if not eventArgs.handled and not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock())) then
 		handle_equipping_gear(player.status)
 		equip(internal_disable)
 	end
@@ -325,6 +325,11 @@ end
 
 -- showtp: equip the current TP set for examination.
 function handle_showtp(cmdParams)
+	if disabled_sets["ShowTP"] then
+		internal_enable_set("ShowTP")
+		return
+	end
+
 	update_combat_form()
 
 	local msg = 'Showing current TP set: ['.. state.OffenseMode.value
@@ -345,7 +350,7 @@ function handle_showtp(cmdParams)
 	end
 
 	add_to_chat(122, msg)
-	equip(get_melee_set())
+	internal_disable_set(get_melee_set(), "ShowTP")
 end
 
 
@@ -976,16 +981,16 @@ function handle_macropage()
 	end
 end
 
-function handle_curecheat(cmdParams)
+function handle_curecheat(cmdParams, eventArgs)
 	if sets.HPDown then
 		curecheat = true
 		equip(sets.HPDown)
 		if player.main_job == 'BLU' then
-			windower.chat.input('/ma "Magic Fruit" <me>')
+			windower.chat.input:schedule(.2,'/ma "Magic Fruit" <me>')
 		elseif player.main_job == 'WHM' or not silent_can_cast("Cure IV") then
-			windower.chat.input('/ma "Cure III" <me>')
+			windower.chat.input:schedule(.2,'/ma "Cure III" <me>')
 		else
-			windower.chat.input('/ma "Cure IV" <me>')
+			windower.chat.input:schedule(.2,'/ma "Cure IV" <me>')
 		end
 	--If we only have an HighHP set, we assume that this is sufficient.
 	elseif sets.HPCure then
@@ -1000,6 +1005,7 @@ function handle_curecheat(cmdParams)
 	else
 		add_to_chat(123,"You don't have a sets.HPDown nor a sets.HPCure to cheat with.")
 	end
+	eventArgs.handled = true
 end
 
 function handle_stna(cmdParams)
