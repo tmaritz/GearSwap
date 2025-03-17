@@ -83,10 +83,10 @@ function job_setup()
 	state.Buff['Fan Dance'] = buffactive['Fan Dance'] or false
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 
-	state.MainStep = M { ['description'] = 'Main Step', 'Box Step', 'Quickstep', 'Feather Step', 'Stutter Step' }
-	state.AltStep = M { ['description'] = 'Alt Step', 'Feather Step', 'Quickstep', 'Stutter Step', 'Box Step' }
+	state.MainStep = M{['description']='Main Step', 'Box Step','Quickstep','Feather Step','Stutter Step'}
+	state.AltStep = M{['description']='Alt Step', 'Feather Step','Quickstep','Stutter Step','Box Step'}
 	state.UseAltStep = M(true, 'Use Alt Step')
-	state.CurrentStep = M { ['description'] = 'Current Step', 'Main', 'Alt' }
+	state.CurrentStep = M{['description']='Current Step', 'Main', 'Alt'}
 
 	state.AutoPrestoMode = M(true, 'Auto Presto Mode')
 	state.DanceStance = M { ['description'] = 'Dance Stance', 'None', 'Saber Dance', 'Fan Dance' }
@@ -112,11 +112,7 @@ function job_setup()
 	step_feet_reduction = calculate_step_feet_reduction()
 
 	update_melee_groups()
-	init_job_states(
-	{ "Capacity", "AutoRuneMode", "AutoTrustMode", "AutoWSMode", "AutoShadowMode", "AutoFoodMode", "AutoStunMode",
-		"AutoDefenseMode", },
-		{ "AutoBuffMode", "AutoSambaMode", "Weapons", "OffenseMode", "WeaponskillMode", "IdleMode", "DanceStance",
-			"Passive", "RuneElement", "TreasureMode", })
+	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","DanceStance","Passive","RuneElement","TreasureMode",})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -274,25 +270,23 @@ function display_current_job_state(eventArgs)
 	msg = msg .. ', WS: ' .. state.WeaponskillMode.value
 
 	if state.DefenseMode.value ~= 'None' then
-		msg = msg ..
-		', ' ..
-		'Defense: ' .. state.DefenseMode.value .. ' (' .. state[state.DefenseMode.value .. 'DefenseMode'].value .. ')'
+		msg = msg .. ', ' .. 'Defense: ' .. state.DefenseMode.value .. ' (' .. state[state.DefenseMode.value .. 'DefenseMode'].value .. ')'
 	end
 
 	if state.Kiting.value then
 		msg = msg .. ', Kiting'
 	end
 
-	msg = msg .. ', [' .. state.MainStep.current
+	msg = msg .. ', ['..state.MainStep.current
 
 	if state.UseAltStep.value == true then
-		msg = msg .. '/' .. state.AltStep.current
+		msg = msg .. '/'..state.AltStep.current
 	end
 
 	msg = msg .. ']'
 
 	if state.SelectStepTarget.value == true then
-		steps = steps .. ' (Targetted)'
+		steps = steps..' (Targetted)'
 	end
 
 	add_to_chat(122, msg)
@@ -309,12 +303,12 @@ function job_self_command(commandArgs, eventArgs)
 	if commandArgs[1] == 'step' then
 		local doStep = ''
 		if state.UseAltStep.value == true then
-			doStep = state[state.CurrentStep.current .. 'Step'].current
+			doStep = state[state.CurrentStep.current..'Step'].current
 		else
 			doStep = state.MainStep.current
 		end
 
-		send_command('@input /ja "' .. doStep .. '" <t>')
+		send_command('@input /ja "'..doStep..'" <t>')
 	end
 end
 
