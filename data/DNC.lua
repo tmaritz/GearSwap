@@ -44,25 +44,25 @@
 -------------------------------------------------------------------------------------------------------------------
 
 --[[
-    Custom commands:
+	Custom commands:
 
-    gs c step
-        Uses the currently configured step on the target, with either <t> or <stnpc> depending on setting.
+	gs c step
+		Uses the currently configured step on the target, with either <t> or <stnpc> depending on setting.
 
-    gs c step t
-        Uses the currently configured step on the target, but forces use of <t>.
+	gs c step t
+		Uses the currently configured step on the target, but forces use of <t>.
 
 
-    Configuration commands:
+	Configuration commands:
 
-    gs c cycle mainstep
-        Cycles through the available steps to use as the primary step when using one of the above commands.
+	gs c cycle mainstep
+		Cycles through the available steps to use as the primary step when using one of the above commands.
 
-    gs c cycle altstep
-        Cycles through the available steps to use for alternating with the configured main step.
+	gs c cycle altstep
+		Cycles through the available steps to use for alternating with the configured main step.
 
-    gs c toggle usealtstep
-        Toggles whether or not to use an alternate step.
+	gs c toggle usealtstep
+		Toggles whether or not to use an alternate step.
 
 --]]
 
@@ -85,7 +85,7 @@ function job_setup()
 
 	state.MainStep = M { ['description'] = 'Main Step', 'Box Step', 'Quickstep', 'Feather Step', 'Stutter Step' }
 	state.AltStep = M { ['description'] = 'Alt Step', 'Feather Step', 'Quickstep', 'Stutter Step', 'Box Step' }
-	state.UseAltStep = M(false, 'Use Alt Step')
+	state.UseAltStep = M(true, 'Use Alt Step')
 	state.CurrentStep = M { ['description'] = 'Current Step', 'Main', 'Alt' }
 
 	state.AutoPrestoMode = M(true, 'Auto Presto Mode')
@@ -113,8 +113,8 @@ function job_setup()
 
 	update_melee_groups()
 	init_job_states(
-		{ "Capacity", "AutoRuneMode", "AutoTrustMode", "AutoWSMode", "AutoShadowMode", "AutoFoodMode", "AutoStunMode",
-			"AutoDefenseMode", },
+	{ "Capacity", "AutoRuneMode", "AutoTrustMode", "AutoWSMode", "AutoShadowMode", "AutoFoodMode", "AutoStunMode",
+		"AutoDefenseMode", },
 		{ "AutoBuffMode", "AutoSambaMode", "Weapons", "OffenseMode", "WeaponskillMode", "IdleMode", "DanceStance",
 			"Passive", "RuneElement", "TreasureMode", })
 end
@@ -275,9 +275,8 @@ function display_current_job_state(eventArgs)
 
 	if state.DefenseMode.value ~= 'None' then
 		msg = msg ..
-			', ' ..
-			'Defense: ' ..
-			state.DefenseMode.value .. ' (' .. state[state.DefenseMode.value .. 'DefenseMode'].value .. ')'
+		', ' ..
+		'Defense: ' .. state.DefenseMode.value .. ' (' .. state[state.DefenseMode.value .. 'DefenseMode'].value .. ')'
 	end
 
 	if state.Kiting.value then

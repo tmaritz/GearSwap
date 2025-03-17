@@ -72,7 +72,7 @@
 function init_include()
 	extdata = require('extdata')
 	require('queues')
-	res = require('resources')
+	res = gearswap.res
 	packets = require('packets')
 	
 	--Snaps's Rnghelper extension for automatic ranged attacks that should be superior to my implementation.

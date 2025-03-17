@@ -653,7 +653,7 @@ buff_spell_lists = {
 		{Name='Stoneskin',	Buff='Stoneskin',	SpellID=54,		When='Always'},
 		{Name='Klimaform',	Buff='Klimaform',	SpellID=287,	When='Combat'},
 	},
-	
+
 	Default = {
 		{Name='Reraise',	Buff='Reraise',		SpellID=113,	Reapply=false},
 		{Name='Haste',		Buff='Haste',		SpellID=57,		Reapply=false},
