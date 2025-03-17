@@ -944,7 +944,7 @@ end
 function item_equippable(item)
 	for bag in res.bags:it() do
 		if bag.equippable and player[bag.api][item] then
-			if player[bag.api][item].jobs:contains(player.main_job_id) then
+			if res.items[player[bag.api][item].id].jobs:contains(player.main_job_id) then
 				return true
 			else
 				return false
