@@ -2503,6 +2503,24 @@ function item_equipped(item)
 	return false
 end
 
+function has_finishing_moves()
+	if buffactive['Finishing Move 1'] then
+		return 1
+	elseif buffactive['Finishing Move 2'] then
+		return 2
+	elseif buffactive['Finishing Move 3'] then
+		return 3
+	elseif buffactive['Finishing Move 4'] then
+		return 4
+	elseif buffactive['Finishing Move 5'] then
+		return 5
+	elseif buffactive['Finishing Move (6+)'] then
+		return 6
+	else
+		return false
+	end
+end
+
 function get_current_stratagem_count()
 	-- returns recast in seconds.
 	local allRecasts = windower.ffxi.get_ability_recasts()
