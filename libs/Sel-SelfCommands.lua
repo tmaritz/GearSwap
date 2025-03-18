@@ -146,6 +146,96 @@ function handle_set(cmdParams)
 	end
 end
 
+function handle_smartstun(cmdParams)
+	local target
+
+	if cmdParams[1] then
+		if cmdParams[1] == '<me>' or cmdParams[1] == 'me' then
+			target = player.id
+		elseif cmdParams[1] == '<t>' or cmdParams[1] == 't' then
+			if player.target.type ~= 'NONE' and player.target.id then
+				target = player.target.id
+			else
+				add_to_chat(123, 'Smartstun could not find a valid target.')
+				return
+			end
+		elseif tonumber(cmdParams[1]) then
+			target = cmdParams[1]
+		else
+			target = table.concat(cmdParams, ' ')
+			target = get_closest_mob_id_by_name(target)
+		end
+	end
+
+	if not target then
+		if player.target.type ~= 'NONE' and player.target.id then
+			target = player.target.id
+		else
+			add_to_chat(123, 'Smartstun could not find a valid target.')
+			return
+		end
+	end
+	
+	if not do_stun(target) then
+		add_to_chat(123, 'Smartstun could not any available stuns.')
+	end
+end
+
+function do_stun(target)
+	if not (buffactive.silence or  buffactive.mute or buffactive.Omerta) and not moving then
+		local spell_recasts = windower.ffxi.get_spell_recasts()
+
+		if silent_can_cast("Stun") and spell_recasts[252] < spell_latency then
+			windower.chat.input('/ma "Stun" '..target) return true
+		elseif silent_can_cast("Sudden Lunge") and spell_recasts[692] < spell_latency then
+			windower.chat.input('/ma "Sudden Lunge" '..target) return true
+		elseif silent_can_cast("Head Butt") and spell_recasts[623] < spell_latency then
+			windower.chat.input('/ma "Head Butt" '..target) return true
+		end
+	end
+
+	if not (buffactive.amnesia or buffactive.impairment) then
+		local abil_recasts = windower.ffxi.get_ability_recasts()
+		local sub_id
+
+		if state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.value] then
+			local sub_id = get_item_id_by_name(sets.weapons[state.Weapons.value].sub) or get_item_id_by_name(player.equipment.sub) or nil
+		end
+	
+		if (player.main_job == 'PLD' or player.sub_job == 'PLD') and res.items[sub_id].shield_size and abil_recasts[73] < latency then
+			windower.chat.input('/ja "Shield Bash" '..target) return true
+		elseif (player.main_job == 'DRK' or player.sub_job == 'DRK') and abil_recasts[88] < latency then
+			windower.chat.input('/ja "Weapon Bash" '..target) return true
+		elseif player.main_job == 'SMN' and pet.name == "Ramuh" and abil_recasts[174] < latency then
+			windower.chat.input('/pet "Shock Squall" '..target) return true
+		elseif (player.main_job == 'SAM') and player.merits.blade_bash and abil_recasts[137] < latency then
+			windower.chat.input('/ja "Blade Bash" '..target) return true
+		elseif not player.status == 'Engaged' then
+		elseif (player.main_job == 'DNC' or player.sub_job == 'DNC') and has_finishing_moves() and abil_recasts[221] < latency then
+			windower.chat.input('/ja "Violent Flourish" '..target) return true
+		end
+	end
+
+	if player.tp > 800 then
+		local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
+		if available_ws:contains(35) then
+			windower.chat.input('/ws "Flat Blade" '..target) return true
+		elseif available_ws:contains(145) then
+			windower.chat.input('/ws "Tachi Hobaku" '..target) return true
+		elseif available_ws:contains(2) then
+			windower.chat.input('/ws "Shoulder Tackle" '..target) return true
+		elseif available_ws:contains(65) then
+			windower.chat.input('/ws "Smash Axe" '..target) return true
+		elseif available_ws:contains(115) then
+			windower.chat.input('/ws "Leg Sweep" '..target) return true
+		elseif available_ws:contains(162) then
+			windower.chat.input('/ws "Brainshaker" '..target) return true
+		end
+	end
+
+	return false
+end
+
 -- Function to reset values to their defaults.
 -- User command format: gs c reset [field]
 -- Or: gs c reset all
@@ -645,7 +735,7 @@ function handle_scholar(cmdParams)
 		if state.Buff['Light Arts'] then
 			windower.chat.input('/ja "Addendum: White" <me>')
 		elseif state.Buff['Addendum: White'] then
-			add_to_chat(122,'Error: Addendum: White is already active.')
+			windower.chat.input('/ja "Accession" <me>')
 		else
 			windower.chat.input('/ja "Light Arts" <me>')
 		end
@@ -653,7 +743,7 @@ function handle_scholar(cmdParams)
 		if state.Buff['Dark Arts'] then
 			windower.chat.input('/ja "Addendum: Black" <me>')
 		elseif state.Buff['Addendum: Black'] then
-			add_to_chat(122,'Error: Addendum: Black is already active.')
+			windower.chat.input('/ja "Manifestation" <me>')
 		else
 			windower.chat.input('/ja "Dark Arts" <me>')
 		end
@@ -1315,7 +1405,6 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
-	table.vprint(disabled_sets)
 	if user_test then
 		user_test(cmdParams)
 	elseif job_test then

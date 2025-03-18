@@ -340,10 +340,10 @@ function update_melee_groups()
 end
 
 function under3FMs()
-	if not buffactive['Finishing Move 3'] and not buffactive['Finishing Move 4'] and not buffactive['Finishing Move 5'] and not buffactive['Finishing Move (6+)'] then
-		return true
-	else
+	if buffactive['Finishing Move 3'] or buffactive['Finishing Move 4'] or buffactive['Finishing Move 5'] or buffactive['Finishing Move (6+)'] then
 		return false
+	else
+		return true
 	end
 end
 
