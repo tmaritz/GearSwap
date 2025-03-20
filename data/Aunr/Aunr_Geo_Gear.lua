@@ -858,30 +858,30 @@ end
 
 -- Don't auto dismiss
 function job_filter_precast(spell, spellMap, eventArgs)
-	-- if spell.english:startswith('Geo-') and pet.isvalid then
-	-- 	eventArgs.cancel = true
-	-- 	windower.chat.input('/ja "Full Circle" <me>')
-	-- 	windower.chat.input:schedule(1.3,'/ma "'..spell.english..'" '..spell.target.raw..'')
-	-- end
+    -- if spell.english:startswith('Geo-') and pet.isvalid then
+    -- 	eventArgs.cancel = true
+    -- 	windower.chat.input('/ja "Full Circle" <me>')
+    -- 	windower.chat.input:schedule(1.3,'/ma "'..spell.english..'" '..spell.target.raw..'')
+    -- end
 end
 
 -- Don't switch to kiting if luopan is out
 function apply_kiting(baseSet)
-	if sets.Kiting and (state.Kiting.value or (player.status == 'Idle' and moving and state.DefenseMode.value == 'None')) and not pet.isvalid then
-		baseSet = set_combine(baseSet, sets.Kiting)
-	end
-	
-	if user_customize_kiting_set then
-		baseSet = user_customize_kiting_set(baseSet)
+    if sets.Kiting and (state.Kiting.value or (player.status == 'Idle' and moving and state.DefenseMode.value == 'None')) and not pet.isvalid then
+        baseSet = set_combine(baseSet, sets.Kiting)
     end
-	
-	if job_customize_kiting_set then
-		baseSet = job_customize_kiting_set(baseSet)
-	end
-	
-	if user_job_customize_kiting_set then
-		baseSet = user_job_customize_kiting_set(baseSet)
-	end
+
+    if user_customize_kiting_set then
+        baseSet = user_customize_kiting_set(baseSet)
+    end
+
+    if job_customize_kiting_set then
+        baseSet = job_customize_kiting_set(baseSet)
+    end
+
+    if user_job_customize_kiting_set then
+        baseSet = user_job_customize_kiting_set(baseSet)
+    end
 
     return baseSet
 end
