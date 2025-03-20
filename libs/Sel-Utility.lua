@@ -562,66 +562,118 @@ function remove_table_value(table, value)
 end
 
 function get_spell_id_by_name(spell_name)
-	return gearswap.validabils.english['/ma'][spell_name:lower()] or false
+	return get_action_id_by_name(spell_name, '/ma')
 end
 
-function get_weaponskill_id_by_name(spell_name)
-	return gearswap.validabils.english['/ws'][spell_name:lower()] or false
+function get_weaponskill_id_by_name(weaponskill_name)
+	return get_action_id_by_name(weaponskill_name, '/ws')
 end
 
-function get_ability_id_by_name(spell_name)
-	return gearswap.validabils.english['/ja'][spell_name:lower()] or false
+function get_ability_id_by_name(job_ability_name)
+	return get_action_id_by_name(job_ability_name, '/ja')
 end
 
-function silent_can_use(spell)
-	local spell_id
-	if type(spell) == 'number' then
-		spell_id = spell
-	elseif type(spell) == 'string' then
-		spell_id = get_spell_id_by_name(spell)
-	elseif type(spell) == 'table' then
-		spell_id = spell.id
+function get_action_id_by_name(action_name, action_type)
+	local prefix = unify_prefix(action_type)
+	return gearswap.validabils.english[prefix][action_name:lower()] or false
+end
+
+function unify_prefix(action_type)
+	if action_type:startswith('/') then
+		return gearswap.unify_prefix[action_type]
+	else
+		return gearswap.unify_prefix['/'..action_type]
+	end
+end
+
+function silent_can_use(action, action_type)
+	local action_type = unify_prefix(action_type)
+
+	if silent_can_use_cache[action_type][action] then
+		return silent_can_use_cache[action_type][action]
 	end
 
-	local available_spells = windower.ffxi.get_spells()
-	local spell_jobs = copy_entry(res.spells[spell_id].levels)
+	local action_id = get_action_id_by_name(action, action_type)
 
-	--Check Impact, Honor March, Dispelga and Aria of Passion and if we have the relevant equipment.
-	if spell_id == 503 then --Impact
-		if item_equippable('Twilight Cloak') or item_equippable('Crepuscular Cloak') then
-			return true
-		else
-			return false
+	if action_type == "/ma" then
+		if action == "Dispelga" then
+			 silent_can_use_cache["/ma"]["Dispelga"] = item_equippable("Daybreak")
+		elseif action == "Honor March" then
+			silent_can_use_cache["/ma"]["Honor March"] = item_equippable("Marsyas")
+		elseif action == "Aria of Passion" then
+			silent_can_use_cache["/ma"]["Aria of Passion"] = item_equippable("Loughnashade")
+		elseif action == "Impact" then
+			silent_can_use_cache["/ma"]["Impact"] = item_equippable("Crepuscular Cloak") or item_equippable("Twilight Cloak")
 		end
-	elseif spell_id == 417 then --Honor March
-		if item_equippable('Marsyas') then
-			return true
-		else
-			return false
+		
+		if silent_can_use_cache[action_type][action] then
+			return silent_can_use_cache[action_type][action]
 		end
-	elseif spell_id == 360 then --Dispelga
-		if item_equippable('Daybreak') then
-			return true
+
+		local available_spells = windower.ffxi.get_spells()
+		local spell_jobs = copy_entry(res.spells[action_id].levels)
+		
+		if not available_spells[action_id] then -- Filter for spells that you do not know.
+			silent_can_use_cache['/ma'][action] = false
+		-- Filter for spells that you know, but do not currently have access to
+		elseif (not spell_jobs[player.main_job_id] or not (spell_jobs[player.main_job_id] <= player.main_job_level or
+			(spell_jobs[player.main_job_id] >= 100 and number_of_jps(player.job_points[player.main_job:lower()]) >= spell_jobs[player.main_job_id]))) and
+			(not spell_jobs[player.sub_job_id] or not (spell_jobs[player.sub_job_id] <= player.sub_job_level)) then
+			silent_can_use_cache['/ma'][action] = false
 		else
-			return false
+			silent_can_use_cache['/ma'][action] = true
 		end
-	elseif spell_id == 418 then --Aria of Passion
-		if item_equippable('Loughnashade') then
-			return true
+	elseif action_type == '/ja' then
+		local available_abilities = windower.ffxi.get_ability_recasts()
+		if available_abilities[action_id] then
+			silent_can_use_cache['/ja'][action] = true
 		else
-			return false
+			silent_can_use_cache['/ja'][action] = false
 		end
-	elseif not available_spells[spell_id] then -- Filter for spells that you do not know.
-		return false
-	-- Filter for spells that you know, but do not currently have access to
-	elseif (not spell_jobs[player.main_job_id] or not (spell_jobs[player.main_job_id] <= player.main_job_level or
-		(spell_jobs[player.main_job_id] >= 100 and number_of_jps(player.job_points[(res.jobs[player.main_job_id].ens):lower()]) >= spell_jobs[player.main_job_id]) ) ) and
-		(not spell_jobs[player.sub_job_id] or not (spell_jobs[player.sub_job_id] <= player.sub_job_level)) then
-		return false
-	elseif res.spells[spell_id].type == 'BlueMagic' and not ((player.main_job_id == 16 and (data.spells.unbridled:contains(res.spells[spell_id].en) or table.contains(windower.ffxi.get_mjob_data().spells,spell_id))) or (player.sub_job_id == 16 and table.contains(windower.ffxi.get_sjob_data().spells,spell_id))) then
-		return false
+	elseif action_type == '/ws' then
+		local available_ws = windower.ffxi.get_abilities().weapon_skills
+		if available_ws[action_id] then
+			silent_can_use_cache['/ws'][action] = true
+		else
+			silent_can_use_cache['/ws'][action] = false
+		end
+	end
+	return silent_can_use_cache[action_type][action]
+end
+
+function silent_can_cast(spell)
+	return silent_can_use(spell, '/ma')
+end
+
+function silent_can_ability(spell)
+	return silent_can_use(spell, '/ja')
+end
+
+function silent_can_weaponskill(spell)
+	return silent_can_use(spell, '/ws')
+end
+
+function lock_crafting_gear()
+	if state.CraftingMode.value ~= 'None' then
+		if sets.crafting then
+			local craftingSet = sets.crafting
+			if sets.crafting[state.CraftQuality.value] then
+				craftingSet = set_combine(craftingSet,sets.crafting[state.CraftQuality.value])
+			end
+			if sets.crafting[state.CraftingMode.value] then
+				craftingSet = set_combine(craftingSet,sets.crafting[state.CraftingMode.value])
+				if sets.crafting[state.CraftingMode.value][state.CraftQuality.value] then
+					craftingSet = set_combine(craftingSet,sets.crafting[state.CraftingMode.value][state.CraftQuality.value])
+				end
+			end
+			internal_disable_set(craftingSet, "Crafting")
+		else
+			add_to_chat(123, "No crafting set available, resetting Crafting Mode.")
+			state.CraftingMode:reset()
+			internal_enable_set("Crafting")
+		end
 	else
-		return true
+		internal_enable_set("Crafting")
 	end
 end
 
@@ -634,28 +686,28 @@ function can_use(spell)
 		local spell_jobs = copy_entry(res.spells[spell.id].levels)
 
 		-- Filter for spells that you do not know. Exclude Impact.
-		if spell.id == 503 then --Impact
+		if spell.name == "Impact" then
 			if item_equippable('Twilight Cloak') or item_equippable('Crepuscular Cloak') then
 				return true
 			else
 				add_to_chat(123,"Abort: [Impact] requires Twilight Cloak or Crepuscular Cloak.")
 				return false
 			end
-		elseif spell.id == 417 then --Honor March
+		elseif spell.name == "Honor March" then
 			if item_equippable('Marsyas') then
 				return true
 			else
 				add_to_chat(123,"Abort: [Honor March] requires Marsyas.")
 				return false
 			end
-		elseif spell.id == 360 then --Dispelga
+		elseif spell.name == "Dispelga" then
 			if item_equippable('Daybreak') then
 				return true
 			else
 				add_to_chat(123,"Abort: [Dispelga] requires Daybreak.")
 				return false
 			end
-		elseif spell.id == 418 then --Aria of Passion
+		elseif spell.name == "Aria of Passion" then
 			if item_equippable('Loughnashade') then
 				return true
 			else
@@ -890,28 +942,36 @@ end
 
 --Find out if an item is equippable by item name.
 function item_equippable(item)
-	local item_id = get_item_id_by_name(item)
-	if item_id and res.items[item_id].jobs:contains(player.main_job_id) then
-		return true
-	else
-		return false
+	for bag in res.bags:it() do
+		if bag.equippable and player[bag.api][item] then
+			if res.items[player[bag.api][item].id].jobs:contains(player.main_job_id) then
+				return true
+			else
+				return false
+			end
+		end
 	end
+	return false
 end
 
 function item_available(item)
-	if player.inventory[item] or player.wardrobe[item] or player.wardrobe2[item] or player.wardrobe3[item] or player.wardrobe4[item] or player.wardrobe5[item] or player.wardrobe6[item] or player.wardrobe7[item] or player.wardrobe8[item] or player.satchel[item] then
-		return true
-	else
-		return false
+	for bag in res.bags:it() do
+		if player[bag.api] and (bag.access == "Everywhere" or bag.api == "Temporary") and player[bag.api][item] then
+			if player[bag.api][item] then
+				return true
+			end
+		end
 	end
+	return false
 end
 
 function item_owned(item)
-	if player.inventory[item] or player.wardrobe[item] or player.wardrobe2[item] or player.wardrobe3[item] or player.wardrobe4[item] or player.wardrobe5[item] or player.wardrobe6[item] or player.wardrobe7[item] or player.wardrobe8[item] or player.safe[item] or player.safe2[item] or player.storage[item] or player.locker[item] or player.satchel[item] or player.sack[item] or player.case[item] then
-		return true
-	else
-		return false
+	for bag in res.bags:it() do
+		if player[bag.api] and player[bag.api][item] then
+			return true
+		end
 	end
+	return false
 end
 
 function check_disable(spell, spellMap, eventArgs)
@@ -956,7 +1016,7 @@ end
 function check_doom(spell, spellMap, eventArgs)
 	if buffactive.doom and state.AutoRemoveDoomMode.value and not cursna_exceptions:contains(spell.english) then
 
-		if (buffactive.mute or buffactive.Omerta or buffactive.silence) or not (silent_can_use(20) and windower.ffxi.get_spell_recasts()[20] < spell_latency) then
+		if (buffactive.mute or buffactive.Omerta or buffactive.silence) or not (silent_can_cast("Cursna") and windower.ffxi.get_spell_recasts()[20] < spell_latency) then
 			if state.AutoHolyWaterMode.value and not buffactive.muddle then
 				if player.inventory['Hallowed Water'] then
 					windower.chat.input('/item "Hallowed Water" <me>')
@@ -981,7 +1041,7 @@ function check_doom(spell, spellMap, eventArgs)
 					return false
 				end
 			end
-		elseif silent_can_use(20) then
+		elseif silent_can_cast("Cursna") then
 			windower.chat.input('/ma "Cursna" <me>')
 			add_to_chat(123,'Abort: You are doomed, using Cursna instead.')
 			eventArgs.cancel = true
@@ -1352,7 +1412,7 @@ function check_buff()
 	if state.AutoBuffMode.value ~= 'Off' and not data.areas.cities:contains(world.area) then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		for i in pairs(buff_spell_lists[state.AutoBuffMode.Value]) do
-			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and in_combat) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not in_combat)) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_use(buff_spell_lists[state.AutoBuffMode.Value][i].SpellID) then
+			if not buffactive[buff_spell_lists[state.AutoBuffMode.Value][i].Buff] and (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Always' or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Combat' and in_combat) or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Engaged' and player.status == 'Engaged') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'Idle' and player.status == 'Idle') or (buff_spell_lists[state.AutoBuffMode.Value][i].When == 'OutOfCombat' and not in_combat)) and spell_recasts[buff_spell_lists[state.AutoBuffMode.Value][i].SpellID] < spell_latency and silent_can_cast(buff_spell_lists[state.AutoBuffMode.Value][i].Name) then
 				windower.chat.input('/ma "'..buff_spell_lists[state.AutoBuffMode.Value][i].Name..'" <me>')
 				add_tick_delay()
 				return true
@@ -1367,7 +1427,7 @@ function check_buffup()
 	if buffup ~= '' then
 		local needsbuff = false
 		for i in pairs(buff_spell_lists[buffup]) do
-			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) then
+			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_cast(buff_spell_lists[buffup][i].Name) then
 				needsbuff = true
 				break
 			end
@@ -1382,7 +1442,7 @@ function check_buffup()
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 
 		for i in pairs(buff_spell_lists[buffup]) do
-			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_use(buff_spell_lists[buffup][i].SpellID) and spell_recasts[buff_spell_lists[buffup][i].SpellID] < spell_latency then
+			if not buffactive[buff_spell_lists[buffup][i].Buff] and silent_can_cast(buff_spell_lists[buffup][i].Name) and spell_recasts[buff_spell_lists[buffup][i].SpellID] < spell_latency then
 				windower.chat.input('/ma "'..buff_spell_lists[buffup][i].Name..'" <me>')
 				add_tick_delay()
 				return true
@@ -1623,7 +1683,7 @@ end
 function check_doomed()
 	if buffactive.doom and state.AutoRemoveDoomMode.value then
 
-		if (buffactive.mute or buffactive.Omerta or buffactive.silence) or not (silent_can_use(20) and windower.ffxi.get_spell_recasts()[20] < spell_latency) then
+		if (buffactive.mute or buffactive.Omerta or buffactive.silence) or not (silent_can_cast("Cursna") and windower.ffxi.get_spell_recasts()[20] < spell_latency) then
 			if state.AutoHolyWaterMode.value and not buffactive.muddle then
 				if player.inventory['Hallowed Water'] then
 					windower.chat.input('/item "Hallowed Water" <me>')
@@ -1753,9 +1813,9 @@ function cp_ring_equip(ring)
 end
 
 function check_cpring()
-	if player.main_job_level < 99 or buffactive["Emporox's Gift"] then
-		local time_offset = local_offset - os.time()
+	local time_offset = local_offset - os.time()
 
+	if player.main_job_level < 99 or buffactive["Emporox's Gift"] then
 		if data.equipment.xprings:contains(player.equipment.left_ring) and get_usable_item(player.equipment.left_ring).usable then
 			windower.chat.input('/item "'..player.equipment.left_ring..'" <me>')
 			cp_delay = 0
@@ -1825,10 +1885,8 @@ function check_cpring()
 				return true
 			end
 		end
-	end
 
-	if player.main_job_level == 99 then
-
+	elseif player.main_job_level == 99 then
 		if player.job_points[(res.jobs[player.main_job_id].ens):lower()].jp_spent == 2100 and not buffactive["Emporox's Gift"] then
 			if item_available("Emporox's Ring") then
 				local emporox_ring = get_usable_item("Emporox's Ring")
@@ -2033,15 +2091,15 @@ function check_shadows()
 			windower.chat.input('/ja "Third Eye" <me>')
 			add_tick_delay()
 			return true
-		elseif silent_can_use(679) and spell_recasts[679] < spell_latency then
+		elseif silent_can_cast("Occultation") and spell_recasts[679] < spell_latency then
 			windower.chat.input('/ma "Occultation" <me>')
 			add_tick_delay()
 			return true
-		elseif silent_can_use(53) and spell_recasts[53] < spell_latency then
+		elseif silent_can_cast("Blink") and spell_recasts[53] < spell_latency then
 			windower.chat.input('/ma "Blink" <me>')
 			add_tick_delay()
 			return true
-		elseif silent_can_use(647) and spell_recasts[647] < spell_latency then
+		elseif silent_can_cast("Zephyr Mantle") and spell_recasts[647] < spell_latency then
 			windower.chat.input('/ma "Zephyr Mantle" <me>')
 			add_tick_delay()
 			return true
@@ -2399,9 +2457,15 @@ function update_combat_form()
 end
 
 function get_item_id_by_name(name)
-	if name == nil or name == 'empty' then return end
+	if name == nil or name == 'empty' or (type(name) == 'table' and not name.name) then return end
 
-	return (player.inventory[name] or player.wardrobe[name] or player.wardrobe2[name] or player.wardrobe3[name] or player.wardrobe4[name] or player.wardrobe5[name] or player.wardrobe6[name] or player.wardrobe7[name] or player.wardrobe8[name] or {}).id
+	for bag in res.bags:it() do
+		if player[bag.api] and player[bag.api][name] then
+			return player[bag.api][name].id
+		end
+	end
+	--Kept just in case the above causes issues.
+	--return (player.inventory[name] or player.wardrobe[name] or player.wardrobe2[name] or player.wardrobe3[name] or player.wardrobe4[name] or player.wardrobe5[name] or player.wardrobe6[name] or player.wardrobe7[name] or player.wardrobe8[name] or {}).id
 end
 
 function get_item_table(item)
@@ -2437,6 +2501,24 @@ function item_equipped(item)
 		end
 	end
 	return false
+end
+
+function has_finishing_moves()
+	if buffactive['Finishing Move 1'] then
+		return 1
+	elseif buffactive['Finishing Move 2'] then
+		return 2
+	elseif buffactive['Finishing Move 3'] then
+		return 3
+	elseif buffactive['Finishing Move 4'] then
+		return 4
+	elseif buffactive['Finishing Move 5'] then
+		return 5
+	elseif buffactive['Finishing Move (6+)'] then
+		return 6
+	else
+		return false
+	end
 end
 
 function get_current_stratagem_count()

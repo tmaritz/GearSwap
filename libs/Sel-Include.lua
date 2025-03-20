@@ -72,7 +72,7 @@
 function init_include()
 	extdata = require('extdata')
 	require('queues')
-	res = require('resources')
+	res = gearswap.res
 	packets = require('packets')
 	
 	--Snaps's Rnghelper extension for automatic ranged attacks that should be superior to my implementation.
@@ -105,7 +105,7 @@ function init_include()
 	state.CombatForm          = M{['description'] = 'Combat Form', ['string']=''}
 	state.CombatWeapon        = M{['description'] = 'Combat Weapon', ['string']=''}
 	state.CraftQuality  	  = M{['description'] = 'Crafting Quality','Normal','HQ','NQ'}
-	state.CraftingMode		  = M{['description'] = 'Crafting Mode','None','Alchemy','Bonecraft','Clothcraft','Cooking','Fishing','Goldsmithing','Leathercraft','Smithing','Woodworking'}
+	state.CraftingMode		  = M{['description'] = 'Crafting Mode','None','Alchemy','Bonecraft','Clothcraft','Cooking','Fishing','Gathering','Goldsmithing','Leathercraft','Smithing','Woodworking'}
 	state.DefenseMode         = M{['description'] = 'Defense Mode', 'None', 'Physical', 'Magical', 'Resist'}
 	state.ElementalMode 	  = M{['description'] = 'Elemental Mode', 'Fire','Ice','Wind','Earth','Lightning','Water','Light','Dark'}
 	state.ExtraDefenseMode 	  = M{['description'] = 'Extra Defense Mode','None'}
@@ -256,6 +256,7 @@ function init_include()
 	utsusemi_cancel_delay = .5
 	weapons_pagelist = {}
 	disabled_sets = {}
+	silent_can_use_cache = {['/ma']={},['/ja']={},['/ws']={}}
 	local_offset = 18000
 
 	-- Buff tracking that buffactive can't detect
@@ -368,7 +369,7 @@ function init_include()
 				if p['Target Name'] == 'Mytha' then
 					for i in pairs(naughty_list) do 
 						if p['Message']:contains(naughty_list[i]) then
-							windower.add_to_chat(123,'Message Aborted: Please do not message me about anything third party ingame.')
+							windower.add_to_chat(123,'Message Aborted: Please do not message me about anything third party ingame. -50DKP')
 							windower.add_to_chat(123,'Contact me on Discord: KalesAndRancor#5410 or https://discord.gg/ug6xtvQ')
 							return true
 						end
@@ -518,7 +519,7 @@ function zone_change(new_id,old_id)
 	
 	default_zone_change(new_id,old_id)
 end
-	
+
 function default_zone_change(new_id,old_id)
 	add_tick_delay(10)
 	state.AutoBuffMode:reset()
@@ -530,6 +531,7 @@ function default_zone_change(new_id,old_id)
 	state.AutoWSMode:reset()
 	state.AutoNukeMode:reset()
 	rolled_eleven = T{}
+	silent_can_use_cache = {['/ma']={},['/ja']={},['/ws']={}}
 	if state.CraftingMode.value ~= 'None' then
 		state.CraftingMode:reset()
 	end
@@ -925,7 +927,7 @@ end
 function extra_default_filtered_action(spell, eventArgs)
 	if spell.action_type == 'Item' and world.area == "Mog Garden" then
 		return
-	elseif spell.action_type == 'Magic' and not silent_can_use(spell.recast_id) and stepdown(spell, eventArgs) then
+	elseif spell.action_type == 'Magic' and not silent_can_cast(spell.name) and stepdown(spell, eventArgs) then
 	elseif not can_use(spell) then
 	end
 	cancel_spell()
@@ -2269,6 +2271,7 @@ end
 -- Handle notifications of general state change.
 function state_change(stateField, newValue, oldValue)
 	if stateField == 'Weapons' then
+		silent_can_use_cache['/ws']= {}
 		if state.AutoLockstyle.value and newValue ~= oldValue then
 			style_lock = true
 		end
@@ -2331,22 +2334,8 @@ function state_change(stateField, newValue, oldValue)
 		end
 	elseif stateField == 'Capacity' and newValue == 'false' and data.equipment.cprings:contains(player.equipment.left_ring) then
 			internal_enable_set("UseItem")
-	elseif stateField == 'Crafting Mode' then
-		internal_enable_set("Crafting")
-		if newValue ~= 'None' then
-			local craftingset = sets.crafting
-			if sets.crafting[newValue] then
-				craftingset = set_combine(craftingset,sets.crafting[newValue])
-			end
-			
-			if state.CraftQuality.value == 'HQ' and sets.crafting.HQ then
-				craftingset = set_combine(craftingset,sets.crafting.HQ)
-			elseif state.CraftQuality.value == 'NQ' and sets.crafting[newValue] and sets.crafting[newValue].NQ then
-				craftingset = set_combine(craftingset,sets.crafting[newValue].NQ)
-			end
-			
-			internal_disable_set(craftingset, "Crafting")
-		end
+	elseif stateField == 'Crafting Mode' or stateField == 'Crafting Quality' then
+		lock_crafting_gear()
 	end
 
 	if user_state_change then
@@ -2422,22 +2411,19 @@ function buff_change(buff, gain)
 		end
 	elseif (buff == 'Blink' or buff == 'Third Eye' or buff:startswith('Copy Image')) then
 		if not gain then lastshadow = "None" end
-	elseif (buff == 'Commitment' or buff == 'Dedication') then
-		if gain and (data.equipment.cprings:contains(player.equipment.left_ring) or data.equipment.xprings:contains(player.equipment.left_ring)) then
-			internal_enable_set("UseItem")
-		elseif gain and (player.equipment.head == "Guide Beret" or player.equipment.head == "Sprout Beret") then
+	elseif (buff == 'Commitment' or buff == 'Dedication' or buff == "Emporox's Gift") then
+		if gain and state.Capacity.value then
 			internal_enable_set("UseItem")
 		end
 	elseif rolled_eleven:contains(buff) then
 		if not gain then remove_table_value(rolled_eleven, buff) end
-	elseif buff == "Emporox's Gift" then
-		if player.equipment.left_ring == "Emporox's Ring" and gain then
-			internal_enable_set("UseItem")
-		end
-	elseif buff:endswith('Imagery') then
-		local craft = T(buff:split(' '))
-		if state.CraftingMode:contains(craft[1]) then
-			state.CraftingMode:set(craft[1])
+	elseif buff:endswith('Imagery')  then
+		if gain then
+			local craft = T(buff:split(' '))
+			if state.CraftingMode:contains(craft[1]) then
+				state.CraftingMode:set(craft[1])
+				lock_crafting_gear()
+			end
 		end
 	end
 
