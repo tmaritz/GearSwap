@@ -83,7 +83,7 @@ function init_gear_sets()
     }
     sets.weapons.TwashTrial = {
         main = "Gleti's Knife",
-        sub = "Renegade"
+        sub = "Kartika"
     }
 
     -- Precast Sets
@@ -505,7 +505,7 @@ function init_gear_sets()
     }
 
     sets.Kiting = {
-        feet = "Skd. Jambeaux +1"
+        -- feet = "Skd. Jambeaux +1"
     }
 
     -- Engaged sets
@@ -529,7 +529,7 @@ function init_gear_sets()
         back = "Aesir Mantle",
         waist = "Sailfi Belt +1",
         legs = "Gleti's Breeches",
-        feet = "Malignance Boots"
+        feet = "Macu. Toe Sh. +2"
     }
 
     sets.engaged.DTLite = sets.engaged

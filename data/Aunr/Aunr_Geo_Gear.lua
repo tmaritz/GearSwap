@@ -246,7 +246,7 @@ function init_gear_sets()
     -- Extra Indi duration as long as you can keep your 900 skill cap.
     sets.midcast.Geomancy.Indi = set_combine(sets.midcast.Geomancy, {
         legs = "Bagua Pants +1",
-        feet = "Azimuth Gaiters +2",
+        feet = "Azimuth Gaiters +3",
         back = "Lifestream Cape"
     })
 
@@ -305,8 +305,8 @@ function init_gear_sets()
         head = "Azimuth Hood +3",
         body = "Azimuth Coat +3",
         hands = "Agwu's Gloves",
-        legs = "Azimuth Tights +2",
-        feet = "Agwu's Pigaches",
+        legs = "Azimuth Tights +3",
+        feet = "Azimuth Gaiters +3",
         neck = "Mizu. Kubikazari",
         waist = "Acuity Belt +1",
         left_ear = "Friomisi Earring",
@@ -323,8 +323,8 @@ function init_gear_sets()
         head = "Azimuth Hood +3",
         body = "Azimuth Coat +3",
         hands = "Azimuth Gloves +2",
-        legs = "Azimuth Tights +2",
-        feet = "Azimuth Gaiters +2",
+        legs = "Azimuth Tights +3",
+        feet = "Azimuth Gaiters +3",
         neck = "Sibyl Scarf",
         waist = "Acuity Belt +1",
         left_ear = "Friomisi Earring",
@@ -575,7 +575,7 @@ function init_gear_sets()
         body = "Azimuth Coat +3",
         hands = "Nyame Gauntlets",
         legs = "Assid. Pants +1",
-        feet = "Nyame Sollerets",
+        feet = "Azimuth Gaiters +3",
         neck = "Loricate Torque +1",
         waist = "Slipor Sash",
         left_ear = "Eabani Earring",
@@ -593,7 +593,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         legs = "Nyame Flanchard",
-        feet = "Nyame Sollerets",
+        feet = "Azimuth Gaiters +3",
         neck = "Loricate Torque +1",
         waist = "Carrier's Sash",
         left_ear = "Lugalbanda Earring",
@@ -611,7 +611,7 @@ function init_gear_sets()
         body = "Agwu's Robe",
         hands = "Nyame Gauntlets",
         legs = "Nyame Flanchard",
-        feet = "Nyame Sollerets",
+        feet = "Azimuth Gaiters +3s",
         neck = "Loricate Torque +1",
         waist = "Carrier's Sash",
         left_ear = "Lugalbanda Earring",
@@ -680,11 +680,11 @@ function init_gear_sets()
         main = "Idris",
         sub = "Ammurapi Shield",
         ammo = "Ghastly Tathlum +1",
-        head = "Bagua Galero +3",
+        head = "Azimuth Hood +3",
         body = "Azimuth Coat +3",
         hands = "Geo. Mitaines +3",
-        legs = "Nyame Flanchard",
-        feet = "Bagua Sandals +3",
+        legs = "Azimuth Tights +3",
+        feet = "Azimuth Gaiters +3",
         neck = "Loricate Torque +1",
         waist = "Acuity Belt +1",
         left_ear = "Malignance Earring",
@@ -735,7 +735,7 @@ function init_gear_sets()
     sets.defense.GeoLock = sets.midcast.Geomancy.Indi
 
     sets.Kiting = {
-        feet = "Geo. Sandals +1"
+        feet = "Geo. Sandals +3"
     }
     sets.Kiting.Pet = {
         feet = "Bagua Sandals +3"
