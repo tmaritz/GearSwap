@@ -5,6 +5,8 @@ function user_job_setup()
     state.IdleMode:options('Normal', 'DT')
     state.Weapons:options('None', 'Mpaca', 'Marin')
 
+    state.RecoverMode = M('60%', '35%', 'Always', 'Never')
+
     gear.obi_cure_waist = "Witful Belt"
     gear.obi_low_nuke_waist = "Sekhmet Corset"
     gear.obi_high_nuke_waist = "Refoccilation Stone"
@@ -66,7 +68,7 @@ function init_gear_sets()
     -- Precast sets to enhance JAs
     sets.precast.JA['Mana Wall'] = {
         back = gear.nuke_jse_back,
-        feet = "Wicce Sabots +2"
+        feet = "Wicce Sabots +3"
     }
 
     sets.precast.JA.Manafont = {
@@ -167,7 +169,7 @@ function init_gear_sets()
         head = "Pixie Hairpin +1",
         neck = "Src. Stole +2",
         ear1 = "Malignance Earring",
-        ear2 = "Barkaro. Earring",
+        ear2 = "Wicce Earring +2",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Medada's Ring",
@@ -337,8 +339,8 @@ function init_gear_sets()
         ammo = "Pemphredo Tathlum",
         head = "Jhakri Coronal +2",
         neck = "Src. Stole +2",
-        ear1 = "Barkaro. Earring",
-        ear2 = "Malignance Earring",
+        ear2 = "Wicce Earring +2",
+        ear1 = "Malignance Earring",
         body = "Wicce Coat +3",
         hands = "Amalric Gages",
         ring1 = "Medada's Ring",
@@ -346,7 +348,7 @@ function init_gear_sets()
         back = gear.nuke_jse_back,
         waist = "Refoccilation Stone",
         legs = "Agwu's Slops",
-        feet = "Wicce Sabots +2"
+        feet = "Wicce Sabots +3"
     }
 
     sets.midcast.ElementalEnfeeble = set_combine(sets.midcast['Enfeebling Magic'], {
@@ -452,8 +454,8 @@ function init_gear_sets()
         ammo = "Ghastly Tathlum +1",
         head = "Wicce Petasos +2",
         neck = "Src. Stole +2",
-        ear1 = "Barkaro. Earring",
-        ear2 = "Malignance Earring",
+        ear2 = "Wicce Earring +2",
+        ear1 = "Malignance Earring",
         body = "Wicce Coat +3",
         hands = "Wicce Gloves +2",
         ring1 = "Medada's Ring",
@@ -461,7 +463,7 @@ function init_gear_sets()
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
         legs = "Wicce Chausses +3",
-        feet = "Wicce Sabots +2"
+        feet = "Wicce Sabots +3"
     }
 
     sets.midcast.BardSong = {
@@ -508,8 +510,8 @@ function init_gear_sets()
         ammo = "Ghastly Tathlum +1",
         head = "Wicce Petasos +2",
         neck = "Src. Stole +2",
-        ear1 = "Barkaro. Earring",
-        ear2 = "Malignance Earring",
+        ear2 = "Wicce Earring +2",
+        ear1 = "Malignance Earring",
         body = "Wicce Coat +3",
         hands = "Wicce Gloves +2",
         ring1 = "Medada's Ring",
@@ -517,7 +519,7 @@ function init_gear_sets()
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
         legs = "Wicce Chausses +3",
-        feet = "Wicce Sabots +2"
+        feet = "Wicce Sabots +3"
     }
 
     sets.midcast['Elemental Magic'].HighTierNuke = sets.midcast['Elemental Magic']
@@ -583,7 +585,7 @@ function init_gear_sets()
         back = gear.idlefc_jse_back,
         waist = "Carrier's Sash",
         legs = "Assid. Pants +1",
-        feet = "Wicce Sabots +2"
+        feet = "Wicce Sabots +3"
     }
 
     -- Idle mode that keeps PDT gear on, but doesn't prevent normal gear swaps for precast/etc.
@@ -645,8 +647,8 @@ function init_gear_sets()
         ammo = "Ghastly Tathlum +1",
         head = "Wicce Petasos +2",
         neck = "Src. Stole +2",
-        ear1 = "Barkaro. Earring",
-        ear2 = "Malignance Earring",
+        ear2 = "Wicce Earring +2",
+        ear1 = "Malignance Earring",
         body = "Wicce Coat +3",
         hands = "Wicce Gloves +2",
         ring1 = "Medada's Ring",
@@ -654,7 +656,7 @@ function init_gear_sets()
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
         legs = "Wicce Chausses +3",
-        feet = "Wicce Sabots +2"
+        feet = "Wicce Sabots +3"
     })
 
     -- Defense sets
@@ -775,12 +777,12 @@ function init_gear_sets()
         back = gear.idlefc_jse_back,
         waist = "Plat. Mog. Belt",
         legs = "Wicce Chausses +3",
-        feet = "Wicce Sabots +2"
+        feet = "Wicce Sabots +3"
     }
 
     -- Gear that converts elemental damage done to recover MP.	
     sets.RecoverMP = {
-        body = "Spaekona's Coat +2",
+        body = "Spaekona's Coat +3",
     }
     -- Gear for Magic Burst mode.
     sets.MagicBurst = {
@@ -789,8 +791,8 @@ function init_gear_sets()
         ammo = "Ghastly Tathlum +1",
         head = "Wicce Petasos +2",
         neck = "Src. Stole +2",
-        ear1 = "Barkaro. Earring",
-        ear2 = "Malignance Earring",
+        ear2 = "Wicce Earring +2",
+        ear1 = "Malignance Earring",
         body = "Wicce Coat +3",
         hands = "Agwu's Gloves",
         ring1 = "Medada's Ring",
