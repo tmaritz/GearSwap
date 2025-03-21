@@ -644,6 +644,8 @@ function init_gear_sets()
     }
 
     sets.idle.Town = set_combine(sets.idle, {
+        main = "Marin Staff +1",
+        sub = "Khonsu",
         ammo = "Ghastly Tathlum +1",
         head = "Wicce Petasos +2",
         neck = "Src. Stole +2",
