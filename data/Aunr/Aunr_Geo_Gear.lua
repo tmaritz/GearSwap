@@ -304,7 +304,7 @@ function init_gear_sets()
         ammo = "Ghastly Tathlum +1",
         head = "Azimuth Hood +3",
         body = "Azimuth Coat +3",
-        hands = "Agwu's Gloves",
+        hands = "Azimuth Gloves +3",
         legs = "Azimuth Tights +3",
         feet = "Azimuth Gaiters +3",
         neck = "Mizu. Kubikazari",
@@ -322,7 +322,7 @@ function init_gear_sets()
         ammo = "Ghastly Tathlum +1",
         head = "Azimuth Hood +3",
         body = "Azimuth Coat +3",
-        hands = "Azimuth Gloves +2",
+        hands = "Azimuth Gloves +3",
         legs = "Azimuth Tights +3",
         feet = "Azimuth Gaiters +3",
         neck = "Sibyl Scarf",
@@ -682,7 +682,7 @@ function init_gear_sets()
         ammo = "Ghastly Tathlum +1",
         head = "Azimuth Hood +3",
         body = "Azimuth Coat +3",
-        hands = "Geo. Mitaines +3",
+        hands = "Azimuth Gloves +3",
         legs = "Azimuth Tights +3",
         feet = "Azimuth Gaiters +3",
         neck = "Loricate Torque +1",
@@ -781,6 +781,8 @@ function init_gear_sets()
 
     -- Normal melee group
     sets.engaged = {
+        main = "C. Palug Hammer",
+        sub = 'Genbu\'s Shield',
         ammo = "Vanir Battery",
         head = "Nyame Helm",
         neck = "Asperity Necklace",
