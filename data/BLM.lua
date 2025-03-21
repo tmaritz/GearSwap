@@ -69,8 +69,8 @@ function job_setup()
 	autofood = 'Pear Crepe'
 
 	init_job_states(
-	{ "Capacity", "AutoRuneMode", "AutoTrustMode", "AutoNukeMode", "AutoManawell", "AutoWSMode", "AutoShadowMode",
-		"AutoFoodMode", "AutoStunMode", "AutoDefenseMode" },
+		{ "Capacity", "AutoRuneMode", "AutoTrustMode", "AutoNukeMode", "AutoManawell", "AutoWSMode", "AutoShadowMode",
+			"AutoFoodMode", "AutoStunMode", "AutoDefenseMode" },
 		{ "AutoBuffMode", "Weapons", "OffenseMode", "WeaponskillMode", "IdleMode", "Passive", "RuneElement",
 			"RecoverMode", "ElementalMode", "CastingMode", "TreasureMode", })
 end
@@ -94,7 +94,7 @@ function job_pretarget(spell, spellMap, eventArgs)
 				eventArgs.cancel = true
 				cancel_spell()
 				send_command('@input /ja "Manawell" <me>;wait 1;input /ma ' .. spell.english .. ' ' ..
-				spell.target.raw .. '')
+					spell.target.raw .. '')
 				return
 			end
 		end
@@ -394,7 +394,7 @@ function handle_job_elemental(command, target)
 				local spell_name = data.elements.nuke_of[state.ElementalMode.value] .. tiers[k]
 				local spell_id = get_spell_id_by_name(spell_name)
 
-				if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
+				if silent_can_cast(spell_name) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
 					windower.chat.input('/ma "' .. spell_name .. '" ' .. target .. '')
 					return true
 				end
@@ -405,10 +405,10 @@ function handle_job_elemental(command, target)
 	elseif command:startswith('ancient') then
 		if command == 'ancientmagic2' then
 			windower.chat.input('/ma "' .. data.elements.ancient_nuke_of[state.ElementalMode.value] ..
-			' II" ' .. target .. '')
+				' II" ' .. target .. '')
 		else
 			windower.chat.input('/ma "' .. data.elements.ancient_nuke_of[state.ElementalMode.value] .. '" ' .. target ..
-			'')
+				'')
 		end
 		return true
 	elseif command == 'aga' then
@@ -418,7 +418,7 @@ function handle_job_elemental(command, target)
 			for k in ipairs(tiers) do
 				local spell_name = data.elements.nukega_of[state.ElementalMode.value] .. tiers[k]
 				local spell_id = get_spell_id_by_name(spell_name)
-				if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
+				if silent_can_cast(spell_name) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
 					windower.chat.input('/ma "' .. spell_name .. '" ' .. target .. '')
 					return true
 				end
@@ -434,22 +434,22 @@ end
 
 buff_spell_lists = {
 	Auto = { --Options for When are: Always, Engaged, Idle, OutOfCombat, Combat
-		{ Name = 'Reraise', Buff = 'Reraise', SpellID = 113, When = 'Always' },
-		{ Name = 'Haste',   Buff = 'Haste',   SpellID = 57, When = 'Always' },
-		{ Name = 'Refresh', Buff = 'Refresh', SpellID = 109, When = 'Always' },
-		{ Name = 'Stoneskin', Buff = 'Stoneskin', SpellID = 54, When = 'Always' },
+		{ Name = 'Reraise',   Buff = 'Reraise',   SpellID = 113, When = 'Always' },
+		{ Name = 'Haste',     Buff = 'Haste',     SpellID = 57,  When = 'Always' },
+		{ Name = 'Refresh',   Buff = 'Refresh',   SpellID = 109, When = 'Always' },
+		{ Name = 'Stoneskin', Buff = 'Stoneskin', SpellID = 54,  When = 'Always' },
 		{ Name = 'Klimaform', Buff = 'Klimaform', SpellID = 287, When = 'Combat' },
 	},
 
 	Default = {
-		{ Name = 'Reraise', Buff = 'Reraise', SpellID = 113, Reapply = false },
-		{ Name = 'Haste',   Buff = 'Haste',   SpellID = 57, Reapply = false },
-		{ Name = 'Refresh', Buff = 'Refresh', SpellID = 109, Reapply = false },
-		{ Name = 'Aquaveil', Buff = 'Aquaveil', SpellID = 55, Reapply = false },
-		{ Name = 'Stoneskin', Buff = 'Stoneskin', SpellID = 54, Reapply = false },
+		{ Name = 'Reraise',   Buff = 'Reraise',   SpellID = 113, Reapply = false },
+		{ Name = 'Haste',     Buff = 'Haste',     SpellID = 57,  Reapply = false },
+		{ Name = 'Refresh',   Buff = 'Refresh',   SpellID = 109, Reapply = false },
+		{ Name = 'Aquaveil',  Buff = 'Aquaveil',  SpellID = 55,  Reapply = false },
+		{ Name = 'Stoneskin', Buff = 'Stoneskin', SpellID = 54,  Reapply = false },
 		{ Name = 'Klimaform', Buff = 'Klimaform', SpellID = 287, Reapply = false },
-		{ Name = 'Blink',   Buff = 'Blink',   SpellID = 53, Reapply = false },
-		{ Name = 'Regen',   Buff = 'Regen',   SpellID = 108, Reapply = false },
-		{ Name = 'Phalanx', Buff = 'Phalanx', SpellID = 106, Reapply = false },
+		{ Name = 'Blink',     Buff = 'Blink',     SpellID = 53,  Reapply = false },
+		{ Name = 'Regen',     Buff = 'Regen',     SpellID = 108, Reapply = false },
+		{ Name = 'Phalanx',   Buff = 'Phalanx',   SpellID = 106, Reapply = false },
 	},
 }

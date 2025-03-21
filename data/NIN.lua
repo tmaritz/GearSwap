@@ -449,7 +449,7 @@ function handle_job_elemental(command, target)
 			local spell_name = data.elements.ninjutsu_nuke_of[state.ElementalMode.value]..': '..tiers[k]
 			local spell_id = get_spell_id_by_name(spell_name)
 
-			if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency then
+			if silent_can_cast(spell_name) and spell_recasts[spell_id] < spell_latency then
 				windower.chat.input('/ma "'..spell_name..'" '..target..'')
 				return true
 			end

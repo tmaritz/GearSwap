@@ -89,15 +89,15 @@ function self_command(commandArgs)
 		local functionName = "handle_" .. handleCmd
 
 		if _G[functionName] then
-			_G[functionName](commandArgs)
+			_G[functionName](commandArgs, eventArgs)
 		end
 	end
 
-	if not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock())) then
+	if not eventArgs.handled and not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock())) then
 		handle_equipping_gear(player.status)
-		equip(internal_disable)
 	end
 
+	equip(internal_disable)
 end
 -------------------------------------------------------------------------------------------------------------------
 -- Functions for manipulating state vars.
@@ -144,6 +144,96 @@ function handle_set(cmdParams)
 	else
 		add_to_chat(123,'Sel-Libs: Set: Unknown field ['..cmdParams[1]..']')
 	end
+end
+
+function handle_smartstun(cmdParams)
+	local target
+
+	if cmdParams[1] then
+		if cmdParams[1] == '<me>' or cmdParams[1] == 'me' then
+			target = player.id
+		elseif cmdParams[1] == '<t>' or cmdParams[1] == 't' then
+			if player.target.type ~= 'NONE' and player.target.id then
+				target = player.target.id
+			else
+				add_to_chat(123, 'Smartstun could not find a valid target.')
+				return
+			end
+		elseif tonumber(cmdParams[1]) then
+			target = cmdParams[1]
+		else
+			target = table.concat(cmdParams, ' ')
+			target = get_closest_mob_id_by_name(target)
+		end
+	end
+
+	if not target then
+		if player.target.type ~= 'NONE' and player.target.id then
+			target = player.target.id
+		else
+			add_to_chat(123, 'Smartstun could not find a valid target.')
+			return
+		end
+	end
+	
+	if not do_stun(target) then
+		add_to_chat(123, 'Smartstun could not any available stuns.')
+	end
+end
+
+function do_stun(target)
+	if not (buffactive.silence or  buffactive.mute or buffactive.Omerta) and not moving then
+		local spell_recasts = windower.ffxi.get_spell_recasts()
+
+		if silent_can_cast("Stun") and spell_recasts[252] < spell_latency then
+			windower.chat.input('/ma "Stun" '..target) return true
+		elseif silent_can_cast("Sudden Lunge") and spell_recasts[692] < spell_latency then
+			windower.chat.input('/ma "Sudden Lunge" '..target) return true
+		elseif silent_can_cast("Head Butt") and spell_recasts[623] < spell_latency then
+			windower.chat.input('/ma "Head Butt" '..target) return true
+		end
+	end
+
+	if not (buffactive.amnesia or buffactive.impairment) then
+		local abil_recasts = windower.ffxi.get_ability_recasts()
+		local sub_id
+
+		if state.Weapons.value ~= 'None' and sets.weapons[state.Weapons.value] then
+			local sub_id = get_item_id_by_name(sets.weapons[state.Weapons.value].sub) or get_item_id_by_name(player.equipment.sub) or nil
+		end
+	
+		if (player.main_job == 'PLD' or player.sub_job == 'PLD') and res.items[sub_id].shield_size and abil_recasts[73] < latency then
+			windower.chat.input('/ja "Shield Bash" '..target) return true
+		elseif (player.main_job == 'DRK' or player.sub_job == 'DRK') and abil_recasts[88] < latency then
+			windower.chat.input('/ja "Weapon Bash" '..target) return true
+		elseif player.main_job == 'SMN' and pet.name == "Ramuh" and abil_recasts[174] < latency then
+			windower.chat.input('/pet "Shock Squall" '..target) return true
+		elseif (player.main_job == 'SAM') and player.merits.blade_bash and abil_recasts[137] < latency then
+			windower.chat.input('/ja "Blade Bash" '..target) return true
+		elseif not player.status == 'Engaged' then
+		elseif (player.main_job == 'DNC' or player.sub_job == 'DNC') and has_finishing_moves() and abil_recasts[221] < latency then
+			windower.chat.input('/ja "Violent Flourish" '..target) return true
+		end
+	end
+
+	if player.tp > 800 then
+		local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
+		if available_ws:contains(35) then
+			windower.chat.input('/ws "Flat Blade" '..target) return true
+		elseif available_ws:contains(145) then
+			windower.chat.input('/ws "Tachi Hobaku" '..target) return true
+		elseif available_ws:contains(2) then
+			windower.chat.input('/ws "Shoulder Tackle" '..target) return true
+		elseif available_ws:contains(65) then
+			windower.chat.input('/ws "Smash Axe" '..target) return true
+		elseif available_ws:contains(115) then
+			windower.chat.input('/ws "Leg Sweep" '..target) return true
+		elseif available_ws:contains(162) then
+			windower.chat.input('/ws "Brainshaker" '..target) return true
+		end
+	end
+
+	return false
 end
 
 -- Function to reset values to their defaults.
@@ -325,6 +415,11 @@ end
 
 -- showtp: equip the current TP set for examination.
 function handle_showtp(cmdParams)
+	if disabled_sets["ShowTP"] then
+		internal_enable_set("ShowTP")
+		return
+	end
+
 	update_combat_form()
 
 	local msg = 'Showing current TP set: ['.. state.OffenseMode.value
@@ -345,7 +440,7 @@ function handle_showtp(cmdParams)
 	end
 
 	add_to_chat(122, msg)
-	equip(get_melee_set())
+	internal_disable_set(get_melee_set(), "ShowTP")
 end
 
 
@@ -570,7 +665,7 @@ function handle_elemental(cmdParams)
 				local spell_name = data.elements.nuke_of[state.ElementalMode.value]..tiers[k]
 				local spell_id = get_spell_id_by_name(spell_name)
 
-				if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
+				if silent_can_cast(spell_name) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
 					windower.chat.input('/ma "'..data.elements.nuke_of[state.ElementalMode.value]..''..tiers[k]..'" '..target)
 					return
 				end
@@ -594,9 +689,9 @@ function handle_elemental(cmdParams)
 
 	elseif command == 'aga' or command == 'smallaga' then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
-		local lower_spell = string.lower(data.elements.nukega_of[state.ElementalMode.value]..'ga II')
-		local spell_id = gearswap.validabils.english['/ma'][lower_spell]
-		if silent_can_use(spell_id) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
+		local spell_name = data.elements.nukega_of[state.ElementalMode.value]..'ga II'
+		local spell_id = get_spell_id_by_name(spell_name)
+		if silent_can_cast(spell_name) and spell_recasts[spell_id] < spell_latency and actual_cost(spell_id) < player.mp then
 			windower.chat.input('/ma "'..data.elements.nukega_of[state.ElementalMode.value]..'ga II'..'" '..target)
 		else
 			windower.chat.input('/ma "'..data.elements.nukega_of[state.ElementalMode.value]..'ga" '..target)
@@ -640,7 +735,7 @@ function handle_scholar(cmdParams)
 		if state.Buff['Light Arts'] then
 			windower.chat.input('/ja "Addendum: White" <me>')
 		elseif state.Buff['Addendum: White'] then
-			add_to_chat(122,'Error: Addendum: White is already active.')
+			windower.chat.input('/ja "Accession" <me>')
 		else
 			windower.chat.input('/ja "Light Arts" <me>')
 		end
@@ -648,7 +743,7 @@ function handle_scholar(cmdParams)
 		if state.Buff['Dark Arts'] then
 			windower.chat.input('/ja "Addendum: Black" <me>')
 		elseif state.Buff['Addendum: Black'] then
-			add_to_chat(122,'Error: Addendum: Black is already active.')
+			windower.chat.input('/ja "Manifestation" <me>')
 		else
 			windower.chat.input('/ja "Dark Arts" <me>')
 		end
@@ -835,11 +930,11 @@ function handle_shadows()
 	else
 		if player.main_job == 'SAM' and windower.ffxi.get_ability_recasts()[133] < latency then
 			windower.chat.input('/ja "Third Eye" <me>')
-		elseif silent_can_use(679) and spell_recasts[679] < spell_latency then
+		elseif silent_can_cast("Occultation") and spell_recasts[679] < spell_latency then
 			windower.chat.input('/ma "Occultation" <me>')
-		elseif silent_can_use(53) and spell_recasts[53] < spell_latency then
+		elseif silent_can_cast("Blink") and spell_recasts[53] < spell_latency then
 			windower.chat.input('/ma "Blink" <me>')
-		elseif silent_can_use(647) and spell_recasts[647] < spell_latency then
+		elseif silent_can_cast("Zephyr Mantle") and spell_recasts[647] < spell_latency then
 			windower.chat.input('/ma "Zephyr Mantle" <me>')
 		elseif player.sub_job == 'SAM' and windower.ffxi.get_ability_recasts()[133] < latency then
 			windower.chat.input('/ja "Third Eye" <me>')
@@ -976,23 +1071,23 @@ function handle_macropage()
 	end
 end
 
-function handle_curecheat(cmdParams)
+function handle_curecheat(cmdParams, eventArgs)
 	if sets.HPDown then
 		curecheat = true
 		equip(sets.HPDown)
 		if player.main_job == 'BLU' then
-			windower.chat.input('/ma "Magic Fruit" <me>')
-		elseif player.main_job == 'WHM' or not silent_can_use(4) then
-			windower.chat.input('/ma "Cure III" <me>')
+			windower.chat.input:schedule(.2,'/ma "Magic Fruit" <me>')
+		elseif player.main_job == 'WHM' or not silent_can_cast("Cure IV") then
+			windower.chat.input:schedule(.2,'/ma "Cure III" <me>')
 		else
-			windower.chat.input('/ma "Cure IV" <me>')
+			windower.chat.input:schedule(.2,'/ma "Cure IV" <me>')
 		end
 	--If we only have an HighHP set, we assume that this is sufficient.
 	elseif sets.HPCure then
 		curecheat = true
 		if player.main_job == 'BLU' then
 			windower.chat.input('/ma "Magic Fruit" <me>')
-		elseif player.main_job == 'WHM' or not silent_can_use(4) then
+		elseif player.main_job == 'WHM' or not silent_can_cast("Cure IV") then
 			windower.chat.input('/ma "Cure III" <me>')
 		else
 			windower.chat.input('/ma "Cure IV" <me>')
@@ -1000,6 +1095,7 @@ function handle_curecheat(cmdParams)
 	else
 		add_to_chat(123,"You don't have a sets.HPDown nor a sets.HPCure to cheat with.")
 	end
+	eventArgs.handled = true
 end
 
 function handle_stna(cmdParams)
@@ -1044,26 +1140,17 @@ function handle_stna(cmdParams)
 		return
 	end
 
-
-	local can_use_na = {}
 	for i, status in ipairs(data.status_map) do
 		local spell = status.spell
 		if targetBuffs[status.buff] then
-			if can_use_na[spell] == nil then
-				can_use_na[spell] = silent_can_use(spell)
-			end
-			if can_use_na[spell] then
+			if silent_can_cast(spell) then
 				windower.chat.input('/ma "'..spell..'" '..removalTarget.name)
 				return
 			end
 		end
 	end
 	
-	if can_use_na['Erase'] == nil then
-		can_use_na['Erase'] = silent_can_use('Erase')
-	end
-	
-	if can_use_na['Erase'] then
+	if silent_can_cast("Erase") then
 		for key in pairs(targetBuffs) do
 			if type(key) == "string" and key:endswith(' down') then
 				windower.chat.input('/ma "Erase" '..removalTarget.name)
@@ -1145,7 +1232,7 @@ function handle_smartcure(cmdParams)
 			add_to_chat(123,'Abort: Appropriate cures are on cooldown.')
 		end
 	else
-		if silent_can_use(4) and spell_recasts[4] < spell_latency then
+		if silent_can_cast("Cure IV") and spell_recasts[4] < spell_latency then
 			windower.chat.input('/ma "Cure IV" '..cureTarget.id..'')
 		elseif spell_recasts[3] < spell_latency then
 			windower.chat.input('/ma "Cure III" '..cureTarget.id..'')
@@ -1318,7 +1405,6 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
-	table.vprint(disabled_sets)
 	if user_test then
 		user_test(cmdParams)
 	elseif job_test then

@@ -248,7 +248,7 @@ spell_maps = {
 	["Hunter's Prelude"]='Prelude',["Archer's Prelude"]='Prelude',
 	['Sheepfoe Mambo']='Mambo',['Dragonfoe Mambo']='Mambo',
 	['Raptor Mazurka']='Mazurka',['Chocobo Mazurka']='Mazurka',
-	['Shock Spikes']='Spikes',['Ice Spikes']='Spikes',['Blaze Spikes']='Spikes',
+	['Shock Spikes']='Spikes',['Ice Spikes']='Spikes',['Blaze Spikes']='Spikes',['Dread Spikes']='Spikes',
 	['Enfire']='Enspell',['Enfire II']='Enspell',['Enblizzard']='Enspell',['Enblizzard II']='Enspell',['Enaero']='Enspell',['Enaero II']='Enspell',['Enstone']='Enspell',['Enstone II']='Enspell',
 	['Enthunder']='Enspell',['Enthunder II']='Enspell',['Enwater']='Enspell',['Enwater II']='Enspell',['Enlight']='Enspell',['Enlight II']='Enspell',['Endark']='Enspell',['Endark II']='Enspell',
 	['Sinewy Etude']='Etude',['Dextrous Etude']='Etude',['Vivacious Etude']='Etude',['Quick Etude']='Etude',['Learned Etude']='Etude',['Spirited Etude']='Etude',['Enchanting Etude']='Etude',
@@ -428,6 +428,7 @@ disable_priority = T{
 	"UseItem",
 	"OneHour",
 	"Weapons",
+	"ShowTP",
 	"Ability",
 	"TreasureHunter",
 }:reverse() --We reverse the list here so that the highest priority is at the top.
@@ -629,17 +630,6 @@ data.tools.universal_toolbag_map = {
 	['Gekka: Ichi'] = res.items[5868],
 	['Yain: Ichi'] = res.items[5868],
 	}
-
--------------------------------------------------------------------------------------------------------------------
--- Command related Maps/Lists
--------------------------------------------------------------------------------------------------------------------
-data.command = {}
-
-data.command.outgoing_action_category_table = {['/ma']=3,['/ws']=7,['/ja']=9,['/ra']=16,['/ms']=25}
-
-data.command.unify_prefix = {['/ma'] = '/ma', ['/magic']='/ma',['/jobability'] = '/ja',['/ja']='/ja',['/item']='/item',['/song']='/ma',
-	['/so']='/ma',['/ninjutsu']='/ma',['/weaponskill']='/ws',['/ws']='/ws',['/ra']='/ra',['/rangedattack']='/ra',['/nin']='/ma',
-	['/throw']='/ra',['/range']='/ra',['/shoot']='/ra',['/monsterskill']='/ms',['/ms']='/ms',['/pet']='/ja',['Monster']='Monster',['/bstpet']='/ja'}
 
 -------------------------------------------------------------------------------------------------------------------
 -- Tables to specify area groupings.
