@@ -1082,7 +1082,7 @@ function default_post_midcast(spell, spellMap, eventArgs)
 	if not eventArgs.handled then
 		
 		if spell.action_type == 'Magic' then
-			if is_nuke(spell, spellMap) then
+			if is_nuke(spell, spellMap) and state.CastingMode.value ~= 'Proc' then
 				if not job_post_midcast and state.MagicBurstMode.value ~= 'Off' and sets.MagicBurst then
 					equip(sets.MagicBurst)
 				end
