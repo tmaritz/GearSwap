@@ -364,14 +364,17 @@ function init_include()
 		naughty_list = {'lua ','gearswap',' gs ','file','windower','plugin','addon','program','hack','bot ','bots ','botting','easyfarm'}
 		
 		windower.raw_register_event('outgoing chunk', function(id, data, modified, injected, blocked)
-			if id == 0x0B6 and res.servers[windower.ffxi.get_info().server].en == 'Asura' then
-				local p = packets.parse('outgoing',data)
-				if p['Target Name'] == 'Mytha' then
-					for i in pairs(naughty_list) do 
-						if p['Message']:contains(naughty_list[i]) then
-							windower.add_to_chat(123,'Message Aborted: Please do not message me about anything third party ingame. -50DKP')
-							windower.add_to_chat(123,'Contact me on Discord: KalesAndRancor#5410 or https://discord.gg/ug6xtvQ')
-							return true
+			if id == 0x0B6 then
+				local ffxi_info = windower.ffxi.get_info()
+				if ffxi_info and ffxi_info.server and res.servers[ffxi_info.server] and res.servers[ffxi_info.server].en and res.servers[ffxi_info.server].en == 'Asura' then
+					local p = packets.parse('outgoing',data)
+					if p['Target Name'] == 'Mytha' then
+						for i in pairs(naughty_list) do 
+							if p['Message']:contains(naughty_list[i]) then
+								windower.add_to_chat(123,'Message Aborted: Please do not message me about anything third party ingame. -50DKP')
+								windower.add_to_chat(123,'Contact me on Discord: KalesAndRancor#5410 or https://discord.gg/ug6xtvQ')
+								return true
+							end
 						end
 					end
 				end
