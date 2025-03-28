@@ -180,12 +180,12 @@ function job_update(cmdParams, eventArgs)
 end
 
 function update_melee_groups()
-    classes.CustomMeleeGroups:clear()
-    
-    if data.areas.adoulin:contains(world.area) and buffactive.Ionis then
-		classes.CustomMeleeGroups:append('Adoulin')
-    end
-	
+	classes.CustomMeleeGroups:clear()
+
+	if pet.isvalid then
+		classes.CustomMeleeGroups:append('Pet')
+	end
+
 	if player.equipment.main and player.equipment.main == "Ryunohige" and state.Buff['Aftermath: Lv.3'] then
 		classes.CustomMeleeGroups:append('AM')
 	end

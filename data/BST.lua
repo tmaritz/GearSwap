@@ -280,10 +280,8 @@ function job_precast(spell, spellMap, eventArgs)
 
 		elseif spell.english == 'Reward' then
 			equip(sets.precast.JA.Reward[state.RewardMode.value])
-			if can_dual_wield then
-				equip(sets.RewardAxesDW)
-			else
-				equip(sets.RewardAxe)
+			if can_dual_wield and sets.precast.JA.Reward.DW then
+				equip(sets.precast.JA.Reward.DW)
 			end
 
 		elseif spell.english == 'Spur' then
@@ -477,8 +475,12 @@ end
 -------------------------------------------------------------------------------------------------------------------
 
 function job_customize_idle_set(idleSet)
-	if pet.isvalid and pet.status == 'Engaged' and can_dual_wield and sets.idle.Pet.Engaged.DW then
-		equip(sets.idle.Pet.Engaged.DW)
+	if pet.isvalid and can_dual_wield then
+		if pet.status == 'Engaged' and sets.idle.Pet.Engaged.DW then
+			equip(sets.idle.Pet.Engaged.DW)
+		elseif sets.idle.Pet.DW then
+			equip(sets.idle.Pet.DW)
+		end
 	end
 	
 	return idleSet
