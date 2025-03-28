@@ -9,7 +9,9 @@ function user_job_setup()
 	state.IdleMode:options('Normal', 'PDT')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode','None'}
 	state.Passive = M{['description'] = 'Passive Mode','None','Twilight'}
-	state.Weapons:options('Staff','DualWeapons','ProcDagger','ProcSword','ProcGreatSword','ProcScythe','ProcPolearm','ProcKatana','ProcGreatKatana','ProcClub','ProcStaff')
+	state.Weapons:options('DualWeapons','ProcDagger','ProcSword','ProcGreatSword','ProcScythe','ProcPolearm','ProcKatana','ProcGreatKatana','ProcClub','ProcStaff')
+	
+	autows_list = {['DualWeapons']='Savage Blade',['ProcDagger']='Cyclone',['ProcSword']='Red Lotus Blade',['ProcGreatSword']='Freezebite',['ProcScythe']='Shadow of Death',['ProcPolearm']='Raiden Thrust',['ProcGreatKatana']='Tachi: Koki',['ProcKatana']='Blade: Ei',['ProcClub']='Seraph Strike',['ProcStaff']='Earth Crusher',}
 
 	-- Additional local binds
 	send_command('bind ^` input /ja "Hasso" <me>')
@@ -1221,7 +1223,6 @@ function init_gear_sets()
 	sets.TreasureHunter = set_combine(sets.TreasureHunter, {ammo="Per. Lucky Egg"})
 	
 	-- Weapons sets
-	sets.weapons.Staff = {main="Gozuki Mezuki",sub="Niobid Strap"}
 	sets.weapons.DualWeapons = {main="Naegling",sub="Demers. Degen +1"}
 	sets.weapons.ProcDagger = {main="Qutrub Knife",sub="Beatific Shield +1"}
 	sets.weapons.ProcSword = {main="Kyukoto",sub="Beatific Shield +1"}
@@ -1229,7 +1230,7 @@ function init_gear_sets()
 	sets.weapons.ProcScythe = {main="Ark Scythe",sub="Niobid Strap"}
 	sets.weapons.ProcPolearm = {main="Pitchfork",sub="Niobid Strap"}
 	sets.weapons.ProcKatana = {main="Debahocho",sub="Beatific Shield +1"}
-	sets.weapons.ProcGreatKatana = {main="Hardwood Katana",sub="Niobid Strap"}
+	sets.weapons.ProcGreatKatana = {main="Mutsunokami",sub="Niobid Strap"}
 	sets.weapons.ProcClub = {main="Hagoita",sub="Beatific Shield +1"}
 	sets.weapons.ProcStaff = {main="Caver's Shovel",sub="Niobid Strap"}
 end

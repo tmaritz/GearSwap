@@ -325,7 +325,7 @@ function init_gear_sets()
     
     -- Extra defense sets.  Apply these on top of melee or defense sets.
 	sets.Knockback = {}
-    sets.MP = {head="Chev. Armet +1",neck="Coatl Gorget +1",ear2="Ethereal Earring",waist="Flume Belt +1",feet="Rev. Leggings +3"}
+    sets.MP = {head="Chev. Armet +1",neck="Coatl Gorget +1",hands="Volte Bracers",ear2="Ethereal Earring",waist="Flume Belt +1",feet="Rev. Leggings +3"}
 	sets.passive.AbsorbMP = {head="Chev. Armet +1",neck="Coatl Gorget +1",ear2="Ethereal Earring",waist="Flume Belt +1",feet="Rev. Leggings +3"}
     sets.MP_Knockback = {}
     sets.Twilight = {head="Twilight Helm", body="Twilight Mail"}
