@@ -129,14 +129,14 @@ end
 function lock_TH()
     state.th_gear_is_locked = true
     local slots = T{}
-    internal_disable_set(sets.TreasureHunter, "Treasure Hunter")
+    internal_disable_set(sets.TreasureHunter, "TreasureHunter")
 end
 
 
 -- Set locked TH flag to false, and enable relevant gear slots.
 function unlock_TH()
 	if state.th_gear_is_locked then
-		internal_enable_set(sets.TreasureHunter, "Treasure Hunter")
+		internal_enable_set("TreasureHunter")
 	end
 	state.th_gear_is_locked = false
     send_command('gs c update')

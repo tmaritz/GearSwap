@@ -2177,6 +2177,8 @@ function build_internal_disable()
 	for i, priority in ipairs(disable_priority) do
 		internal_disable = set_combine(internal_disable, disabled_sets[priority])
 	end
+	
+	table.vprint(internal_disable)
 end
 
 function internal_enable_set(priority)

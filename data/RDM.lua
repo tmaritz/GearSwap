@@ -88,7 +88,6 @@ end
 function job_filtered_action(spell, eventArgs)
 	if spell.type == 'WeaponSkill' then
 		local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
-		-- WS 112 is Double Thrust, meaning a Spear is equipped.
 		if available_ws:contains(160) then
 			if spell.english == "Savage Blade" then
 				windower.chat.input('/ws "Black Halo" '..spell.target.raw)
@@ -142,7 +141,7 @@ function job_pretarget(spell, spellMap, eventArgs)
 end
 
 function job_precast(spell, spellMap, eventArgs)
-	if spell.english:startswith('Temper') or (spell.english:startswith('Phalanx') and spell.target.type =='SELF') then
+	if spell.english:startswith('Temper') or spellMap == 'Enspell' or (spell.english:startswith('Phalanx') and spell.target.type =='SELF') then
 		if state.BuffWeaponsMode.value ~= 'Never' and (state.BuffWeaponsMode.value == 'Always' or tonumber(state.BuffWeaponsMode.value) > player.tp) then
 			internal_enable_set("Weapons")
 		end
