@@ -2033,7 +2033,7 @@ function apply_defense(baseSet)
 			defenseSet = user_job_customize_defense_set(defenseSet)
 		end
 		
-		apply_extra_defense(baseSet)
+		baseSet = apply_extra_defense(baseSet)
 
 		baseSet = set_combine(baseSet, defenseSet)
 	end
@@ -2058,8 +2058,6 @@ function apply_passive(baseSet)
 	if user_job_customize_passive_set then
 		baseSet = user_job_customize_passive_set(baseSet)
 	end
-	
-	baseSet = apply_extra_defense(baseSet)
 	
 	return baseSet
 end
