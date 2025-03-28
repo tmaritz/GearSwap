@@ -2033,9 +2033,9 @@ function apply_defense(baseSet)
 			defenseSet = user_job_customize_defense_set(defenseSet)
 		end
 		
-		baseSet = apply_extra_defense(baseSet)
-
 		baseSet = set_combine(baseSet, defenseSet)
+		
+		baseSet = apply_extra_defense(baseSet)
 	end
 	
 	return baseSet
