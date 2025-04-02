@@ -267,6 +267,14 @@ function job_post_midcast(spell, spellMap, eventArgs)
 					equip(sets.Self_Phalanx.DW)
 				end
 			end
+
+			if state.CastingMode.value == 'SIRD' and in_combat then
+				if sets.midcast[spell.english] and sets.midcast[spell.english].SIRD then
+					equip(sets.midcast[spell.english].SIRD)
+				elseif sets.midcast[spellMap] and sets.midcast[spellMap].SIRD then
+					equip(sets.midcast[spellMap].SIRD)
+				end
+			end
 		end
 	end
 end
