@@ -124,7 +124,6 @@ end
 
 function job_precast(spell, spellMap, eventArgs)
 	if spell.type == 'BardSong' then
-
 		if state.CarnMode.value ~= 'Never' and (state.CarnMode.value == 'Always' or tonumber(state.CarnMode.value) > player.tp) then
 			internal_enable_set("Weapons")
 		end

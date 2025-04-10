@@ -21,7 +21,7 @@ function user_job_setup()
 	--gear.snapshot_jse_back = {name="Camulus's Mantle",augments={'"Snapshot"+10',}}
 	gear.ranger_wsd_jse_back = {name="Camulus's Mantle",augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Weapon skill damage +10%',}}
 	--gear.magic_wsd_jse_back = {name="Camulus's Mantle",augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}}
-	--gear.str_wsd_jse_back = {name="Camulus's Mantle",augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
+	gear.str_wsd_jse_back = {name="Camulus's Mantle",augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
 
 	-- Additional local binds
 	send_command('bind ^` gs c cycle ElementalMode')
@@ -135,12 +135,12 @@ function init_gear_sets()
 	sets.precast.WS = {
 		head="Nyame Helm",neck="Fotia Gorget",ear1="Moonshade Earring",ear2="Telos Earring",
 		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Regal Ring",ring2="Cornelia's Ring",
-		back=gear.ranger_wsd_jse_back,waist="Fotia Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
+		back=gear.str_wsd_jse_back,waist="Fotia Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
 
 	sets.precast.WS.Acc = {
 		head="Nyame Helm",neck="Null Loop",ear1="Moonshade Earring",ear2="Telos Earring",
 		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Regal Ring",ring2="Cornelia's Ring",
-		back=gear.ranger_wsd_jse_back,waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
+		back=gear.str_wsd_jse_back,waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
 
 	sets.precast.WS.Proc = {
 		head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Chas. Earring +1",
@@ -223,18 +223,18 @@ function init_gear_sets()
 	sets.TreasureHunter = set_combine(sets.TreasureHunter, {})
 
 	-- Weapons sets
-	sets.weapons.Default = {main="Naegling",sub="Nusku Shield",range="Fomalhaut"}
-	sets.weapons.Ranged = {main="Rostam",sub="Nusku Shield",range="Fomalhaut"}
+	sets.weapons.Default = {main="Naegling",sub="Nusku Shield",range="Compensator"}
+	sets.weapons.Ranged = {main="Rostam",sub="Nusku Shield",range="Compensator"}
 	sets.weapons.Evisceration = {main="Tauret",sub="Nusku Shield",range="Ataktos"}
-	sets.weapons.DualWeapons = {main="Naegling",sub="Blurred Knife +1",range="Fomalhaut"}
+	sets.weapons.DualWeapons = {main="Naegling",sub="Blurred Knife +1",range="Compensator"}
 	sets.weapons.DualSavageWeapons = {main="Naegling",sub="Blurred Knife +1",range="Ataktos"}
 	sets.weapons.DualEvisceration = {main="Tauret",sub="Blurred Knife +1",range="Ataktos"}
 	sets.weapons.Savage = {main="Naegling",sub="Nusku Shield",range="Ataktos"}
-	sets.weapons.DualLeadenRanged = {main="Rostam",sub="Tauret",range="Fomalhaut"}
-	sets.weapons.DualLeadenMelee = {main="Naegling",sub="Atoyac",range="Fomalhaut"}
+	sets.weapons.DualLeadenRanged = {main="Rostam",sub="Tauret",range="Compensator"}
+	sets.weapons.DualLeadenMelee = {main="Naegling",sub="Atoyac",range="Compensator"}
 	sets.weapons.DualAeolian = {main="Rostam",sub="Tauret",range="Ataktos"}
-	sets.weapons.DualLeadenMeleeAcc = {main="Naegling",sub="Blurred Knife +1",range="Fomalhaut"}
-	sets.weapons.DualRanged = {main="Rostam",sub="Kustawi +1",range="Fomalhaut"}
+	sets.weapons.DualLeadenMeleeAcc = {main="Naegling",sub="Blurred Knife +1",range="Compensator"}
+	sets.weapons.DualRanged = {main="Rostam",sub="Kustawi +1",range="Compensator"}
 
 	-- Engaged sets
 

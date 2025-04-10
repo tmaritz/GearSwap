@@ -310,6 +310,12 @@ function update_job_states()
 				if statusammo then
 					stateBox:append('Ammo: '..statusammo..'    ')
 				end
+		elseif n == 'Weapons' then
+			if state.UnlockWeapons.value then
+				stateBox:append(string.format("%sUnlocked %s: ${%s}    ", clr.w, labels[n], n))
+			else
+				stateBox:append(string.format("%s%s: ${%s}    ", clr.w, labels[n], n))
+			end
 		elseif n == 'OffenseMode' then
 			if state.DefenseMode.value ~= 'None' then
 				stateBox:append(string.format("%sDefense Active: ", clr.w))

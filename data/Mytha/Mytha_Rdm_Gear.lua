@@ -3,20 +3,20 @@ function user_job_setup()
     state.OffenseMode:options('Normal','Acc')
     state.HybridMode:options('Normal','DT')
 	state.WeaponskillMode:options('Match','Proc')
-	state.CastingMode:options('Normal','Resistant','Proc')
-    state.IdleMode:options('Normal','PDT','MDT','MEVA')
+	state.CastingMode:options('Normal','Resistant','Proc','SIRD')
+    state.IdleMode:options('Normal','PDT','MDT','MEVA','Aminon')
     state.PhysicalDefenseMode:options('PDT','NukeLock')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
 	state.BuffWeaponsMode = M{'Always','Never'}
 	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage'}
 	state.RecoverMode = M('35%','60%','Always','Never')
-	state.Weapons:options('None','Naegling','Maxentius','Tauret','EnspellOnly','DualWeapons','DualWeaponsAcc','DualMaxentius','DualMaxentiusAcc','DualPrime','DualAeolian','DualEnspellOnly','DualProcSword')
+	state.Weapons:options('None','Naegling','Maxentius','Crocea','Tauret','EnspellOnly','DualWeapons','DualWeaponsAcc','DualMaxentius','DualCrocea','DualMaxentiusAcc','DualPrime','DualAeolian','DualEnspellOnly','DualProcSword')
 
 	default_weapons = 'Naegling'
 	default_dual_weapons = 'DualWeapons'
 
-	autows_list = {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['Tauret']='Aeolian Edge',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualMaxentius']='Black Halo',['DualMaxentiusAcc']='Black Halo',['DualEvisceration']='Evisceration',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator'}
+	autows_list = {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['Crocea']='Sanguine Blade',['Tauret']='Aeolian Edge',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualMaxentius']='Black Halo',['DualMaxentiusAcc']='Black Halo',['DualEvisceration']='Evisceration',['DualCrocea']='Sanguine Blade',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator'}
 	trust_list = {"Joachim","Ulmia","Qultada","Yoran-Oran (UC)","Selh'teus"}
 	
 	gear.mnd_enfeebling_jse_back = {name="Sucellos's Cape",augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Haste+10','Damage taken-5%',}}
@@ -54,13 +54,15 @@ function init_gear_sets()
 	--------------------------------------
 
 	-- Weapons sets
-	sets.weapons.Naegling = {main="Naegling",sub="Sacro Bulwark",range=empty}
-	sets.weapons.Maxentius = {main="Maxentius",sub="Sacro Bulwark",range=empty}
+	sets.weapons.Naegling = {main="Naegling",sub="Ammurapi Shield",range=empty}
+	sets.weapons.Crocea = {main="Crocea Mors",sub="Ammurapi Shield",range=empty}
+	sets.weapons.Maxentius = {main="Maxentius",sub="Ammurapi Shield",range=empty}
 	sets.weapons.Tauret = {main="Tauret",sub="Ammurapi Shield",range=empty}
 	sets.weapons.DualWeapons = {main="Naegling",sub="Thibron",range=empty}
 	sets.weapons.DualWeaponsAcc = {main="Naegling",sub="Gleti's Knife",range=empty}
 	sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
 	sets.weapons.DualEvisceration = {}
+	sets.weapons.DualCrocea = {main="Crocea Mors",sub="Daybreak",range=empty}
 	sets.weapons.DualAeolian = {main="Tauret",sub="Maxentius",range=empty}
 	sets.weapons.DualProcSword = {main="Demers. Degen +1",sub="Blurred Knife +1",range=empty}
 	sets.weapons.EnspellOnly = {main="Qutrub Knife",sub="Sacro Bulwark"}
@@ -312,7 +314,7 @@ function init_gear_sets()
 	sets.midcast.Distract.DW = sets.midcast.Frazzle.DW
 	
 	sets.midcast.Addle = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
-		head="Leth. Chappel +3",neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
+		head="Viti. Chapeau +3",neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back=gear.mnd_enfeebling_jse_back,waist="Obstinate Sash",legs=gear.chironic_macc_legs,feet="Vitiation Boots +3"}
 		
@@ -320,7 +322,7 @@ function init_gear_sets()
 	sets.midcast.Slow = sets.midcast.Addle
 	
 	sets.midcast.Addle.Resistant = {main="Daybreak",sub="Ammurapi Shield",range="Ullr",ammo=empty,
-		head="Leth. Chappel +3",neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
+		head="Viti. Chapeau +3",neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
 		body="Lethargy Sayon +3",hands="Leth. Ganth. +3",ring1="Stikini Ring +1",ring2="Metamor. Ring +1",
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet="Leth. Houseaux +3"}
 		
@@ -486,7 +488,12 @@ function init_gear_sets()
 		back="Engulfer Cape +1",waist="Null Belt",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 		
 	sets.idle.MEVA = {main="Daybreak",sub="Sacro Bulwark",range=empty,ammo="Staunch Tathlum +1",
-		head="Bunzi's Hat",neck="Null Loop",ear1="Etiolation Earring",ear2="Sanare Earring",
+		head="Bunzi's Hat",neck="Warder's Charm +1",ear1="Etiolation Earring",ear2="Sanare Earring",
+		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Defending Ring",ring2="Shadow Ring",
+		back="Null Shawl",waist="Null Belt",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
+		
+	sets.idle.Aminon = {main="Daybreak",sub="Sacro Bulwark",range=empty,ammo="Staunch Tathlum +1",
+		head="Null Masque",neck="Warder's Charm +1",ear1="Etiolation Earring",ear2="Sanare Earring",
 		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Defending Ring",ring2="Shadow Ring",
 		back="Null Shawl",waist="Null Belt",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 	
@@ -598,6 +605,8 @@ function select_default_macro_book()
 		set_macro_page(5, 2)
 	elseif player.sub_job == 'BLM' then
 		set_macro_page(2, 2)
+	elseif player.sub_job == 'DRK' then
+		set_macro_page(6, 2)
 	else
 		set_macro_page(3, 2)
 	end
