@@ -189,7 +189,7 @@ function init_gear_sets()
 
 	-- Idle sets
 	sets.idle = {ammo=gear.RAbullet,
-		head="Nyame Helm",neck="Loricate Torque +1",ear1="Genmei Earring",ear2="Sanare Earring",
+		head="Null Masque",neck="Loricate Torque +1",ear1="Genmei Earring",ear2="Sanare Earring",
 		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Defending Ring",ring2="Shneddick Ring",
 		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
 
@@ -199,7 +199,7 @@ function init_gear_sets()
 		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
 
 	sets.idle.Refresh = {ammo=gear.RAbullet,
-		head="Rawhide Mask",neck="Loricate Torque +1",ear1="Genmei Earring",ear2="Ethereal Earring",
+		head="Null Masque",neck="Loricate Torque +1",ear1="Genmei Earring",ear2="Ethereal Earring",
 		body="Mekosu. Harness",hands="Nyame Gauntlets",ring1="Stikini Ring +1",ring2="Stikini Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
 

@@ -93,6 +93,8 @@ function init_gear_sets()
 		head="Ebers Cap +3",neck="Clr. Torque +1",ear1="Loquac. Earring",ear2="Malignance Earring",
 		body="Inyanga Jubbah +2",hands="Fanatic Gloves",ring1="Defending Ring",ring2="Freke Ring",
 		back="Alaunus's Cape",waist="Cornelia's Belt",legs="Aya. Cosciales +2",feet="Regal Pumps +1"}
+		
+	sets.midcast.Raise = sets.midcast.FastRecast
 
     -- Cure sets
 
@@ -189,7 +191,7 @@ function init_gear_sets()
 	sets.midcast.Cursna = {main=gear.grioavolr_fc_staff,sub="Clemency Grip",ammo="Hasty Pinion +1",
 		head="Ebers Cap +3",neck="Debilis Medallion",ear1="Meili Earring",ear2="Ebers Earring +1",
 		body="Ebers Bliaut +3",hands="Fanatic Gloves",ring1="Haoma's Ring",ring2="Menelaus's Ring",
-		back="Alaunus's Cape",waist="Bishop's Sash",legs="Th. Pantaloons +3",feet="Vanya Clogs"}
+		back="Alaunus's Cape",waist="Bishop's Sash",legs="Th. Pant. +3",feet="Vanya Clogs"}
 
 	sets.midcast.StatusRemoval = {main=gear.grioavolr_fc_staff,sub="Clemency Grip",ammo="Pemphredo Tathlum",
 		head="Ebers Cap +3",neck="Clr. Torque +1",ear1="Loquac. Earring",ear2="Malignance Earring",
@@ -199,7 +201,7 @@ function init_gear_sets()
 	sets.midcast.StatusRemoval.DT = {main="Daybreak",sub="Genmei Shield",range=empty,ammo="Staunch Tathlum +1",
 		head="Ebers Cap +3",neck="Loricate Torque +1",ear1="Sanare Earring",ear2="Halasz Earring",
 		body="Bunzi's Robe",hands=gear.chironic_aspir_gloves,ring1="Defending Ring",ring2="Freke Ring",
-		back="Alaunus's Cape",waist="Emphatikos Rope",legs="Ebers Pant. +3",feet="Theo. Duckbills +3"}
+		back="Alaunus's Cape",waist="Emphatikos Rope",legs="Bunzi's Pants",feet="Theo. Duckbills +3"}
 
 	sets.midcast.Erase = set_combine(sets.midcast.StatusRemoval, {neck="Clr. Torque +1"})
 	sets.midcast.Erase.DT = set_combine(sets.midcast.StatusRemoval.DT, {neck="Clr. Torque +1"})

@@ -167,7 +167,7 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			end
 
 		elseif is_nuke(spell, spellMap) then
-			if state.MagicBurstMode.value ~= 'Off' then
+			if state.MagicBurstMode.value ~= 'Off' and state.CastingMode.value ~= 'Proc' then
 				if state.CastingMode.value:contains('Resistant') and sets.ResistantMagicBurst then
 					equip(sets.ResistantMagicBurst)
 				else
@@ -184,10 +184,6 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			
 			if spell.element == world.weather_element or spell.element == world.day_element then
 				if state.CastingMode.value == 'Fodder' then
-					-- if item_available('Twilight Cape') and not LowTierNukes:contains(spell.english) and not state.Capacity.value then
-						-- sets.TwilightCape = {back="Twilight Cape"}
-						-- equip(sets.TwilightCape)
-					-- end
 					if spell.element == world.day_element then
 						if item_available('Zodiac Ring') then
 							sets.ZodiacRing = {ring2="Zodiac Ring"}

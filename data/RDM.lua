@@ -191,7 +191,7 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			currentWeapons = standardize_set(sets.weapons[state.Weapons.value])
 		end
 		if spell.skill == 'Elemental Magic' and spellMap ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
-			if state.MagicBurstMode.value ~= 'Off' then
+			if state.MagicBurstMode.value ~= 'Off' and state.CastingMode.value ~= 'Proc' then
 				if state.CastingMode.value:contains('Resistant') and sets.ResistantMagicBurst then
 					equip(sets.ResistantMagicBurst)
 				else

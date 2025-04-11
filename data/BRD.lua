@@ -266,12 +266,6 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			end
 		end
 
-		if spell.element == 'Wind' and sets.WindNuke then
-			equip(sets.WindNuke)
-		elseif spell.element == 'Ice' and sets.IceNuke then
-			equip(sets.IceNuke)
-		end
-
 		if state.RecoverMode.value ~= 'Never' and (state.RecoverMode.value == 'Always' or tonumber(state.RecoverMode.value:sub(1, -2)) > player.mpp) then
 			equip(sets.RecoverMP)
 		end

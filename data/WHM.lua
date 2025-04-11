@@ -236,7 +236,9 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			equip(sets.midcast.BarElement.LightArts)
 		end
 	elseif spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
-		if state.MagicBurstMode.value ~= 'Off' then equip(sets.MagicBurst) end
+		if state.MagicBurstMode.value ~= 'Off' and state.CastingMode.value ~= 'Proc' and sets.MagicBurst then 
+			equip(sets.MagicBurst)
+		end
 		if spell.element == world.weather_element or spell.element == world.day_element then
 			if state.CastingMode.value == 'Fodder' then
 				if spell.element == world.day_element then

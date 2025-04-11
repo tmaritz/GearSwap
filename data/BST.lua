@@ -423,36 +423,36 @@ function job_aftercast(spell, spellMap, eventArgs)
 
 		if magic_ready_moves:contains(spell.english) then
 			if debuff_ready_moves:contains(spell.english) and sets.midcast.Pet.DebuffReady then
-				currentSet = set_combine(curentSet, sets.midcast.Pet.DebuffReady)
+				currentSet = set_combine(currentSet, sets.midcast.Pet.DebuffReady)
 			else
 				if sets.midcast.Pet.MagicReady[state.OffenseMode.value] then
-					currentSet = set_combine(curentSet, sets.midcast.Pet.MagicReady[state.OffenseMode.value])
+					currentSet = set_combine(currentSet, sets.midcast.Pet.MagicReady[state.OffenseMode.value])
 				else
-					currentSet = set_combine(curentSet, sets.midcast.Pet.MagicReady)
+					currentSet = set_combine(currentSet, sets.midcast.Pet.MagicReady)
 				end
 			end
 
 		elseif physical_debuff_ready_moves:contains(spell.english) and sets.midcast.Pet.PhysicalDebuffReady then
-			currentSet = set_combine(curentSet, sets.midcast.Pet.PhysicalDebuffReady)
+			currentSet = set_combine(currentSet, sets.midcast.Pet.PhysicalDebuffReady)
 		elseif multi_hit_ready_moves:contains(spell.english) and sets.midcast.Pet.MultiHitReady then
-			currentSet = set_combine(curentSet, sets.midcast.Pet.MultiHitReady)
+			currentSet = set_combine(currentSet, sets.midcast.Pet.MultiHitReady)
 		else
 			if sets.midcast.Pet[state.OffenseMode.value] then
-				currentSet = set_combine(curentSet, sets.midcast.Pet[state.OffenseMode.value])
+				currentSet = set_combine(currentSet, sets.midcast.Pet[state.OffenseMode.value])
 			else
-				currentSet = set_combine(curentSet, sets.midcast.Pet.WS)
+				currentSet = set_combine(currentSet, sets.midcast.Pet.WS)
 			end
 		end
 
 		-- Check correlation mode for favorable and equip related gear.
 		if state.CorrelationMode.value == "Favorable" then
-			currentSet = set_combine(curentSet, sets.midcast.Pet.Favorable)
+			currentSet = set_combine(currentSet, sets.midcast.Pet.Favorable)
 		end
 
 		-- If Pet TP, before bonuses, is less than a certain value then equip Nukumi Manoplas +1
 		if tp_based_ready_moves:contains(spell.english) then
 			if pet.tp < 1900 or (PetJob ~= 'Warrior' and pet.tp < 2400) then
-				currentSet = set_combine(curentSet, sets.midcast.Pet.TPBonus)
+				currentSet = set_combine(currentSet, sets.midcast.Pet.TPBonus)
 			end
 		end
 		

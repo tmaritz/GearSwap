@@ -44,48 +44,48 @@
 -------------------------------------------------------------------------------------------------------------------
 
 --[[
-        Custom commands:
+		Custom commands:
 
-        Shorthand versions for each stratagem type that uses the version appropriate for
-        the current Arts.
+		Shorthand versions for each stratagem type that uses the version appropriate for
+		the current Arts.
 
-                                        Light Arts              Dark Arts
+										Light Arts              Dark Arts
 
-        gs c scholar light              Light Arts/Addendum
-        gs c scholar dark                                       Dark Arts/Addendum
-        gs c scholar cost               Penury                  Parsimony
-        gs c scholar speed              Celerity                Alacrity
-        gs c scholar aoe                Accession               Manifestation
-        gs c scholar power              Rapture                 Ebullience
-        gs c scholar duration           Perpetuance
-        gs c scholar accuracy           Altruism                Focalization
-        gs c scholar enmity             Tranquility             Equanimity
-        gs c scholar skillchain                                 Immanence
-        gs c scholar addendum           Addendum: White         Addendum: Black
+		gs c scholar light              Light Arts/Addendum
+		gs c scholar dark                                       Dark Arts/Addendum
+		gs c scholar cost               Penury                  Parsimony
+		gs c scholar speed              Celerity                Alacrity
+		gs c scholar aoe                Accession               Manifestation
+		gs c scholar power              Rapture                 Ebullience
+		gs c scholar duration           Perpetuance
+		gs c scholar accuracy           Altruism                Focalization
+		gs c scholar enmity             Tranquility             Equanimity
+		gs c scholar skillchain                                 Immanence
+		gs c scholar addendum           Addendum: White         Addendum: Black
 --]]
 
 
 
 -- Initialization function for this job file.
 function get_sets()
-    -- Load and initialize the include file.
-    include('Sel-Include.lua')
+	-- Load and initialize the include file.
+	include('Sel-Include.lua')
 end
 
 -- Setup vars that are user-independent.  state.Buff vars initialized here will automatically be tracked.
 function job_setup()
 	
-    LowTierNukes = S{'Stone', 'Water', 'Aero', 'Fire', 'Blizzard', 'Thunder',
-        'Stone II', 'Water II', 'Aero II', 'Fire II', 'Blizzard II', 'Thunder II',
-        'Stonega', 'Waterga', 'Aeroga', 'Firaga', 'Blizzaga', 'Thundaga'}
+	LowTierNukes = S{'Stone', 'Water', 'Aero', 'Fire', 'Blizzard', 'Thunder',
+		'Stone II', 'Water II', 'Aero II', 'Fire II', 'Blizzard II', 'Thunder II',
+		'Stonega', 'Waterga', 'Aeroga', 'Firaga', 'Blizzaga', 'Thundaga'}
 
-    info.addendumNukes = S{"Stone IV", "Water IV", "Aero IV", "Fire IV", "Blizzard IV", "Thunder IV",
-        "Stone V", "Water V", "Aero V", "Fire V", "Blizzard V", "Thunder V"}
+	info.addendumNukes = S{"Stone IV", "Water IV", "Aero IV", "Fire IV", "Blizzard IV", "Thunder IV",
+		"Stone V", "Water V", "Aero V", "Fire V", "Blizzard V", "Thunder V"}
 
-    state.Buff['Sublimation: Activated'] = buffactive['Sublimation: Activated'] or false
+	state.Buff['Sublimation: Activated'] = buffactive['Sublimation: Activated'] or false
 	state.Buff['Enlightenment'] = buffactive['Enlightenment'] or false
 	
-    update_active_stratagems()
+	update_active_stratagems()
 	
 	state.RecoverMode = M('35%', '60%', 'Always', 'Never')
 	
@@ -157,12 +157,12 @@ function job_precast(spell, spellMap, eventArgs)
 			end
 		end
 		
-        if state.CastingMode.value == 'Proc' then
-            classes.CustomClass = 'Proc'
-        elseif state.CastingMode.value == 'OccultAcumen' then
-            classes.CustomClass = 'OccultAcumen'
-        end
-    end
+		if state.CastingMode.value == 'Proc' then
+			classes.CustomClass = 'Proc'
+		elseif state.CastingMode.value == 'OccultAcumen' then
+			classes.CustomClass = 'OccultAcumen'
+		end
+	end
 
 end
 
@@ -195,9 +195,9 @@ end
 -- Run after the general midcast() is done.
 function job_post_midcast(spell, spellMap, eventArgs)
 
-    if spell.action_type == 'Magic' then
-        apply_grimoire_bonuses(spell, action, spellMap, eventArgs)
-    end
+	if spell.action_type == 'Magic' then
+		apply_grimoire_bonuses(spell, action, spellMap, eventArgs)
+	end
 	
 	if spell.skill == 'Enfeebling Magic' then
 		if (state.Buff['Light Arts'] or state.Buff['Addendum: White']) and sets.buff['Light Arts'] then
@@ -207,8 +207,8 @@ function job_post_midcast(spell, spellMap, eventArgs)
 		end
 	elseif default_spell_map == 'ElementalEnfeeble' and (state.Buff['Dark Arts']  or state.Buff['Addendum: Black']) and sets.buff['Dark Arts'] then
 		equip(sets.buff['Dark Arts'])
-    elseif spell.skill == 'Elemental Magic' and spell.english ~= 'Impact' then
-		if state.MagicBurstMode.value ~= 'Off' then
+	elseif spell.skill == 'Elemental Magic' and spell.english ~= 'Impact' then
+		if state.MagicBurstMode.value ~= 'Off' and state.CastingMode.value ~= 'Proc' then
 			if spellMap == 'Helix' then
 				if state.CastingMode.value:contains('Resistant') and sets.ResistantHelixBurst then
 					equip(sets.ResistantHelixBurst)
@@ -245,9 +245,9 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			end
 		end
 		
-        if state.CastingMode.value ~= 'Proc' and state.Buff.Immanence then
-            equip(sets.buff['Immanence'])
-        end
+		if state.CastingMode.value ~= 'Proc' and state.Buff.Immanence then
+			equip(sets.buff['Immanence'])
+		end
 		
 		if state.RecoverMode.value ~= 'Never' and (state.RecoverMode.value == 'Always' or tonumber(state.RecoverMode.value:sub(1, -2)) > player.mpp) then
 			if state.MagicBurstMode.value ~= 'Off' then
@@ -262,12 +262,12 @@ function job_post_midcast(spell, spellMap, eventArgs)
 				equip(sets.RecoverMP)
 			end
 		end
-    end
+	end
 	
 end
 
 function job_aftercast(spell, spellMap, eventArgs)
-    if not spell.interrupted then
+	if not spell.interrupted then
 		if spell.type == 'Scholar' then
 			windower.send_command:schedule(1,'gs c showcharge')
 		elseif spell.action_type == 'Magic' then
@@ -280,7 +280,7 @@ function job_aftercast(spell, spellMap, eventArgs)
 				if state.DisplayMode.value then update_job_states()	end
 			end
 		end
-    end
+	end
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -317,19 +317,19 @@ function job_get_spell_map(spell, default_spell_map)
 		else
 			return 'HighTierNuke'
 		end
-    end
+	end
 end
 
 function job_customize_idle_set(idleSet)
-    if state.Buff['Sublimation: Activated'] then
-        if (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) and sets.buff.Sublimation then
-            idleSet = set_combine(idleSet, sets.buff.Sublimation)
-        elseif state.IdleMode.value:contains('DT') and sets.buff.DTSublimation then
-            idleSet = set_combine(idleSet, sets.buff.DTSublimation)
-        end
-    end
+	if state.Buff['Sublimation: Activated'] then
+		if (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) and sets.buff.Sublimation then
+			idleSet = set_combine(idleSet, sets.buff.Sublimation)
+		elseif state.IdleMode.value:contains('DT') and sets.buff.DTSublimation then
+			idleSet = set_combine(idleSet, sets.buff.DTSublimation)
+		end
+	end
 
-    if state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere') then
+	if state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere') then
 		if player.mpp < 51 then
 			if sets.latent_refresh then
 				idleSet = set_combine(idleSet, sets.latent_refresh)
@@ -349,20 +349,20 @@ function job_customize_idle_set(idleSet)
 		end
    end
 
-    return idleSet
+	return idleSet
 end
 
 -- Called by the 'update' self-command.
 function job_update(cmdParams, eventArgs)
-    update_active_stratagems()
-    update_sublimation()
+	update_active_stratagems()
+	update_sublimation()
 end
 
 -- Function to display the current relevant user state when doing an update.
 -- Return true if display was handled, and you don't want the default info shown.
 function display_current_job_state(eventArgs)
-    display_current_caster_state()
-    eventArgs.handled = true
+	display_current_caster_state()
+	eventArgs.handled = true
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -383,35 +383,35 @@ end
 -- Reset the state vars tracking stratagems.
 function update_active_stratagems()
 	state.Buff['Accession'] = buffactive['Accession'] or false
-    state.Buff['Ebullience'] = buffactive['Ebullience'] or false
-    state.Buff['Rapture'] = buffactive['Rapture'] or false
-    state.Buff['Perpetuance'] = buffactive['Perpetuance'] or false
-    state.Buff['Immanence'] = buffactive['Immanence'] or false
-    state.Buff['Penury'] = buffactive['Penury'] or false
-    state.Buff['Parsimony'] = buffactive['Parsimony'] or false
-    state.Buff['Celerity'] = buffactive['Celerity'] or false
-    state.Buff['Alacrity'] = buffactive['Alacrity'] or false
+	state.Buff['Ebullience'] = buffactive['Ebullience'] or false
+	state.Buff['Rapture'] = buffactive['Rapture'] or false
+	state.Buff['Perpetuance'] = buffactive['Perpetuance'] or false
+	state.Buff['Immanence'] = buffactive['Immanence'] or false
+	state.Buff['Penury'] = buffactive['Penury'] or false
+	state.Buff['Parsimony'] = buffactive['Parsimony'] or false
+	state.Buff['Celerity'] = buffactive['Celerity'] or false
+	state.Buff['Alacrity'] = buffactive['Alacrity'] or false
 	state.Buff['Manifestation'] = buffactive['Manifestation'] or false
 	state.Buff['Tabula Rasa'] = buffactive['Tabula Rasa'] or false
-    state.Buff['Klimaform'] = buffactive['Klimaform'] or false
+	state.Buff['Klimaform'] = buffactive['Klimaform'] or false
 end
 
 function update_sublimation()
-    state.Buff['Sublimation: Activated'] = buffactive['Sublimation: Activated'] or false
+	state.Buff['Sublimation: Activated'] = buffactive['Sublimation: Activated'] or false
 end
 
 -- Equip sets appropriate to the active buffs, relative to the spell being cast.
 function apply_grimoire_bonuses(spell, action, spellMap)
-    if state.Buff.Perpetuance and spell.type =='WhiteMagic' and spell.skill == 'Enhancing Magic' then
-        equip(sets.buff['Perpetuance'])
-    end
-    if state.Buff.Rapture and (spellMap == 'Cure' or spellMap == 'Curaga') then
-        equip(sets.buff['Rapture'])
-    end
+	if state.Buff.Perpetuance and spell.type =='WhiteMagic' and spell.skill == 'Enhancing Magic' then
+		equip(sets.buff['Perpetuance'])
+	end
+	if state.Buff.Rapture and (spellMap == 'Cure' or spellMap == 'Curaga') then
+		equip(sets.buff['Rapture'])
+	end
 
-    if state.Buff.Penury then
+	if state.Buff.Penury then
 		equip(sets.buff['Penury'])
-    elseif state.Buff.Parsimony then
+	elseif state.Buff.Parsimony then
 		equip(sets.buff['Parsimony'])
 	end
 	

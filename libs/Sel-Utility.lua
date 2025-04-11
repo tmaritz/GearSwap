@@ -362,18 +362,6 @@ end
 function set_elemental_obi_cape_ring(spell, spellMap) -- Thank you Lili <3
 	if spell.element == 'None' then return end
 
-	if spell.element == world.weather_element or spell.element == world.day_element and item_available("Twilight Cape") then
-		gear.ElementalCape.name = "Twilight Cape"
-	else
-		gear.ElementalCape.name = gear.default.obi_back
-	end
-
-	if spell.element == world.day_element and spell.english ~= 'Impact' and not spell.skill == 'Divine Magic' and item_available("Zodiac Ring") then
-		gear.ElementalRing.name = "Zodiac Ring"
-	else
-		gear.ElementalRing.name = gear.default.obi_ring
-	end
-
 	local distance = spell.target.distance - spell.target.model_size
 	local orpheus_intensity = 0
 	local day_potency = (spell.element == world.day_element and 10) or (spell.element == data.elements.weak_to[world.day_element] and -10) or 0
@@ -385,7 +373,7 @@ function set_elemental_obi_cape_ring(spell, spellMap) -- Thank you Lili <3
 	end
 
 	if spell.english:endswith('helix') or spell.english:endswith('helix II') then
-		if orpheus_intensity > 2 then
+		if orpheus_intensity > 5 then
 			equip({waist="Orpheus's Sash"})
 		end
 		return

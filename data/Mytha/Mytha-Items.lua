@@ -24,7 +24,7 @@ gear.chironic_nuke_hands = {name="Chironic Gloves",augments={'Mag. Acc.+19 "Mag.
 gear.chironic_macc_legs = {name="Chironic Hose",augments={'Mag. Acc.+19 "Mag.Atk.Bns."+19','"Fast Cast"+1','MND+7','Mag. Acc.+15',}}
 gear.chironic_aspir_legs = {name="Chironic Hose",augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','"Drain" and "Aspir" potency +10','MND+7','Mag. Acc.+14','"Mag.Atk.Bns."+9',}}
 gear.chironic_treasure_feet = {name="Chironic Slippers",augments={'Pet: "Mag.Atk.Bns."+26','INT+15','"Treasure Hunter"+1','Mag. Acc.+17 "Mag.Atk.Bns."+17',}}
-gear.chironic_refresh_feet = {name="Chironic Slippers",augments={'INT+9','"Dbl.Atk."+1','"Refresh"+1','Mag. Acc.+7 "Mag.Atk.Bns."+7',}}
+gear.chironic_refresh_feet = {name="Chironic Slippers",augments={'Accuracy+2','Mag. Acc.+10','"Refresh"+2','Accuracy+17 Attack+17',}}
 
 gear.merlinic_refresh_hands = {name="Merlinic Dastanas",augments={'VIT+5','MND+2','"Refresh"+2','Accuracy+17 Attack+17',}}
 gear.merlinic_refresh_feet = {name="Merlinic Crackows",augments={'STR+8','Rng.Atk.+1','"Refresh"+2','Accuracy+6 Attack+6','Mag. Acc.+10 "Mag.Atk.Bns."+10',}}
