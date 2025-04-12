@@ -44,43 +44,42 @@
 -------------------------------------------------------------------------------------------------------------------
 
 --[[
-    Custom commands:
+	Custom commands:
 
-    ExtraSongsMode may take one of three values: None, Dummy, FullLength
+	ExtraSongsMode may take one of three values: None, Dummy, FullLength
 
-    You can set these via the standard 'set' and 'cycle' self-commands.  EG:
-    gs c cycle ExtraSongsMode
-    gs c set ExtraSongsMode Dummy
+	You can set these via the standard 'set' and 'cycle' self-commands.  EG:
+	gs c cycle ExtraSongsMode
+	gs c set ExtraSongsMode Dummy
 
-    The Dummy state will equip the bonus song instrument and ensure non-duration gear is equipped.
-    The FullLength state will simply equip the bonus song instrument on top of standard gear.
+	The Dummy state will equip the bonus song instrument and ensure non-duration gear is equipped.
+	The FullLength state will simply equip the bonus song instrument on top of standard gear.
 
 
-    Simple macro to cast a dummy Daurdabla song:
-    /console gs c set ExtraSongsMode Dummy
-    /ma "Mage's Ballad" <me>
+	Simple macro to cast a dummy Daurdabla song:
+	/console gs c set ExtraSongsMode Dummy
+	/ma "Mage's Ballad" <me>
 
-    To use a Terpander rather than Daurdabla, set the info.ExtraSongInstrument variable to
-    'Terpander', and info.ExtraSongs to 1.
+	To use a Terpander rather than Daurdabla, set the info.ExtraSongInstrument variable to
+	'Terpander', and info.ExtraSongs to 1.
 --]]
 
 -- Initialization function for this job file.
 function get_sets()
-    -- Load and initialize the include file.
-    include('Sel-Include.lua')
+	-- Load and initialize the include file.
+	include('Sel-Include.lua')
 end
 
 -- Setup vars that are user-independent.  state.Buff vars initialized here will automatically be tracked.
 function job_setup()
 
-    state.ExtraSongsMode = M{['description']='Extra Songs','None','Dummy','DummyLock','FullLength','FullLengthLock'}
+	state.ExtraSongsMode = M{['description']='Extra Songs','None','Dummy','DummyLock','FullLength','FullLengthLock'}
 	-- Whether to use Carn (or song daggers in general) under a certain tp threshhold even when weapons are locked.
 	state.CarnMode = M{'Always','300','1000','Never'}
 
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
-    state.Buff['Pianissimo'] = buffactive['Pianissimo'] or false
+	state.Buff['Pianissimo'] = buffactive['Pianissimo'] or false
 	state.Buff['Nightingale'] = buffactive['Nightingale'] or false
-	state.RecoverMode = M('35%', '60%', 'Always', 'Never')
 
 	autows = "Rudra's Storm"
 	autofood = 'Pear Crepe'
@@ -104,22 +103,22 @@ function job_filtered_action(spell, eventArgs)
 		local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
 		-- WS 112 is Double Thrust, meaning a Spear is equipped.
 		if available_ws:contains(32) then
-            if spell.english == "Rudra's Storm" then
+			if spell.english == "Rudra's Storm" then
 				windower.chat.input('/ws "Savage Blade" '..spell.target.raw)
-                cancel_spell()
+				cancel_spell()
 				eventArgs.cancel = true
-            end
-        end
+			end
+		end
 	end
 end
 
 function job_pretarget(spell, spellMap, eventArgs)
-    if spell.type == 'BardSong' and not spell.targets.Enemy then
+	if spell.type == 'BardSong' and not spell.targets.Enemy then
 		if state.Buff['Pianissimo'] and spell.target.raw == '<t>' and (player.target.type == 'NONE' or spell.target.type == 'MONSTER') then
 			eventArgs.cancel = true
 			windower.chat.input('/ma "'..spell.name..'" <stpt>')
 		end
-    end
+	end
 end
 
 function job_precast(spell, spellMap, eventArgs)
@@ -135,33 +134,33 @@ function job_precast(spell, spellMap, eventArgs)
 end
 
 function job_filter_precast(spell, spellMap, eventArgs)
-    if spell.type == 'BardSong' and not spell.targets.Enemy then
-        -- Auto-Pianissimo
-        if ((spell.target.type == 'PLAYER' and not spell.target.charmed) or (spell.target.type == 'NPC')) and spell.target.in_party and not state.Buff['Pianissimo'] then
+	if spell.type == 'BardSong' and not spell.targets.Enemy then
+		-- Auto-Pianissimo
+		if ((spell.target.type == 'PLAYER' and not spell.target.charmed) or (spell.target.type == 'NPC')) and spell.target.in_party and not state.Buff['Pianissimo'] then
 			local spell_recasts = windower.ffxi.get_spell_recasts()
-            if spell_recasts[spell.recast_id] < latency then
-                send_command('@input /ja "Pianissimo" <me>;wait 1.1;input /ma "'..spell.name..'" '..spell.target.name)
+			if spell_recasts[spell.recast_id] < latency then
+				send_command('@input /ja "Pianissimo" <me>;wait 1.1;input /ma "'..spell.name..'" '..spell.target.name)
 				eventArgs.cancel = true
-            end
-        end
-    end
+			end
+		end
+	end
 end
 
 -- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.
 function job_midcast(spell, spellMap, eventArgs)
-    if spell.action_type == 'Magic' then
-        if spell.type == 'BardSong' then
-            -- layer general gear on first, then let default handler add song-specific gear.
-            local generalClass = get_song_class(spell)
+	if spell.action_type == 'Magic' then
+		if spell.type == 'BardSong' then
+			-- layer general gear on first, then let default handler add song-specific gear.
+			local generalClass = get_song_class(spell)
 			if generalClass and sets.midcast[generalClass] then
 				if sets.midcast[generalClass][state.CastingMode.value] then
 					equip(sets.midcast[generalClass][state.CastingMode.value])
 				else
 					equip(sets.midcast[generalClass])
 				end
-            end
-        end
-    end
+			end
+		end
+	end
 end
 
 function job_post_precast(spell, spellMap, eventArgs)
@@ -178,7 +177,7 @@ function job_post_precast(spell, spellMap, eventArgs)
 				else 
 					equip(sets.midcast[generalClass])
 				end
-            end
+			end
 
 			if sets.midcast[spell.english] then
 				if sets.midcast[spell.english][state.CastingMode.value] then
@@ -218,7 +217,7 @@ function job_post_precast(spell, spellMap, eventArgs)
 end
 
 function job_post_midcast(spell, spellMap, eventArgs)
-    if spell.type == 'BardSong' then
+	if spell.type == 'BardSong' then
 		if spell.targets.Enemy then
 			if sets.midcast[spell.english] then
 				if sets.midcast[spell.english][state.CastingMode.value] then
@@ -244,32 +243,15 @@ function job_post_midcast(spell, spellMap, eventArgs)
 		end
 		
 		if state.ExtraSongsMode.value:contains('FullLength') then
-            equip(sets.midcast.Daurdabla)
-        end
+			equip(sets.midcast.Daurdabla)
+		end
 
-        if not state.ExtraSongsMode.value:contains('Lock') then
+		if not state.ExtraSongsMode.value:contains('Lock') then
 			state.ExtraSongsMode:reset()
 		end
 
 		if state.DisplayMode.value then update_job_states()	end
-
-    elseif spell.skill == 'Elemental Magic' and spellMap ~= 'ElementalEnfeeble' then
-        if state.MagicBurstMode.value ~= 'Off' then equip(sets.MagicBurst) end
-		if spell.element == world.weather_element or spell.element == world.day_element then
-			if state.CastingMode.value == 'Fodder' then
-				if spell.element == world.day_element then
-					if item_available('Zodiac Ring') then
-						sets.ZodiacRing = {ring2="Zodiac Ring"}
-						equip(sets.ZodiacRing)
-					end
-				end
-			end
-		end
-
-		if state.RecoverMode.value ~= 'Never' and (state.RecoverMode.value == 'Always' or tonumber(state.RecoverMode.value:sub(1, -2)) > player.mpp) then
-			equip(sets.RecoverMP)
-		end
-    end
+	end
 end
 
 -- Set eventArgs.handled to true if we don't want automatic gear equipping to be done.
@@ -279,10 +261,7 @@ function job_aftercast(spell, spellMap, eventArgs)
 		if state.CarnMode.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' then
 			equip_weaponset(state.Weapons.value)
 		end
-	elseif spell.skill == 'Elemental Magic' and state.MagicBurstMode.value == 'Single' then
-		state.MagicBurstMode:reset()
-		if state.DisplayMode.value then update_job_states()	end
-    end
+	end
 end
 
 function job_buff_change(buff, gain)
@@ -293,10 +272,10 @@ function job_get_spell_map(spell, default_spell_map)
 
 	if  default_spell_map == 'Cure' or default_spell_map == 'Curaga'  then
 		if world.weather_element == 'Light' then
-                return 'LightWeatherCure'
+				return 'LightWeatherCure'
 		elseif world.day_element == 'Light' then
-                return 'LightDayCure'
-        end
+				return 'LightDayCure'
+		end
 	end
 end
 
@@ -320,15 +299,15 @@ end
 
 -- Modify the default idle set after it was constructed.
 function job_customize_idle_set(idleSet)
-    if buffactive['Sublimation: Activated'] then
-        if (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) and sets.buff.Sublimation then
-            idleSet = set_combine(idleSet, sets.buff.Sublimation)
-        elseif state.IdleMode.value:contains('DT') and sets.buff.DTSublimation then
-            idleSet = set_combine(idleSet, sets.buff.DTSublimation)
-        end
-    end
+	if buffactive['Sublimation: Activated'] then
+		if (state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere')) and sets.buff.Sublimation then
+			idleSet = set_combine(idleSet, sets.buff.Sublimation)
+		elseif state.IdleMode.value:contains('DT') and sets.buff.DTSublimation then
+			idleSet = set_combine(idleSet, sets.buff.DTSublimation)
+		end
+	end
 
-    if state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere') then
+	if state.IdleMode.value == 'Normal' or state.IdleMode.value:contains('Sphere') then
 		if player.mpp < 51 then
 			if sets.latent_refresh then
 				idleSet = set_combine(idleSet, sets.latent_refresh)
@@ -348,14 +327,14 @@ function job_customize_idle_set(idleSet)
 		end
    end
 
-    return idleSet
+	return idleSet
 end
 
 
 -- Function to display the current relevant user state when doing an update.
 function display_current_job_state(eventArgs)
-    display_current_caster_state()
-    eventArgs.handled = true
+	display_current_caster_state()
+	eventArgs.handled = true
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -364,14 +343,14 @@ end
 
 -- Determine the custom class to use for the given song.
 function get_song_class(spell)
-    -- Can't use spell.targets:contains() because this is being pulled from resources
-    if spell.targets.Enemy then
+	-- Can't use spell.targets:contains() because this is being pulled from resources
+	if spell.targets.Enemy then
 		return 'SongDebuff'
-    elseif state.ExtraSongsMode.value:contains('Dummy') then
-        return 'DaurdablaDummy'
-    else
-        return 'SongEffect'
-    end
+	elseif state.ExtraSongsMode.value:contains('Dummy') then
+		return 'DaurdablaDummy'
+	else
+		return 'SongEffect'
+	end
 end
 
 -- Examine equipment to determine what our current TP weapon is.
@@ -385,7 +364,7 @@ function update_melee_groups()
 	end
 end
 
-    -- Allow jobs to override this code
+	-- Allow jobs to override this code
 function job_self_command(commandArgs, eventArgs)
 
 end

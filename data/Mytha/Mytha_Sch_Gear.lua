@@ -5,7 +5,6 @@ function user_job_setup()
     state.IdleMode:options('Normal','PDT')
 	state.HybridMode:options('Normal','PDT')
 	state.Weapons:options('None','Mpaca','Bunzi','Maxentius')
-	state.RecoverMode = M('Never','35%','60%','Always')
 	
 	default_weapons = 'Maxentius'
 	

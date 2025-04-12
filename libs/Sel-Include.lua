@@ -113,6 +113,7 @@ function init_include()
 	state.HybridMode          = M{['description'] = 'Hybrid Mode'}
 	state.IdleMode            = M{['description'] = 'Idle Mode'}
 	state.MagicBurstMode 	  = M{['description'] = 'Magic Burst Mode', 'Off', 'Single', 'Lock'}
+	state.RecoverMode 		  = M{['description'] = 'Recover Mode', '35%', '60%', 'Always', 'Never'}
 	state.MagicalDefenseMode  = M{['description'] = 'Magical Defense Mode', 'MDT'}
 	state.OffenseMode         = M{['description'] = 'Offense Mode'}
 	state.PCTargetMode        = M{['description'] = 'PC Target Mode', 'default', 'stpt', 'stal', 'stpc'}
@@ -707,7 +708,7 @@ function handle_actions(spell, action)
 		end
 		
 		-- Job-specific handling of this action
-		if not eventArgs.cancel and not eventArgs.handled and _G['job_'..action] then
+		if not eventArgs.cancel and _G['job_'..action] then
 			_G['job_'..action](spell, spellMap, eventArgs)
 			
 			if eventArgs.cancel and (action == 'pretarget' or action == 'precast') then
@@ -715,7 +716,7 @@ function handle_actions(spell, action)
 			end
 		end
 		
-		if not eventArgs.cancel and not eventArgs.handled and _G['user_job_'..action] then
+		if not eventArgs.cancel and _G['user_job_'..action] then
 			_G['user_job_'..action](spell, spellMap, eventArgs)
 			
 			if eventArgs.cancel and (action == 'pretarget' or action == 'precast') then
@@ -724,7 +725,7 @@ function handle_actions(spell, action)
 		end
 	
 		-- Default handling of this action
-		if not eventArgs.cancel and not eventArgs.handled and _G['default_'..action] then
+		if not eventArgs.cancel and _G['default_'..action] then
 			_G['default_'..action](spell, spellMap, eventArgs)
 			display_breadcrumbs(spell, spellMap, action)
 			
@@ -747,6 +748,10 @@ function handle_actions(spell, action)
 			_G['user_post_'..action](spell, spellMap, eventArgs)
 		end
 
+		if not eventArgs.cancel and _G['general_post_'..action] then
+			_G['general_post_'..action](spell, spellMap, eventArgs)
+		end
+
 	   -- Job-specific post-handling of this action
 		if not eventArgs.cancel and _G['job_post_'..action] then
 			_G['job_post_'..action](spell, spellMap, eventArgs)
@@ -759,7 +764,7 @@ function handle_actions(spell, action)
 		if not eventArgs.cancel and _G['default_post_'..action] then
 			_G['default_post_'..action](spell, spellMap, eventArgs)
 		end
-		
+
 		if not eventArgs.cancel and _G['extra_user_post_'..action] then
 			_G['extra_user_post_'..action](spell, spellMap, eventArgs)
 		end
@@ -1046,15 +1051,41 @@ function default_midcast(spell, spellMap, eventArgs)
 	equip(get_midcast_set(spell, spellMap))
 end
 
-function default_post_midcast(spell, spellMap, eventArgs)
+function general_post_midcast(spell, spellMap, eventArgs)
 	if not eventArgs.handled then
 		if spell.action_type == 'Magic' then
-			if is_nuke(spell, spellMap) and state.CastingMode.value ~= 'Proc' then
-				if not job_post_midcast and state.MagicBurstMode.value ~= 'Off' and sets.MagicBurst then
-					equip(sets.MagicBurst)
+			if is_nuke(spell, spellMap) then
+				if state.MagicBurstMode.value ~= 'Off' and state.CastingMode.value ~= 'Proc' then
+					if spellMap == 'Helix' and state.CastingMode.value:contains('Resistant') and sets.ResistantHelixBurst then
+						equip(sets.ResistantHelixBurst)
+					elseif state.CastingMode.value:contains('Resistant') and sets.ResistantMagicBurst then
+						equip(sets.ResistantMagicBurst)
+					elseif spellMap == 'Helix' and sets.HelixBurst then
+						equip(sets.HelixBurst)
+					elseif sets.MagicBurst then
+						equip(sets.MagicBurst)
+					end
 				end
-				
+
 				set_elemental_obi_cape_ring(spell, spellMap)
+
+				if spell.element and sets.element[spell.element] then
+					equip(sets.element[spell.element])
+				end
+
+				if state.RecoverMode.value ~= 'Never' and not (state.Buff['Manafont'] or state.Buff['Manawell']) and (state.RecoverMode.value == 'Always' or tonumber(state.RecoverMode.value:sub(1, -2)) > player.mpp) then
+					if state.MagicBurstMode.value ~= 'Off' then
+						if state.CastingMode.value:contains('Resistant') and sets.ResistantRecoverBurst then
+							equip(sets.ResistantRecoverBurst)
+						elseif sets.RecoverBurst then
+							equip(sets.RecoverBurst)
+						elseif sets.RecoverMP then
+							equip(sets.RecoverMP)
+						end
+					elseif sets.RecoverMP then
+						equip(sets.RecoverMP)
+					end
+				end
 			end
 		end
 
@@ -1094,7 +1125,11 @@ function default_post_midcast(spell, spellMap, eventArgs)
 		if state.TreasureMode.value ~= 'None' and spell.target.type == 'MONSTER' and not info.tagged_mobs[spell.target.id] then
 			equip(sets.TreasureHunter)
 		end
-		
+	end
+end
+
+function default_post_midcast(spell, spellMap, eventArgs)
+	if not eventArgs.handled then
 		if state.DefenseMode.value ~= 'None' and spell.action_type == 'Magic' and in_combat then
 			if sets.midcast[spell.english] and sets.midcast[spell.english].DT then
 				equip(sets.midcast[spell.english].DT)

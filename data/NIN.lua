@@ -149,21 +149,7 @@ end
 -- Run after the general midcast() is done.
 -- eventArgs is the same one used in job_midcast, in case information needs to be persisted.
 function job_post_midcast(spell, spellMap, eventArgs)
-	if spellMap == 'ElementalNinjutsu' then
-		if state.MagicBurstMode.value ~= 'Off' then equip(sets.MagicBurst) end
-		if spell.element == world.weather_element or spell.element == world.day_element then
-			if state.CastingMode.value == 'Normal' or state.CastingMode.value == 'Fodder' then
-				if spell.element == world.day_element then
-					if item_available('Zodiac Ring') then
-						sets.ZodiacRing = {ring2="Zodiac Ring"}
-						equip(sets.ZodiacRing)
-					end
-				end
-			end
-		end
-		if spell.element and sets.element[spell.element] then
-			equip(sets.element[spell.element])
-		end
+	if spellMap == 'ElementalNinjutsu' and state.CastingMode.value ~= 'Proc' then
 		if state.Buff.Futae and sets.buff.Futae then
 			equip(sets.buff.Futae)
 		end
@@ -181,11 +167,6 @@ function job_aftercast(spell, spellMap, eventArgs)
 		return
 	elseif spell.english == "Migawari: Ichi" then
 		state.Buff.Migawari = true
-	elseif spellMap == 'ElementalNinjutsu' then
-		if state.MagicBurstMode.value == 'Single' then
-			state.MagicBurstMode:reset()
-		end
-		if state.DisplayMode.value then update_job_states()	end
 	end
 end
 

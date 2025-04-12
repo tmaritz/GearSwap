@@ -120,11 +120,6 @@ function job_aftercast(spell, spellMap, eventArgs)
 			if state.UseCustomTimers.value then
 				send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 60 down spells/00220.png')
 			end
-		elseif spell.skill == 'Elemental Magic' then
-			if state.MagicBurstMode.value == 'Single' then
-				state.MagicBurstMode:reset()
-				if state.DisplayMode.value then update_job_states()	end
-			end
 		end
 	end
 end
@@ -204,23 +199,7 @@ end
 
 
 function job_post_midcast(spell, spellMap, eventArgs)
-	if spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
-		if state.MagicBurstMode.value ~= 'Off' then equip(sets.MagicBurst) end
-		if spell.element == world.weather_element or spell.element == world.day_element then
-			if state.CastingMode.value == 'Fodder' then
-				if spell.element == world.day_element then
-					if item_available('Zodiac Ring') then
-						sets.ZodiacRing = {ring2="Zodiac Ring"}
-						equip(sets.ZodiacRing)
-					end
-				end
-			end
-		end
-
-		if spell.element and sets.element[spell.element] then
-			equip(sets.element[spell.element])
-		end
-	elseif spell.skill == 'Dark Magic' then
+	if spell.skill == 'Dark Magic' then
 		if state.Buff['Nether Void'] and sets.buff['Nether Void'] and (not spell.english == 'Dread Spikes' and wants_dark_seal:contains(spell.english)) then
 			equip(sets.buff['Nether Void'])
 		end

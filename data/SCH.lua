@@ -87,8 +87,6 @@ function job_setup()
 	
 	update_active_stratagems()
 	
-	state.RecoverMode = M('35%', '60%', 'Always', 'Never')
-	
 	autows = 'Realmrazer'
 	autofood = 'Pear Crepe'
 	
@@ -194,76 +192,30 @@ end
 
 -- Run after the general midcast() is done.
 function job_post_midcast(spell, spellMap, eventArgs)
-
 	if spell.action_type == 'Magic' then
 		apply_grimoire_bonuses(spell, action, spellMap, eventArgs)
-	end
-	
-	if spell.skill == 'Enfeebling Magic' then
-		if (state.Buff['Light Arts'] or state.Buff['Addendum: White']) and sets.buff['Light Arts'] then
-			equip(sets.buff['Light Arts'])
-		elseif (state.Buff['Dark Arts'] or state.Buff['Addendum: Black']) and sets.buff['Dark Arts'] then
-			equip(sets.buff['Dark Arts'])
-		end
-	elseif default_spell_map == 'ElementalEnfeeble' and (state.Buff['Dark Arts']  or state.Buff['Addendum: Black']) and sets.buff['Dark Arts'] then
-		equip(sets.buff['Dark Arts'])
-	elseif spell.skill == 'Elemental Magic' and spell.english ~= 'Impact' then
-		if state.MagicBurstMode.value ~= 'Off' and state.CastingMode.value ~= 'Proc' then
-			if spellMap == 'Helix' then
-				if state.CastingMode.value:contains('Resistant') and sets.ResistantHelixBurst then
-					equip(sets.ResistantHelixBurst)
-				elseif sets.HelixBurst then
-					equip(sets.HelixBurst)
-				end
-			elseif state.CastingMode.value:contains('Resistant') and sets.ResistantMagicBurst then
-				equip(sets.ResistantMagicBurst)
-			else
-				equip(sets.MagicBurst)
+		if spell.skill == 'Enfeebling Magic' then
+			if (state.Buff['Light Arts'] or state.Buff['Addendum: White']) and sets.buff['Light Arts'] then
+				equip(sets.buff['Light Arts'])
+			elseif (state.Buff['Dark Arts'] or state.Buff['Addendum: Black']) and sets.buff['Dark Arts'] then
+				equip(sets.buff['Dark Arts'])
 			end
-		end
-		if not state.CastingMode.value:contains('Resistant') then
-			if spell.element == world.weather_element or spell.element == world.day_element then
-				-- if item_available('Twilight Cape') and not LowTierNukes:contains(spell.english) and not state.Capacity.value then
-					-- sets.TwilightCape = {back="Twilight Cape"}
-					-- equip(sets.TwilightCape)
-				-- end
-				if spell.element == world.day_element and state.CastingMode.value == 'Fodder' then
-					if item_available('Zodiac Ring') then
-						sets.ZodiacRing = {ring2="Zodiac Ring"}
-						equip(sets.ZodiacRing)
-					end
-				end
-				if state.Buff.Klimaform and spell.element == world.weather_element then
+		elseif default_spell_map == 'ElementalEnfeeble' and (state.Buff['Dark Arts']  or state.Buff['Addendum: Black']) and sets.buff['Dark Arts'] then
+			equip(sets.buff['Dark Arts'])
+		elseif spell.skill == 'Elemental Magic' and spell.english ~= 'Impact' then
+			if state.CastingMode.value ~= 'Proc' then
+				if state.Buff.Klimaform and spell.element == world.weather_element and sets.buff['Klimaform'] then
 					equip(sets.buff['Klimaform'])
 				end
-			end
-			if spell.element and sets.element[spell.element] then
-				equip(sets.element[spell.element])
-			end
-			if state.Buff.Ebullience then
-				equip(sets.buff['Ebullience'])
-			end
-		end
-		
-		if state.CastingMode.value ~= 'Proc' and state.Buff.Immanence then
-			equip(sets.buff['Immanence'])
-		end
-		
-		if state.RecoverMode.value ~= 'Never' and (state.RecoverMode.value == 'Always' or tonumber(state.RecoverMode.value:sub(1, -2)) > player.mpp) then
-			if state.MagicBurstMode.value ~= 'Off' then
-				if state.CastingMode.value:contains('Resistant') and sets.ResistantRecoverBurst then
-					equip(sets.ResistantRecoverBurst)
-				elseif sets.RecoverBurst then
-					equip(sets.RecoverBurst)
-				elseif sets.RecoverMP then
-					equip(sets.RecoverMP)
+				if state.Buff.Ebullience and sets.buff['Ebullience'] then
+					equip(sets.buff['Ebullience'])
 				end
-			elseif sets.RecoverMP then
-				equip(sets.RecoverMP)
+				if state.Buff.Immanence and sets.buff['Immanence'] then
+					equip(sets.buff['Immanence'])
+				end
 			end
 		end
 	end
-	
 end
 
 function job_aftercast(spell, spellMap, eventArgs)
@@ -275,9 +227,6 @@ function job_aftercast(spell, spellMap, eventArgs)
 				windower.send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 60 down spells/00220.png')
 			elseif state.UseCustomTimers.value and spell.english == 'Sleep II' then
 				windower.send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 90 down spells/00220.png')
-			elseif spell.skill == 'Elemental Magic' and state.MagicBurstMode.value == 'Single' then
-				state.MagicBurstMode:reset()
-				if state.DisplayMode.value then update_job_states()	end
 			end
 		end
 	end

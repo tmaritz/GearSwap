@@ -10,7 +10,6 @@ function user_job_setup()
 	state.ResistDefenseMode:options('MEVA')
 	state.BuffWeaponsMode = M{'Always','Never'}
 	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage'}
-	state.RecoverMode = M('35%','60%','Always','Never')
 	state.Weapons:options('None','Naegling','Maxentius','Crocea','Tauret','EnspellOnly','DualWeapons','DualWeaponsAcc','DualMaxentius','DualCrocea','DualMaxentiusAcc','DualPrime','DualAeolian','DualEnspellOnly','DualProcSword')
 
 	default_weapons = 'Naegling'

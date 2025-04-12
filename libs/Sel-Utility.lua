@@ -362,6 +362,16 @@ end
 function set_elemental_obi_cape_ring(spell, spellMap) -- Thank you Lili <3
 	if spell.element == 'None' then return end
 
+	if state.CastingMode.value == 'Fodder' then
+		if spell.element == world.day_element and item_available("Zodiac Ring") then
+			equip({ring2="Zodiac Ring"})
+		end
+		
+		if spell.element == world.weather_element or spell.element == world.day_element and item_available("Twilight Cape") then
+			equip({back="Twilight Cape"})
+		end
+	end
+
 	local distance = spell.target.distance - spell.target.model_size
 	local orpheus_intensity = 0
 	local day_potency = (spell.element == world.day_element and 10) or (spell.element == data.elements.weak_to[world.day_element] and -10) or 0

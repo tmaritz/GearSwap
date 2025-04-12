@@ -68,9 +68,7 @@ function job_setup()
 	LowTierNukes = S{'Stone', 'Water', 'Aero', 'Fire', 'Blizzard', 'Thunder',
 		'Stone II', 'Water II', 'Aero II', 'Fire II', 'Blizzard II', 'Thunder II',
 		'Stonega', 'Waterga', 'Aeroga', 'Firaga', 'Blizzaga', 'Thundaga'}
-	
-	state.RecoverMode = M('35%', '60%', 'Always', 'Never')
-	
+
 	autows = "Savage Blade"
 	autofood = 'Grape Daifuku'
 	enspell = ''
@@ -191,46 +189,8 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			currentWeapons = standardize_set(sets.weapons[state.Weapons.value])
 		end
 		if spell.skill == 'Elemental Magic' and spellMap ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
-			if state.MagicBurstMode.value ~= 'Off' and state.CastingMode.value ~= 'Proc' then
-				if state.CastingMode.value:contains('Resistant') and sets.ResistantMagicBurst then
-					equip(sets.ResistantMagicBurst)
-				else
-					equip(sets.MagicBurst)
-				end
-			end
 			if currentSet and currentSet.range and currentSet.range == "Ullr" and currentWeapons.range and currentWeapons.range == 'empty' and not currentWeapons.ammo and item_available("Regal Gem") then
 				equip({ammo="Regal Gem"})
-			end
-			if spell.element == world.weather_element or spell.element == world.day_element then
-				if state.CastingMode.value == 'Fodder' then
-					-- if item_available('Twilight Cape') and not LowTierNukes:contains(spell.english) and not state.Capacity.value then
-						-- sets.TwilightCape = {back="Twilight Cape"}
-						-- equip(sets.TwilightCape)
-					-- end
-					if spell.element == world.day_element then
-						if item_available('Zodiac Ring') then
-							sets.ZodiacRing = {ring2="Zodiac Ring"}
-							equip(sets.ZodiacRing)
-						end
-					end
-				end
-			end
-			
-			if spell.element and sets.element[spell.element] then
-				equip(sets.element[spell.element])
-			end
-			if state.RecoverMode.value ~= 'Never' and (state.RecoverMode.value == 'Always' or tonumber(state.RecoverMode.value:sub(1, -2)) > player.mpp) then
-				if state.MagicBurstMode.value ~= 'Off' then
-					if state.CastingMode.value:contains('Resistant') and sets.ResistantRecoverBurst then
-						equip(sets.ResistantRecoverBurst)
-					elseif sets.RecoverBurst then
-						equip(sets.RecoverBurst)
-					elseif sets.RecoverMP then
-						equip(sets.RecoverMP)
-					end
-				elseif sets.RecoverMP then
-					equip(sets.RecoverMP)
-				end
 			end
 		elseif spell.skill == 'Enfeebling Magic' or spell.skill == 'Dark Magic' then
 			if currentSet and currentSet.range == "Ullr" and currentWeapons.range and currentWeapons.range == 'empty' and not currentWeapons.ammo and item_available("Regal Gem") then

@@ -345,32 +345,6 @@ function job_post_midcast(spell, spellMap, eventArgs)
 					equip(sets.Self_Healing)
 				end
 			end
-
-			if spell.element ~= 'None' and (spell.element == world.weather_element or spell.element == world.day_element) and item_available('Hachirin-no-Obi') then
-				equip({waist="Hachirin-no-Obi"})
-			end
-
-		elseif spellMap:contains('Magical') then
-			if state.MagicBurstMode.value ~= 'Off' and (state.Buff['Burst Affinity'] or state.Buff['Azure Lore']) then
-				equip(sets.MagicBurst)
-			end
-			if spell.element == world.weather_element or spell.element == world.day_element then
-				if state.CastingMode.value == 'Fodder' then
-					if spell.element == world.day_element and not (world.day_element == 'Dark' or world.day_element == 'Light') then
-						if item_available('Zodiac Ring') then
-							sets.ZodiacRing = {ring2="Zodiac Ring"}
-							equip(sets.ZodiacRing)
-						end
-					end
-				end
-			end
-
-			if spell.element and sets.element[spell.element] then
-				equip(sets.element[spell.element])
-			end
-
-			if state.TreasureMode.value == "Tag" then equip(sets.TreasureHunter) end
-
 		end
 
 		for buff,active in pairs(state.Buff) do
@@ -378,24 +352,11 @@ function job_post_midcast(spell, spellMap, eventArgs)
 				equip(sets.buff[buff])
 			end
 		end
-
-	elseif spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' then
-		if state.MagicBurstMode.value ~= 'Off' then equip(sets.MagicBurst) end
-
 	end
 
 	-- If in learning mode, keep on gear intended to help with that, regardless of action.
 	if state.LearningMode.value == true then
 		equip(sets.Learning)
-	end
-end
-
-function job_aftercast(spell, spellMap, eventArgs)
-	if state.MagicBurstMode.value == 'Single' then
-		if spell.skill == 'Elemental Magic' or (spell.skill == 'Blue Magic' and spellMap:contains('Magical')) then
-			state.MagicBurstMode:reset()
-			if state.DisplayMode.value then update_job_states()	end
-		end
 	end
 end
 

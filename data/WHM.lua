@@ -235,24 +235,6 @@ function job_post_midcast(spell, spellMap, eventArgs)
 		if (state.Buff['Light Arts'] or state.Buff['Addendum: White']) and sets.midcast.BarElement and sets.midcast.BarElement.LightArts then
 			equip(sets.midcast.BarElement.LightArts)
 		end
-	elseif spell.skill == 'Elemental Magic' and default_spell_map ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
-		if state.MagicBurstMode.value ~= 'Off' and state.CastingMode.value ~= 'Proc' and sets.MagicBurst then 
-			equip(sets.MagicBurst)
-		end
-		if spell.element == world.weather_element or spell.element == world.day_element then
-			if state.CastingMode.value == 'Fodder' then
-				if spell.element == world.day_element then
-					if item_available('Zodiac Ring') then
-						sets.ZodiacRing = {ring2="Zodiac Ring"}
-						equip(sets.ZodiacRing)
-					end
-				end
-			end
-		end
-
-		if spell.element and sets.element[spell.element] then
-			equip(sets.element[spell.element])
-		end
 	end
 
 end
@@ -261,9 +243,6 @@ function job_aftercast(spell, spellMap, eventArgs)
 	if not spell.interrupted then
 		if state.UseCustomTimers.value and spell.english == 'Sleep' or spell.english == 'Sleepga' then
 			send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 60 down spells/00220.png')
-		elseif spell.skill == 'Elemental Magic' and state.MagicBurstMode.value == 'Single' then
-			state.MagicBurstMode:reset()
-			if state.DisplayMode.value then update_job_states()	end
 		end
 	end
 end
