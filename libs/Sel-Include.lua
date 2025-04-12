@@ -953,6 +953,8 @@ end
 
 function default_precast(spell, spellMap, eventArgs)
 	prepared_action = spell.english
+	delayed_cast = ''
+	delayed_target = ''
 	cancel_conflicting_buffs(spell, spellMap, eventArgs)
 	equip(get_precast_set(spell, spellMap))
 	
