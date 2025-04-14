@@ -75,7 +75,7 @@ function job_setup()
 
 	state.ExtraSongsMode = M{['description']='Extra Songs','None','Dummy','DummyLock','FullLength','FullLengthLock'}
 	-- Whether to use Carn (or song daggers in general) under a certain tp threshhold even when weapons are locked.
-	state.CarnMode = M{'Always','300','1000','Never'}
+	state.CarnMode = M{'Default','Always','300','1000','Never'}
 
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 	state.Buff['Pianissimo'] = buffactive['Pianissimo'] or false
@@ -123,12 +123,22 @@ end
 
 function job_precast(spell, spellMap, eventArgs)
 	if spell.type == 'BardSong' then
-		if state.CarnMode.value ~= 'Never' and (state.CarnMode.value == 'Always' or tonumber(state.CarnMode.value) > player.tp) then
-			internal_enable_set("Weapons")
-		end
-
 		if not sets.precast.FC[spell.english] and spell.targets.Enemy then
 			classes.CustomClass = 'SongDebuff'
+		end
+
+		if state.CarnMode.value ~= 'Never' then
+			if state.CarnMode.value == 'Always' or tonumber(state.CarnMode.value) > player.tp then
+				internal_enable_set("Weapons")
+			elseif state.CarnMode.value == 'Default' then
+				if spell.targets.Enemy then
+					if player.status ~= 'Engaged' then
+						internal_enable_set("Weapons")
+					end
+				else
+					internal_enable_set("Weapons")
+				end
+			end
 		end
 	end
 end
