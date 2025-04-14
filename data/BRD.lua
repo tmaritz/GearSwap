@@ -128,7 +128,7 @@ function job_precast(spell, spellMap, eventArgs)
 		end
 
 		if state.CarnMode.value ~= 'Never' then
-			if state.CarnMode.value == 'Always' or tonumber(state.CarnMode.value) > player.tp then
+			if state.CarnMode.value == 'Always' or (tonumber(state.CarnMode.value) and tonumber(state.CarnMode.value) > player.tp) then
 				internal_enable_set("Weapons")
 			elseif state.CarnMode.value == 'Default' then
 				if spell.targets.Enemy then
@@ -266,7 +266,6 @@ end
 
 -- Set eventArgs.handled to true if we don't want automatic gear equipping to be done.
 function job_aftercast(spell, spellMap, eventArgs)
-	
 	if spell.type == 'BardSong' then
 		if state.CarnMode.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' then
 			equip_weaponset(state.Weapons.value)
