@@ -14,15 +14,15 @@ function user_job_setup()
 	-- Set up Jug Pet cycling and keybind Ctrl+F7
 	-- INPUT PREFERRED JUG PETS HERE
 	state.JugMode = M{['description']='Jug Mode','FatsoFargann','ScissorlegXerin','BlackbeardRandy','AttentiveIbuki','DroopyDortwin','WarlikePatrick','AcuexFamiliar'}
-	send_command('bind @f7 gs c cycle JugMode')
+	send_command('bind !f7 gs c cycle JugMode')
 
 	-- Set up Monster Correlation Modes and keybind Alt+F7
 	state.CorrelationMode = M{['description']='Correlation Mode', 'Neutral', 'Favorable'}
-	send_command('bind !f7 gs c cycle CorrelationMode')
+	send_command('bind @!f7 gs c cycle CorrelationMode')
 
 	-- Set up Pet Modes for Hybrid sets and keybind 'Windows Key'+F7
 	state.PetMode = M{['description']='Pet Mode','Tank','DD'}
-	send_command('bind @f7 gs c cycle PetMode')
+	send_command('bind @f9 gs c cycle PetMode')
 
 	-- Set up Reward Modes and keybind Ctrl+Backspace
 	state.RewardMode = M{['description']='Reward Mode', 'Theta', 'Zeta', 'Eta'}

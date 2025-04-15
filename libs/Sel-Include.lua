@@ -2295,7 +2295,11 @@ function state_change(stateField, newValue, oldValue)
 		elseif ((newValue:contains('DW') or newValue:contains('Dual')) and not can_dual_wield) or (newValue:contains('Proc') and state.SkipProcWeapons.value and not state.WeaponSets.value:contains('Proc')) then
 			local startindex = state.Weapons.index
 			while ((state.Weapons.value:contains('DW') or state.Weapons.value:contains('Dual')) and not can_dual_wield) or (state.SkipProcWeapons.value and not state.WeaponSets.value:contains('Proc') and state.Weapons.value:contains('Proc')) do
-				state.Weapons:cycle()
+				if cycle_direction == 'forward' then
+					state.Weapons:cycle()
+				elseif cycle_direction == 'backward' then
+					state.Weapons:cycleback()
+				end
 				if startindex == state.Weapons.index then break end
 			end
 			newValue = state.Weapons.value

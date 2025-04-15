@@ -50,7 +50,7 @@ function user_job_setup()
 	    -- Additional local binds
     send_command('bind !` input /ra <t>')
 	send_command('bind !backspace input /ja "Bounty Shot" <t>')
-	send_command('bind @f7 gs c toggle RngHelper')
+	send_command('bind @f9 gs c toggle RngHelper')
 	send_command('bind @` gs c cycle SkillchainMode')
 	send_command('bind !r gs c weapons MagicWeapons;gs c update')
 	send_command('bind ^q gs c weapons SingleWeapon;gs c update')

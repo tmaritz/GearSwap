@@ -16,7 +16,7 @@ function user_job_setup()
 	weapon_sets = {
 		['Default'] = {'None','Naegling','Maxentius','Crocea','Tauret','EnspellOnly'},
 		['Dual'] = {'DualWeapons','DualWeaponsAcc','DualMaxentius','DualCrocea','DualMaxentiusAcc','DualPrime','DualAeolian','DualEnspellOnly'},
-		['Dynamis'] = {'DualCroceaSavageBlade','DualCrocea','TauretCrocea','DualAeolian'},
+		['Dynamis'] = {'DualCroceaSavageBlade','DualCrocea','DualTauretCrocea','DualAeolian'},
 		['Proc'] = {'ProcSword','ProcDagger','DualProcSword','DualProcDagger'},
 	}
 
@@ -25,7 +25,7 @@ function user_job_setup()
 
 	autows_list =  {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['Crocea']='Sanguine Blade',['Tauret']='Aeolian Edge',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',
 					['DualMaxentius']='Black Halo',['DualMaxentiusAcc']='Black Halo',['DualEvisceration']='Evisceration',['DualCrocea']='Sanguine Blade',['DualClubs']='Black Halo',
-					['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator',['DualCroceaSavageBlade']="Savage Blade",['CroceaDaybreak']="Seraph Blade",["TauretCrocea"]="Aeolian Edge"}
+					['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator',['DualCroceaSavageBlade']="Savage Blade",['CroceaDaybreak']="Seraph Blade",["DualTauretCrocea"]="Aeolian Edge"}
 	trust_list = {"Joachim","Ulmia","Qultada","Yoran-Oran (UC)","Selh'teus"}
 	
 	gear.mnd_enfeebling_jse_back = {name="Sucellos's Cape",augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Haste+10','Damage taken-5%',}}
@@ -86,7 +86,7 @@ function init_gear_sets()
 	
 	--Temporary Weapon Sets for Dynamis RP
 	sets.weapons.DualCroceaSavageBlade = {main="Crocea Mors",sub="Thibron"}
-	sets.weapons.TauretCrocea = {main="Tauret",sub="Crocea Mors"}
+	sets.weapons.DualTauretCrocea = {main="Tauret",sub="Crocea Mors"}
 	
 	-- Precast Sets
 	

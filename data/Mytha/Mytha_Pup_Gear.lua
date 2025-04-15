@@ -77,7 +77,7 @@ function user_job_setup()
 	
 	send_command('bind @` gs c cycle SkillchainMode')
 	send_command('bind @f8 gs c toggle AutoPuppetMode')
-	send_command('bind @f7 gs c toggle AutoRepairMode')
+	send_command('bind !f7 gs c toggle AutoRepairMode')
 end
 
 -- Define sets used by this job file.
