@@ -125,6 +125,7 @@ function init_include()
 	state.RuneElement 		  = M{['description'] = 'Rune Element','Ignis','Gelus','Flabra','Tellus','Sulpor','Unda','Lux','Tenebrae'}
 	state.SkillchainMode 	  = M{['description'] = 'Skillchain Mode', 'Off', 'Single', 'Lock'}
 	state.Weapons		  	  = M{['description'] = 'Weapons','None','Weapons'}
+	state.WeaponSets	  	  = M{['description'] = 'Weapon Sets','None'}
 	state.WeaponskillMode     = M{['description'] = 'Weaponskill Mode','Match'}
 	
 	state.AdjustTargets	  	  = M(true, 'Automatically Adjust Targets')
@@ -232,7 +233,7 @@ function init_include()
 	curecheat = false
 	currency_bag = 'sack'
 	default_dual_weapons = 'DualWeapons'
-	default_weapons = nil
+	default_weapons = ''
 	delayed_cast = ''
 	delayed_target = ''
 	equipped = 0
@@ -256,6 +257,7 @@ function init_include()
 	useItemSlot = ''
 	utsusemi_cancel_delay = .5
 	weapons_pagelist = {}
+	weapon_sets = {}
 	disabled_sets = {}
 	silent_can_use_cache = {['/ma']={},['/ja']={},['/ws']={}}
 	local_offset = 18000
@@ -539,12 +541,13 @@ function default_zone_change(new_id,old_id)
 	if state.CraftingMode.value ~= 'None' then
 		state.CraftingMode:reset()
 	end
+
 	send_command('gs rh disable')
 	state.RngHelper:reset()
 	useItem = false
 	useItemName = ''
 	useItemSlot = ''
-	
+
 	if world.area:contains('Abyssea') or data.areas.proc:contains(world.area) then
 		state.SkipProcWeapons:set('False')
 	else
@@ -610,8 +613,12 @@ end
 -- Non item-based global settings to check on load.
 function global_on_load()
 	if world.area then
-		set_dual_wield:schedule(3)
-		
+		if windower.packets.last_outgoing(0x100) > windower.packets.last_incoming(0x0AC) then
+			set_dual_wield:schedule(5)
+		else
+			set_dual_wield()
+		end
+
 		if world.area:contains('Abyssea') or data.areas.proc:contains(world.area) then
 			state.SkipProcWeapons:set('False')
 		else
@@ -2175,7 +2182,7 @@ end
 
 -- Called when the player's subjob changes.
 function sub_job_change(newSubjob, oldSubjob)
-	set_dual_wield:schedule(2)
+	set_dual_wield:schedule(5)
 	if user_setup then
 		user_setup()
 	end
@@ -2285,19 +2292,19 @@ function state_change(stateField, newValue, oldValue)
 		
 		if newValue == 'None' then
 			internal_enable_set("Weapons")
-		elseif ((newValue:contains('DW') or newValue:contains('Dual')) and not can_dual_wield) or (newValue:contains('Proc') and state.SkipProcWeapons.value) then
+		elseif ((newValue:contains('DW') or newValue:contains('Dual')) and not can_dual_wield) or (newValue:contains('Proc') and state.SkipProcWeapons.value and not state.WeaponSets.value:contains('Proc')) then
 			local startindex = state.Weapons.index
-			while ((state.Weapons.value:contains('DW') or state.Weapons.value:contains('Dual')) and not can_dual_wield) or (state.SkipProcWeapons.value and state.Weapons.value:contains('Proc')) do
+			while ((state.Weapons.value:contains('DW') or state.Weapons.value:contains('Dual')) and not can_dual_wield) or (state.SkipProcWeapons.value and not state.WeaponSets.value:contains('Proc') and state.Weapons.value:contains('Proc')) do
 				state.Weapons:cycle()
 				if startindex == state.Weapons.index then break end
 			end
 			newValue = state.Weapons.value
-			equip_weaponset(newValue)
+			
 			if newValue == 'None' or state.UnlockWeapons.value then
 				internal_enable_set("Weapons")
-			elseif not state.ReEquip.value then
-				equip_weaponset(newValue)
 			end
+			
+			equip_weaponset()
 		elseif sets.weapons[newValue] then
 			equip_weaponset(newValue)
 		else
@@ -2339,8 +2346,25 @@ function state_change(stateField, newValue, oldValue)
 		else
 			send_command('wait .001;gs c DisplayElement')
 		end
-	elseif stateField == 'Capacity' and newValue == 'false' and data.equipment.cprings:contains(player.equipment.left_ring) then
+	elseif stateField == 'Weapon Sets' then
+	
+		if ((newValue:contains('DW') or newValue:contains('Dual')) and not can_dual_wield) or (newValue:contains('Proc') and state.SkipProcWeapons.value) then
+			local startindex = state.WeaponSets.index
+			while ((state.WeaponSets.value:contains('DW') or state.WeaponSets.value:contains('Dual')) and not can_dual_wield) or (state.SkipProcWeapons.value and state.WeaponSets.value:contains('Proc')) do
+				state.WeaponSets:cycle()
+				if startindex == state.Weapons.index then break end
+			end
+		end
+	
+		if weapon_sets[state.WeaponSets.value] then
+			state.Weapons:options(unpack(weapon_sets[state.WeaponSets.value]))
+		end
+		
+		equip_weaponset()
+	elseif stateField == 'Capacity' then
+		if newValue == 'false' and data.equipment.cprings:contains(player.equipment.left_ring) then
 			internal_enable_set("UseItem")
+		end
 	elseif stateField == 'Crafting Mode' or stateField == 'Crafting Quality' then
 		lock_crafting_gear()
 	end

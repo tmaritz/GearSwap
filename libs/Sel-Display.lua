@@ -128,6 +128,7 @@ function update_job_states()
 		s='\\cs(96,96,96)', -- Gray for inactive booleans
 		Fire='\\cs(255,80,80)', -- Red For Fire Element
 		Ice='\\cs(140,160,255)', -- Light Blue For Ice Element
+		LightBlue='\\cs(160,180,255)', -- Light Blue For Ice Element
 		Wind='\\cs(110,255,110)', -- Light Green For Wind Element
 		Earth='\\cs(220,214,110)', -- Brown/Yellow For Earth Element
 		Lightning='\\cs(190,90,190)', -- Purple For Lightning Element
@@ -312,10 +313,14 @@ function update_job_states()
 				end
 		elseif n == 'Weapons' then
 			if state.UnlockWeapons.value then
-				stateBox:append(string.format("%sUnlocked %s: ${%s}    ", clr.w, labels[n], n))
-			else
-				stateBox:append(string.format("%s%s: ${%s}    ", clr.w, labels[n], n))
+				stateBox:append(string.format("%sUnlocked ", clr.LightBlue))
 			end
+			
+			if state.WeaponSets.value ~= 'Default' then
+				stateBox:append(string.format("%s%s ", clr.w, state.WeaponSets.value))
+			end
+			
+			stateBox:append(string.format("%s%s: ${%s}    ", clr.w, labels[n], n))
 		elseif n == 'OffenseMode' then
 			if state.DefenseMode.value ~= 'None' then
 				stateBox:append(string.format("%sDefense Active: ", clr.w))

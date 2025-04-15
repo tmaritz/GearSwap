@@ -11,11 +11,21 @@ function user_job_setup()
 	state.BuffWeaponsMode = M{'Always','Never'}
 	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage'}
 	state.Weapons:options('None','Naegling','Maxentius','Crocea','Tauret','EnspellOnly','DualWeapons','DualWeaponsAcc','DualMaxentius','DualCrocea','DualMaxentiusAcc','DualPrime','DualAeolian','DualEnspellOnly','DualProcSword')
+	state.WeaponSets:options('Default','Dual','Proc','Dynamis')
+
+	weapon_sets = {
+		['Default'] = {'None','Naegling','Maxentius','Crocea','Tauret','EnspellOnly'},
+		['Dual'] = {'DualWeapons','DualWeaponsAcc','DualMaxentius','DualCrocea','DualMaxentiusAcc','DualPrime','DualAeolian','DualEnspellOnly'},
+		['Dynamis'] = {'DualCroceaSavageBlade','DualCrocea','TauretCrocea','DualAeolian'},
+		['Proc'] = {'ProcSword','ProcDagger','DualProcSword','DualProcDagger'},
+	}
 
 	default_weapons = 'Naegling'
 	default_dual_weapons = 'DualWeapons'
 
-	autows_list = {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['Crocea']='Sanguine Blade',['Tauret']='Aeolian Edge',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',['DualMaxentius']='Black Halo',['DualMaxentiusAcc']='Black Halo',['DualEvisceration']='Evisceration',['DualCrocea']='Sanguine Blade',['DualClubs']='Black Halo',['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator'}
+	autows_list =  {['Naegling']='Savage Blade',['Maxentius']='Black Halo',['Crocea']='Sanguine Blade',['Tauret']='Aeolian Edge',['DualWeapons']='Savage Blade',['DualWeaponsAcc']='Savage Blade',
+					['DualMaxentius']='Black Halo',['DualMaxentiusAcc']='Black Halo',['DualEvisceration']='Evisceration',['DualCrocea']='Sanguine Blade',['DualClubs']='Black Halo',
+					['DualAeolian']='Aeolian Edge',['DualPrime']='Exenterator',['DualCroceaSavageBlade']="Savage Blade",['CroceaDaybreak']="Seraph Blade",["TauretCrocea"]="Aeolian Edge"}
 	trust_list = {"Joachim","Ulmia","Qultada","Yoran-Oran (UC)","Selh'teus"}
 	
 	gear.mnd_enfeebling_jse_back = {name="Sucellos's Cape",augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Haste+10','Damage taken-5%',}}
@@ -39,10 +49,10 @@ function user_job_setup()
 	send_command('bind !\\\\ input /ma "Reraise III" <me>')
 	send_command('bind @f8 gs c toggle AutoNukeMode')
 	send_command('bind @f10 gs c cycle RecoverMode')
-	send_command('bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
+	send_command('bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Initialize;gs c set unlockweapons false')
 	send_command('bind ^q gs c set weapons DualEnspellOnly;gs c set unlockweapons true')
-	send_command('bind !r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons none')
-	send_command('bind !q gs c set skipprocweapons false;gs c weapons DualProcSword;gs c set weaponskillmode proc')
+	send_command('bind !r gs c set skipprocweapons true;gs c set weaponsets Default;gs c reset weaponskillmode;gs c weapons none')
+	send_command('bind !q gs c set skipprocweapons false;gs c set weaponsets proc;gs c set weaponskillmode proc;gs c set weapons DualProcSword')
 	
 	select_default_macro_book()
 end
@@ -64,12 +74,19 @@ function init_gear_sets()
 	sets.weapons.DualCrocea = {main="Crocea Mors",sub="Daybreak",range=empty}
 	sets.weapons.DualAeolian = {main="Tauret",sub="Maxentius",range=empty}
 	sets.weapons.DualProcSword = {main="Demers. Degen +1",sub="Blurred Knife +1",range=empty}
+	sets.weapons.ProcSword = {main="Demers. Degen +1",sub="Ammurapi Shield",range=empty}
+	sets.weapons.ProcDagger = {main="Blurred Knife +1",sub="Ammurapi Shield",range=empty}
+	sets.weapons.DualProcDagger = {main="Blurred Knife +1",sub="Demers. Degen +1",range=empty}
 	sets.weapons.EnspellOnly = {main="Qutrub Knife",sub="Sacro Bulwark"}
 	sets.weapons.DualEnspellOnly = {main="Qutrub Knife",sub="Ethereal Dagger"}
 	sets.weapons.DualBow = {}
 	sets.weapons.BowMacc = {}
 	sets.weapons.DualMaxentius = {main="Maxentius",sub="Thibron",range=empty}
 	sets.weapons.DualMaxentiusAcc = {main="Maxentius",sub="Gleti's Knife",range=empty}
+	
+	--Temporary Weapon Sets for Dynamis RP
+	sets.weapons.DualCroceaSavageBlade = {main="Crocea Mors",sub="Thibron"}
+	sets.weapons.TauretCrocea = {main="Tauret",sub="Crocea Mors"}
 	
 	-- Precast Sets
 	

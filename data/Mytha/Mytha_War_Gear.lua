@@ -9,7 +9,7 @@ function user_job_setup()
 	state.IdleMode:options('Normal', 'PDT')
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode','None'}
 	state.Passive = M{['description'] = 'Passive Mode','None','Twilight'}
-	state.Weapons:options('DualWeapons','ProcDagger','ProcSword','ProcGreatSword','ProcScythe','ProcPolearm','ProcKatana','ProcGreatKatana','ProcClub','ProcStaff')
+	state.Weapons:options('GreatAxe','DualWeapons','ProcDagger','ProcSword','ProcGreatSword','ProcScythe','ProcPolearm','ProcKatana','ProcGreatKatana','ProcClub','ProcStaff')
 	
 	autows_list = {['DualWeapons']='Savage Blade',['ProcDagger']='Cyclone',['ProcSword']='Red Lotus Blade',['ProcGreatSword']='Freezebite',['ProcScythe']='Shadow of Death',['ProcPolearm']='Raiden Thrust',['ProcGreatKatana']='Tachi: Koki',['ProcKatana']='Blade: Ei',['ProcClub']='Seraph Strike',['ProcStaff']='Earth Crusher',}
 
@@ -29,6 +29,20 @@ function init_gear_sets()
 	--------------------------------------
 	-- Start defining the sets
 	--------------------------------------
+
+	-- Weapons sets
+	sets.weapons.GreatAxe = {main="Bunzi's Chopper",sub="Niobid Strap"}
+	sets.weapons.DualWeapons = {main="Naegling",sub="Demers. Degen +1"}
+	sets.weapons.ProcDagger = {main="Qutrub Knife",sub="Beatific Shield +1"}
+	sets.weapons.ProcSword = {main="Kyukoto",sub="Beatific Shield +1"}
+	sets.weapons.ProcGreatSword = {main="Goujian",sub="Niobid Strap"}
+	sets.weapons.ProcScythe = {main="Ark Scythe",sub="Niobid Strap"}
+	sets.weapons.ProcPolearm = {main="Pitchfork",sub="Niobid Strap"}
+	sets.weapons.ProcKatana = {main="Debahocho",sub="Beatific Shield +1"}
+	sets.weapons.ProcGreatKatana = {main="Mutsunokami",sub="Niobid Strap"}
+	sets.weapons.ProcClub = {main="Hagoita",sub="Beatific Shield +1"}
+	sets.weapons.ProcStaff = {main="Caver's Shovel",sub="Niobid Strap"}
+
 	-- Precast Sets
 	
     sets.Enmity = {}
@@ -1221,18 +1235,6 @@ function init_gear_sets()
 	sets.buff.Retaliation = {}
 	sets.buff.Restraint = {}
 	sets.TreasureHunter = set_combine(sets.TreasureHunter, {ammo="Per. Lucky Egg"})
-	
-	-- Weapons sets
-	sets.weapons.DualWeapons = {main="Naegling",sub="Demers. Degen +1"}
-	sets.weapons.ProcDagger = {main="Qutrub Knife",sub="Beatific Shield +1"}
-	sets.weapons.ProcSword = {main="Kyukoto",sub="Beatific Shield +1"}
-	sets.weapons.ProcGreatSword = {main="Goujian",sub="Niobid Strap"}
-	sets.weapons.ProcScythe = {main="Ark Scythe",sub="Niobid Strap"}
-	sets.weapons.ProcPolearm = {main="Pitchfork",sub="Niobid Strap"}
-	sets.weapons.ProcKatana = {main="Debahocho",sub="Beatific Shield +1"}
-	sets.weapons.ProcGreatKatana = {main="Mutsunokami",sub="Niobid Strap"}
-	sets.weapons.ProcClub = {main="Hagoita",sub="Beatific Shield +1"}
-	sets.weapons.ProcStaff = {main="Caver's Shovel",sub="Niobid Strap"}
 end
 	
 -- Select default macro book on initial load or subjob change.
