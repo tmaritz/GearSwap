@@ -1426,7 +1426,8 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
-	table.vprint(internal_disable)
+	local temp = next(abyssea_elemental_ws_proc_weapons_map['darkness'])
+	add_to_chat(temp)
 	if user_test then
 		user_test(cmdParams)
 	elseif job_test then
