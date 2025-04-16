@@ -613,7 +613,7 @@ end
 -- Non item-based global settings to check on load.
 function global_on_load()
 	if world.area then
-		if windower.packets.last_outgoing(0x100) > windower.packets.last_incoming(0x0AC) then
+		if windower.packets.last_outgoing(0x100) and windower.packets.last_outgoing(0x100) > windower.packets.last_incoming(0x0AC) then
 			set_dual_wield:schedule(5)
 		else
 			set_dual_wield()
