@@ -285,39 +285,39 @@ function check_reaction(act)
 	elseif targetsMe then
 		if CureAbility:contains(act_info.name) and player.hpp < 75 then
 			if sets.Cure_Received then
-				do_equip('sets.Cure_Received')
+				send_command('gs c softequip sets.Cure_Received')
 			elseif sets.Self_Healing then
-				do_equip('sets.Self_Healing') 
+				send_command('gs c softequip sets.Self_Healing') 
 			end
 			return
 		elseif RefreshAbility:contains(act_info.name) then
 			if sets.Refresh_Received then
-				do_equip('sets.Refresh_Received')
+				send_command('gs c softequip sets.Refresh_Received')
 			elseif sets.Self_Refresh then
-				do_equip('sets.Self_Refresh')
+				send_command('gs c softequip sets.Self_Refresh')
 			end
 			return
 		elseif PhalanxAbility:contains(act_info.name) then
 			if sets.Phalanx_Received then
-				do_equip('sets.Phalanx_Received')
+				send_command('gs c softequip sets.Phalanx_Received')
 			elseif sets.midcast.Phalanx then
-				do_equip('sets.midcast.Phalanx')
+				send_command('gs c softequip sets.midcast.Phalanx')
 			end
 			return
 		elseif ProshellAbility:contains(act_info.name) then
-			if sets.Sheltered then do_equip('sets.Sheltered') return end
+			if sets.Sheltered then send_command('gs c softequip sets.Sheltered') return end
 		end
 	elseif actor.in_party and otherTarget.in_party and targetsDistance < 10 then
 
 		if CuragaAbility:contains(act_info.name) and player.hpp < 75 then
 			if sets.Cure_Received then
-				do_equip('sets.Cure_Received')
+				send_command('gs c softequip sets.Cure_Received')
 			elseif sets.Self_Healing then
-				do_equip('sets.Self_Healing') 
+				send_command('gs c softequip sets.Self_Healing') 
 			end
 			return
 		elseif ProshellraAbility:contains(act_info.name) and sets.Sheltered then
-			do_equip('sets.Sheltered') return
+			send_command('gs c softequip sets.Sheltered') return
 		end
 	end
 

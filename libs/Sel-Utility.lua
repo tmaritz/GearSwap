@@ -551,6 +551,17 @@ function add_table_to_chat(table)
 	end
 end
 
+function get_table_from_string(path)
+	local current = _G
+	for part in string.gmatch(path, '([^%.]+)') do
+		current = current[part]
+		if not current then
+			return nil
+		end
+	end
+	return current
+end
+
 function remove_table_value(table, value)
 	for i = #table, 1, -1 do
 		if table[i] == value then

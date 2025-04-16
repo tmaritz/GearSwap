@@ -630,7 +630,7 @@ end
 function global_unload()
 	if clear_job_states then
 		clear_job_states()
-	end		
+	end
 end
 
 -------------------------------------------------------------------------------------------------------------------

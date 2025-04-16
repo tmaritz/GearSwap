@@ -81,12 +81,14 @@ function self_command(commandArgs)
 		user_self_command(commandArgs, eventArgs)
 	end
 
+	local handleCmd
+	
 	if not eventArgs.handled then
 		-- Of the original command message passed in, remove the first word from
 		-- the list (it will be used to determine which function to call), and
 		-- send the remaining words as parameters for the function.
-		local handleCmd = (table.remove(commandArgs, 1)):lower()
-		local functionName = "handle_" .. handleCmd
+		handleCmd = (table.remove(commandArgs, 1)):lower()
+		local functionName = "handle_"..handleCmd
 
 		if _G[functionName] then
 			_G[functionName](commandArgs, eventArgs)
@@ -95,6 +97,11 @@ function self_command(commandArgs)
 
 	if not eventArgs.handled and not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock())) then
 		handle_equipping_gear(player.status)
+		
+		if handleCmd and handleCmd == 'softequip' then
+			local set = get_table_from_string(commandArgs[1])
+			equip(set)
+		end
 	end
 
 	equip(internal_disable)
@@ -562,9 +569,12 @@ function handle_forceequip(cmdParams)
 	else
 		local equipslot = (table.remove(cmdParams, 1)):lower()
 		local gear = table.concat(cmdParams, ' ')
-		add_to_chat(gear)
 		internal_disable_set({[equipslot]=gear}, "User")
 	end
+end
+
+function softequip(cmdParams)
+	
 end
 
 function handle_autonuke(cmdParams)
