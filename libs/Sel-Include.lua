@@ -135,6 +135,7 @@ function init_include()
 	state.AutoContradanceMode = M(true, 'Auto Contradance Mode')
 	state.AutoFoodMode		  = M(false, 'Auto Food Mode')
 	state.AutoHolyWaterMode   = M(true, 'Auto Holy Water Mode')
+	state.AutoJumpMode 		  = M(false, 'Auto Jump Mode')
 	state.AutoLockstyle	 	  = M(false, 'AutoLockstyle Mode')
 	state.AutoNukeMode 		  = M(false, 'Auto Nuke Mode')
 	state.AutoRemoveDoomMode  = M(true, 'Auto Remove Doom Mode')
@@ -1395,6 +1396,7 @@ function default_tick()
 	if check_cpring_buff() then return true end
 	if state.Buff['Sneak'] then return false end
 	if check_ws() then return true end
+	if check_jump() then return true end
 	if check_nuke() then return true end
 	return false
 end

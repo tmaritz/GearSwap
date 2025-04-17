@@ -243,6 +243,10 @@ function do_stun(target)
 	return false
 end
 
+function handle_jump()
+	check_jump(true)
+end
+
 -- Function to reset values to their defaults.
 -- User command format: gs c reset [field]
 -- Or: gs c reset all
