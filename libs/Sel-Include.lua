@@ -2322,14 +2322,7 @@ function state_change(stateField, newValue, oldValue)
 			state.Weapons:reset()
 		end
 
-		if autows_list[newValue] then
-			if type(autows_list[newValue]) == "table" then
-				autows 		= autows_list[newValue][1]
-				autowstp 	= autows_list[newValue][2]
-			else
-				autows 		= autows_list[newValue]
-			end
-		end
+		set_autows(newValue)
 
 		if weapons_pagelist[newValue] then
 			set_macro_page(weapons_pagelist[newValue][1], weapons_pagelist[newValue][2])
@@ -2367,6 +2360,8 @@ function state_change(stateField, newValue, oldValue)
 		if weapon_sets[state.WeaponSets.value] then
 			state.Weapons:options(unpack(weapon_sets[state.WeaponSets.value]))
 		end
+		
+		set_autows(state.Weapons.value)
 		
 		equip_weaponset()
 	elseif stateField == 'Capacity' then

@@ -533,14 +533,27 @@ function equip_weaponset()
 end
 
 function handle_showset(set)
-	if set then
-		local key_list = parse_set_to_keys(set)
-		local set = get_set_from_keys(key_list)
+	if not set then internal_enable_set("Showset") return end
+	set = table.concat(set, ' ')
+	local equipset = get_table_from_string(set)
+	
+	if type(equipset) == 'table' then
 		internal_disable_set(set, "Showset")
 	else
+		add_to_chat(123,"Unrecognized set ["..set.."]. Unlocking showset.")
 		internal_enable_set("Showset")
 	end
 end
+
+-- function handle_showset(set)
+	-- if set then
+		-- local key_list = parse_set_to_keys(set)
+		-- local set = get_set_from_keys(key_list)
+		-- internal_disable_set(set, "Showset")
+	-- else
+		-- internal_enable_set("Showset")
+	-- end
+-- end
 
 function handle_useitem(cmdParams)
 	if cmdParams[1] ~= nil then
@@ -1426,7 +1439,8 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
-	local temp = next(abyssea_elemental_ws_proc_weapons_map['darkness'])
+	--local temp = next(abyssea_elemental_ws_proc_weapons_map['light'])
+	local temp = abyssea_elemental_ws_proc_weapons_map['light'][2]
 	add_to_chat(temp)
 	if user_test then
 		user_test(cmdParams)
