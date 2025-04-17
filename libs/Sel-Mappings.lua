@@ -711,6 +711,15 @@ data.areas.proc = S{
 
 }
 
+abyssea_elemental_ws_proc_weapons_map = {
+	['fire'] =		{['ProcSword']="Red Lotus Blade"},
+	['earth'] =		{['ProcStaff']="Earth Crusher"},
+	['wind'] =		{['ProcDagger']="Cyclone",['ProcGreatKatana']="Tachi: Jinpu"},
+	['ice'] =		{['ProcGreatSword']="Freezebite"},
+	['lightning'] =	{['ProcPolearm']="Raiden Thrust"},
+	['light'] =		{['ProcClub']="Seraph Strike",['ProcGreatKatana']="Tachi: Koki",['ProcSword']="Seraph Blade"},
+	['darkness'] =	{['ProcScythe']="Shadow of Death",['ProcKatana']="Blade: Ei",['ProcDagger']="Energy Drain"},
+}
 -------------------------------------------------------------------------------------------------------------------
 -- NPC Lists
 -------------------------------------------------------------------------------------------------------------------

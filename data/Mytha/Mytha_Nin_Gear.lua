@@ -23,8 +23,8 @@ function user_job_setup()
 	send_command('bind ^` input /ja "Innin" <me>')
 	send_command('bind !` input /ja "Yonin" <me>')
 	send_command('bind @` gs c cycle Stance')
-	send_command('bind ^q gs c set WeaponskillMode Proc;gs c set skipprocweapons false;gs c weapons ProcDagger;gs c set CastingMode Proc;gs c update')
-	send_command('bind ^r gs c set WeaponskillMode match;gs c set skipprocweapons true;gs c weapons Default;gs c set CastingMode Normal;gs c update')
+	send_command('bind ^q gs c set WeaponskillMode Proc;gs c set weaponsets proc;gs c set CastingMode Proc')
+	send_command('bind ^r gs c set WeaponskillMode match;gs c weapons Initialize;gs c set CastingMode Normal')
 
 	utsusemi_cancel_delay = .3
 	utsusemi_ni_cancel_delay = .06

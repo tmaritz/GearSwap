@@ -830,14 +830,40 @@ function handle_scholar(cmdParams)
 	end
 end
 
+function handle_abyred()
+	local procs = {}
+
+	elemental_ws_proc_element = 'darkness'
+
+	for proc in pairs(abyssea_elemental_ws_proc_weapons_map[elemental_ws_proc_element]) do
+		table.insert(procs, proc)
+	end
+
+	for i, proc in ipairs(procs) do
+		if proc == state.Weapons.value then
+			local procweapons = procs[i % #procs + 1] -- Circular access
+			state.Weapons:set(procweapons)  
+			equip_weaponset()
+			if state.DisplayMode.value then update_job_states()	end
+			return
+		end
+	end
+	
+	add_to_chat(123,'Next Red Proc WS not found.')
+end
+
 function handle_smartws(cmdParams)
 	local target
 	local weaponskill = smartws or autows
-
-	local weaponskill_id = get_weaponskill_id_by_name(weaponskill)
-	if res.weapon_skills[weaponskill_id].targets:contains('Self') then
-		send_command(''..weaponskill..' <me>')
-		return
+	
+	if state.Weapons.value:contains('Proc') and world.area:contains('Abyssea') and elemental_ws_proc_element and abyssea_elemental_ws_proc_weapons_map[elemental_ws_proc_element][state.Weapons.value] then
+		weaponskill = abyssea_elemental_ws_proc_weapons_map[elemental_ws_proc_element][state.Weapons.value]
+	else
+		local weaponskill_id = get_weaponskill_id_by_name(weaponskill)
+		if res.weapon_skills[weaponskill_id].targets:contains('Self') then
+			send_command(''..weaponskill..' <me>')
+			return
+		end
 	end
 
 	if cmdParams[1] then
@@ -1439,9 +1465,7 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
-	--local temp = next(abyssea_elemental_ws_proc_weapons_map['light'])
-	local temp = abyssea_elemental_ws_proc_weapons_map['light'][2]
-	add_to_chat(temp)
+	state.ElementalMode:set(magical_proc_element)
 	if user_test then
 		user_test(cmdParams)
 	elseif job_test then

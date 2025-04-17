@@ -261,6 +261,9 @@ function init_include()
 	disabled_sets = {}
 	silent_can_use_cache = {['/ma']={},['/ja']={},['/ws']={}}
 	local_offset = 18000
+	elemental_ws_proc_target_id = ''
+	elemental_ws_proc_element = 'fire'
+	elemental_magic_proc_target_id = ''
 
 	-- Buff tracking that buffactive can't detect
 	lastshadow = "Utsusemi: San"
