@@ -1508,7 +1508,7 @@ function check_buffup()
 end
 
 function check_samba()
-	if not (buffactive['Haste Samba'] or buffactive['Drain Samba'] or buffactive['Aspir Samba']) and windower.ffxi.get_ability_recasts()[216] and windower.ffxi.get_ability_recasts()[216] < latency and state.AutoSambaMode.value ~= 'Off' and player.tp > 400 then
+	if state.AutoSambaMode.value ~= 'Off' and not (buffactive['Haste Samba'] or buffactive['Drain Samba'] or buffactive['Aspir Samba']) and (player.main_job == 'DNC' or player.sub_job == 'DNC') and player.status == 'Engaged' and player.tp > 400 then
 		windower.chat.input('/ja "'..state.AutoSambaMode.value..'" <me>')
 		add_tick_delay()
 		return true
