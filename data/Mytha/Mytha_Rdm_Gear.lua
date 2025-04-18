@@ -225,20 +225,13 @@ function init_gear_sets()
         back="Oretan. Cape +1",waist="Bishop's Sash",legs="Atrophy Tights +3",feet="Vanya Clogs"}
 
 	sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {main=gear.grioavolr_fc_staff,sub="Clemency Grip"})
-		
-	sets.midcast.Curaga = sets.midcast.Cure
-	sets.Self_Healing = {neck="Phalaina Locket",ear1="Etiolation Earring",ring2="Kunaji Ring",waist="Gishdubar Sash"}
-	sets.Cure_Received = {neck="Phalaina Locket",ring2="Kunaji Ring",waist="Gishdubar Sash"}
-	sets.Self_Refresh = {waist="Gishdubar Sash"}
-	sets.Self_Phalanx = {main="Sakpata's Sword",head="Taeon Chapeau",body="Taeon Tabard",hands="Taeon Gloves",legs="Taeon Tights",feet="Taeon Boots",ammo="Staunch Tathlum +1"}
-	sets.Self_Phalanx.DW = {main="Sakpata's Sword",sub="Egeking"}
-
+	
 	sets.midcast['Enhancing Magic'] = {main="Colada",sub="Ammurapi Shield",ammo="Staunch Tathlum +1",
 		head="Telchine Cap",neck="Dls. Torque +2",ear1="Andoaa Earring",ear2="Leth. Earring +1",
 		body="Viti. Tabard +3",hands="Atrophy Gloves +3",ring1="Kishar Ring",ring2="Lebeche Ring",
 		back="Ghostfyre Cape",waist="Embla Sash",legs="Telchine Braconi",feet="Leth. Houseaux +3"}
 
-	--Atrophy Gloves are better than Lethargy for me despite the set bonus for duration on others.		
+	--Atrophy Gloves are better than Lethargy for me despite the set bonus for duration on others.
 	sets.buff.ComposureOther = {head="Leth. Chappel +3",
 		body="Lethargy Sayon +3",
 		legs="Leth. Fuseau +3",feet="Leth. Houseaux +3"}
@@ -249,7 +242,7 @@ function init_gear_sets()
 		head="Befouled Crown",neck="Incanter's Torque",ear1="Andoaa Earring",ear2="Mimir Earring",
 		body="Viti. Tabard +3",hands="Viti. Gloves +3",ring1="Stikini Ring +1",ring2="Stikini Ring +1",
 		back="Fi Follet Cape +1",waist="Olympus Sash",legs="Atrophy Tights +3",feet="Leth. Houseaux +3"}
-	
+		
 	sets.midcast.Refresh = {head="Amalric Coif +1",body="Atrophy Tabard +3",legs="Leth. Fuseau +3"}
 	sets.midcast.Aquaveil = {head="Amalric Coif +1",waist="Emphatikos Rope",legs="Shedir Seraweels"} --hands="Regal Cuffs"
 	sets.midcast.BarElement = {legs="Shedir Seraweels"}
@@ -261,6 +254,13 @@ function init_gear_sets()
 	sets.midcast.Protect = {ring2="Sheltered Ring"}
 	sets.midcast.Shell = {ring2="Sheltered Ring"}
 	sets.midcast.Regen = {main="Bolelabunga",sub="Ammurapi Shield"}
+	
+	sets.midcast.Curaga = sets.midcast.Cure
+	sets.Self_Healing = {neck="Phalaina Locket",ear1="Etiolation Earring",ring2="Kunaji Ring",waist="Gishdubar Sash"}
+	sets.Cure_Received = {neck="Phalaina Locket",ring2="Kunaji Ring",waist="Gishdubar Sash"}
+	sets.Self_Refresh = {waist="Gishdubar Sash"}
+	sets.Self_Phalanx = {main="Sakpata's Sword",head="Taeon Chapeau",body="Taeon Tabard",hands="Taeon Gloves",back=gear.mnd_enfeebling_jse_back,legs="Taeon Tights",feet="Taeon Boots",ammo="Staunch Tathlum +1"}
+	sets.Self_Phalanx.DW = {main="Sakpata's Sword",sub="Egeking"}
 	
 	sets.midcast['Enfeebling Magic'] = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo="Regal Gem",
 		head="Leth. Chappel +3",neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",

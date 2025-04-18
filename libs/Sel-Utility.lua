@@ -2276,77 +2276,76 @@ function seconds_to_clock(seconds, units)
 	end
 end
 
---Leftover from old showset implementation, saving for now.)
--- function parse_set_to_keys(str)
-	-- if type(str) == 'table' then
-		-- str = table.concat(str, ' ')
-	-- end
+function parse_set_to_keys(str)
+	if type(str) == 'table' then
+		str = table.concat(str, ' ')
+	end
 
-	-- -- Parsing results get pushed into the result list.
-	-- local result = L{}
+	-- Parsing results get pushed into the result list.
+	local result = L{}
 
-	-- local remainder = str
-	-- local key
-	-- local stop
-	-- local sep = '.'
-	-- local count = 0
+	local remainder = str
+	local key
+	local stop
+	local sep = '.'
+	local count = 0
 
-	-- -- Loop as long as remainder hasn't been nil'd or reduced to 0 characters, but only to a maximum of 30 tries.
-	-- while remainder and #remainder and count < 30 do
-		-- -- Try aaa.bbb set names first
-		-- while sep == '.' do
-			-- _,_,key,sep,remainder = remainder:find("^([^%.%[]*)(%.?%[?)(.*)")
-			-- -- "key" is everything that is not . or [ 0 or more times.
-			-- -- "sep" is the next divider, which is necessarily . or [
-			-- -- "remainder" is everything after that
-			-- result:append(key)
-		-- end
+	-- Loop as long as remainder hasn't been nil'd or reduced to 0 characters, but only to a maximum of 30 tries.
+	while remainder and #remainder and count < 30 do
+		-- Try aaa.bbb set names first
+		while sep == '.' do
+			_,_,key,sep,remainder = remainder:find("^([^%.%[]*)(%.?%[?)(.*)")
+			-- "key" is everything that is not . or [ 0 or more times.
+			-- "sep" is the next divider, which is necessarily . or [
+			-- "remainder" is everything after that
+			result:append(key)
+		end
 
-		-- -- Then try aaa['bbb'] set names.
-		-- -- Be sure to account for both single and double quote enclosures.
-		-- -- Ignore periods contained within quote strings.
-		-- while sep == '[' do
-			-- _,_,sep,remainder = remainder:find([=[^(%'?%"?)(.*)]=]) --' --block bad text highlighting
-			-- -- "sep" is the first ' or " found (or nil)
-			-- -- remainder is everything after that (or nil)
-			-- if sep == "'" then
-				-- _,_,key,stop,sep,remainder = remainder:find("^([^']+)('])(%.?%[?)(.*)")
-			-- elseif sep == '"' then
-				-- _,_,key,stop,sep,remainder = remainder:find('^([^"]+)("])(%.?%[?)(.*)')
-			-- elseif not sep or #sep == 0 then
-				-- -- If there is no single or double quote detected, attempt to treat the index as a number or boolean
-				-- local _,_,pot_key,pot_stop,pot_sep,pot_remainder = remainder:find('^([^%]]+)(])(%.?%[?)(.*)')
-				-- if tonumber(pot_key) then
-					-- key,stop,sep,remainder = tonumber(pot_key),pot_stop,pot_sep,pot_remainder
-				-- elseif pot_key == 'true' then
-					-- key,stop,sep,remainder = true,pot_stop,pot_sep,pot_remainder
-				-- elseif pot_key == 'false' then
-					-- key,stop,sep,remainder = false,pot_stop,pot_sep,pot_remainder
-				-- end
-			-- end
-			-- result:append(key)
-		-- end
+		-- Then try aaa['bbb'] set names.
+		-- Be sure to account for both single and double quote enclosures.
+		-- Ignore periods contained within quote strings.
+		while sep == '[' do
+			_,_,sep,remainder = remainder:find([=[^(%'?%"?)(.*)]=]) --' --block bad text highlighting
+			-- "sep" is the first ' or " found (or nil)
+			-- remainder is everything after that (or nil)
+			if sep == "'" then
+				_,_,key,stop,sep,remainder = remainder:find("^([^']+)('])(%.?%[?)(.*)")
+			elseif sep == '"' then
+				_,_,key,stop,sep,remainder = remainder:find('^([^"]+)("])(%.?%[?)(.*)')
+			elseif not sep or #sep == 0 then
+				-- If there is no single or double quote detected, attempt to treat the index as a number or boolean
+				local _,_,pot_key,pot_stop,pot_sep,pot_remainder = remainder:find('^([^%]]+)(])(%.?%[?)(.*)')
+				if tonumber(pot_key) then
+					key,stop,sep,remainder = tonumber(pot_key),pot_stop,pot_sep,pot_remainder
+				elseif pot_key == 'true' then
+					key,stop,sep,remainder = true,pot_stop,pot_sep,pot_remainder
+				elseif pot_key == 'false' then
+					key,stop,sep,remainder = false,pot_stop,pot_sep,pot_remainder
+				end
+			end
+			result:append(key)
+		end
 
-		-- count = count +1
-	-- end
+		count = count +1
+	end
 
-	-- return result
--- end
+	return result
+end
 
--- function get_set_from_keys(keys)
-	-- local set = keys[1] == 'sets' and _G or sets
-	-- for key in (keys.it or it)(keys) do
-		-- if key == nil then
-			-- return nil
-		-- end
-		-- set = set[key]
-		-- if not set then
-			-- return nil
-		-- end
-	-- end
+function get_set_from_keys(keys)
+	local set = keys[1] == 'sets' and _G or sets
+	for key in (keys.it or it)(keys) do
+		if key == nil then
+			return nil
+		end
+		set = set[key]
+		if not set then
+			return nil
+		end
+	end
 
-	-- return set
--- end
+	return set
+end
 
 function face_target()
 	local target = windower.ffxi.get_mob_by_index(windower.ffxi.get_player().target_index or 0)
@@ -2427,22 +2426,17 @@ function count_total_ammo(ammo_name)
 end
 
 function check_rune()
-
-	if state.AutoRuneMode.value and (player.main_job == 'RUN' or player.sub_job == 'RUN') then
+	if state.AutoRuneMode.value ~= 'false' and state.AutoRuneMode.value ~= 'Off' and (player.main_job == 'RUN' or player.sub_job == 'RUN') then
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 
-		if player.main_job == 'RUN' and (not buffactive[state.RuneElement.value] or buffactive[state.RuneElement.value] < 3) then
+		if not buffactive[state.RuneElement.value] or buffactive[state.RuneElement.value] < 2 or (player.main_job == 'RUN' and buffactive[state.RuneElement.value] < 3) then
 			if abil_recasts[92] > 0 then return false end
 			windower.chat.input('/ja "'..state.RuneElement.value..'" <me>')
 			add_tick_delay()
 			return true
 
-		elseif not buffactive[state.RuneElement.value] or buffactive[state.RuneElement.value] < 2 then
-			if abil_recasts[92] > 0 then return false end
-			windower.chat.input('/ja "'..state.RuneElement.value..'" <me>')
-			add_tick_delay()
-			return true
-
+		elseif state.AutoRuneMode.value ~= 'Full' then
+			return false
 		elseif player.main_job == 'RUN' and abil_recasts[242] < latency and (player.hpp < 50 or (state.RuneElement.Value == 'Tenebrae' and player.mpp < 75)) then
 			windower.chat.input('/ja "Vivacious Pulse" <me>')
 			add_tick_delay()

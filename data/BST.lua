@@ -224,6 +224,7 @@ function job_setup()
 
 	state.AutoFightMode = M(true, 'Auto Fight Mode')
 	state.AutoReadyMode = M(false, 'Auto Ready Mode')
+	state.AutoRewardMode = M(true, 'Auto Reward Mode')
 	state.AutoCallPet = M(false, 'Auto Call Pet')
 	state.PetMode = M{['description']='Pet Mode','Tank','DD'}
 	state.RewardMode = M{['description']='Reward Mode', 'Theta', 'Zeta', 'Eta'}
@@ -246,7 +247,7 @@ function job_setup()
 
 	update_pet_groups()
 	update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoReadyMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","PetMode","IdleMode","Passive","RuneElement","JugMode","RewardMode","TreasureMode",})
+	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","AutoCallPet","AutoFightMode","AutoRewardMode","AutoReadyMode","AutoWSMode","AutoJumpMode","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","WeaponskillMode","PetMode","IdleMode","Passive","RuneElement","JugMode","RewardMode","TreasureMode",})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -639,9 +640,8 @@ function job_check_buff()
 end
 
 function check_pet()
-
 	if pet.isvalid then
-		if pet.hpp < 34 then
+		if pet.hpp < 34 and state.AutoRewardMode.value then
 			local abil_recasts = windower.ffxi.get_ability_recasts()
 			
 			if abil_recasts[103] < latency and not (buffactive.amnesia or buffactive.impairment) then

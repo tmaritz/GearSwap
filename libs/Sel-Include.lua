@@ -100,6 +100,7 @@ function init_include()
 	-- This just defines the vars and sets the descriptions.  List modes with no values automatically
 	-- get assigned a 'Normal' default value.
 	state.AutoBuffMode 		  = M{['description'] = 'Auto Buff Mode','Off','Auto'}
+	state.AutoRuneMode 		  = M{['description'] = 'Auto Rune Mode','Off','Runes','Full'}
 	state.AutoSambaMode 	  = M{['description'] = 'Auto Samba Mode', 'Off', 'Haste Samba', 'Aspir Samba', 'Drain Samba II'}
 	state.CastingMode         = M{['description'] = 'Casting Mode'}
 	state.CombatForm          = M{['description'] = 'Combat Form', ['string']=''}
@@ -139,7 +140,6 @@ function init_include()
 	state.AutoLockstyle	 	  = M(false, 'AutoLockstyle Mode')
 	state.AutoNukeMode 		  = M(false, 'Auto Nuke Mode')
 	state.AutoRemoveDoomMode  = M(true, 'Auto Remove Doom Mode')
-	state.AutoRuneMode 		  = M(false, 'Auto Rune Mode')
 	state.AutoShadowMode 	  = M(false, 'Auto Shadow Mode')
 	state.AutoSubMode 		  = M(false, 'Auto Sublimation Mode')
 	state.AutoSuperJumpMode   = M(false, 'Auto SuperJump Mode')

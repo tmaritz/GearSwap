@@ -147,8 +147,10 @@ function update_job_states()
 	-- Define labels for each state
 	local labels = {
 		AutoBuffMode = "Auto Buff",
+		AutoCallPet = "Auto Call Pet",
 		AutoDefenseMode = "Auto Defense",
 		AutoEngageMode = "Auto Engage",
+		AutoFightMode = "Auto Fight",
 		AutoFoodMode = "Auto Food: "..autofood.."",
 		AutoJumpMode = "Auto Jump",
 		AutoManawell = "Auto Manawell",
@@ -156,7 +158,7 @@ function update_job_states()
 		AutoPuppetMode = "Auto Puppet",
 		AutoReadyMode = "Auto Ready",
 		AutoRepairMode = "Auto Repair",
-		AutoRuneMode = "Auto Rune: "..state.RuneElement.value.."",
+		AutoRewardMode = "Auto Reward",
 		AutoSambaMode = "Auto Samba: "..state.AutoSambaMode.value.."",
 		AutoShadowMode = "Auto Shadows",
 		AutoSongMode = "Auto Song",
@@ -253,8 +255,6 @@ function update_job_states()
 					end
 				end
 				stateBox:append(spc)
-			elseif n == 'AutoRuneMode' and (player.main_job == 'RUN' or player.sub_job == 'RUN') and state.AutoRuneMode.value then
-					stateBox:append(string.format("%sAuto Rune: %s%s    ", clr.h, clr[data.elements.runes_lookup[state.RuneElement.value]], state.RuneElement.value))
 			elseif n == 'AutoDefenseMode' then
 				if state.AutoDefenseMode.value then
 					if state.TankAutoDefense.value then
@@ -390,8 +390,12 @@ function update_job_states()
 			end
 		elseif n == 'ElementalMode' then
 				stateBox:append(string.format("%sElement: %s%s    ", clr.w, clr[state.ElementalMode.value], state.ElementalMode.value))
+		elseif n == 'AutoRuneMode' then
+				if (player.main_job == 'RUN' or player.sub_job == 'RUN') and state.AutoRuneMode.value ~= 'false' and state.AutoRuneMode.value ~= 'Off' then
+					stateBox:append(string.format("%sAuto Rune ("..state.AutoRuneMode.value.."): %s%s    ", clr.h, clr[data.elements.runes_lookup[state.RuneElement.value]], state.RuneElement.value))
+				end
 		elseif n == 'RuneElement' then
-				if not state.AutoRuneMode.value and (player.main_job == 'RUN' or player.sub_job == 'RUN') then
+				if (state.AutoRuneMode.value == 'false' or state.AutoRuneMode.value == 'Off') and (player.main_job == 'RUN' or player.sub_job == 'RUN') then
 					stateBox:append(string.format("%sRune: %s%s    ", clr.w, clr[data.elements.runes_lookup[state.RuneElement.value]], state.RuneElement.value))
 				end
 		elseif n == 'LearningMode' then
