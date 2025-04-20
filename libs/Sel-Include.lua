@@ -1188,29 +1188,7 @@ function default_post_pet_midcast(spell, spellMap, eventArgs)
 	end
 end
 
-function default_aftercast(spell, spellMap, eventArgs)
-	prepared_action = ''
-	local delay = 0
-	if spell.interrupted then
-		if spell.action_type == 'Magic' then
-			delay = 3.35 - latency
-		else
-			delay = 1.75 - latency
-		end
-	elseif spell.action_type == 'Magic' then
-		delay = 2.9 - latency
-	elseif spell.type == 'WeaponSkill' then
-		delay = 2.7 - latency
-	elseif spell.action_type == 'Ability' then
-		delay = .8 - latency
-	elseif spell.action_type == 'Item' then
-		delay = 1.5 - latency
-	elseif spell.action_type == 'Ranged Attack' then
-		delay = .85 - latency
-	end
-	
-	add_next_cast_delay(delay)
-	
+function general_aftercast(spell, spellMap, eventArgs)
 	if not spell.interrupted then
 		if spell.target.type == 'MONSTER' and spell.target.hpp > 0 then
 			in_combat = true
@@ -1264,6 +1242,30 @@ function default_aftercast(spell, spellMap, eventArgs)
 	if not eventArgs.handled then
 		handle_equipping_gear(player.status)
 	end
+end
+
+function default_aftercast(spell, spellMap, eventArgs)
+	prepared_action = ''
+	local delay = 0
+	if spell.interrupted then
+		if spell.action_type == 'Magic' then
+			delay = 3.35 - latency
+		else
+			delay = 1.75 - latency
+		end
+	elseif spell.action_type == 'Magic' then
+		delay = 2.9 - latency
+	elseif spell.type == 'WeaponSkill' then
+		delay = 2.7 - latency
+	elseif spell.action_type == 'Ability' then
+		delay = .8 - latency
+	elseif spell.action_type == 'Item' then
+		delay = 1.5 - latency
+	elseif spell.action_type == 'Ranged Attack' then
+		delay = .85 - latency
+	end
+	
+	add_next_cast_delay(delay)
 end
 
 function default_pet_midcast(spell, spellMap, eventArgs)
