@@ -794,7 +794,6 @@ function handle_actions(spell, action)
 	equip(internal_disable)
 end
 
-
 --------------------------------------
 -- Action hooks called by GearSwap.
 --------------------------------------
@@ -1266,6 +1265,10 @@ function default_aftercast(spell, spellMap, eventArgs)
 	end
 	
 	add_next_cast_delay(delay)
+	
+	if buffactive.doom then
+		equip(sets.buff.Doom)
+	end
 end
 
 function default_pet_midcast(spell, spellMap, eventArgs)
@@ -1623,7 +1626,7 @@ end
 -- Returns the appropriate melee set based on current state values.
 -- Set construction order (all sets after sets.engaged are optional):
 --   sets.engaged[state.CombatForm][state.CombatWeapon][state.OffenseMode][state.DefenseMode][classes.CustomMeleeGroups (any number)]
-function get_melee_set()
+function get_melee_set(petStatus)
 	local meleeSet = sets.engaged
 	
 	if not meleeSet then
@@ -1716,7 +1719,7 @@ end
 -- Returns the appropriate resting set based on current state values.
 -- Set construction order:
 --   sets.resting[state.RestingMode]
-function get_resting_set()
+function get_resting_set(petStatus)
 	local restingSet = sets.resting
 
 	if not restingSet then

@@ -420,6 +420,10 @@ function job_aftercast(spell, spellMap, eventArgs)
 			return
 		end
 
+		if state.DefenseMode.value ~= 'None' and not state.Buff["Unleash"] then
+			return
+		end
+
 		local currentSet = get_pet_midcast_set(spell, spellMap)
 
 		if magic_ready_moves:contains(spell.english) then
