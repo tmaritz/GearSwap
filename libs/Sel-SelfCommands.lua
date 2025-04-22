@@ -454,6 +454,11 @@ function handle_showtp(cmdParams)
 	internal_disable_set(get_melee_set(), "ShowTP")
 end
 
+function handle_enable(cmdParams)
+	if cmdParams[1]:lower() == 'all' then
+		internal_disable = {}
+	end
+end
 
 -- Minor variation on the GearSwap "gs equip naked" command, that ensures that
 -- all slots are enabled before removing gear.
@@ -1456,9 +1461,6 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
-	if false == false then
-		add_to_chat('true')
-	end
 	if user_test then
 		user_test(cmdParams)
 	elseif job_test then
