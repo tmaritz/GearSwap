@@ -785,20 +785,21 @@ spell_stepdown = {
 }
 
 item_stepdown = {
-	['Warp Ring'] = {'Treat Staff II','main'},
-	['Treat Staff II'] = {'Warp Cudgel','main'},
-	['Warp Cudgel'] = {'Instant Warp','item'},
-	['Dusty Reraise'] = {'Instant Reraise','item'},
-	['Instant Reraise'] = {'Reraiser','item'},
-	['Reraiser'] = {'Hi-Reraiser','item'},
-	['Hi-Reraiser'] = {'Scapegoat','item'},
-	['Scapegoat'] = {'Super Reraiser','item'},
-	['Super Reraiser'] = {'Revive Feather','item'},
-	['Revive Feather'] = {'Rebirth Feather','item'},
-	['Rebirth Feather'] = {'Reraise Ring','ring2'},
-	['Reraise Ring'] = {'Reraise Earring','ear2'},
-	['Reraise Earring'] = {'Reraise Hairpin','head'},
-	['Reraise Hairpin'] = {'Wh. Rarab Cap +1','head'},
+	["Warp Ring"] = {"Treat Staff II","main"},
+	["Treat Staff II"] = {"Warp Cudgel","main"},
+	["Warp Cudgel"] = {"Instant Warp","item"},
+	["Dusty Reraise"] = {"Instant Reraise","item"},
+	["Instant Reraise"] = {"Reraiser","item"},
+	["Reraiser"] = {"Hi-Reraiser","item"},
+	["Hi-Reraiser"] = {"Scapegoat","item"},
+	["Scapegoat"] = {"Super Reraiser","item"},
+	["Super Reraiser"] = {"Revive Feather","item"},
+	["Revive Feather"] = {"Rebirth Feather","item"},
+	["Rebirth Feather"] = {"Airmid's Gorget","ring2"},
+	["Airmid's Gorget"] = {"Airmid's Gorget","neck"},
+	["Reraise Ring"] = {"Reraise Earring","ear2"},
+	["Reraise Earring"] = {"Reraise Hairpin","head"},
+	["Reraise Hairpin"] = {"Wh. Rarab Cap +1","head"},
 }
 
 
