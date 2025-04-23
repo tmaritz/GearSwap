@@ -247,6 +247,18 @@ function handle_jump()
 	check_jump(true)
 end
 
+function handle_value(cmdParams)
+	local stateName = state[cmdParams[1]] or nil
+
+	if stateName and tostring(stateName) then
+		add_to_chat(122, tostring(stateName))
+	elseif _G[cmdParams[1]] then
+		add_to_chat(122, cmdParams[1] .. " = " .. tostring(_G[cmdParams[1]]))
+	else
+		add_to_chat(123, "Global value not found.")
+	end
+end
+
 -- Function to reset values to their defaults.
 -- User command format: gs c reset [field]
 -- Or: gs c reset all

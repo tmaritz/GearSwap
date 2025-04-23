@@ -166,7 +166,7 @@ function init_include()
 	state.SkipProcWeapons 	  = M(false, 'Skip Proc Weapons')
 	state.UnlockWeapons		  = M(false, 'Unlock Weapons')
 	state.UseCustomTimers 	  = M(true, 'Use Custom Timers')
-	state.WakeUpWeapons 	  =	M(false, 'Swap Weapons To Wake Up')
+	state.WakeUpWeapons 	  =	M(false, 'Wake Up Weapons')
 
 	state.Buff = {}
 	NotifyBuffs = S{}
