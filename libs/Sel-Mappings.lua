@@ -61,6 +61,10 @@ data.elements.quickdraw_of = {['Fire']='Fire', ['Ice']='Ice', ['Wind']='Wind', [
 data.elements.enspell_of = {['Fire']='Fire', ['Ice']='Blizzard', ['Wind']='Aero', ['Earth']='Stone',
 		['Lightning']='Thunder', ['Water']='Water', ['Light']='Light', ['Dark']='Dark',}
 
+data.elements.barelement_of = {['Light']='Barfire',['Dark']='Barblizzard',['Fire']='Barfire',
+		['Earth']='Barstone',['Water']='Barwater',['Wind']='Baraero',['Ice']='Barblizzard',
+		['Lightning']='Barthunder'}
+
 data.elements.runes_lookup = {['Lux']='Light', ['Tenebrae']='Dark', ['Ignis']='Fire', ['Gelus']='Ice', ['Flabra']='Wind',
 	 ['Tellus']='Earth', ['Sulpor']='Lightning', ['Unda']='Water'}
 

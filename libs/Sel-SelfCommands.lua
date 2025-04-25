@@ -716,10 +716,15 @@ function handle_elemental(cmdParams)
 		end
 	elseif command == 'ninjutsu' then
 		windower.chat.input('/ma "'..data.elements.ninjutsu_nuke_of[state.ElementalMode.value]..': Ni" '..target)
-
 	elseif command == 'ancientmagic' then
 		windower.chat.input('/ma "'..data.elements.ancient_nuke_of[state.ElementalMode.value]..'" '..target)
+	elseif command == 'barelement' then
+		local barspell = data.elements.barelement_of[data.elements.weak_to[state.ElementalMode.value]]
 
+		if not buffactive[barspell] then
+			windower.chat.input('/ma "'..barspell..'" <me>')
+			add_tick_delay(1.1)
+		end
 	elseif command:startswith('tier') then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
 		local tierlist = {['tier1']='',['tier2']=' II',['tier3']=' III',['tier4']=' IV',['tier5']=' V',['tier6']=' VI'}
