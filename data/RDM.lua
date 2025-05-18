@@ -201,11 +201,11 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			end
 		elseif spell.skill == 'Enhancing Magic' then
 			equip(sets.midcast['Enhancing Magic'])
-		
+
 			if buffactive.Composure and spell.target.type == 'PLAYER' then
 				equip(sets.buff.ComposureOther)
 			end
-			
+
 			if sets.midcast[spell.english] then
 				equip(sets.midcast[spell.english])
 				
