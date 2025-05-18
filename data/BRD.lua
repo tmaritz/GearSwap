@@ -225,7 +225,7 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			end
 
 			if state.ExtraSongsMode.value:contains('Cheer') or (state.Pianissimode.value and state.Buff['Pianissimo'] and state.ExtraSongsMode.value == 'None') then
-				equip(range="Miracle Cheer")
+				equip({range="Miracle Cheer"})
 			elseif state.ExtraSongsMode.value:contains('FullLength') then
 				equip(sets.midcast.Daurdabla)
 			end
