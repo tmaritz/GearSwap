@@ -73,7 +73,7 @@ end
 -- Setup vars that are user-independent.  state.Buff vars initialized here will automatically be tracked.
 function job_setup()
 
-	state.ExtraSongsMode = M{['description']='Extra Songs','None','Dummy','DummyLock','FullLength','FullLengthLock'}
+	state.ExtraSongsMode = M{['description']='Extra Songs','None','Dummy','DummyLock','FullLength','FullLengthLock','Cheer','CheerLock'}
 	-- Whether to use Carn (or song daggers in general) under a certain tp threshhold even when weapons are locked.
 	state.CarnMode = M{'Default','Always','300','1000','Never'}
 	state.Pianissimode = M(true, 'Use FullLength when Pianissimo is active.')
@@ -224,21 +224,19 @@ function job_post_midcast(spell, spellMap, eventArgs)
 				equip(sets.midcast.SongEffect.DW)
 			end
 
-			if state.ExtraSongsMode.value:contains('FullLength') or (state.Pianissimode.value and state.Buff['Pianissimo']) then
-				if sets.midcast.FullLength then
-					equip(sets.midcast.FullLength)
-				else
-					equip(sets.midcast.Daurdabla)
-				end
+			if state.ExtraSongsMode.value:contains('Cheer') or (state.Pianissimode.value and state.Buff['Pianissimo'] and state.ExtraSongsMode.value == 'None') then
+				equip(range="Miracle Cheer")
+			elseif state.ExtraSongsMode.value:contains('FullLength') then
+				equip(sets.midcast.Daurdabla)
 			end
 			
-			if state.Buff['Pianissimo'] and sets.midcast[spellMap] and sets.midcast[spellMap].Pianissimo then
+			if state.Buff['Pianissimo'] and sets.midcast[spellMap] and sets.midcast[spellMap].Pianissimo and state.ExtraSongsMode.value == 'None' then
 				equip(sets.midcast[spellMap].Pianissimo)
 			end
 		end
 		
 
-		if not state.ExtraSongsMode.value:contains('Lock') then
+		if not state.ExtraSongsMode.value:endswith('Lock') then
 			state.ExtraSongsMode:reset()
 		end
 

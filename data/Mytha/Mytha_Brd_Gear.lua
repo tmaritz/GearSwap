@@ -9,7 +9,6 @@ function user_job_setup()
 	gear.melee_jse_back = {name="Intarabus's Cape",augments={'Accuracy+20 Attack+20'}}
 	gear.magic_jse_back = {name="Intarabus's Cape",augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
 
-	info.DurationSongInstrument = 'Miracle Cheer'
 	info.ExtraSongInstrument = 'Blurred Harp +1'
 	-- How many extra songs we can keep from Daurdabla/Terpander
 	info.ExtraSongs = 1
@@ -181,9 +180,7 @@ function init_gear_sets()
 		head="Bunzi's Hat",neck="Voltsurge Torque",ear1="Enchntr. Earring +1",ear2="Loquac. Earring",
 		body="Inyanga Jubbah +2",hands="Gendewitha Gages +1",ring1="Kishar Ring",ring2="Prolix Ring",
 		back=gear.magic_jse_back,waist="Witful Belt",legs="Fili Rhingrave +1",feet="Aya. Gambieras +2"}
-		
-	sets.midcast.FullLength = {range=info.DurationSongInstrument}
-		
+
 	-- Cast spell with normal gear, except using Daurdabla instead
 	sets.midcast.Daurdabla = {range=info.ExtraSongInstrument}
 
