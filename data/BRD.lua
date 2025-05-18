@@ -76,7 +76,7 @@ function job_setup()
 	state.ExtraSongsMode = M{['description']='Extra Songs','None','Dummy','DummyLock','FullLength','FullLengthLock','Cheer','CheerLock'}
 	-- Whether to use Carn (or song daggers in general) under a certain tp threshhold even when weapons are locked.
 	state.CarnMode = M{'Default','Always','300','1000','Never'}
-	state.Pianissimode = M(true, 'Use FullLength when Pianissimo is active.')
+	state.Pianissimode = M(false, 'Use Miracle Cheer when Pianissimo is active.')
 
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 	state.Buff['Pianissimo'] = buffactive['Pianissimo'] or false
