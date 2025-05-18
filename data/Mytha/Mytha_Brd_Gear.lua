@@ -1,24 +1,24 @@
 function user_job_setup()
 	-- Options: Override default values
-    state.OffenseMode:options('Normal','Acc')
+	state.OffenseMode:options('Normal','Acc')
 	state.HybridMode:options('Normal','DT')
-    state.CastingMode:options('Normal','Resistant','AoE')
-    state.IdleMode:options('Normal','NoRefresh','DT')
+	state.CastingMode:options('Normal','Resistant','AoE')
+	state.IdleMode:options('Normal','NoRefresh','DT')
 	state.Weapons:options('None','Naegling','Aeneas','DualWeapons','DualNaegling','DualTauret','DualAeolian')
 
 	gear.melee_jse_back = {name="Intarabus's Cape",augments={'Accuracy+20 Attack+20'}}
 	gear.magic_jse_back = {name="Intarabus's Cape",augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
 
-	-- Adjust this if using the Terpander (new +song instrument)
-    info.ExtraSongInstrument = 'Blurred Harp +1'
+	info.DurationSongInstrument = 'Miracle Cheer'
+	info.ExtraSongInstrument = 'Blurred Harp +1'
 	-- How many extra songs we can keep from Daurdabla/Terpander
-    info.ExtraSongs = 1
+	info.ExtraSongs = 1
 	
 	-- Set this to false if you don't want to use custom timers.
-    state.UseCustomTimers = M(false, 'Use Custom Timers')
+	state.UseCustomTimers = M(false, 'Use Custom Timers')
 	
 	-- Additional local binds
-    send_command('bind ^` gs c cycle ExtraSongsMode')
+	send_command('bind ^` gs c cycle ExtraSongsMode')
 	send_command('bind !` input /ma "Chocobo Mazurka" <me>')
 	send_command('bind @` gs c cycle MagicBurstMode')
 	send_command('bind @f10 gs c cycle RecoverMode')
@@ -45,9 +45,8 @@ function init_gear_sets()
 	sets.weapons.DualTauret = {main="Tauret",sub="Blurred Knife +1"}
 	sets.weapons.DualAeolian = {main="Tauret",sub="Malevolence"}
 
-    sets.buff.Sublimation = {waist="Embla Sash"}
-    sets.buff.DTSublimation = {waist="Embla Sash"}
-	
+	sets.buff.Sublimation = {waist="Embla Sash"}
+	sets.buff.DTSublimation = {waist="Embla Sash"}
 	-- Precast Sets
 
 	-- Fast cast sets for spells
@@ -183,17 +182,19 @@ function init_gear_sets()
 		body="Inyanga Jubbah +2",hands="Gendewitha Gages +1",ring1="Kishar Ring",ring2="Prolix Ring",
 		back=gear.magic_jse_back,waist="Witful Belt",legs="Fili Rhingrave +1",feet="Aya. Gambieras +2"}
 		
+	sets.midcast.FullLength = {range=info.DurationSongInstrument}
+		
 	-- Cast spell with normal gear, except using Daurdabla instead
-    sets.midcast.Daurdabla = {range=info.ExtraSongInstrument}
+	sets.midcast.Daurdabla = {range=info.ExtraSongInstrument}
 
 	-- Dummy song with Daurdabla; minimize duration to make it easy to overwrite.
-    sets.midcast.DaurdablaDummy = set_combine(sets.midcast.SongRecast, {range=info.ExtraSongInstrument})
+	sets.midcast.DaurdablaDummy = set_combine(sets.midcast.SongRecast, {range=info.ExtraSongInstrument})
 
 	-- Other general spells and classes.
 	sets.midcast.Cure = {main="Serenity",sub="Curatio Grip",ammo="Pemphredo Tathlum",
-        head="Gende. Caubeen +1",neck="Incanter's Torque",ear1="Gifted Earring",ear2="Mendi. Earring",
-        body="Kaykaus Bliaut",hands="Kaykaus Cuffs",ring1="Janniston Ring",ring2="Menelaus's Ring",
-        back="Tempered Cape +1",waist="Luminary Sash",legs="Carmine Cuisses +1",feet="Kaykaus Boots"}
+		head="Gende. Caubeen +1",neck="Incanter's Torque",ear1="Gifted Earring",ear2="Mendi. Earring",
+		body="Kaykaus Bliaut",hands="Kaykaus Cuffs",ring1="Janniston Ring",ring2="Menelaus's Ring",
+		back="Tempered Cape +1",waist="Luminary Sash",legs="Carmine Cuisses +1",feet="Kaykaus Boots"}
 		
 	sets.midcast.Curaga = sets.midcast.Cure
 		
@@ -304,4 +305,4 @@ function select_default_macro_book()
 end
 
 autows_list = {['Naegling']='Savage Blade',['Aeneas']="Rudra's Storm",['DualWeapons']="Rudra's Storm",['DualNaegling']='Savage Blade',['DualTauret']='Evisceration',
-     ['DualAeolian']='Aeolian Edge'}
+	 ['DualAeolian']='Aeolian Edge'}
