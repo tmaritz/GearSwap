@@ -264,8 +264,6 @@ function job_post_precast(spell, spellMap, eventArgs)
 				internal_enable_set("Weapons")
 			end
 			
-			state.RollMode = M{['description'] = 'RollMode','None','Recast','Weak','RecastLock','WeakLock'}
-
 			if state.RollMode ~= 'None' then
 				local roll_mode_type = state.RollMode.value
 
