@@ -79,7 +79,7 @@ function job_setup()
 	ammostock = 98
 
 	define_roll_values()
-	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","LuzafRing","AutoWSMode","RngHelper","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","RangedMode","WeaponskillMode","ElementalMode","IdleMode","Passive","RuneElement","CompensatorMode","TreasureMode",})
+	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","LuzafRing","AutoWSMode","RngHelper","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","RangedMode","WeaponskillMode","ElementalMode","IdleMode","Passive","RuneElement","CompensatorMode","RollMode","TreasureMode",})
 end
 
 
