@@ -63,7 +63,7 @@ end
 function job_setup()
 	-- Whether to use Compensator under a certain threshhold even when weapons are locked.
 	state.CompensatorMode = M{['description'] = 'CompensatorMode','Never','300','1000','Always'}
-	state.BolterMode = M{['description'] = 'BolterMode','None','Short','Weak'}
+	state.RollMode = M{['description'] = 'RollMode','None','Recast','Weak'}
 	-- Whether to automatically generate bullets.
 	state.AutoAmmoMode = M(true,'Auto Ammo Mode')
 	state.UseDefaultAmmo = M(true,'Use Default Ammo')
@@ -255,12 +255,13 @@ function job_post_precast(spell, spellMap, eventArgs)
 		if state.LuzafRing.value and item_available("Luzaf's Ring") then
 			equip(sets.precast.LuzafRing)
 		end
-		if spell.type == 'CorsairRoll' and state.CompensatorMode.value ~= 'Never' and (state.CompensatorMode.value == 'Always' or tonumber(state.CompensatorMode.value) > player.tp) then
-			internal_enable_set("Weapons")
-		end
-		if spell.english == "Bolter's Roll" and sets.precast.CorsairRoll["Bolter's Roll"] then
-			if sets.precast.CorsairRoll["Bolter's Roll"][state.BolterMode.value] then
-				equip(sets.precast.CorsairRoll["Bolter's Roll"][state.BolterMode.value])
+		if spell.type == 'CorsairRoll' then
+			if state.CompensatorMode.value ~= 'Never' and (state.CompensatorMode.value == 'Always' or tonumber(state.CompensatorMode.value) > player.tp) then
+				internal_enable_set("Weapons")
+			end
+			
+			if sets.precast.CorsairRoll[state.RollMode.value] then
+				equip(sets.precast.CorsairRoll[state.RollMode.value])
 			end
 		end
 	elseif spell.english == 'Fold' and buffactive['Bust'] == 2 and sets.precast.FoldDoubleBust then
