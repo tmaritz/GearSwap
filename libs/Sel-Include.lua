@@ -126,6 +126,7 @@ function init_include()
 	state.RuneElement 		  = M{['description'] = 'Rune Element','Ignis','Gelus','Flabra','Tellus','Sulpor','Unda','Lux','Tenebrae'}
 	state.SkillchainMode 	  = M{['description'] = 'Skillchain Mode', 'Off', 'Single', 'Lock'}
 	state.Weapons		  	  = M{['description'] = 'Weapons','None','Weapons'}
+	state.RegenMode		  	  = M{['description'] = 'Regen','None','Duration','Potency'}
 	state.WeaponSets	  	  = M{['description'] = 'Weapon Sets','None'}
 	state.WeaponskillMode     = M{['description'] = 'Weaponskill Mode','Match'}
 	
@@ -1105,6 +1106,12 @@ function general_post_midcast(spell, spellMap, eventArgs)
 					elseif sets.RecoverMP then
 						equip(sets.RecoverMP)
 					end
+				end
+			elseif spellMap == 'Regen' then
+				if sets.midcast[spell.english] and sets.midcast[spell.english][state.RegenMode.value] then
+					equip(sets.midcast[spell.english][state.RegenMode.value])
+				elseif sets.midcast.Regen and sets.midcast.Regen[state.RegenMode.value] then
+					equip(sets.midcast.Regen[state.RegenMode.value])
 				end
 			end
 		end
