@@ -71,6 +71,9 @@ function init_gear_sets()
 	sets.precast.CorsairRoll["Blitzer's Roll"] = set_combine(sets.precast.CorsairRoll, {}) --head="Chass. Tricorne +3"
 	sets.precast.CorsairRoll["Tactician's Roll"] = set_combine(sets.precast.CorsairRoll, {}) --body="Chasseur's Frac +3"
 	sets.precast.CorsairRoll["Allies' Roll"] = set_combine(sets.precast.CorsairRoll, {}) --hands="Chasseur's Gants +3"
+	sets.precast.CorsairRoll["Bolter's Roll"] = set_combine(sets.precast.CorsairRoll, {})
+	sets.precast.CorsairRoll["Bolter's Roll"].Short = {}
+	sets.precast.CorsairRoll["Bolter's Roll"].Weak = {}
 
 	--Standard TP Generating Shot
 	sets.precast.CorsairShot = {ammo=gear.QDbullet,
