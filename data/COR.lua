@@ -63,7 +63,7 @@ end
 function job_setup()
 	-- Whether to use Compensator under a certain threshhold even when weapons are locked.
 	state.CompensatorMode = M{['description'] = 'CompensatorMode','Never','300','1000','Always'}
-	state.RollMode = M{['description'] = 'RollMode','None','Recast','Weak'}
+	state.RollMode = M{['description'] = 'RollMode','None','Recast','Weak','RecastLock','WeakLock'}
 	-- Whether to automatically generate bullets.
 	state.AutoAmmoMode = M(true,'Auto Ammo Mode')
 	state.UseDefaultAmmo = M(true,'Use Default Ammo')
@@ -170,6 +170,10 @@ function job_aftercast(spell, spellMap, eventArgs)
 		if state.CompensatorMode.value ~= 'Never' then
 			equip_weaponset()
 		end
+		
+		if not state.RollMode.value:endswith('Lock') then
+			state.RollMode:reset()
+		end
 		display_roll_info(spell)
 	end
 	
@@ -260,8 +264,12 @@ function job_post_precast(spell, spellMap, eventArgs)
 				internal_enable_set("Weapons")
 			end
 			
-			if sets.precast.CorsairRoll[state.RollMode.value] then
-				equip(sets.precast.CorsairRoll[state.RollMode.value])
+			if state.RollMode.value:endswith('Lock') then
+				local front_part = string.sub(state.RollMode.value, 1, -5)
+			
+				if sets.precast.CorsairRoll[front_part] then
+					equip(sets.precast.CorsairRoll[front_part])
+				end
 			end
 		end
 	elseif spell.english == 'Fold' and buffactive['Bust'] == 2 and sets.precast.FoldDoubleBust then
