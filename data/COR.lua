@@ -264,11 +264,17 @@ function job_post_precast(spell, spellMap, eventArgs)
 				internal_enable_set("Weapons")
 			end
 			
-			if state.RollMode.value:endswith('Lock') then
-				local front_part = string.sub(state.RollMode.value, 1, -5)
-			
-				if sets.precast.CorsairRoll[front_part] then
-					equip(sets.precast.CorsairRoll[front_part])
+			state.RollMode = M{['description'] = 'RollMode','None','Recast','Weak','RecastLock','WeakLock'}
+
+			if state.RollMode ~= 'None' then
+				local roll_mode_type = state.RollMode.value
+
+				if state.RollMode.value:endswith('Lock') then
+					roll_mode_type = string.sub(state.RollMode.value, 1, -5)
+				end
+
+				if sets.precast.CorsairRoll[roll_mode_type] then
+					equip(sets.precast.CorsairRoll[roll_mode_type])
 				end
 			end
 		end
