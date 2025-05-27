@@ -11,8 +11,6 @@ function user_job_setup()
 	state.ResistDefenseMode:options('MEVA')
 	state.Weapons:options('Savage','Aeneas','Aeolian','ProcWeapons','Evisceration','Throwing','SwordThrowing','Bow')
 
-	init_job_states({"Capacity","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","AutoEngageMode",},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode",})
-
     state.ExtraMeleeMode = M{['description']='Extra Melee Mode','None','Suppa','DWMax','Parry'}
 	state.AmbushMode = M(false, 'Ambush Mode')
 
