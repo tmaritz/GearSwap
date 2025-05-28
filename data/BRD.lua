@@ -230,8 +230,22 @@ function job_post_midcast(spell, spellMap, eventArgs)
 				equip(sets.midcast.Daurdabla)
 			end
 			
-			if state.Buff['Pianissimo'] and sets.midcast[spellMap] and sets.midcast[spellMap].Pianissimo and state.ExtraSongsMode.value == 'None' then
-				equip(sets.midcast[spellMap].Pianissimo)
+			if state.ExtraSongsMode.value == 'None' then
+				if state.Buff['Pianissimo'] then 
+					if sets.midcast[spellMap] and sets.midcast[spellMap].Pianissimo then
+						equip(sets.midcast[spellMap].Pianissimo)
+					elseif sets.midcast.Pianissimo then
+						equip(sets.midcast.Pianissimo)
+					end
+				end
+			
+				if state.Buff['Soul Voice'] then
+					if sets.midcast[spellMap] and sets.midcast[spellMap]['Soul Voice'] then
+						equip(sets.midcast[spellMap]['Soul Voice'])
+					elseif sets.midcast['Soul Voice'] then
+						equip(sets.midcast['Soul Voice'])
+					end
+				end
 			end
 		end
 		
