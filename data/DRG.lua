@@ -311,13 +311,13 @@ end
 
 function find_breath_hpp()
 	if S{'WHM','BLM','RDM','SMN','BLU','SCH','GEO'}:contains(player.sub_job) then
-		if (healing_breath_trigger_head:contains('Vishap') or healing_breath_trigger_head.head:contains('Drachen')) then
+		if (healing_breath_trigger_head:contains('Vishap') or healing_breath_trigger_head:contains('Drachen')) then
 			Breath_HPP = 65
 		else
 			Breath_HPP = 45
 		end
 	elseif S{'PLD','DRK','BRD','NIN','RUN'}:contains(player.sub_job) then
-		if (healing_breath_trigger_head:contains('Vishap') or healing_breath_trigger_head.head:contains('Drachen')) then
+		if (healing_breath_trigger_head:contains('Vishap') or healing_breath_trigger_head:contains('Drachen')) then
 			Breath_HPP = 45
 		else
 			Breath_HPP = 35
