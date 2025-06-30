@@ -66,7 +66,7 @@ function cancel_conflicting_buffs(spell, spellMap, eventArgs)
 		elseif (spell.english:startswith('Monomi') or (spell.english == 'Sneak' and spell.target.type == 'SELF')) and buffactive['Sneak'] then
 			send_command('cancel sneak')
 		elseif spell.english == ('Stoneskin') or spell.english == ('Diamondhide') or spell.english == ('Magic Barrier') then
-			send_command('@wait 1;cancel stoneskin')
+			send_command('cancel stoneskin')
 		elseif spell.english == 'Utsusemi: Ni' and player.main_job == 'NIN' and lastshadow == 'Utsusemi: San' then
 			if buffactive['Copy Image (4+)'] and conserveshadows then
 				add_to_chat(123,'Abort: You have four or more shadows.')
