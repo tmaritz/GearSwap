@@ -1412,7 +1412,7 @@ function default_tick()
 	if check_cpring_buff() then return true end
 	if state.Buff['Sneak'] then return false end
 	if check_ws() then return true end
-	if check_jump() then return true end
+	if check_jump(false) then return true end
 	if check_nuke() then return true end
 	return false
 end
