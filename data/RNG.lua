@@ -365,7 +365,7 @@ function job_midcast(spell, action, spellMap, eventArgs)
 end
 
 function job_aftercast(spell, spellMap, eventArgs)
-	if state.UseDefaultAmmo.value and player.equipment.range and DefaultAmmo[RangedWeaponType].Default then
+	if state.UseDefaultAmmo.value and player.equipment.range and RangedWeaponType ~= 'None' and DefaultAmmo[RangedWeaponType].Default then
 		equip({ammo=DefaultAmmo[RangedWeaponType].Default})
 	end
 end
