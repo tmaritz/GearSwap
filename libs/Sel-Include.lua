@@ -327,7 +327,11 @@ function init_include()
 	optional_include(player.name..'-Items.lua')
 	optional_include(player.name..'_Crafting.lua')
 	optional_include('User-'..player.main_job..'.lua')
-	include(player.name..'_'..player.main_job..'_gear.lua') -- Required Gear file.
+	local loaded, errormessage = pcall(include,player.name..'_'..player.main_job..'_gear.lua') -- Required Gear file.
+	if not loaded then
+		print(errormessage)
+		windower.add_to_chat(errormessage)
+	end
 
 	-- New Display functions, needs to come after globals for user settings.
 	include('Sel-Display.lua')
