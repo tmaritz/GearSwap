@@ -453,10 +453,10 @@ function handle_job_elemental(command, target)
 				add_to_chat(123,'Abort: ['..skillchain.second_spell..'] waiting on recast. ('..seconds_to_clock(spell_recasts[second_spell_id]/60)..')')
 			else
 				if not state.Buff['Immanence'] then windower.chat.input('/ja "Immanence" <me>') end
-				windower.chat.input('/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..skillchain.burst_elements..' <scall21> OPEN!')
+				windower.chat.input('/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..skillchain.burst_elements..' OPEN!')
 				windower.chat.input:schedule(1.3,'/ma "'..skillchain.first_spell..'" '..player.target.id)
 				windower.chat.input:schedule(5.6,'/ja "Immanence" <me>')
-				windower.chat.input:schedule(6.9,'/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..skillchain.burst_elements..' <scall21> CLOSE!')
+				windower.chat.input:schedule(6.9,'/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..skillchain.burst_elements..' CLOSE!')
 				windower.chat.input:schedule(6.9,'/ma "'..skillchain.second_spell..'" '..player.target.id)
 			end
 		elseif last_character == '3' then
@@ -477,13 +477,13 @@ function handle_job_elemental(command, target)
 				else
 					if not state.Buff['Immanence'] then windower.chat.input('/ja "Immanence" <me>') end
 					
-					windower.chat.input('/p {Liquefaction} -'..player.target.name..'- MB: (Fire) <scall21> OPEN!')
+					windower.chat.input('/p {Liquefaction} -'..player.target.name..'- MB: {Fire} OPEN!')
 					windower.chat.input:schedule(1.3,'/ma "Stone" '..player.target.id)
 					windower.chat.input:schedule(5.6,'/ja "Immanence" <me>')
-					windower.chat.input:schedule(6.9,'/p {Liquefaction} -'..player.target.name..'- MB: {Fire} <scall21> CLOSE!')
+					windower.chat.input:schedule(6.9,'/p {Liquefaction} -'..player.target.name..'- MB: {Fire} CLOSE!')
 					windower.chat.input:schedule(6.9,'/ma "Pyrohelix" '..player.target.id)
 					windower.chat.input:schedule(13,'/ja "Immanence" <me>')
-					windower.chat.input:schedule(16.3,'/p {Fusion} -'..player.target.name..'- MB: {Fire}, {Light} <scall21> CLOSE!')
+					windower.chat.input:schedule(16.3,'/p {Fusion} -'..player.target.name..'- MB: {Fire}, {Light} CLOSE!')
 					windower.chat.input:schedule(16.3,'/ma "Ionohelix" '..player.target.id)
 				end
 			end
@@ -548,9 +548,9 @@ function handle_job_elemental(command, target)
 				end
 
 				if not state.Buff['Immanence'] then windower.chat.input('/ja "Immanence" <me>') end
-				windower.chat.input('/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..skillchain.burst_elements..' <scall21> OPEN!')
+				windower.chat.input('/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..skillchain.burst_elements..' OPEN!')
 				windower.chat.input:schedule(1.3,'/ws "'..skillchain.weaponskill..'" '..player.target.id)
-				windower.chat.input:schedule(6.3,'/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..skillchain.burst_elements..' <scall21> CLOSE!')
+				windower.chat.input:schedule(6.3,'/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..skillchain.burst_elements..' CLOSE!')
 				windower.chat.input:schedule(6.3,'/ma "'..skillchain.second_spell..'" '..player.target.id)
 			end
 		elseif command == 'endskillchain' then
@@ -561,7 +561,7 @@ function handle_job_elemental(command, target)
 				add_to_chat(123,'Abort: ['..skillchain.second_spell..'] waiting on recast. ('..seconds_to_clock(spell_recasts[second_spell_id]/60)..')')
 			else
 				if not state.Buff['Immanence'] then windower.chat.input('/ja "Immanence" <me>') end
-				windower.chat.input:schedule(1.3,'/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..state.ElementalMode.value..' <scall21> CLOSE!')
+				windower.chat.input:schedule(1.3,'/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..state.ElementalMode.value..' CLOSE!')
 				windower.chat.input:schedule(1.3,'/ma "'..data.elements.helix_of[state.ElementalMode.value]..'helix" '..target..'')
 			end
 		end
