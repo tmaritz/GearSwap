@@ -1779,7 +1779,7 @@ end
 
 function check_delayed_cast()
 	if delayed_cast ~= '' then
-		send_command(''..delayed_cast..' '..delayed_target..'')
+		send_command('input /ma "'..delayed_cast..'" '..delayed_target..'')
 		add_tick_delay()
 		delayed_cast = ''
 		delayed_target = ''
@@ -2584,7 +2584,11 @@ function get_item_table(item)
 end
 
 function is_rare(item)
-	return get_item_table(item).flags:contains('Rare')
+	if item ~= 'empty' then
+		return get_item_table(item).flags:contains('Rare')
+	else
+		return false
+	end
 end
 
 function set_to_item(set)
