@@ -236,6 +236,7 @@ function init_include()
 	currency_bag = 'sack'
 	default_dual_weapons = 'DualWeapons'
 	default_weapons = ''
+	delayed_prefix = ''
 	delayed_cast = ''
 	delayed_target = ''
 	equipped = 0
@@ -976,6 +977,7 @@ end
 
 function default_precast(spell, spellMap, eventArgs)
 	prepared_action = spell.english
+	delayed_prefix = ''
 	delayed_cast = ''
 	delayed_target = ''
 	cancel_conflicting_buffs(spell, spellMap, eventArgs)
