@@ -1782,7 +1782,11 @@ end
 
 function check_delayed_cast()
 	if delayed_prefix ~= '' and delayed_cast ~= '' then
-		windower.chat.input(''..delayed_prefix..' "'..delayed_cast..'" '..delayed_target..'')
+		if delayed_cast == 'Ranged' then
+			windower.chat.input(''..delayed_prefix..' '..delayed_target..'')
+		else
+			windower.chat.input(''..delayed_prefix..' "'..delayed_cast..'" '..delayed_target..'')
+		end
 		add_tick_delay()
 		delayed_prefix = ''
 		delayed_cast = ''
