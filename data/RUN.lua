@@ -148,9 +148,7 @@ end
 -- Run after the default midcast() is done.
 -- eventArgs is the same one used in job_midcast, in case information needs to be persisted.
 function job_post_midcast(spell, spellMap, eventArgs)
-	if spell.skill == 'Enhancing Magic' and state.Buff.Embolden and sets.buff.Embolden then
-		equip(sets.buff.Embolden)
-	end
+
 end
 
 
@@ -158,8 +156,16 @@ function job_aftercast(spell)
 
 end
 
-function job_buff_change(buff, gain)
+function job_buff_change(buff, gain, eventArgs)
 	update_melee_groups()
+	
+	if buff == 'Embolden' then
+		if gain then
+			internal_disable_set(sets.buff.Embolden, "Ability")
+		else
+			internal_enable_set("Ability")
+		end
+	end
 end
 
 -------------------------------------------------------------------------------------------------------------------
