@@ -269,7 +269,6 @@ function init_include()
 	elemental_magic_proc_target_id = ''
 
 	-- Buff tracking that buffactive can't detect
-	lastshadow = "Utsusemi: San"
 	lastwarcry = ''
 	lasthaste = 1
 	lastflurry = 1
@@ -1267,8 +1266,6 @@ function default_aftercast(spell, spellMap, eventArgs)
 				useItemName = ''
 				useItemSlot = ''
 			end
-		elseif spell.english:startswith('Utsusemi') then
-			lastshadow = spell.english
 		elseif is_nuke(spell, spellMap) then
 			if state.MagicBurstMode.value == 'Single' then state.MagicBurstMode:reset() end
 			if state.ElementalWheel.value and (spell.skill == 'Elemental Magic' or spellMap:contains('ElementalNinjutsu')) then
@@ -2474,8 +2471,6 @@ function buff_change(buff, gain)
 		else
 			internal_enable_set("Sleep")
 		end
-	elseif (buff == 'Blink' or buff == 'Third Eye' or buff:startswith('Copy Image')) then
-		if not gain then lastshadow = "None" end
 	elseif (buff == 'Commitment' or buff == 'Dedication' or buff == "Emporox's Gift") then
 		if gain and state.Capacity.value then
 			internal_enable_set("UseItem")
