@@ -232,7 +232,7 @@ function update_job_states()
 			if n == 'AutoWSMode' and state.AutoWSMode.value then
 				if state.RngHelper.value then
 					if state.MaintainAftermath.value then
-						if data.equipment.mythic_weapons:contains(player.equipment.range) then
+						if data.equipment.aftermath_weapons:contains(player.equipment.range) then
 							stateBox:append(string.format("%sAuto WS: "..rangedautows..": AM3+"..rangedautowstp.."%s", clr.h, clr.n))
 						elseif data.equipment.relic_weapons:contains(player.equipment.range) then
 							stateBox:append(string.format("%sAuto WS: "..rangedautows..": AM+"..rangedautowstp.."%s", clr.h, clr.n))
@@ -244,7 +244,7 @@ function update_job_states()
 					end
 				else
 					if state.MaintainAftermath.value then
-						if data.equipment.mythic_weapons:contains(player.equipment.main) then
+						if data.equipment.aftermath_weapons:contains(player.equipment.main) then
 							stateBox:append(string.format("%sAuto WS: "..autows..": AM3+"..autowstp.."%s", clr.h, clr.n))
 						elseif data.equipment.relic_weapons:contains(player.equipment.main) then
 							stateBox:append(string.format("%sAuto WS: "..autows..": AM+"..autowstp.."%s", clr.h, clr.n))

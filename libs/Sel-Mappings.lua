@@ -141,7 +141,7 @@ data.weaponskills.relic = {
 	["Annihilator"] = "Coronach",
 	["Yoichinoyumi"] = "Namas Arrow"}
 
-data.weaponskills.mythic = {
+data.weaponskills.aftermath = {
 	["Conqueror"] = "King's Justice",
 	["Glanzfaust"] = "Ascetic's Fury",
 	["Yagrush"] = "Mystic Boon",
@@ -163,23 +163,24 @@ data.weaponskills.mythic = {
 	["Terpsichore"] = "Pyrrhic Kleos",
 	["Tupsimati"] = "Omniscience",
 	["Idris"] = "Exudation",
-	["Epeolatry"] = "Dimidiation"}
-
-data.weaponskills.empyrean = {
-	["Verethragna"] = "Victory Smite",
-	["Twashtar"] = "Rudra's Storm",
-	["Almace"] = "Chant du Cygne",
-	["Caladbolg"] = "Torcleaver",
-	["Farsha"] = "Cloudsplitter",
-	["Ukonvasara"] = "Ukko's Fury",
-	["Redemption"] = "Quietus",
-	["Rhongomiant"] = "Camlann's Torment",
-	["Kannagi"] = "Blade: Hi",
-	["Masamune"] = "Tachi: Fudo",
-	["Gambanteinn"] = "Dagann",
-	["Hvergelmir"] = "Myrkr",
+	["Epeolatry"] = "Dimidiation",
 	["Gandiva"] = "Jishnu's Radiance",
-	["Armageddon"] = "Wildfire"}
+	["Armageddon"] = "Wildfire"
+	["Varga Purnikawa"] = "Maru Kala",
+	["Mpu Gandring"] = "Ruthless Stroke",
+	["Caliburnus"] = "Imperator",
+	["Helheim"] = "Fimbulvetr",
+	["Spalirisos"] = "Blitz",
+	["Laphria"] = "Disaster",
+	["Foenaria"] = "Origin",
+	["Gae Buide"] = "Diarmuid",
+	["Dokoku"] = "Zesho Meppo",
+	["Kusanagi"] = "Tachi: Mumei",
+	["Lorg Mor"] = "Dagda",
+	["Opashoro"] = "Oshala",
+	["Pinaka"] = "Sarv",
+	["Earp"] = "Terminus"}
+
 
 -- Weaponskills that can be used at range.
 data.weaponskills.ranged = S{"Flaming Arrow","Piercing Arrow","Dulling Arrow","Sidewinder","Arching Arrow",
@@ -375,6 +376,11 @@ data.equipment.relic_weapons = S{'Spharai','Mandau','Excalibur','Ragnarok','Gutt
 
 data.equipment.aeonic_weapons = S{'Dojikiri Yasutsuna','Chango','Trishula','Sequence','Aeneas','Lionheart',
 	'Godhands','Tri-Edge','Anguta','Heishi Shorinken','Tishtrya', 'Fail-Not','Fomalhaut'}
+	
+data.equipment.aftermath_weapons = S{'Conqueror','Glanzfaust','Yagrush','Laevateinn','Murgleis','Vajra','Burtgang','Liberator',
+	'Aymur','Carnwenhan','Gastraphetes','Kogarasumaru','Nagi','Ryunohige','Nirvana','Tizona','Death Penalty','Kenkonken',
+	'Terpsichore','Tupsimati','Idris','Epeolatry','Varga Purnikawa','Mpu Gandring','Caliburnus','Helheim','Spalirisos','Laphria',
+	'Foenaria','Gae Buide','Dokoku','Kusanagi','Lorg Mor','Opashoro','Pinaka','Earp'}
 
 --Only tracking 1-handed weapons for offhanding as they're all that's used in meta.
 data.equipment.magian_tp_bonus_melee_weapons = S{
