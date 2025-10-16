@@ -1810,6 +1810,8 @@ end
 function check_ws()
 	if state.AutoWSMode.value and not state.RngHelper.value and player.status == 'Engaged' and player.target and player.target.type == "MONSTER" and player.tp > 999 and not silent_check_amnesia() and not (player.target.distance > (19.7 + player.target.model_size)) then
 
+	windower.add_to_chat('first')
+
 	local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
 	local in_melee_range = player.target.distance < (3.2 + player.target.model_size)
 
@@ -1832,14 +1834,17 @@ function check_ws()
 		elseif in_melee_range or data.weaponskills.ranged:contains(autows) then
 			return false
 		elseif data.equipment.relic_weapons:contains(player.equipment.main) and state.MaintainAftermath.value and (not buffactive['Aftermath']) then
+			windower.add_to_chat('second')
 			windower.chat.input('/ws "'..data.weaponskills.relic[player.equipment.main]..'" <t>')
 			add_tick_delay()
 			return true
 		elseif (buffactive['Aftermath: Lv.3'] or not state.MaintainAftermath.value or not data.equipment.aftermath_weapons:contains(player.equipment.main)) and player.tp >= autowstp then
+			windower.add_to_chat('third')
 			windower.chat.input('/ws "'..autows..'" <t>')
 			add_tick_delay()
 			return true
 		elseif player.tp == 3000 then
+			windower.add_to_chat('fourth')
 			windower.chat.input('/ws "'..data.weaponskills.aftermath[player.equipment.main]..'" <t>')
 			add_tick_delay()
 			return true
