@@ -1582,7 +1582,7 @@ function handle_test(cmdParams)
 	end
 end
 
-function handle_equiptest
+function handle_equiptest()
 	table.vprint(player.equipment)
 end
 
