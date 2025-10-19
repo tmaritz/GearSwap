@@ -1435,6 +1435,11 @@ function check_jump(user)
 			add_to_chat(123, "Not currently subbing Dragoon!")
 		end
 		return
+	elseif silent_check_amnesia() then
+		if user Then
+			add_to_chat(123, "You have amnesia!")
+		end
+		return
 	end
 
 	if user or (state.AutoJumpMode.value and player.status == 'Engaged' and player.tp < 501) then
@@ -1520,13 +1525,17 @@ function check_buffup()
 end
 
 function check_samba()
-	if state.AutoSambaMode.value ~= 'Off' and not (buffactive['Haste Samba'] or buffactive['Drain Samba'] or buffactive['Aspir Samba']) and (player.main_job == 'DNC' or player.sub_job == 'DNC') and player.status == 'Engaged' and player.tp > 400 then
-		windower.chat.input('/ja "'..state.AutoSambaMode.value..'" <me>')
-		add_tick_delay()
-		return true
-	else
-		return false
+	if state.AutoSambaMode.value ~= 'Off' and not (buffactive['Haste Samba'] or buffactive['Drain Samba'] or buffactive['Aspir Samba']) then
+		if (player.main_job == 'DNC' or player.sub_job == 'DNC') and player.status == 'Engaged' and player.tp >= 400 and not silent_check_amnesia() then
+			if windower.ffxi.get_ability_recasts()[216] < latency then
+				windower.chat.input('/ja "'..state.AutoSambaMode.value..'" <me>')
+				add_tick_delay()
+				return true
+			end
+		end
 	end
+
+	return false
 end
 
 function check_sub()

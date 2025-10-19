@@ -285,27 +285,6 @@ function job_check_buff()
 	return false
 end
 
-function check_flash_foil()
-	if silent_check_silence() then return false end
-	local spell_recasts = windower.ffxi.get_spell_recasts()
-	
-	if not buffactive['Enmity Boost'] and spell_recasts[476] < spell_latency then
-		windower.chat.input('/ma "Crusade" <me>')
-		add_tick_delay()
-		return true
-	elseif spell_recasts[112] < spell_latency then
-		windower.chat.input('/ma "Flash" <t>')
-		add_tick_delay()
-		return true
-	elseif spell_recasts[840] < spell_latency then
-		windower.chat.input('/ma "Foil" <me>')
-		add_tick_delay()
-		return true
-	else
-		return false
-	end
-end
-
 function update_melee_groups()
 	if player.equipment.main then
 		classes.CustomMeleeGroups:clear()
