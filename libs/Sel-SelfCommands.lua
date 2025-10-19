@@ -422,7 +422,7 @@ function handle_update(cmdParams)
 		handle_equipping_gear(player.status)
 	end
 
-	if cmdParams == 'user' then
+	if cmdParams[1] == 'user' then
 		display_current_state()
 	end
 
