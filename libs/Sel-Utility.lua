@@ -1436,7 +1436,7 @@ function check_jump(user)
 		end
 		return
 	elseif silent_check_amnesia() then
-		if user Then
+		if user then
 			add_to_chat(123, "You have amnesia!")
 		end
 		return
