@@ -1213,9 +1213,7 @@ function default_aftercast(spell, spellMap, eventArgs)
 	prepared_action = ''
 	local delay = 0
 	if spell.interrupted then
-		if spell.action_type == 'Magic' then
-			delay = 3.35 - latency
-		else
+		if spell.prefix == '/magic' then
 			delay = 1.75 - latency
 		end
 	elseif spell.action_type == 'Magic' then
