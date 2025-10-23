@@ -1211,7 +1211,7 @@ end
 
 function default_aftercast(spell, spellMap, eventArgs)
 	prepared_action = ''
-	local delay = 0
+	local delay = .1
 	if spell.interrupted then
 		if spell.prefix == '/magic' then
 			delay = 1.75 - latency
