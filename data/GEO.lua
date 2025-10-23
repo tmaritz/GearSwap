@@ -356,20 +356,32 @@ end
 
 function job_self_command(commandArgs, eventArgs)
 	local lowerCommand = commandArgs[1]:lower()
-	if lowerCommand == 'autoindi' and commandArgs[2] then
-		autoindi = commandArgs[2]:ucfirst()
+	if lowerCommand == 'autoindi' then
+		if commandArgs[2] then
+			autoindi = commandArgs[2]:ucfirst()
+		end
 		add_to_chat(122,'Your Auto Indi- spell is set to '..autoindi..'.')
 		if state.DisplayMode.value then update_job_states()	end
-	elseif lowerCommand == 'autogeo' and commandArgs[2] then
-		autogeo = commandArgs[2]:ucfirst()
+	elseif lowerCommand == 'autogeo' then
+		if commandArgs[2] then
+			autogeo = commandArgs[2]:ucfirst()
+		end
 		add_to_chat(122,'Your Auto Geo- spell is set to '..autogeo..'.')
 		if state.DisplayMode.value then update_job_states()	end
-	elseif lowerCommand == 'autoentrust' and commandArgs[2] then
-		autoentrust = commandArgs[2]:ucfirst()
+	elseif lowerCommand == 'autoentrust' then
+		if commandArgs[2] then
+			autoentrust = commandArgs[2]:ucfirst()
+		end
 		add_to_chat(122,'Your Auto Entrust Indi- spell is set to '..autoentrust..'.')
 		if state.DisplayMode.value then update_job_states()	end
-	elseif lowerCommand:contains('trustee') and commandArgs[2] then
-		autoentrustee = commandArgs[2]:ucfirst()
+	elseif lowerCommand:contains('trustee') then
+		if commandArgs[2] then
+			autoentrustee = commandArgs[2]:ucfirst()
+		elseif player.target and player.target.in_party then
+			autoentrustee = player.target.name
+		else
+			autoentrustee = '<p1>'
+		end
 		add_to_chat(122,'Your Auto Entrustee target is set to '..autoentrustee..'.')
 		if state.DisplayMode.value then update_job_states()	end
 	end
