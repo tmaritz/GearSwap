@@ -2211,7 +2211,7 @@ function is_nuke(spell, spellMap)
 		(spell.skill == 'Elemental Magic' and spellMap ~= 'ElementalEnfeeble' and spell.english ~= 'Impact') or
 		(player.main_job == 'BLU' and spell.skill == 'Blue Magic' and spellMap and spellMap:contains('Magical')) or
 		(player.main_job == 'NIN' and spell.skill == 'Ninjutsu' and spellMap and spellMap:contains('ElementalNinjutsu')) or
-		(spellMap and spellMap:contains('Nuke') or
+		(spellMap and spellMap:contains('Nuke') or)
 		spell.english == 'Comet' or spell.english == 'Meteor' or spell.english == 'Death' or spell.english:startswith('Banish') or
 		spell.english:startswith('Drain') or spell.english:startswith('Aspir') or spell.english:startswith('Holy') or spell.english == 'Kaustra'
 		) then
@@ -2275,6 +2275,28 @@ function internal_enable_set(priority)
 	disabled_sets[priority] = nil
 
 	build_internal_disable()
+end
+
+function is_facing_player(mob)
+	if not mob or not mob.facing then return false end
+
+	local player = windower.ffxi.get_mob_by_target('me')
+	if not player or not player.facing then return false end
+
+
+	local desired_facing = (player.facing + math.pi) % (2 * math.pi)
+
+	local angle_diff = desired_facing - mob.facing
+
+	if angle_diff > math.pi then
+		angle_diff = angle_diff - 2 * math.pi
+	elseif angle_diff < -math.pi then
+		angle_diff = angle_diff + 2 * math.pi
+	end
+
+	local max_diff = math.pi / 4  -- 45 degrees forgiving window ?? Still testing this but this should be close enough. It may figure like a conal attack area which would add distance and model size elements to the problem but should be fine like this.
+
+	return math.abs(angle_diff) <= max_diff
 end
 
 function seconds_to_clock(seconds, units)
