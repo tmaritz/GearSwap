@@ -932,8 +932,8 @@ function handle_facemob(cmdParams)
 		target = player
 	end
 
-	local self_vector = windower.ffxi.get_mob_by_id(player.id)
-	local angle = (math.atan2((target.y - self_vector.y), (target.x - self_vector.x))*180/math.pi)*-1
+	local self = windower.ffxi.get_mob_by_id(player.id)
+	local angle = (math.atan2((target.y - self.y), (target.x - self.x))*180/math.pi)*-1
 	windower.ffxi.turn((angle):radian())
 end
 
