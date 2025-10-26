@@ -2211,7 +2211,7 @@ function is_nuke(spell, spellMap)
 		(spell.skill == 'Elemental Magic' and spellMap ~= 'ElementalEnfeeble' and spell.english ~= 'Impact') or
 		(player.main_job == 'BLU' and spell.skill == 'Blue Magic' and spellMap and spellMap:contains('Magical')) or
 		(player.main_job == 'NIN' and spell.skill == 'Ninjutsu' and spellMap and spellMap:contains('ElementalNinjutsu')) or
-		(spellMap and spellMap:contains('Nuke') or)
+		(spellMap and spellMap:contains('Nuke')) or
 		spell.english == 'Comet' or spell.english == 'Meteor' or spell.english == 'Death' or spell.english:startswith('Banish') or
 		spell.english:startswith('Drain') or spell.english:startswith('Aspir') or spell.english:startswith('Holy') or spell.english == 'Kaustra'
 		) then
