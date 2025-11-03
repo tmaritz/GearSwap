@@ -2972,7 +2972,7 @@ function set_dual_wield()
 	local traits = T(windower.ffxi.get_abilities().job_traits)
 	can_dual_wield = traits:any(function(v) return gearswap.res.job_traits[v].english == 'Dual Wield' end)
 
-	send_command('gs c weapons initialize')
+	handle_weapons:schedule(.5,{[1]='initialize'})
 end
 
 function get_closest_mob_id_by_name(name)
