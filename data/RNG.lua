@@ -121,23 +121,13 @@ function job_precast(spell, spellMap, eventArgs)
 		state.CombatWeapon:set(player.equipment.range)
 	end
 
-	if spell.action_type == 'Ranged Attack' or spell.name == 'Bounty Shot' or spell.name == 'Shadowbind' or (spell.type == 'WeaponSkill' and (spell.skill == 'Marksmanship' or spell.skill == 'Archery')) then
-		check_ammo_precast(spell, action, spellMap, eventArgs)
+	if uses_ammo(spell) then
+		do_ammo_checks(spell, spellMap, eventArgs)
 	end
 end
 
 function job_post_precast(spell, spellMap, eventArgs)
 	if spell.type == 'WeaponSkill' then
-		if not (spell.skill == 'Marksmanship' or spell.skill == 'Archery') then
-			if RangedWeaponType == 'Bow' and item_available('Hauksbok Arrow') then
-				equip({ammo="Hauksbok Arrow"})
-			elseif RangedWeaponType == 'Crossbow' and item_available('Hauksbok Bolt') then
-				equip({ammo="Hauksbok Bolt"})
-			elseif RangedWeaponType == 'Gun' and item_available('Hauksbok Bullet') then
-				equip({ammo="Hauksbok Bullet"})
-			end
-		end
-	
 		local WSset = standardize_set(get_precast_set(spell, spellMap))
 		local wsacc = check_ws_acc()
 		
@@ -301,8 +291,18 @@ end
 -- Utility functions specific to this job.
 -------------------------------------------------------------------------------------------------------------------
 -- Check for proper ammo when shooting or weaponskilling
-function check_ammo_precast(spell, action, spellMap, eventArgs)
-	-- Filter ammo checks depending on Unlimited Shot
+function do_ammo_checks(spell, spellMap, eventArgs)
+	if not (spell.skill == 'Marksmanship' or spell.skill == 'Archery') then
+			if RangedWeaponType == 'Bow' and item_available('Hauksbok Arrow') then
+				equip({ammo="Hauksbok Arrow"})
+			elseif RangedWeaponType == 'Crossbow' and item_available('Hauksbok Bolt') then
+				equip({ammo="Hauksbok Bolt"})
+			elseif RangedWeaponType == 'Gun' and item_available('Hauksbok Bullet') then
+				equip({ammo="Hauksbok Bullet"})
+			end
+	end
+
+	-- Filter ammo checks depending on Unlimited Shot	
 	if state.Buff['Unlimited Shot'] and spell.type == 'WeaponSkill' then
 		if data.weaponskills.elemental:contains(spell.name) then
 			if check_ws_acc():contains('Acc') then
@@ -313,13 +313,6 @@ function check_ammo_precast(spell, action, spellMap, eventArgs)
 		else
 			equip({ammo=DefaultAmmo[RangedWeaponType].Unlimited})
 		end
-		return
-	elseif is_rare(player.equipment.ammo) then
-		cancel_spell()
-		eventArgs.cancel = true
-		enable('ammo')
-		equip({ammo=empty})
-		add_to_chat(123,"Abort: Don't shoot your good ammo!")
 		return
 	elseif not state.UseDefaultAmmo.value then
 	elseif spell.name == 'Shadowbind' then
@@ -353,15 +346,7 @@ function check_ammo_precast(spell, action, spellMap, eventArgs)
 end
 
 function job_midcast(spell, action, spellMap, eventArgs)
-	--Probably overkill but better safe than sorry.
-	if spell.action_type == 'Ranged Attack' then
-		if is_rare(player.equipment.ammo) then
-			enable('ammo')
-			equip({ammo=empty})
-			add_to_chat(123,"Abort Ranged Attack: Don't shoot your good ammo!")
-			return
-		end
-	end
+
 end
 
 function job_aftercast(spell, spellMap, eventArgs)

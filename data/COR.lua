@@ -124,8 +124,8 @@ function job_precast(spell, spellMap, eventArgs)
 		end
 	end
 	
-	if spell.action_type == 'Ranged Attack' or spell.name == 'Shadowbind' or (spell.type == 'WeaponSkill' and spell.skill == 'Marksmanship') then
-		do_bullet_checks(spell, spellMap, eventArgs)
+	if uses_ammo(spell) then
+		do_ammo_checks(spell, spellMap, eventArgs)
 	end
 end
 
@@ -153,15 +153,7 @@ function job_self_command(commandArgs, eventArgs)
 end
 
 function job_midcast(spell, action, spellMap, eventArgs)
-	--Probably overkill but better safe than sorry.
-	if spell.action_type == 'Ranged Attack' then
-		if is_rare(player.equipment.ammo) then
-			enable('ammo')
-			equip({ammo=empty})
-			add_to_chat(123,"Abort Ranged Attack: Don't shoot your good ammo!")
-			return
-		end
-	end
+
 end
 
 -- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.
@@ -333,25 +325,7 @@ end
 
 
 -- Determine whether we have sufficient ammo for the action being attempted.
-function do_bullet_checks(spell, spellMap, eventArgs)
-
-	if is_rare(player.equipment.ammo) then
-		cancel_spell()
-		eventArgs.cancel = true
-		enable('ammo')
-
-		if sets.weapons[state.Weapons.value].ammo and item_available(sets.weapons[state.Weapons.value].ammo) then
-			equip({ammo=sets.weapons[state.Weapons.value].ammo})
-		elseif item_available(gear.RAbullet) then
-			equip({ammo=gear.RAbullet})
-		else
-			equip({ammo=empty})
-		end
-
-		add_to_chat(123,"Abort: Don't shoot your good ammo!")
-		return
-	end
-
+function do_ammo_checks(spell, spellMap, eventArgs)
 	local bullet_name
 	local bullet_min_count = 1
 	

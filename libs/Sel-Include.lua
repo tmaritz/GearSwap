@@ -183,6 +183,7 @@ function init_include()
 	state.Buff['SJ Restriction'] 	= buffactive['SJ Restriction'] 	or false
 	state.Buff['Invisible'] 		= buffactive['Invisible'] 		or false
 	state.Buff['Sneak'] 			= buffactive['Sneak'] 			or false
+	state.Buff['Unlimited Shot'] 	= buffactive['Unlimited Shot']	or false
 	
 	-- Classes describe a 'type' of action.  They are similar to state, but
 	-- may have any free-form value, or describe an entire table of mapped values.
@@ -267,6 +268,7 @@ function init_include()
 	elemental_ws_proc_target_id = ''
 	elemental_ws_proc_element = 'fire'
 	elemental_magic_proc_target_id = ''
+	cached_weapon = ''
 
 	-- Buff tracking that buffactive can't detect
 	lastwarcry = ''
@@ -427,7 +429,6 @@ function init_include()
 	-- New implementation of tick.
 	windower.raw_register_event('prerender', function()
 		if not (os.clock() > tickdelay) then return end
-		
 		gearswap.refresh_globals(false)
 		
 		if (player ~= nil) and (player.status == 'Idle' or player.status == 'Engaged') and not (just_acted() or moving or silent_check_disable()) then
@@ -799,8 +800,12 @@ function handle_actions(spell, action)
 	if _G['cleanup_'..action] then
 		_G['cleanup_'..action](spell, spellMap, eventArgs)
 	end
-	
+
 	equip(internal_disable)
+
+	if action == 'precast' or action == 'midcast' then
+		check_rare_ammo(spell, spellMap, eventArgs)
+	end
 end
 
 --------------------------------------
@@ -2311,7 +2316,6 @@ end
 -- Handle notifications of general state change.
 function state_change(stateField, newValue, oldValue)
 	if stateField == 'Weapons' then
-		silent_can_use_cache['/ws']= {}
 		if state.AutoLockstyle.value and newValue ~= oldValue then
 			style_lock = true
 		end

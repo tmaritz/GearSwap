@@ -479,6 +479,7 @@ function handle_naked()
 end
 
 function handle_weapons(cmdParams)
+	local cached_weapon_state = state.Weapons.value
 	local weaponSet
 
 	if type(cmdParams) == 'string' then
@@ -536,8 +537,9 @@ function handle_weapons(cmdParams)
 		end
 	end
 
-	equip_weaponset()
-	if state.DisplayMode.value then update_job_states()	end
+	if cached_weapon_state ~= state.Weapons.value then
+		state_change('Weapons', state.Weapons.value, cached_weapon_state)
+	end
 end
 
 function equip_weaponset()

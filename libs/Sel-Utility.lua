@@ -605,6 +605,11 @@ end
 function silent_can_use(action, action_type)
 	local action_type = unify_prefix(action_type)
 
+	if action_type == '/ws' and player.equipment.main ~= cached_weapon then
+		silent_can_use_cache['/ws']= {}
+		cached_weapon = player.equipment.main
+	end
+
 	if silent_can_use_cache[action_type][action] then
 		return silent_can_use_cache[action_type][action]
 	end
@@ -2716,6 +2721,38 @@ function arts_active()
 		return 'Black'
 	else
 		return false
+	end
+end
+
+function uses_ammo(spell)
+	if (spell.action_type == 'Ranged Attack' or spell.name == 'Eagle Eye Shot' or spell.name == 'Shadowbind' or spell.name == 'Bounty Shot' or (spell.type == 'WeaponSkill' and (spell.skill == 'Marksmanship' or spell.skill == 'Archery'))) and not state.Buff['Unlimited Shot'] then
+		return true
+	end
+	return false
+end
+
+function check_rare_ammo(spell, spellMap, eventArgs)
+	if uses_ammo(spell) then
+		if gearswap.equip_list.ammo and item_equippable(gearswap.equip_list.ammo) then
+			if is_rare(gearswap.equip_list.ammo) then
+				panic_swap_ammo()
+			end
+		elseif is_rare(player.equipment.ammo) then
+			panic_swap_ammo()
+		end
+	end
+end
+
+function panic_swap_ammo()
+	enable('ammo')
+	add_to_chat(123,"Warning: Rare ammo is set to fire, Defaulting!")
+
+	if sets.weapons[state.Weapons.value].ammo and item_equippable(sets.weapons[state.Weapons.value].ammo) then
+		equip({ammo=sets.weapons[state.Weapons.value].ammo})
+	elseif sets.precast.RA and sets.precast.RA.ammo and item_equippable(sets.precast.RA.ammo) then
+		equip({ammo=sets.precast.RA.ammo})
+	else
+		equip({ammo=empty})
 	end
 end
 
