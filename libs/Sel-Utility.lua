@@ -1019,6 +1019,10 @@ function check_disable(spell, spellMap, eventArgs)
 		add_to_chat(123,'Abort: You are stunned.')
 		eventArgs.cancel = true
 		return true
+	elseif not (player.status == 'Idle' or player.status == 'Engaged') then
+		add_to_chat(123,"Abort: You can't act while your status is: "..player.status..".")
+		eventArgs.cancel = true
+		return true
 	else
 		return false
 	end
