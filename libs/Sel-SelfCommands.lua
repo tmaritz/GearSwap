@@ -419,6 +419,9 @@ function handle_update(cmdParams)
 	end
 
 	if not eventArgs.handled and not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock())) then
+		if check_internal_weapons then
+			equip_weaponset()
+		end
 		handle_equipping_gear(player.status)
 	end
 
@@ -543,6 +546,8 @@ function handle_weapons(cmdParams)
 end
 
 function equip_weaponset()
+	check_internal_weapons = false
+
 	if state.Weapons.value == 'None' then
 		internal_enable_set("Weapons")
 	elseif sets.weapons[state.Weapons.value] and not state.UnlockWeapons.value then

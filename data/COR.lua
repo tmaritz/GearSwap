@@ -159,10 +159,6 @@ end
 -- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.
 function job_aftercast(spell, spellMap, eventArgs)
 	if spell.type == 'CorsairRoll' and not spell.interrupted then
-		if state.CompensatorMode.value ~= 'Never' then
-			equip_weaponset()
-		end
-		
 		if not state.RollMode.value:endswith('Lock') then
 			state.RollMode:reset()
 		end

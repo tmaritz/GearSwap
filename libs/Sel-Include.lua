@@ -269,6 +269,7 @@ function init_include()
 	elemental_ws_proc_element = 'fire'
 	elemental_magic_proc_target_id = ''
 	cached_weapon = ''
+	check_internal_weapons = false
 
 	-- Buff tracking that buffactive can't detect
 	lastwarcry = ''
@@ -1339,6 +1340,10 @@ function filter_midcast(spell, spellMap, eventArgs)
 end
 
 function filter_aftercast(spell, spellMap, eventArgs)
+	if check_internal_weapons then
+		equip_weaponset()
+	end
+
 	if state.EquipStop.value == 'precast' or state.EquipStop.value == 'midcast' or state.EquipStop.value == 'pet_midcast' then
 		eventArgs.cancel = true
 	elseif spell.english == 'Unknown Interrupt' then
@@ -2340,7 +2345,7 @@ function state_change(stateField, newValue, oldValue)
 			
 			equip_weaponset()
 		elseif sets.weapons[newValue] then
-			equip_weaponset(newValue)
+			equip_weaponset()
 		else
 			if not sets.weapons[newValue] then
 				add_to_chat(123,"sets.weapons."..newValue.." does not exist, resetting weapon state.")
@@ -2357,7 +2362,7 @@ function state_change(stateField, newValue, oldValue)
 		if newValue == true then
 			internal_enable_set("Weapons")
 		else
-			equip_weaponset(state.Weapons.value)
+			equip_weaponset()
 		end
 	elseif stateField == 'RngHelper' then
 		if newValue == true then

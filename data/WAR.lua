@@ -229,16 +229,8 @@ function job_update(cmdParams, eventArgs)
 end
 
 function job_aftercast(spell, spellMap, eventArgs)
-	if spell.type == "JobAbility" then
-		if spell.english == 'Berserk' then
-			if state.ConquerorMode.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' then
-				equip_weaponset()
-			end
-		end
-	elseif spell.english == 'Warcry' then
-		if not spell.interrupted then
-			lastwarcry = player.name
-		end
+	if spell.english == 'Warcry' and not spell.interrupted then
+		lastwarcry = player.name
 	end
 end
 

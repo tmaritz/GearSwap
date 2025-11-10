@@ -261,11 +261,7 @@ end
 
 -- Set eventArgs.handled to true if we don't want automatic gear equipping to be done.
 function job_aftercast(spell, spellMap, eventArgs)
-	if spell.type == 'BardSong' then
-		if state.CarnMode.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' then
-			equip_weaponset(state.Weapons.value)
-		end
-	end
+
 end
 
 function job_buff_change(buff, gain)

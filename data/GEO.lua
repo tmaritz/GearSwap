@@ -235,12 +235,6 @@ function job_aftercast(spell, spellMap, eventArgs)
 		end
 	end
 
-	if spell.skill == 'Geomancy' then
-		if state.UnlockGeomancy.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' then
-			equip_weaponset()
-		end
-	end
-
 	if not player.indi then
 		classes.CustomIdleGroups:clear()
 	end

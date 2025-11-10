@@ -240,11 +240,7 @@ function job_post_midcast(spell, spellMap, eventArgs)
 end
 
 function job_aftercast(spell, spellMap, eventArgs)
-	if spell.english:startswith('Temper') or spellMap == 'Enspell' or (spell.english:startswith('Phalanx') and spell.target.type =='SELF') then
-		if state.BuffWeaponsMode.value ~= 'Never' and not state.UnlockWeapons.value and state.Weapons.value ~= 'None' then
-			equip_weaponset()
-		end
-	end
+
 end
 
 function job_buff_change(buff, gain)

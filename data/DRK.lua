@@ -116,11 +116,7 @@ end
 
 function job_aftercast(spell, spellMap, eventArgs)
 	if not spell.interrupted then
-		if spell.skill == 'Dark Magic' then
-			if wants_dark_seal:contains(spell.english) and state.DrainSwapWeaponMode.value ~= 'Never' then
-				equip_weaponset()
-			end
-		elseif (spell.english == 'Sleep' or spell.english == 'Sleepga') then
+		if (spell.english == 'Sleep' or spell.english == 'Sleepga') then
 			if state.UseCustomTimers.value then
 				send_command('@timers c "'..spell.english..' ['..spell.target.name..']" 60 down spells/00220.png')
 			end

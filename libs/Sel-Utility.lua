@@ -2281,6 +2281,10 @@ function build_internal_disable()
 end
 
 function internal_enable_set(priority)
+	if priority == "Weapons" then
+		check_internal_weapons = true
+	end
+	
 	disabled_sets[priority] = nil
 
 	build_internal_disable()
