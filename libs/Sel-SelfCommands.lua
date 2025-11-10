@@ -97,7 +97,6 @@ function self_command(commandArgs)
 
 	if not eventArgs.handled and not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock())) then
 		handle_equipping_gear(player.status)
-		
 		if handleCmd and handleCmd == 'softequip' then
 			local set = get_table_from_string(commandArgs[1])
 			equip(set)
@@ -531,17 +530,16 @@ function handle_weapons(cmdParams)
 		add_to_chat(123,"Error: A weapons set for ["..weaponSet.."] does not exist.")
 	end
 
-	if autows_list[state.Weapons.value] then
-		if type(autows_list[state.Weapons.value]) == "table" then
-			autows 		= autows_list[state.Weapons.value][1]
-			autowstp 	= autows_list[state.Weapons.value][2]
-		else
-			autows 		= autows_list[state.Weapons.value]
-		end
-	end
-
-	if cached_weapon_state ~= state.Weapons.value then
+	if cached_weapon_state ~= state.Weapons.value or weaponSet:lower() == 'initialize' then
 		state_change('Weapons', state.Weapons.value, cached_weapon_state)
+		if autows_list[state.Weapons.value] then
+			if type(autows_list[state.Weapons.value]) == "table" then
+				autows 		= autows_list[state.Weapons.value][1]
+				autowstp 	= autows_list[state.Weapons.value][2]
+			else
+				autows 		= autows_list[state.Weapons.value]
+			end
+		end
 	end
 end
 

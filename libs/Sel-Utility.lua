@@ -2274,7 +2274,6 @@ end
 
 function build_internal_disable()
 	internal_disable = {}
-
 	for i, priority in ipairs(disable_priority) do
 		internal_disable = set_combine(internal_disable, disabled_sets[priority])
 	end
@@ -2980,7 +2979,7 @@ function set_dual_wield()
 	local traits = T(windower.ffxi.get_abilities().job_traits)
 	can_dual_wield = traits:any(function(v) return gearswap.res.job_traits[v].english == 'Dual Wield' end)
 
-	handle_weapons({[1]='initialize'})
+	send_command('gs c weapons initialize')
 end
 
 function get_closest_mob_id_by_name(name)
