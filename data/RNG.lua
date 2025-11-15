@@ -123,6 +123,16 @@ function job_precast(spell, spellMap, eventArgs)
 
 	if uses_ammo(spell) then
 		do_ammo_checks(spell, spellMap, eventArgs)
+	elseif spell.type == 'WeaponSkill' then
+		if not (spell.skill == 'Marksmanship' or spell.skill == 'Archery') then
+			if RangedWeaponType == 'Bow' and item_available('Hauksbok Arrow') then
+				equip({ammo="Hauksbok Arrow"})
+			elseif RangedWeaponType == 'Crossbow' and item_available('Hauksbok Bolt') then
+				equip({ammo="Hauksbok Bolt"})
+			elseif RangedWeaponType == 'Gun' and item_available('Hauksbok Bullet') then
+				equip({ammo="Hauksbok Bullet"})
+			end
+		end
 	end
 end
 
@@ -292,16 +302,6 @@ end
 -------------------------------------------------------------------------------------------------------------------
 -- Check for proper ammo when shooting or weaponskilling
 function do_ammo_checks(spell, spellMap, eventArgs)
-	if not (spell.skill == 'Marksmanship' or spell.skill == 'Archery') then
-			if RangedWeaponType == 'Bow' and item_available('Hauksbok Arrow') then
-				equip({ammo="Hauksbok Arrow"})
-			elseif RangedWeaponType == 'Crossbow' and item_available('Hauksbok Bolt') then
-				equip({ammo="Hauksbok Bolt"})
-			elseif RangedWeaponType == 'Gun' and item_available('Hauksbok Bullet') then
-				equip({ammo="Hauksbok Bullet"})
-			end
-	end
-
 	-- Filter ammo checks depending on Unlimited Shot	
 	if state.Buff['Unlimited Shot'] and spell.type == 'WeaponSkill' then
 		if data.weaponskills.elemental:contains(spell.name) then
