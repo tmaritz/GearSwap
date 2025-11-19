@@ -363,11 +363,11 @@ function set_elemental_obi_cape_ring(spell, spellMap) -- Thank you Lili <3
 	if spell.element == 'None' then return end
 
 	if state.CastingMode.value == 'Fodder' then
-		if spell.element == world.day_element and item_available("Zodiac Ring") then
+		if spell.element == world.day_element and item_equippable("Zodiac Ring") then
 			equip({ring2="Zodiac Ring"})
 		end
 		
-		if spell.element == world.weather_element or spell.element == world.day_element and item_available("Twilight Cape") then
+		if spell.element == world.weather_element or spell.element == world.day_element and item_equippable("Twilight Cape") then
 			equip({back="Twilight Cape"})
 		end
 	end
@@ -377,7 +377,7 @@ function set_elemental_obi_cape_ring(spell, spellMap) -- Thank you Lili <3
 	local day_potency = (spell.element == world.day_element and 10) or (spell.element == data.elements.weak_to[world.day_element] and -10) or 0
 	local weather_potency = (spell.element == world.weather_element and data.weather_bonus_potency[world.weather_intensity]) or (data.elements.weak_to[world.weather_element] and (data.weather_bonus_potency[world.weather_intensity] * -1)) or 0
 
-	if item_available("Orpheus's Sash") then
+	if item_equippable("Orpheus's Sash") then
 		orpheus_intensity = (16 - math.min(math.max(distance,1),15))
 		orpheus_intensity = orpheus_intensity * (1 + ( day_potency * 1/5 + weather_potency * 1/3 ) /100)
 	end
@@ -392,7 +392,7 @@ function set_elemental_obi_cape_ring(spell, spellMap) -- Thank you Lili <3
 	local single_obi_intensity = 0
 	local hachirin_intensity = 0
 
-	if item_available(data.elements.obi_of[spell.element]) then
+	if item_equippable(data.elements.obi_of[spell.element]) then
 		if spell.element == world.day_element then
 			single_obi_intensity = 10
 		end
@@ -401,7 +401,7 @@ function set_elemental_obi_cape_ring(spell, spellMap) -- Thank you Lili <3
 		end
 	end
 
-	if item_available('Hachirin-no-Obi') then
+	if item_equippable('Hachirin-no-Obi') then
 		hachirin_intensity = day_potency + weather_potency
 	end
 

@@ -1592,15 +1592,15 @@ function get_idle_set(petStatus)
 		end
 
 		if (world.area:contains('Adoulin') or world.area == "Celennia Memorial Library") then
-			if item_available("Councilor's Garb") then idleSet = set_combine(idleSet, {body="Councilor's Garb"}) end
+			if item_equippable("Councilor's Garb") then idleSet = set_combine(idleSet, {body="Councilor's Garb"}) end
 		elseif (world.area:contains('Bastok') or world.area == "Metalworks") then
-			if item_available("Republic Aketon") then idleSet = set_combine(idleSet, {body="Republic Aketon"}) end
+			if item_equippable("Republic Aketon") then idleSet = set_combine(idleSet, {body="Republic Aketon"}) end
 		elseif (world.area:contains('Windurst') or world.area == "Heavens Tower") then
-			if item_available("Federation Aketon") then idleSet = set_combine(idleSet, {body="Federation Aketon"}) end
+			if item_equippable("Federation Aketon") then idleSet = set_combine(idleSet, {body="Federation Aketon"}) end
 		elseif (world.area:contains("San d'Oria") or world.area == "Chateau d'Oraguille") then
-			if item_available("Kingdom Aketon") then idleSet = set_combine(idleSet, {body="Kingdom Aketon"}) end
+			if item_equippable("Kingdom Aketon") then idleSet = set_combine(idleSet, {body="Kingdom Aketon"}) end
 		elseif world.area == "Mog Garden" then
-			if item_available("Jubilee Shirt") then idleSet = set_combine(idleSet, {body="Jubilee Shirt"}) end
+			if item_equippable("Jubilee Shirt") then idleSet = set_combine(idleSet, {body="Jubilee Shirt"}) end
 		end
 	elseif data.areas.assault:contains(world.area) then
 		if sets.Assault then
