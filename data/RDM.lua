@@ -244,8 +244,14 @@ function job_aftercast(spell, spellMap, eventArgs)
 end
 
 function job_buff_change(buff, gain)
-	if buff == enspell and not gain then
-		enspell = ''
+	if gain then
+		if data.spells.enspells:contains(buff) then
+			enspell = buff
+		end
+	else
+		if buff == enspell then
+			enspell = ''
+		end
 	end
 	update_melee_groups()
 end
