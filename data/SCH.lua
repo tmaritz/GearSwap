@@ -84,6 +84,7 @@ function job_setup()
 
 	state.Buff['Sublimation: Activated'] = buffactive['Sublimation: Activated'] or false
 	state.Buff['Enlightenment'] = buffactive['Enlightenment'] or false
+	state.Buff['Focalization'] = buffactive['Focalization'] or false
 	
 	update_active_stratagems()
 	
@@ -353,8 +354,13 @@ function apply_grimoire_bonuses(spell, action, spellMap)
 	if state.Buff.Perpetuance and spell.type =='WhiteMagic' and spell.skill == 'Enhancing Magic' then
 		equip(sets.buff['Perpetuance'])
 	end
+	
 	if state.Buff.Rapture and (spellMap == 'Cure' or spellMap == 'Curaga') then
 		equip(sets.buff['Rapture'])
+	end
+	
+	if state.Buff.Focalization and spell.type == 'BlackMagic' then
+		equip(sets.buff['Focalization'])
 	end
 
 	if state.Buff.Penury then
