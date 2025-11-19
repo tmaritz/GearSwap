@@ -189,11 +189,11 @@ function job_post_midcast(spell, spellMap, eventArgs)
 			currentWeapons = standardize_set(sets.weapons[state.Weapons.value])
 		end
 		if spell.skill == 'Elemental Magic' and spellMap ~= 'ElementalEnfeeble' and spell.english ~= 'Impact' then
-			if currentSet and currentSet.range and currentSet.range == "Ullr" and currentWeapons.range and currentWeapons.range == 'empty' and not currentWeapons.ammo and item_available("Regal Gem") then
+			if currentSet and currentSet.range and currentSet.range == "Ullr" and currentWeapons.range and currentWeapons.range == 'empty' and not currentWeapons.ammo and item_equippable("Regal Gem") then
 				equip({ammo="Regal Gem"})
 			end
 		elseif spell.skill == 'Enfeebling Magic' or spell.skill == 'Dark Magic' then
-			if currentSet and currentSet.range == "Ullr" and currentWeapons.range and currentWeapons.range == 'empty' and not currentWeapons.ammo and item_available("Regal Gem") then
+			if currentSet and currentSet.range == "Ullr" and currentWeapons.range and currentWeapons.range == 'empty' and not currentWeapons.ammo and item_equippable("Regal Gem") then
 				equip({ammo="Regal Gem"})
 			end
 			if spell.skill == 'Enfeebling Magic' and state.Buff.Saboteur then
@@ -312,12 +312,12 @@ function job_customize_melee_set(meleeSet)
 			meleeSet = set_combine(meleeSet, sets.element.enspell[enspell_element])
 		end
 
-		if item_available("Orpheus's Sash") then
+		if item_equippable("Orpheus's Sash") then
 			meleeSet = set_combine(meleeSet, {waist="Orpheus's Sash"})
 		elseif enspell_element == world.weather_element or enspell_element == world.day_element then
-			if item_available(data.elements.obi_of[enspell_element]) then
+			if item_equippable(data.elements.obi_of[enspell_element]) then
 				meleeSet = set_combine(meleeSet, {waist=data.elements.obi_of[enspell_element]})
-			elseif item_available('Hachirin-no-Obi') then
+			elseif item_equippable('Hachirin-no-Obi') then
 				local day_potency = (spell.element == world.day_element and 10) or (spell.element == data.elements.weak_to[world.day_element] and -10) or 0
 				local weather_potency = (spell.element == world.weather_element and data.weather_bonus_potency[world.weather_intensity]) or (data.elements.weak_to[world.weather_element] and (data.weather_bonus_potency[world.weather_intensity] * -1)) or 0
 				if (day_potency + weather_potency) >= 5 then
