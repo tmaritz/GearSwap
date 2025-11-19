@@ -73,6 +73,13 @@ function job_setup()
 	autofood = 'Grape Daifuku'
 	enspell = ''
 	
+	for _,buff in ipairs(player.buff_details) do
+		if data.spells.enspells:contains(buff.name) then
+			enspell = buff.name
+			break
+		end
+	end
+
 	update_melee_groups()
 	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","AutoWSMode","AutoNukeMode","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","RecoverMode","ElementalMode","CastingMode","TreasureMode"})
 end
@@ -318,8 +325,8 @@ function job_customize_melee_set(meleeSet)
 			if item_equippable(data.elements.obi_of[enspell_element]) then
 				meleeSet = set_combine(meleeSet, {waist=data.elements.obi_of[enspell_element]})
 			elseif item_equippable('Hachirin-no-Obi') then
-				local day_potency = (spell.element == world.day_element and 10) or (spell.element == data.elements.weak_to[world.day_element] and -10) or 0
-				local weather_potency = (spell.element == world.weather_element and data.weather_bonus_potency[world.weather_intensity]) or (data.elements.weak_to[world.weather_element] and (data.weather_bonus_potency[world.weather_intensity] * -1)) or 0
+				local day_potency = (enspell_element == world.day_element and 10) or (enspell_element == data.elements.weak_to[world.day_element] and -10) or 0
+				local weather_potency = (enspell_element == world.weather_element and data.weather_bonus_potency[world.weather_intensity]) or (data.elements.weak_to[world.weather_element] and (data.weather_bonus_potency[world.weather_intensity] * -1)) or 0
 				if (day_potency + weather_potency) >= 5 then
 					meleeSet = set_combine(meleeSet, {waist="Hachirin-no-Obi"})
 				end
