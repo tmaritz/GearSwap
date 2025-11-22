@@ -319,6 +319,10 @@ function job_customize_melee_set(meleeSet)
 			meleeSet = set_combine(meleeSet, sets.element.enspell[enspell_element])
 		end
 
+		if enspell_element == world.day_element and item_equippable("Zodiac Ring") and not state.OffenseMode.value:contains('Acc') then
+			equip({ring2="Zodiac Ring"})
+		end
+
 		if item_equippable("Orpheus's Sash") then
 			meleeSet = set_combine(meleeSet, {waist="Orpheus's Sash"})
 		elseif enspell_element == world.weather_element or enspell_element == world.day_element then
