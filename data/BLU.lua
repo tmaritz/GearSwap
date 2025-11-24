@@ -481,17 +481,27 @@ end
 
 function job_check_buff()
 	if state.AutoBuffMode.value ~= 'Off' and not data.areas.cities:contains(world.area) then
-		if in_combat and player.sub_job == 'WAR' then
+		if in_combat then
 			local abil_recasts = windower.ffxi.get_ability_recasts()
+			local spell_recasts = windower.ffxi.get_spell_recasts()
+			
+			if not buffactive['Mighty Guard'] and spell_recasts[750] == 0 and abil_recasts[81] < latency then
+				send_command('input /ja "Unbridled Learning" <me>')
+				send_command('wait 1; input /ma "Mighty Guard" <me>')
+				add_tick_delay()
+				return true
+			end
 
-			if not buffactive.Berserk and abil_recasts[1] < latency then
-				windower.chat.input('/ja "Berserk" <me>')
-				add_tick_delay()
-				return true
-			elseif not buffactive.Aggressor and abil_recasts[4] < latency then
-				windower.chat.input('/ja "Aggressor" <me>')
-				add_tick_delay()
-				return true
+			if player.sub_job == 'WAR' then
+				if not buffactive.Berserk and abil_recasts[1] < latency then
+					windower.chat.input('/ja "Berserk" <me>')
+					add_tick_delay()
+					return true
+				elseif not buffactive.Aggressor and abil_recasts[4] < latency then
+					windower.chat.input('/ja "Aggressor" <me>')
+					add_tick_delay()
+					return true
+				end
 			end
 		end
 	else
@@ -505,7 +515,6 @@ buff_spell_lists = {
 		{Name='Battery Charge',		Buff='Refresh',			SpellID=662,	When='Idle'},
 		{Name='Refresh',			Buff='Refresh',			SpellID=109,	When='Idle'},
 		{Name='Nat. Meditation',	Buff='Attack Boost',	SpellID=700,	When='Engaged'},
-		{Name='Mighty Guard',		Buff='Mighty Guard',	SpellID=750,	When='Combat'},
 	},
 
 	Default = {
