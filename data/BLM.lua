@@ -381,6 +381,7 @@ function handle_job_elemental(command, target)
 		return true
 	elseif command == 'aja' then
 		windower.chat.input('/ma "'..data.elements.nukega_of[state.ElementalMode.value]..'ja" '..target..'')
+		return true
 	end
 	return false
 end
