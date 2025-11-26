@@ -47,8 +47,6 @@ function user_job_setup()
 	send_command('bind !backspace input /ja "Bounty Shot" <t>')
 	send_command('bind @f9 gs c toggle RngHelper')
 	send_command('bind @` gs c cycle SkillchainMode')
-	send_command('bind !r gs c weapons MagicWeapons;gs c update')
-	send_command('bind ^q gs c weapons SingleWeapon;gs c update')
 	
 	select_default_macro_book()
 

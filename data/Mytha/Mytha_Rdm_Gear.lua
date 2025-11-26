@@ -49,10 +49,6 @@ function user_job_setup()
 	send_command('bind !\\\\ input /ma "Reraise III" <me>')
 	send_command('bind @f8 gs c toggle AutoNukeMode')
 	send_command('bind @f10 gs c cycle RecoverMode')
-	send_command('bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Initialize;gs c set unlockweapons false')
-	send_command('bind ^q gs c set weapons DualEnspellOnly;gs c set unlockweapons true')
-	send_command('bind !r gs c set skipprocweapons true;gs c set weaponsets Default;gs c reset weaponskillmode;gs c weapons none')
-	send_command('bind !q gs c set skipprocweapons false;gs c set weaponsets proc;gs c set weaponskillmode proc;gs c set weapons DualProcSword')
 	
 	select_default_macro_book()
 end

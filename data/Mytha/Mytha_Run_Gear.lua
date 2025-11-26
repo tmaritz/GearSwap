@@ -33,8 +33,7 @@ function user_job_setup()
 	send_command('bind @f8 gs c toggle AutoTankMode')
 	send_command('bind @f10 gs c toggle TankAutoDefense')
 	send_command('bind ^@!` gs c cycle SkillchainMode')
-	send_command('bind !r gs c weapons Lionheart;gs c update')
-	
+
 	select_default_macro_book()
 end
 

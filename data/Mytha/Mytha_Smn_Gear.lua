@@ -14,10 +14,8 @@ function user_job_setup()
 	send_command('bind @` gs c cycle MagicBurst')
 	send_command('bind ^` gs c toggle PactSpamMode')
 	send_command('bind !pause gs c toggle AutoSubMode') --Automatically uses sublimation.
-	send_command('bind ^q gs c weapons Khatvanga;gs c set CastingMode OccultAcumen')
-	send_command('bind !q gs c weapons default;gs c reset CastingMode')
 	
-    select_default_macro_book()
+	select_default_macro_book()
 end
 
 -- Define sets and vars used by this job file.

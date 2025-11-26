@@ -25,9 +25,7 @@ function user_job_setup()
 	send_command('bind @f9 gs c cycle DeathMode')
 	send_command('bind @f10 gs c cycle RecoverMode')
 	send_command('bind !pause gs c toggle AutoSubMode') --Automatically uses sublimation and Myrkr.
-	send_command('bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
-	send_command('bind !r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons none')
-	
+
 	select_default_macro_book()
 end
 

@@ -31,10 +31,6 @@ function user_job_setup()
 	send_command('bind @f10 gs c toggle LearningMode')
 	send_command('bind ^@!` gs c cycle MagicBurstMode')
 	send_command('bind @f8 gs c toggle AutoNukeMode')
-	send_command('bind !r gs c weapons None;gs c update')
-	send_command('bind @q gs c weapons MaccWeapons;gs c update')
-	send_command('bind ^q gs c weapons Almace;gs c update')
-	send_command('bind !q gs c weapons HybridWeapons;gs c update')
 
 	select_default_macro_book()
 end

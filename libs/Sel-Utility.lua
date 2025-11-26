@@ -2612,6 +2612,22 @@ function update_combat_form()
 	end
 end
 
+do
+	local cache = {}
+	get_item_id_by_name = function(name)
+		if name == nil or name == 'empty' or (type(name) == 'table' and not name.name) then return end
+		if not cache[name] then
+			for bag in res.bags:it() do
+				if player[bag.api] and player[bag.api][name] then
+					cache[name] =  player[bag.api][name].id
+				end
+			end
+		end
+		return cache[name]
+	end
+end
+
+--[[
 function get_item_id_by_name(name)
 	if name == nil or name == 'empty' or (type(name) == 'table' and not name.name) then return end
 
@@ -2623,6 +2639,7 @@ function get_item_id_by_name(name)
 	--Kept just in case the above causes issues.
 	--return (player.inventory[name] or player.wardrobe[name] or player.wardrobe2[name] or player.wardrobe3[name] or player.wardrobe4[name] or player.wardrobe5[name] or player.wardrobe6[name] or player.wardrobe7[name] or player.wardrobe8[name] or {}).id
 end
+]]
 
 function get_item_table(item)
 	if not item then return end
