@@ -208,7 +208,7 @@ function job_aftercast(spell, spellMap, eventArgs)
 	-- Lock feet after using Mana Wall.
 	if not spell.interrupted then
 		if spell.type == 'WeaponSkill' then
-			if state.Buff['Climactic Flourish'] and state.AutoBuffMode.value ~= 'Off' not under3FMs() and player.tp < 999 then
+			if state.Buff['Climactic Flourish'] and state.AutoBuffMode.value ~= 'Off' and not under3FMs() and player.tp < 999 then
 				local abil_recasts = windower.ffxi.get_ability_recasts()
 				if abil_recasts[222] < latency then
 					windower.chat.input:schedule(1.5,'/ja "Reverse Flourish" <me>')
