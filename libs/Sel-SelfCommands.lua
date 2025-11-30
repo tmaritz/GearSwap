@@ -846,8 +846,6 @@ end
 function handle_abyred()
 	local procs = {}
 
-	elemental_ws_proc_element = 'darkness'
-
 	for proc in pairs(abyssea_elemental_ws_proc_weapons_map[elemental_ws_proc_element]) do
 		table.insert(procs, proc)
 	end
