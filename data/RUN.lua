@@ -132,6 +132,10 @@ function job_post_precast(spell, spellMap, eventArgs)
 				end
 			end
 		end
+	elseif spell.action_type == 'Magic' then
+		if (state.Buff['Valiance'] or state.Buff['Vallation']) and sets.precast.FC.Inspiration then
+			equip(sets.precast.FC.Inspiration)
+		end
 	elseif spell.english == 'Lunge' or spell.english == 'Swipe' then
 		if weather_rune_match() then
 			if item_available('Hachirin-no-Obi') then
