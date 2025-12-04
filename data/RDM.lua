@@ -60,10 +60,11 @@ function job_setup()
 	state.Buff.Chainspell = buffactive.Chainspell or false
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 	
-	state.AutoBuffMode 		  = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage'}
+	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage'}
 	
 	-- Whether to swap weapons for Temper/Phalanx under a certain tp threshhold even when weapons are locked.
-	state.BuffWeaponsMode = M{'Never','500','1000','Always'}
+	state.BuffWeaponsMode	= M{['description'] = 'Buff Weapons Mode','Never','500','1000','Always'}
+	state.MurgleisMode		= M{['description'] = 'Murgleis Mode','Always','Never','500','1000'}
 	
 	LowTierNukes = S{'Stone', 'Water', 'Aero', 'Fire', 'Blizzard', 'Thunder',
 		'Stone II', 'Water II', 'Aero II', 'Fire II', 'Blizzard II', 'Thunder II',
@@ -140,13 +141,23 @@ end
 function job_pretarget(spell, spellMap, eventArgs)
 	if spell.english == 'Phalanx' and spell.target.type == 'PLAYER' then
 		windower.chat.input('/ma "Phalanx II" '..spell.target.raw)
-		cancel_spell()
+		eventArgs.cancel = true
+	end
+end
+
+function job_filter_precast(spell, spellMap, eventArgs)
+	if spell.english == 'Convert' and player.mp == 0 then
+		add_to_chat(123,'Abort: Convert will fail with 0 MP.')
 		eventArgs.cancel = true
 	end
 end
 
 function job_precast(spell, spellMap, eventArgs)
-	if spell.english:startswith('Temper') or spellMap == 'Enspell' or (spell.english:startswith('Phalanx') and spell.target.type =='SELF') then
+	if spell.english == 'Convert' then
+		if item_equippable("Murgleis") and state.AutoMurgleis.value ~= 'Never' and (state.MurgleisMode.value == 'Always' or tonumber(state.MurgleisMode.value) > player.tp) then
+			internal_enable_set("Weapons")
+		end
+	elseif spell.english:startswith('Temper') or spellMap == 'Enspell' or (spell.english:startswith('Phalanx') and spell.target.type =='SELF') then
 		if state.BuffWeaponsMode.value ~= 'Never' and (state.BuffWeaponsMode.value == 'Always' or tonumber(state.BuffWeaponsMode.value) > player.tp) then
 			internal_enable_set("Weapons")
 		end
