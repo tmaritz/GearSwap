@@ -287,6 +287,7 @@ function init_include()
 	sets.precast.RA = {}
 	sets.precast.Item = {}
 	sets.midcast = {}
+	sets.midcast.Item = {}
 	sets.midcast.RA = {}
 	sets.midcast.Pet = {}
 	sets.idle = {}
@@ -778,7 +779,7 @@ function handle_actions(spell, action)
 			_G['general_post_'..action](spell, spellMap, eventArgs)
 		end
 
-	   -- Job-specific post-handling of this action
+		-- Job-specific post-handling of this action
 		if not eventArgs.cancel and _G['job_post_'..action] then
 			_G['job_post_'..action](spell, spellMap, eventArgs)
 		end
@@ -803,8 +804,11 @@ function handle_actions(spell, action)
 	end
 
 	equip(internal_disable)
-
+	
 	if action == 'precast' or action == 'midcast' then
+		if (spell.name == 'Holy Water' or spell.name == 'Hallowed Water') and sets[action].Item[spell.name] then
+			equip(sets[action].Item[spell.name])
+		end
 		check_rare_ammo(spell, spellMap, eventArgs)
 	end
 end
@@ -1195,11 +1199,7 @@ function default_post_midcast(spell, spellMap, eventArgs)
 			eventArgs.handled = true
 		end
 	end
-	
-	if buffactive.doom then
-		equip(sets.buff.Doom)
-	end
-	
+
 	if spell.action_type == 'Magic' then
 		check_item_dependant_spells(spell, spellMap)
 	end
@@ -1208,10 +1208,6 @@ end
 function default_post_pet_midcast(spell, spellMap, eventArgs)
 	if state.Capacity.value then
 		equip(sets.Capacity)
-	end
-
-	if buffactive.doom then
-		equip(sets.buff.Doom)
 	end
 end
 
