@@ -154,7 +154,7 @@ end
 
 function job_precast(spell, spellMap, eventArgs)
 	if spell.english == 'Convert' then
-		if item_equippable("Murgleis") and state.AutoMurgleis.value ~= 'Never' and (state.MurgleisMode.value == 'Always' or tonumber(state.MurgleisMode.value) > player.tp) then
+		if item_equippable("Murgleis") and state.MurgleisMode.value ~= 'Never' and (state.MurgleisMode.value == 'Always' or tonumber(state.MurgleisMode.value) > player.tp) then
 			internal_enable_set("Weapons")
 		end
 	elseif spell.english:startswith('Temper') or spellMap == 'Enspell' or (spell.english:startswith('Phalanx') and spell.target.type =='SELF') then
