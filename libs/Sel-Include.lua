@@ -494,14 +494,12 @@ end
 
 -- Function to perform actions on new targets.
 function target_change(new)
-
 	if state.RngHelper.value then
 		send_command('gs rh clear')
 	end
 
-	local target = windower.ffxi.get_mob_by_target('t')
-	local sub= windower.ffxi.get_mob_by_target('st')
-	if (target ~= nil) and (sub == nil) then
+	local target = windower.ffxi.get_mob_by_index(new)
+	if target then
 		if state.AutoCleanupMode.value and math.sqrt(target.distance) < 7 then
 			if target.name == "Runje Desaali" and bayld_items then 
 				for i in pairs(bayld_items) do
