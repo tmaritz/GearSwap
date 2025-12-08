@@ -850,6 +850,12 @@ for _, rline in pairs(gearswap.res.spells) do
 	end
 end
 
+buff_table_by_name = T{}
+res.buffs:map(function(buff)
+	buff_table_by_name[buff.english_log:lower()] = buff
+	buff_table_by_name[buff.english:lower()] = buff
+end)
+
 data.status_map = T{
 	{buff='doom',spell='Cursna'},
 	{buff='petrification',spell='Stona'},
