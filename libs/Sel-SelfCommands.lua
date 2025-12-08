@@ -1578,6 +1578,7 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
+	table.vprint(player.buff_details)
 	if user_test then
 		user_test(cmdParams)
 	elseif job_test then

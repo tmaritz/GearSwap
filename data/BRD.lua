@@ -82,6 +82,7 @@ function job_setup()
 	state.Buff['Pianissimo'] = buffactive['Pianissimo'] or false
 	state.Buff['Nightingale'] = buffactive['Nightingale'] or false
 	state.Buff['Soul Voice'] =  buffactive['Soul Voice'] or false
+	state.Buff['Clarion Call'] = buffactive['Clarion Call'] or false
 
 	autows = "Rudra's Storm"
 	autofood = 'Pear Crepe'
