@@ -75,6 +75,7 @@ function job_setup()
 
 	state.ExtraSongsMode = M{['description']='Extra Songs','None','Dummy','DummyLock','FullLength','FullLengthLock','Cheer','CheerLock'}
 	-- Whether to use Carn (or song daggers in general) under a certain tp threshhold even when weapons are locked.
+	state.AutoDummyMode = M(false, 'Auto Dummy Mode')
 	state.CarnMode = M{'Default','Always','300','1000','Never'}
 	state.Pianissimode = M(false, 'Use Miracle Cheer when Pianissimo is active.')
 
@@ -88,9 +89,27 @@ function job_setup()
 	autofood = 'Pear Crepe'
 	
 	state.AutoSongMode = M(false, 'Auto Song Mode')
+	
+	brd_buff_ids = S{
+	195,196,197,198,199,200,201,202,203,204,205,206,
+	207,208,209,210,211,212,213,214,215,216,218,219,
+	220,221,222,223
+	}
+	
+	function set_current_brd_buffs()
+		current_brd_buffs = 0
+		for _,buff in ipairs(player.buff_details) do
+			if brd_buff_ids:contains(buff.id) then
+				current_brd_buffs = current_brd_buffs + 1
+			end
+		end
+	end
+
+	current_brd_buffs = 0
+	set_current_brd_buffs()
 
 	update_melee_groups()
-	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","AutoSongMode","AutoWSMode","AutoNukeMode","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","ExtraSongsMode","CastingMode","CarnMode","TreasureMode",})
+	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","AutoSongMode","AutoDummyMode","AutoWSMode","AutoNukeMode","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","ExtraSongsMode","CastingMode","CarnMode","TreasureMode",})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -128,6 +147,16 @@ function job_precast(spell, spellMap, eventArgs)
 	if spell.type == 'BardSong' then
 		if not sets.precast.FC[spell.english] and spell.targets.Enemy then
 			classes.CustomClass = 'SongDebuff'
+		end
+
+		if state.AutoDummyMode.value then
+			if spell.targets.Enemy or current_brd_buffs < 2 then
+				state.ExtraSongsMode:reset()
+			elseif current_brd_buffs < ((2 + info.ExtraSongs) + (state.Buff['Clarion Call'] and 1 or 0)) then
+				state.ExtraSongsMode:set('Dummy')
+			else
+				state.ExtraSongsMode:reset()
+			end
 		end
 
 		if state.CarnMode.value ~= 'Never' then
@@ -266,6 +295,14 @@ function job_aftercast(spell, spellMap, eventArgs)
 end
 
 function job_buff_change(buff, gain)
+	if brd_buff_ids:contains(buff_table_by_name[buff:lower()].id) then
+		if gain then
+			current_brd_buffs = current_brd_buffs + 1
+		else
+			current_brd_buffs = current_brd_buffs - 1
+		end
+	end
+
 	update_melee_groups()
 end
 

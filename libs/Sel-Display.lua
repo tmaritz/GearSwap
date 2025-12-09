@@ -166,6 +166,7 @@ function update_job_states()
 		AutoSuperJumpMode = "Auto SuperJump",
 		AutoTankMode = "Auto Tank",
 		AutoTrustMode = "Auto Trust",
+		AutoDummyMode = "Auto Dummy",
 		BuffWeaponsMode = "Buff Weapons",
 		Capacity = "Capacity",
 		CarnMode = "Carn Mode",
