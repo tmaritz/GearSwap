@@ -295,7 +295,7 @@ function job_aftercast(spell, spellMap, eventArgs)
 end
 
 function job_buff_change(buff, gain)
-	if brd_buff_ids:contains(buff_table_by_name[buff:lower()].id) then
+	if brd_buff_ids:contains(buff_table_by_name[buff].id) then
 		if gain then
 			current_brd_buffs = current_brd_buffs + 1
 		else
