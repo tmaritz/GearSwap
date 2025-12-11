@@ -2595,17 +2595,23 @@ end
 function update_combat_form()
 	if sets.engaged[state.Weapons.value] then
 		state.CombatForm:set(state.Weapons.value)
+		return
 	elseif not player.equipment.main then
 		if sets.engaged.Unarmed then
 			state.CombatForm:set('Unarmed')
 		else
 			state.CombatForm:reset()
 		end
-	elseif sets.engaged.DW and state.Weapons.value:contains('DW') or state.Weapons.value:contains('Dual') or (state.Weapons.value == 'None' and can_dual_wield) then
+		return
+	end
+
+	local wielding = wielding()
+	
+	if sets.engaged.DW and (wielding == 'Dual Wielding' or (state.Weapons.value == 'None' and can_dual_wield)) then
 		state.CombatForm:set('DW')
 	elseif sets.engaged[player.equipment.main] then
 		state.CombatForm:set(player.equipment.main)
-	elseif sets.engaged.Fencer and wielding() == 'Fencing' then
+	elseif sets.engaged.Fencer and wielding == 'Fencing' then
 		state.CombatForm:set('Fencer')
 	else
 		state.CombatForm:reset()

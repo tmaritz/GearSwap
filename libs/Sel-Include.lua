@@ -1744,8 +1744,12 @@ function update_melee_groups()
 	if job_update_melee_groups then
 		job_update_melee_groups()
 	end
-	
-	if buffactive['Aftermath: Lv.3'] and data.equipment.mythic_weapons:contains(player.equipment.main) then
+
+	if buffactive['Aftermath: Lv.3'] then
+		if data.equipment.mythic_weapons:contains(player.equipment.main) or ((sets.engaged[state.Weapons.value] or (sets.engaged[player.equipment.main] and state.CombatForm.value == player.equipment.main)) and not data.equipment.aeonic_weapons:contains(player.equipment.main)) then
+			classes.CustomMeleeGroups:append('AM')
+		end
+	elseif buffactive['Aftermath'] and (sets.engaged[state.Weapons.value] or (sets.engaged[player.equipment.main] and state.CombatForm.value == player.equipment.main)) then
 		classes.CustomMeleeGroups:append('AM')
 	end
 end

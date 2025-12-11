@@ -92,7 +92,6 @@ function job_setup()
 	state.AutoPrestoMode = M(true, 'Auto Presto Mode')
 	state.DanceStance = M{['description']='Dance Stance','None','Saber Dance','Fan Dance'}
 
-
 	autows = "Rudra's Storm"
 	autofood = 'Soy Ramen'
 
@@ -102,7 +101,7 @@ function job_setup()
 		if sets.precast.Step and sets.precast.Step.feet and standardize_set(sets.precast.Step).feet:startswith('Horos T. Shoes') then
 			if sets.precast.Step.feet:endswith('+2') then
 				tp_reduction = 10
-			elseif sets.precast.Step.feet:endswith('+3') then
+			elseif sets.precast.Step.feet:endswith('+3') or sets.precast.Step.feet:endswith('+4') then
 				tp_reduction = 20
 			end
 		end

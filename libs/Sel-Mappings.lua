@@ -377,6 +377,12 @@ data.equipment.relic_weapons = S{'Spharai','Mandau','Excalibur','Ragnarok','Gutt
 data.equipment.aeonic_weapons = S{'Dojikiri Yasutsuna','Chango','Trishula','Sequence','Aeneas','Lionheart',
 	'Godhands','Tri-Edge','Anguta','Heishi Shorinken','Tishtrya', 'Fail-Not','Fomalhaut'}
 	
+data.equipment.prime_weapons = S{'Varga Purnikawa','Mpu Gandring','Caliburnus','Helheim','Spalirisos','Laphria',
+	'Foenaria','Gae Buide','Dokoku','Kusanagi','Lorg Mor','Opashoro','Pinaka','Earp'}
+
+data.equipment.empyrean_weapons = S{'Verethragna','Twashtar','Almace','Caladbolg','Farsha','Ukonvasara',
+	'Redemption','Rhongomiant','Kannagi','Masamune','Gambanteinn','Hvergelmir','Gandiva','Armageddon'}
+	
 data.equipment.aftermath_weapons = S{'Conqueror','Glanzfaust','Yagrush','Laevateinn','Murgleis','Vajra','Burtgang','Liberator',
 	'Aymur','Carnwenhan','Gastraphetes','Kogarasumaru','Nagi','Ryunohige','Nirvana','Tizona','Death Penalty','Kenkonken',
 	'Terpsichore','Tupsimati','Idris','Epeolatry','Varga Purnikawa','Mpu Gandring','Caliburnus','Helheim','Spalirisos','Laphria',

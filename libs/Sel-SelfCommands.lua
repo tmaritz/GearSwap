@@ -424,12 +424,12 @@ function handle_update(cmdParams)
 		handle_equipping_gear(player.status)
 	end
 
+	update_job_states()
+	update_combat_form()
+	
 	if cmdParams[1] == 'user' then
 		display_current_state()
 	end
-
-	update_job_states()
-	update_combat_form()
 end
 
 
@@ -1578,7 +1578,7 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
-	table.vprint(buff_table_by_name.Minuet)
+	add_to_chat(state.CombatForm.value)
 	if user_test then
 		user_test(cmdParams)
 	elseif job_test then
