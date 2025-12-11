@@ -61,8 +61,6 @@ function job_setup()
 	state.Buff['Blood Rage'] = buffactive['Blood Rage'] or false
 	state.Buff.Retaliation = buffactive['Retaliation'] or false
 	state.Buff.Restraint = buffactive['Restraint'] or false
-	state.Buff['Aftermath'] = buffactive['Aftermath'] or false
-	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 	state.Buff['Third Eye'] = buffactive['Third Eye'] or false
 	state.Buff.Hasso = buffactive.Hasso or false
 	state.Buff.Seigan = buffactive.Seigan or false
@@ -111,7 +109,7 @@ function job_precast(spell, spellMap, eventArgs)
 				windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
 				add_tick_delay(1.1)
 				return
-			elseif state.Buff['SJ Restriction'] then
+			elseif buffactive['SJ Restriction'] then
 				return
 			elseif player.sub_job == 'SAM' and player.tp > 1850 and abil_recasts[140] < latency then
 				eventArgs.cancel = true
@@ -222,8 +220,6 @@ end
 
 -- Called by the 'update' self-command.
 function job_update(cmdParams, eventArgs)
-	update_melee_groups()
-	
 	if player.sub_job ~= 'SAM' and state.Stance.value ~= "None" then
 		state.Stance:set("None")
 	end
@@ -243,33 +239,20 @@ function job_buff_change(buff, gain)
 			lastwarcry = ''
 		end
 	end
-	update_melee_groups()
 end
 
-function update_melee_groups()
-	if player then
-		classes.CustomMeleeGroups:clear()
-		
-		if data.areas.adoulin:contains(world.area) and buffactive.Ionis then
-			classes.CustomMeleeGroups:append('Adoulin')
-		end
-		
-		if state.Buff['Brazen Rush'] or state.Buff["Warrior's Charge"] then
-			classes.CustomMeleeGroups:append('Charge')
-		end
-		
-		if state.Buff['Mighty Strikes'] then
-			classes.CustomMeleeGroups:append('Mighty')
-		end
-		
-		if (player.equipment.main == "Conqueror" and state.Buff['Aftermath: Lv.3']) or ((player.equipment.main == "Bravura" or player.equipment.main == "Ragnarok") and state.Buff['Aftermath']) then
-				classes.CustomMeleeGroups:append('AM')
-		end
+function job_update_melee_groups()
+	if state.Buff['Brazen Rush'] or state.Buff["Warrior's Charge"] then
+		classes.CustomMeleeGroups:append('Charge')
+	end
+	
+	if state.Buff['Mighty Strikes'] then
+		classes.CustomMeleeGroups:append('Mighty')
 	end
 end
 
 function check_hasso()
-	if player.sub_job == 'SAM' and player.status == 'Engaged' and wielding() == 'Two-Handed' and state.Stance.value ~= 'None' and not (state.Buff.Hasso or state.Buff.Seigan or state.Buff['SJ Restriction'] or silent_check_amnesia()) then
+	if player.sub_job == 'SAM' and player.status == 'Engaged' and wielding() == 'Two-Handed' and state.Stance.value ~= 'None' and not (state.Buff.Hasso or state.Buff.Seigan or buffactive['SJ Restriction'] or silent_check_amnesia()) then
 		
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 		

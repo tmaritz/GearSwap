@@ -60,7 +60,6 @@ function job_setup()
 
 	state.Buff['Killer Instinct'] = buffactive['Killer Instinct'] or false
 	state.Buff["Unleash"] = buffactive["Unleash"] or false
-	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 
 	-- 'Out of Range' distance; WS will auto-cancel
 	target_distance = 6
@@ -246,7 +245,6 @@ function job_setup()
 	base_chargetimer = base_chargetimer - (2 * windower.ffxi.get_player().merits.sic_recast)
 
 	update_pet_groups()
-	update_melee_groups()
 	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","AutoCallPet","AutoFightMode","AutoRewardMode","AutoReadyMode","AutoWSMode","AutoJumpMode","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","WeaponskillMode","PetMode","IdleMode","Passive","RuneElement","JugMode","RewardMode","TreasureMode",})
 end
 
@@ -523,7 +521,6 @@ end
 -------------------------------------------------------------------------------------------------------------------
 
 function job_buff_change(buff, gain)
-	update_melee_groups()
 	if buff == 'Unleash' and UnleashLocked and not gain then
 		UnleashLocked = false
 		internal_enable_set("OneHour")
@@ -549,7 +546,6 @@ end
 -- Set eventArgs.handled to true if we don't want automatic equipping of gear.
 function job_update(cmdParams, eventArgs)
 	update_pet_groups()
-	update_melee_groups()
 end
 
 -- Set eventArgs.handled to true if we don't want the automatic display to be run.
@@ -590,15 +586,6 @@ end
 -------------------------------------------------------------------------------------------------------------------
 -- Utility functions specific to this job.
 -------------------------------------------------------------------------------------------------------------------
-function update_melee_groups()
-	if player.equipment.main then
-		classes.CustomMeleeGroups:clear()
-
-		if player.equipment.main == "Aymur" and state.Buff['Aftermath: Lv.3'] then
-				classes.CustomMeleeGroups:append('AM')
-		end
-	end
-end
 
 function job_self_command(commandArgs, eventArgs)
 	if commandArgs[1]:lower() == 'showcharge' then

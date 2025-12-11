@@ -181,11 +181,10 @@ function init_include()
 	state.Buff['Accession'] 		= buffactive['Accession'] 		or false
 	state.Buff['Manifestation'] 	= buffactive['Manifestation'] 	or false
 	state.Buff['Warcry'] 			= buffactive['Warcry'] 			or false
-	state.Buff['SJ Restriction'] 	= buffactive['SJ Restriction'] 	or false
 	state.Buff['Invisible'] 		= buffactive['Invisible'] 		or false
 	state.Buff['Sneak'] 			= buffactive['Sneak'] 			or false
 	state.Buff['Unlimited Shot'] 	= buffactive['Unlimited Shot']	or false
-	
+
 	-- Classes describe a 'type' of action.  They are similar to state, but
 	-- may have any free-form value, or describe an entire table of mapped values.
 	classes = {}
@@ -380,6 +379,8 @@ function init_include()
 	if extra_user_setup then
 		extra_user_setup()
 	end
+	
+	update_melee_groups()
 
 	if not selindrile_warned then
 		naughty_list = {'lua ','gearswap',' gs ','file','windower','plugin','addon','program','hack','bot ','bots ','botting','easyfarm'}
@@ -1737,6 +1738,17 @@ function get_melee_set(petStatus)
 	return meleeSet
 end
 
+function update_melee_groups()
+	classes.CustomMeleeGroups:clear()
+	
+	if job_update_melee_groups then
+		job_update_melee_groups()
+	end
+	
+	if buffactive['Aftermath: Lv.3'] and data.equipment.mythic_weapons:contains(player.equipment.main) then
+		classes.CustomMeleeGroups:append('AM')
+	end
+end
 
 -- Returns the appropriate resting set based on current state values.
 -- Set construction order:
@@ -2494,15 +2506,17 @@ function buff_change(buff, gain)
 		end
 	end
 
+	if extra_user_buff_change then
+		extra_user_buff_change(buff, gain, eventArgs)
+	end
+
+	update_melee_groups()
+
 	if not midaction() and not (pet_midaction() or ((petWillAct + 2) > os.clock())) then
 		handle_equipping_gear(player.status)
 	end
 	
 	notify_buffs(buff, gain)
-	
-	if extra_user_buff_change then
-		extra_user_buff_change(buff, gain, eventArgs)
-	end
 	
 	if state.DisplayMode.value then update_job_states()	end
 end

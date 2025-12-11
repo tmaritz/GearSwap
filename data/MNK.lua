@@ -52,8 +52,6 @@ end
 
 -- Setup vars that are user-independent.  state.Buff vars initialized here will automatically be tracked.
 function job_setup()
-
-	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 	state.Buff['Hundred Fists'] = buffactive['Hundred Fists'] or false
 	state.Buff['Impetus'] = buffactive['Impetus'] or false
 	state.Buff['Footwork'] = buffactive['Footwork'] or false
@@ -66,7 +64,6 @@ function job_setup()
 	
 	info.impetus_hit_count = 0
 	--windower.raw_register_event('action', on_action_for_impetus)
-	update_melee_groups()
 
 	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","AutoWSMode","AutoJumpMode","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode",})
 end
@@ -148,13 +145,6 @@ end
 -- Job-specific hooks for non-casting events.
 -------------------------------------------------------------------------------------------------------------------
 
--- Called when a player gains or loses a buff.
--- buff == buff gained or lost
--- gain == true if the buff was gained, false if it was lost.
-function job_buff_change(buff, gain)
-	update_melee_groups()
-end
-
 -------------------------------------------------------------------------------------------------------------------
 -- User code that supplements standard library decisions.
 -------------------------------------------------------------------------------------------------------------------
@@ -188,11 +178,6 @@ function job_customize_idle_set(idleSet)
 	end
 	
 	return idleSet
-end
-
--- Called by the 'update' self-command.
-function job_update(cmdParams, eventArgs)
-	update_melee_groups()
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -295,7 +280,7 @@ function job_check_buff()
 			windower.chat.input('/ja "Focus" <me>')
 			add_tick_delay()
 			return true
-		elseif player.sub_job == 'WAR' and not state.Buff['SJ Restriction'] then
+		elseif player.sub_job == 'WAR' and not buffactive['SJ Restriction'] then
 			if not buffactive.Berserk and abil_recasts[1] < latency then
 				windower.chat.input('/ja "Berserk" <me>')
 				add_tick_delay()
@@ -313,18 +298,12 @@ function job_check_buff()
 	return false
 end
 
-function update_melee_groups()
-	classes.CustomMeleeGroups:clear()
-
-	if state.Buff['Footwork'] and not buffactive['hundred fists'] then
-		classes.CustomMeleeGroups:append('Footwork')
-	end
-	
-	if player.equipment.main and player.equipment.main == "Glanzfaust" and state.Buff['Aftermath: Lv.3'] then
-		classes.CustomMeleeGroups:append('AM')
-	end
-	
+function job_update_melee_groups()
 	if state.Buff['Hundred Fists'] then
 		classes.CustomMeleeGroups:append('HF')
+	end
+
+	if state.Buff['Footwork'] then
+		classes.CustomMeleeGroups:append('Footwork')
 	end
 end

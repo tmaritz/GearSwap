@@ -95,7 +95,6 @@ function job_setup()
 
 	state.Buff["Avatar's Favor"] = buffactive["Avatar's Favor"] or false
 	state.Buff["Astral Conduit"] = buffactive["Astral Conduit"] or false
-	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 
 	avatars = S{"Carbuncle", "Fenrir", "Diabolos", "Ifrit", "Titan", "Leviathan", "Garuda", "Shiva", "Ramuh", "Odin", "Alexander", "Cait Sith", "Siren"}
 	spirits = S{"LightSpirit", "DarkSpirit", "FireSpirit", "EarthSpirit", "WaterSpirit", "AirSpirit", "IceSpirit", "ThunderSpirit"}
@@ -191,10 +190,10 @@ function job_filter_precast(spell, spellMap, eventArgs)
 		if player.tp > 999 and available_ws:contains(190) then
 			add_to_chat(122,'Not enough MP to Pact while using Conduit, using Myrkr!')
 			windower.chat.input('/ws Myrkr <me>')
-		elseif player.sub_job == 'SCH' and not state.Buff['SJ Restriction'] and buffactive['Sublimation: Complete'] then
+		elseif player.sub_job == 'SCH' and not buffactive['SJ Restriction'] and buffactive['Sublimation: Complete'] then
 			add_to_chat(122,'Not enough MP to Pact while using Conduit, using Sublimation!')
 			windower.chat.input('/ja Sublimation <me>')
-		elseif player.sub_job == 'RDM' and not state.Buff['SJ Restriction'] and abil_recasts[49] < latency and player.mp > 0 and player.hp > 400 and state.AutoConvert.value then
+		elseif player.sub_job == 'RDM' and not buffactive['SJ Restriction'] and abil_recasts[49] < latency and player.mp > 0 and player.hp > 400 and state.AutoConvert.value then
 			add_to_chat(122,'Not enough MP to Pact while using Conduit, Converting!')
 			eventArgs.cancel = true
 			windower.chat.input('/ja Convert <me>')
@@ -237,7 +236,7 @@ function job_aftercast(spell, spellMap, eventArgs)
 				internal_enable_set("OneHour")
 			end
 			local currentSet = (get_pet_midcast_set(spell, spellMap))
-			if state.Buff['Aftermath: Lv.3'] then
+			if buffactive['Aftermath: Lv.3'] then
 				if sets.midcast.Pet[spell.english] and sets.midcast.Pet[spell.english].AM then
 					currentSet = set_combine(currentSet, sets.midcast.Pet[spell.english].AM)
 				elseif spellMap == 'PhysicalBloodPactRage' and sets.midcast.Pet.PhysicalBloodPactRage.AM then

@@ -79,7 +79,6 @@ function job_setup()
 	state.CarnMode = M{'Default','Always','300','1000','Never'}
 	state.Pianissimode = M(false, 'Use Miracle Cheer when Pianissimo is active.')
 
-	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 	state.Buff['Pianissimo'] = buffactive['Pianissimo'] or false
 	state.Buff['Nightingale'] = buffactive['Nightingale'] or false
 	state.Buff['Soul Voice'] =  buffactive['Soul Voice'] or false
@@ -108,7 +107,6 @@ function job_setup()
 	current_brd_buffs = 0
 	set_current_brd_buffs()
 
-	update_melee_groups()
 	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","AutoSongMode","AutoDummyMode","AutoWSMode","AutoNukeMode","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","ExtraSongsMode","CastingMode","CarnMode","TreasureMode",})
 end
 
@@ -302,8 +300,6 @@ function job_buff_change(buff, gain)
 			current_brd_buffs = current_brd_buffs - 1
 		end
 	end
-
-	update_melee_groups()
 end
 
 function job_get_spell_map(spell, default_spell_map)
@@ -328,12 +324,6 @@ end
 function job_zone_change(new_id,old_id)
 	state.AutoSongMode:reset()
 end
-
--- Called by the 'update' self-command.
-function job_update(cmdParams, eventArgs)
-	update_melee_groups()
-end
-
 
 -- Modify the default idle set after it was constructed.
 function job_customize_idle_set(idleSet)
@@ -389,22 +379,6 @@ function get_song_class(spell)
 	else
 		return 'SongEffect'
 	end
-end
-
--- Examine equipment to determine what our current TP weapon is.
-function update_melee_groups()
-	if player.equipment.main then
-		classes.CustomMeleeGroups:clear()
-
-		if player.equipment.main == "Carnwenhan" and state.Buff['Aftermath: Lv.3'] then
-				classes.CustomMeleeGroups:append('AM')
-		end
-	end
-end
-
-	-- Allow jobs to override this code
-function job_self_command(commandArgs, eventArgs)
-
 end
 
 function job_tick()

@@ -361,7 +361,7 @@ function check_arts()
 			add_tick_delay()
 			return true
 
-		elseif player.sub_job == 'SCH' and not (state.Buff['SJ Restriction'] or arts_active()) and abil_recasts[228] < latency then
+		elseif player.sub_job == 'SCH' and not (buffactive['SJ Restriction'] or arts_active()) and abil_recasts[228] < latency then
 			send_command('@input /ja "Light Arts" <me>')
 			add_tick_delay()
 			return true

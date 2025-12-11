@@ -58,8 +58,7 @@ function job_setup()
 	state.Buff.Stymie = buffactive.Stymie or false
 	state.Buff['Elemental Seal'] = buffactive['Elemental Seal'] or false
 	state.Buff.Chainspell = buffactive.Chainspell or false
-	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
-	
+
 	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage'}
 	
 	-- Whether to swap weapons for Temper/Phalanx under a certain tp threshhold even when weapons are locked.
@@ -81,7 +80,6 @@ function job_setup()
 		end
 	end
 
-	update_melee_groups()
 	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","AutoWSMode","AutoNukeMode","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","RecoverMode","ElementalMode","CastingMode","TreasureMode"})
 end
 
@@ -281,20 +279,11 @@ function job_buff_change(buff, gain)
 			enspell = ''
 		end
 	end
-	update_melee_groups()
 end
 
 -------------------------------------------------------------------------------------------------------------------
 -- Job-specific hooks for non-casting events.
 -------------------------------------------------------------------------------------------------------------------
-
-function job_update(cmdParams, eventArgs)
-	update_melee_groups()
-end
-
-	-- Allow jobs to override this code
-function job_self_command(commandArgs, eventArgs)
-end
 
 -------------------------------------------------------------------------------------------------------------------
 -- User code that supplements standard library decisions.
@@ -469,7 +458,7 @@ function check_arts()
 			end
 		end
 
-		if player.sub_job == 'SCH' and not (state.Buff['SJ Restriction'] or arts_active()) and abil_recasts[228] < latency then	
+		if player.sub_job == 'SCH' and not (buffactive['SJ Restriction'] or arts_active()) and abil_recasts[228] < latency then	
 			windower.chat.input('/ja "Light Arts" <me>')	
 			add_tick_delay()
 			return true
@@ -480,9 +469,7 @@ function check_arts()
 	return false
 end
 
-function update_melee_groups()
-	classes.CustomMeleeGroups:clear()
-	
+function job_update_melee_groups()
 	if enspell ~= '' then
 		if enspell:endswith('II') then
 			classes.CustomMeleeGroups:append('Enspell2')
@@ -490,10 +477,6 @@ function update_melee_groups()
 			classes.CustomMeleeGroups:append('Enspell')
 		end
 	end
-	
-	if player.equipment.main and player.equipment.main == "Murgleis" and state.Buff['Aftermath: Lv.3'] then
-		classes.CustomMeleeGroups:append('AM')
-	end	
 end
 
 buff_spell_lists = {

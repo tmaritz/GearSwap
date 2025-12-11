@@ -83,7 +83,6 @@ function job_setup()
 	state.Buff['Contradance'] = buffactive['Contradance'] or false
 	state.Buff['Saber Dance'] = buffactive['Saber Dance'] or false
 	state.Buff['Fan Dance'] = buffactive['Fan Dance'] or false
-	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 
 	state.MainStep = M{['description']='Main Step', 'Box Step','Quickstep','Feather Step','Stutter Step'}
 	state.AltStep = M{['description']='Alt Step', 'Feather Step','Quickstep','Stutter Step','Box Step'}
@@ -113,7 +112,6 @@ function job_setup()
 
 	step_feet_reduction = calculate_step_feet_reduction()
 
-	update_melee_groups()
 	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","AutoWSMode","AutoJumpMode","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","DanceStance","Passive","RuneElement","TreasureMode",})
 end
 
@@ -149,13 +147,13 @@ function job_precast(spell, spellMap, eventArgs)
 			windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
 			add_tick_delay(1.1)
 			return
-		elseif player.sub_job == 'SAM' and not state.Buff['SJ Restriction'] and player.tp > 1850 and abil_recasts[140] < latency then
+		elseif player.sub_job == 'SAM' and not buffactive['SJ Restriction'] and player.tp > 1850 and abil_recasts[140] < latency then
 			eventArgs.cancel = true
 			windower.chat.input('/ja "Sekkanoki" <me>')
 			windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
 			add_tick_delay(1.1)
 			return
-		elseif player.sub_job == 'SAM' and not state.Buff['SJ Restriction'] and abil_recasts[134] < latency then
+		elseif player.sub_job == 'SAM' and not buffactive['SJ Restriction'] and abil_recasts[134] < latency then
 			eventArgs.cancel = true
 			windower.chat.input('/ja "Meditate" <me>')
 			windower.chat.input:schedule(1.1,'/ws "'..spell.english..'" '..spell.target.raw..'')
@@ -223,23 +221,6 @@ end
 -------------------------------------------------------------------------------------------------------------------
 -- Job-specific hooks for non-casting events.
 -------------------------------------------------------------------------------------------------------------------
-
--- Called when a player gains or loses a buff.
--- buff == buff gained or lost
--- gain == true if the buff was gained, false if it was lost.
-function job_buff_change(buff,gain)
-	update_melee_groups()
-end
-
--------------------------------------------------------------------------------------------------------------------
--- User code that supplements standard library decisions.
--------------------------------------------------------------------------------------------------------------------
-
--- Called by the default 'update' self-command.
-function job_update(cmdParams, eventArgs)
-	update_melee_groups()
-end
-
 
 function job_customize_idle_set(idleSet)
 	return idleSet
@@ -329,15 +310,11 @@ end
 -- Utility functions specific to this job.
 -------------------------------------------------------------------------------------------------------------------
 
-function update_melee_groups()
-	classes.CustomMeleeGroups:clear()
-
+function job_update_melee_groups()
 	if state.Buff['Saber Dance'] then
 		classes.CustomMeleeGroups:append('Saber')
-	end
-
-	if player.equipment.main and player.equipment.main == "Terpsichore" and state.Buff['Aftermath: Lv.3'] then
-		classes.CustomMeleeGroups:append('AM')
+	elseif state.Buff['Fan Dance'] then
+		classes.CustomMeleeGroups:append('Fan')
 	end
 end
 
@@ -359,7 +336,7 @@ function job_check_buff()
 			return true
 		end
 
-		if in_combat and not state.Buff['SJ Restriction'] then
+		if in_combat and not buffactive['SJ Restriction'] then
 			if player.sub_job == 'WAR' and not buffactive.Berserk and abil_recasts[1] < latency then
 				windower.chat.input('/ja "Berserk" <me>')
 				add_tick_delay()
