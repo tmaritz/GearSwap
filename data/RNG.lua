@@ -286,6 +286,7 @@ function job_update(cmdParams, eventArgs)
 			send_command('@input /ja "Velocity Shot" <me>')
 		end
 	end
+	check_ranged_weapon_type()
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -381,7 +382,9 @@ function check_ranged_weapon_type()
 		elseif sets.weapons[state.Weapons.value].ranged then
 			ranged_weapon = sets.weapons[state.Weapons.value].ranged
 		end
-	elseif player.equipment.range then
+	end
+	
+	if not ranged_weapon and player.equipment.range then
 		ranged_weapon = player.equipment.range
 	else
 		RangedWeaponType = 'None'
@@ -395,7 +398,7 @@ function check_ranged_weapon_type()
 end
 
 function set_ranged_weapon_type(ranged_weapon_name)
-	local ranged_weapon_id = get_item_id_by_name(ranged_weapon_name)
+	local ranged_weapon_id = get_item_id_by_name(ranged_weapon_name) or get_item_id_by_name(player.equipment.range)
 
 	if res.items[ranged_weapon_id] and res.items[ranged_weapon_id].range_type then
 		RangedWeaponType = res.items[ranged_weapon_id].range_type

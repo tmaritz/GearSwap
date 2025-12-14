@@ -783,7 +783,7 @@ function handle_actions(spell, action)
 		if not eventArgs.cancel and _G['job_post_'..action] then
 			_G['job_post_'..action](spell, spellMap, eventArgs)
 		end
-		
+
 		if not eventArgs.cancel and _G['user_job_post_'..action] then
 			_G['user_job_post_'..action](spell, spellMap, eventArgs)
 		end
