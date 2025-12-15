@@ -55,6 +55,7 @@ function job_setup()
 
 	state.AutoAmmoMode = M(true,'Auto Ammo Mode')
 	state.UseDefaultAmmo = M(true,'Use Default Ammo')
+	state.TrueShotMode = M(true,'True Shot Mode')
 	state.Buff.Barrage = buffactive.Barrage or false
 	state.Buff.Camouflage = buffactive.Camouflage or false
 	state.Buff['Double Shot'] = buffactive['Double Shot'] or false
@@ -251,6 +252,9 @@ function job_post_midcast(spell, spellMap, eventArgs)
 				end
 			end
 		end
+		if state.TrueShotMode.value and sets.TrueShot and check_sweetspot(spell) then
+			equip(sets.TrueShot)
+		end
 		if state.Buff.Barrage and sets.buff.Barrage then
 			equip(sets.buff.Barrage)
 		end
@@ -346,10 +350,6 @@ function do_ammo_checks(spell, spellMap, eventArgs)
 	end
 end
 
-function job_midcast(spell, action, spellMap, eventArgs)
-
-end
-
 function job_aftercast(spell, spellMap, eventArgs)
 	if state.UseDefaultAmmo.value and player.equipment.range and RangedWeaponType ~= 'None' and DefaultAmmo[RangedWeaponType].Default then
 		equip({ammo=DefaultAmmo[RangedWeaponType].Default})
@@ -404,5 +404,23 @@ function set_ranged_weapon_type(ranged_weapon_name)
 		RangedWeaponType = res.items[ranged_weapon_id].range_type
 	else
 		RangedWeaponType = 'None'
+	end
+end
+
+do
+	local sweetspotmin = {["Bow"] = 6.02, ["Gun"] = 3.0209, ["Crossbow"] = 5.0007}
+	local sweetspotmax = {["Bow"] = 9.5199, ["Gun"] = 4.3189, ["Crossbow"] = 8.3999}
+
+	function check_sweetspot(spell)
+		local modified_sweetspot_min = player.model_size + spell.target.model_size + sweetspotmin[RangedWeaponType]
+		local modified_sweetspot_max = player.model_size + spell.target.model_size + sweetspotmax[RangedWeaponType]
+
+		if (spell.target.distance >= modified_sweetspot_min) and (spell.target.distance <= modified_sweetspot_max) then
+			add_to_chat('sweet')
+			return true
+		else
+			add_to_chat('unsweet')
+			return false
+		end
 	end
 end
