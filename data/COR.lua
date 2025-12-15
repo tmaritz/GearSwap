@@ -399,10 +399,8 @@ function check_sweetspot(spell)
 	local modified_sweetspot_max = player.model_size + spell.target.model_size + 4.3189
 
 	if (spell.target.distance >= modified_sweetspot_min) and (spell.target.distance <= modified_sweetspot_max) then
-		add_to_chat('sweet')
 		return true
 	else
-		add_to_chat('unsweet')
 		return false
 	end
 end
