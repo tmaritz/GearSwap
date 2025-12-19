@@ -216,8 +216,8 @@ function job_post_midcast(spell, spellMap, eventArgs)
 				if state.Buff.Stymie then
 					if sets.midcast[spell.english] and sets.midcast[spell.english].Stymie then
 						equip(sets.midcast[spell.english].Stymie)
-					elseif sets.Buff.Stymie then
-						equip(sets.Buff.Stymie)
+					elseif sets.buff.Stymie then
+						equip(sets.buff.Stymie)
 					end
 				end
 
