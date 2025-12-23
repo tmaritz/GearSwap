@@ -158,6 +158,9 @@ function handle_smartstun(cmdParams)
 	if cmdParams[1] then
 		if cmdParams[1] == '<me>' or cmdParams[1] == 'me' then
 			target = player.id
+		elseif cmdParams[1] == '<bt>' or cmdParams[1] == 'bt' then
+			local bt = windower.ffxi.get_mob_by_target('bt') or false
+			target = bt and bt.id or false
 		elseif cmdParams[1] == '<t>' or cmdParams[1] == 't' then
 			if player.target.type ~= 'NONE' and player.target.id then
 				target = player.target.id
@@ -640,6 +643,9 @@ function handle_elemental(cmdParams)
 	if cmdParams[1] then
 		if cmdParams[1] == '<me>' or cmdParams[1] == 'me' then
 			target = player.id
+		elseif cmdParams[1] == '<bt>' or cmdParams[1] == 'bt' then
+			local bt = windower.ffxi.get_mob_by_target('bt') or false
+			target = bt and bt.id or false
 		elseif cmdParams[1] == '<t>' or cmdParams[1] == 't' then
 			if player.target.type ~= 'NONE' and player.target.id then
 				target = player.target.id
@@ -1578,7 +1584,6 @@ end
 
 -- A function for testing lua code.  Called via "gs c test".
 function handle_test(cmdParams)
-	add_to_chat(state.CombatForm.value)
 	if user_test then
 		user_test(cmdParams)
 	elseif job_test then

@@ -71,6 +71,9 @@ function job_setup()
 		if cmdParams[1] then
 			if cmdParams[1] == '<me>' or cmdParams[1] == 'me' then
 				cureTarget = player
+			elseif cmdParams[1] == '<bt>' or cmdParams[1] == 'bt' then
+				local bt = windower.ffxi.get_mob_by_target('bt') or false
+				target = bt and bt.id or false
 			elseif cmdParams[1] == '<t>' or cmdParams[1] == 't' then
 				cureTarget = player.target
 			elseif tonumber(cmdParams[1]) then
@@ -267,7 +270,7 @@ function job_get_spell_map(spell, default_spell_map)
 			if state.Weapons.value ~= 'None' and not state.UnlockWeapons.value then
 				if state.Buff['Afflatus Solace'] then
 					if world.weather_element == 'Light' then
-						return '"MeleeLightWeatherCureSolace'
+						return 'MeleeLightWeatherCureSolace'
 					elseif world.day_element == 'Light' then
 						return 'MeleeLightDayCureSolace'
 					else
