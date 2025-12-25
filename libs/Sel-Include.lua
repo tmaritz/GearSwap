@@ -106,7 +106,7 @@ function init_include()
 	state.CombatForm			= M{['description'] = 'Combat Form', ['string']=''}
 	state.CombatWeapon			= M{['description'] = 'Combat Weapon', ['string']=''}
 	state.CraftQuality			= M{['description'] = 'Crafting Quality', 'Normal','HQ','NQ'}
-	state.CraftingMode			= M{['description'] = 'Crafting Mode', 'None','Alchemy','Bonecraft','Clothcraft','Cooking','Fishing','Gathering','Goldsmithing','Leathercraft','Smithing','Woodworking'}
+	state.CraftingMode			= M{['description'] = 'Crafting Mode', 'None','Alchemy','Bonecraft','Clothcraft','Cooking','Fishing','Gathering','Goldsmithing','Leathercraft','Smithing','Synergy','Woodworking'}
 	state.DefenseMode			= M{['description'] = 'Defense Mode', 'None','Physical','Magical','Resist'}
 	state.ElementalMode			= M{['description'] = 'Elemental Mode', 'Fire','Ice','Wind','Earth','Lightning','Water','Light','Dark'}
 	state.ExtraDefenseMode		= M{['description'] = 'Extra Defense Mode', 'None'}
