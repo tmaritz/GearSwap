@@ -98,19 +98,19 @@ function job_filtered_action(spell, eventArgs)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Shining Blade" then
-				send_command('@input /ws "Shining Strike" '..spell.target.raw)
+				windower.chat.input('/ws "Shining Strike" '..spell.target.raw)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Flat Blade" then
-				send_command('@input /ws "Brainshaker" '..spell.target.raw)
+				windower.chat.input('/ws "Brainshaker" '..spell.target.raw)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Chant Du Cygne" then
-				send_command('@input /ws "True Strike" '..spell.target.raw)
+				windower.chat.input('/ws "True Strike" '..spell.target.raw)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Sanguine Blade" then
-				send_command('@input /ws "Starlight" '..spell.target.raw)
+				windower.chat.input('/ws "Starlight" <me>')
 				cancel_spell()
 				eventArgs.cancel = true
 			end
@@ -120,15 +120,15 @@ function job_filtered_action(spell, eventArgs)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Circle Blade" then
-				send_command('@input /ws "Aeolian Edge" '..spell.target.raw)
+				windower.chat.input('/ws "Aeolian Edge" '..spell.target.raw)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Chant Du Cygne" then
-				send_command('@input /ws "Evisceration" '..spell.target.raw)
+				windower.chat.input('/ws "Evisceration" '..spell.target.raw)
 				cancel_spell()
 				eventArgs.cancel = true
 			elseif spell.english == "Sanguine Blade" then
-				send_command('@input /ws "Energy Drain" '..spell.target.raw)
+				windower.chat.input('/ws "Energy Drain" '..spell.target.raw)
 				cancel_spell()
 				eventArgs.cancel = true
 			end		

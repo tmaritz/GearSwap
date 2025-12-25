@@ -850,6 +850,7 @@ function filtered_action(spell, eventArgs)
 		extra_default_filtered_action(spell, eventArgs)
 	end
 
+	cancel_spell()
 end
 
 function pretarget(spell)
@@ -887,7 +888,12 @@ end
 --------------------------------------
 
 function default_filtered_action(spell, eventArgs)
-	if spell.english == 'Dispelga' then
+	if spell.type == 'WeaponSkill' then
+		if spell.targets.Self and spell.target.type ~= 'SELF' then
+			windower.chat.input('/ws "'..spell.english..'" <me>')
+			eventArgs.cancel = true
+		end
+	elseif spell.english == 'Dispelga' then
 		if state.Weapons.value ~= 'None' and not state.UnlockWeapons.value and player.equipment.main ~= 'Daybreak' then
 			windower.add_to_chat(123,"You can't cast Dispelga, your weapons are locked without Daybreak equipped.")
 		end
@@ -896,42 +902,36 @@ function default_filtered_action(spell, eventArgs)
 		useItemName = 'Warp Ring'
 		useItemSlot = 'ring2'
 		add_to_chat(217,"You can't cast warp, attempting to use Warp Ring instead, /heal to cancel.")
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Retrace' then
 		useItem = true
 		useItemName = 'Instant Retrace'
 		useItemSlot = 'item'
 		add_to_chat(217,"You can't cast Retrace, attempting to use a Retrace Scroll instead, /heal to cancel.")
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Teleport-Holla' then
 		useItem = true
 		useItemName = 'Dim. Ring (Holla)'
 		useItemSlot = 'ring2'
 		add_to_chat(217,"You can't cast Teleport-Holla, attempting to use Dimensional Ring instead, /heal to cancel.")
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Reraise' then
 		useItem = true
 		useItemName = 'Dusty Reraise'
 		useItemSlot = 'item'
 		add_to_chat(217,"You can't cast Reraise, attempting to use Instant Reraise instead, /heal to cancel.")
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Teleport-Dem' then
 		useItem = true
 		useItemName = 'Dim. Ring (Dem)'
 		useItemSlot = 'ring2'
 		add_to_chat(217,"You can't cast Teleport-Dem, attempting to use Dimensional Ring instead, /heal to cancel.")
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Teleport-Mea' then
 		useItem = true
 		useItemName = 'Dim. Ring (Mea)'
 		useItemSlot = 'ring2'
 		add_to_chat(217,"You can't cast Teleport-Mea, attempting to use Dimensional Ring instead, /heal to cancel.")
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Invisible' then
 		if player.main_job == 'DNC' or player.sub_job == 'DNC' then
@@ -947,7 +947,6 @@ function default_filtered_action(spell, eventArgs)
 			windower.chat.input('/item "Rainbow Powder" <me>')
 			add_to_chat(217,"You can't cast Invisible, attempting to use Prism Powder instead.")
 		end
-		cancel_spell()
 		eventArgs.cancel = true
 	elseif spell.english == 'Sneak' then
 		if player.main_job == 'DNC' or player.sub_job == 'DNC' then
@@ -960,7 +959,6 @@ function default_filtered_action(spell, eventArgs)
 			windower.chat.input('/item "Silent Oil" <me>')
 			add_to_chat(217,"You can't cast Sneak, attempting to use Silent Oil instead.")
 		end
-		cancel_spell()
 		eventArgs.cancel = true
 	end
 end
@@ -971,8 +969,6 @@ function extra_default_filtered_action(spell, eventArgs)
 	elseif spell.action_type == 'Magic' and not silent_can_cast(spell.name) and stepdown(spell, eventArgs) then
 	elseif not can_use(spell) then
 	end
-	cancel_spell()
-	eventArgs.cancel = true
 end
 
 function default_pretarget(spell, spellMap, eventArgs)
