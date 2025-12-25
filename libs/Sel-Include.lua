@@ -889,10 +889,7 @@ end
 
 function default_filtered_action(spell, eventArgs)
 	if spell.type == 'WeaponSkill' then
-		if spell.targets.Self and spell.target.type ~= 'SELF' then
-			windower.chat.input('/ws "'..spell.english..'" <me>')
-			eventArgs.cancel = true
-		end
+	elseif spell.type == 'JobAbility' then
 	elseif spell.english == 'Dispelga' then
 		if state.Weapons.value ~= 'None' and not state.UnlockWeapons.value and player.equipment.main ~= 'Daybreak' then
 			windower.add_to_chat(123,"You can't cast Dispelga, your weapons are locked without Daybreak equipped.")
@@ -1318,6 +1315,7 @@ function filter_precast(spell, spellMap, eventArgs)
 		if check_warps(spell, spellMap, eventArgs) then return end
 	elseif spell.action_type == 'Ability' or spell.type == 'WeaponSkill' then
 		if check_amnesia(spell, spellMap, eventArgs) then return end
+		if check_action_targets(spell, spellMap, eventArgs) then return end
 		if refine_waltz(spell, spellMap, eventArgs) then return end
 		if check_abilities(spell, spellMap, eventArgs) then return end
 	end

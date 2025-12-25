@@ -1339,6 +1339,15 @@ function check_spell_targets(spell, spellMap, eventArgs)
 	end
 end
 
+function check_action_targets(spell, spellMap, eventArgs)
+	if state.AdjustTargets.value and spell.targets.Self and spell.target.type ~= 'SELF' then
+		cancel_spell()
+		eventArgs.cancel = true
+		windower.chat.input(spell.prefix..' "'..spell.english..'" <me>')
+		return true
+	end
+end
+
 function check_abilities(spell, spellMap, eventArgs)
 	if spell.action_type == 'Ability' then
 		if spell.english == 'Seigan' then
