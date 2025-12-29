@@ -818,6 +818,8 @@ end
 --------------------------------------
 
 function filtered_action(spell, eventArgs)
+	if spell.action_type == 'Item' and world.area == "Mog Garden" then return end
+
 	local eventArgs = {cancel = false}
 
 	-- Check users action filtering
@@ -850,9 +852,7 @@ function filtered_action(spell, eventArgs)
 		extra_default_filtered_action(spell, eventArgs)
 	end
 
-	if not (spell.action_type == 'Item' and world.area == "Mog Garden") then
-		cancel_spell()
-	end
+	cancel_spell()
 end
 
 function pretarget(spell)
