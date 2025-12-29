@@ -850,7 +850,9 @@ function filtered_action(spell, eventArgs)
 		extra_default_filtered_action(spell, eventArgs)
 	end
 
-	cancel_spell()
+	if not (spell.action_type == 'Item' and world.area == "Mog Garden") then
+		cancel_spell()
+	end
 end
 
 function pretarget(spell)
@@ -961,9 +963,7 @@ function default_filtered_action(spell, eventArgs)
 end
 
 function extra_default_filtered_action(spell, eventArgs)
-	if spell.action_type == 'Item' and world.area == "Mog Garden" then
-		return
-	elseif spell.action_type == 'Magic' and not silent_can_cast(spell.name) and stepdown(spell, eventArgs) then
+	if spell.action_type == 'Magic' and not silent_can_cast(spell.name) and stepdown(spell, eventArgs) then
 	elseif not can_use(spell) then
 	end
 end
