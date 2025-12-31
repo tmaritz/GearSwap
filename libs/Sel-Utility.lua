@@ -1340,12 +1340,20 @@ function check_spell_targets(spell, spellMap, eventArgs)
 end
 
 function check_action_targets(spell, spellMap, eventArgs)
-	if state.AdjustTargets.value and spell.targets.Self and spell.target.type ~= 'SELF' then
+	if state.AdjustTargets.value and not spell.targets.Enemy and spell.target.type == 'MONSTER' then
 		cancel_spell()
 		eventArgs.cancel = true
-		windower.chat.input(spell.prefix..' "'..spell.english..'" <me>')
+		
+		if spell.targets.Ally then
+			windower.chat.input('/ma "'..spell.name..'" <stal>')
+		elseif spell.targets.Party then
+			windower.chat.input('/ma "'..spell.name..'" <stpt>')
+		elseif spell.targets.Self then
+			windower.chat.input('/ma "'..spell.name..'" <me>')
+		end
 		return true
 	end
+	return false
 end
 
 function check_abilities(spell, spellMap, eventArgs)
