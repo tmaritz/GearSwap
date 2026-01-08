@@ -86,7 +86,6 @@ function job_setup()
 	PupFlashRecast = 38
 	PupVokeRecast = 23
 
-	update_pet_mode()
 	init_job_states({"Capacity","AutoFoodMode","AutoTrustMode","AutoPuppetMode","PetWSGear","AutoRepairMode","AutoWSMode","AutoJumpMode","AutoShadowMode","AutoStunMode","AutoDefenseMode"},{"AutoBuffMode","AutoSambaMode","AutoRuneMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode","PetMode"})
 end
 
@@ -432,7 +431,7 @@ function check_maneuver()
 		for i = 1,8 do
 			local maneuver
 			if state.AutoManeuvers.value == 'Default' then
-				if defaultManeuvers[state.PetMode.Value] == nil then
+				if not defaultManeuvers[state.PetMode.Value] then
 					maneuver = defaultManeuvers[get_pet_mode()][i]
 				else
 					maneuver = defaultManeuvers[state.PetMode.Value][i]
