@@ -9,7 +9,7 @@ function user_job_setup()
 	state.PetMode = M{['description']='Pet Mode', 'None','Melee','Ranged','HybridRanged','Bruiser','Tank','LightTank','Magic','Heal','Nuke'}
 	state.AutoRepairMode = M(false, 'Auto Repair Mode')
 	state.AutoDeployMode = M(true, 'Auto Deploy Mode')
-	state.AutoPetMode 	 = M(false, 'Auto Pet Mode')
+	state.AutoPetMode 	 = M(true, 'Auto Pet Mode')
 	state.PetWSGear		 = M(true, 'Pet WS Gear')
 	state.PetEnmityGear	 = M(false, 'Pet Enmity Gear')
 	
