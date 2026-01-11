@@ -808,6 +808,7 @@ spell_stepdown = {
 	['Water Threnody II'] = 'Water Threnody',
 	['Light Threnody II'] = 'Light Threnody',
 	['Dark Threnody II'] = 'Dark Threnody',
+	['Tonko: Ni'] = 'Tonko: Ichi',
 }
 
 item_stepdown = {

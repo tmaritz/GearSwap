@@ -933,10 +933,10 @@ function default_filtered_action(spell, eventArgs)
 		add_to_chat(217,"You can't cast Teleport-Mea, attempting to use Dimensional Ring instead, /heal to cancel.")
 		eventArgs.cancel = true
 	elseif spell.english == 'Invisible' then
-		if player.main_job == 'DNC' or player.sub_job == 'DNC' then
+		if (player.main_job == 'DNC' or player.sub_job == 'DNC') and windower.ffxi.get_ability_recasts()[218] < 3 then
 			windower.chat.input('/ja "Spectral Jig" <me>')
 			add_to_chat(217,"You can't cast Invisible, attempting to use Spectral Jig instead.")
-		elseif player.main_job == 'NIN' or player.sub_job == 'NIN' then
+		elseif (player.main_job == 'NIN' or player.sub_job == 'NIN') and (windower.ffxi.get_spell_recasts()[354] < spell_latency or windower.ffxi.get_spell_recasts()[353] < spell_latency) then
 			windower.chat.input('/ma "Tonko: Ni" <me>')
 			add_to_chat(217,"You can't cast Invisible, attempting to use Tonko: Ni instead.")
 		elseif item_available('Prism Powder') then
@@ -945,18 +945,22 @@ function default_filtered_action(spell, eventArgs)
 		elseif item_available('Rainbow Powder') then
 			windower.chat.input('/item "Rainbow Powder" <me>')
 			add_to_chat(217,"You can't cast Invisible, attempting to use Prism Powder instead.")
+		else
+			add_to_chat(123,"All attempts to use [Invisible] failed.")
 		end
 		eventArgs.cancel = true
 	elseif spell.english == 'Sneak' then
-		if player.main_job == 'DNC' or player.sub_job == 'DNC' then
+		if (player.main_job == 'DNC' or player.sub_job == 'DNC') and windower.ffxi.get_ability_recasts()[218] < 3 then
 			windower.chat.input('/ja "Spectral Jig" <me>')
 			add_to_chat(217,"You can't cast Sneak, attempting to use Spectral Jig instead.")
-		elseif player.main_job == 'NIN' or player.sub_job == 'NIN' then
+		elseif (player.main_job == 'NIN' or player.sub_job == 'NIN') and windower.ffxi.get_spell_recasts()[318] < spell_latency then
 			windower.chat.input('/ma "Monomi: Ichi" <me>')
 			add_to_chat(217,"You can't cast Sneak, attempting to use Monomi: Ichi instead.")
 		elseif item_available('Silent Oil') then
 			windower.chat.input('/item "Silent Oil" <me>')
 			add_to_chat(217,"You can't cast Sneak, attempting to use Silent Oil instead.")
+		else
+			add_to_chat(123,"All attempts to use [Sneak] failed.")
 		end
 		eventArgs.cancel = true
 	end

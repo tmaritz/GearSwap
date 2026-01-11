@@ -1364,7 +1364,7 @@ function check_abilities(spell, spellMap, eventArgs)
 				windower.chat.input('/ja "Third Eye" <me>')
 				return true
 			end
-		elseif spell.type == 'Step' then
+		elseif spell.type == 'Step' or spell.type == 'Effusion' then
 			if player.status == 'Idle' and windower.ffxi.get_ability_recasts()[220] < latency and spell.target and spell.target.valid_target and spell.target.spawn_type == 16 and spell.target.distance < (3.2 + spell.target.model_size) and player.tp > 99 then
 				packets.inject(packets.new('outgoing', 0x1a, {
 					['Target'] = spell.target.id,
